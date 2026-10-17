@@ -1,10 +1,11 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 export default function Controles({ n }: { n: number }) {
   const router = useRouter();
+  const [verificando, iniciarVerificacion] = useTransition();
   const [indice, setIndice] = useState('0');
   const [ocupado, setOcupado] = useState(false);
   const [mensaje, setMensaje] = useState<{ tipo: 'ok' | 'error'; texto: string } | null>(null);
@@ -29,10 +30,10 @@ export default function Controles({ n }: { n: number }) {
   return (
     <div className="tarjeta">
       <div className="acciones">
-        <button type="button" className="btn btn-primario" disabled={ocupado} onClick={() => router.refresh()}>
-          Verificar ahora
+        <button type="button" className="btn btn-primario" disabled={ocupado || verificando} onClick={() => iniciarVerificacion(() => router.refresh())}>
+          {verificando ? 'Verificando…' : 'Verificar cadena'}
         </button>
-        <button
+      </div><details><summary>Controles de la demo</summary><div className="acciones"><button
           type="button"
           className="btn"
           disabled={ocupado}
@@ -61,10 +62,10 @@ export default function Controles({ n }: { n: number }) {
           Simular una manipulación
         </button>
       </div>
-      <p className="tenue" style={{ fontSize: 13, marginTop: 10 }}>
+      <p className="tenue" style={{ fontSize: 'var(--t2)', marginTop: 10 }}>
         La simulación cambia la decisión guardada en la entrada elegida, sin recalcular su hash. Sirve solo para ver que la alteración se detecta.
       </p>
-      <div aria-live="polite">
+      </details><div aria-live="polite">
         {mensaje ? (
           <p className={mensaje.tipo === 'ok' ? 'aviso aviso-ok' : 'aviso aviso-error'} role={mensaje.tipo === 'error' ? 'alert' : 'status'} style={{ marginTop: 8 }}>
             {mensaje.texto}

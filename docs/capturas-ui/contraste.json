@@ -1,0 +1,122 @@
+[
+  {
+    "tema": "claro",
+    "texto": "tinta",
+    "fondo": "bg",
+    "ratio": 14.03
+  },
+  {
+    "tema": "claro",
+    "texto": "tinta",
+    "fondo": "superficie",
+    "ratio": 15.27
+  },
+  {
+    "tema": "claro",
+    "texto": "tenue",
+    "fondo": "bg",
+    "ratio": 5.04
+  },
+  {
+    "tema": "claro",
+    "texto": "tenue",
+    "fondo": "superficie",
+    "ratio": 5.48
+  },
+  {
+    "tema": "claro",
+    "texto": "acento",
+    "fondo": "superficie",
+    "ratio": 6.96
+  },
+  {
+    "tema": "claro",
+    "texto": "acento",
+    "fondo": "acento-suave",
+    "ratio": 5.98
+  },
+  {
+    "tema": "claro",
+    "texto": "pagar",
+    "fondo": "pagar-suave",
+    "ratio": 6.08
+  },
+  {
+    "tema": "claro",
+    "texto": "frenar",
+    "fondo": "frenar-suave",
+    "ratio": 6.14
+  },
+  {
+    "tema": "claro",
+    "texto": "escalar",
+    "fondo": "escalar-suave",
+    "ratio": 6.09
+  },
+  {
+    "tema": "claro",
+    "texto": "sobre-acento",
+    "fondo": "acento",
+    "ratio": 6.96
+  },
+  {
+    "tema": "oscuro",
+    "texto": "tinta",
+    "fondo": "bg",
+    "ratio": 15.79
+  },
+  {
+    "tema": "oscuro",
+    "texto": "tinta",
+    "fondo": "superficie",
+    "ratio": 13.9
+  },
+  {
+    "tema": "oscuro",
+    "texto": "tenue",
+    "fondo": "bg",
+    "ratio": 9.21
+  },
+  {
+    "tema": "oscuro",
+    "texto": "tenue",
+    "fondo": "superficie",
+    "ratio": 8.1
+  },
+  {
+    "tema": "oscuro",
+    "texto": "acento",
+    "fondo": "superficie",
+    "ratio": 8.02
+  },
+  {
+    "tema": "oscuro",
+    "texto": "acento",
+    "fondo": "acento-suave",
+    "ratio": 6.27
+  },
+  {
+    "tema": "oscuro",
+    "texto": "pagar",
+    "fondo": "pagar-suave",
+    "ratio": 7.21
+  },
+  {
+    "tema": "oscuro",
+    "texto": "frenar",
+    "fondo": "frenar-suave",
+    "ratio": 7.38
+  },
+  {
+    "tema": "oscuro",
+    "texto": "escalar",
+    "fondo": "escalar-suave",
+    "ratio": 7.36
+  },
+  {
+    "tema": "oscuro",
+    "texto": "sobre-acento",
+    "fondo": "acento",
+    "ratio": 9.11
+  }
+]

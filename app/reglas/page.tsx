@@ -31,18 +31,19 @@ export default async function Reglas() {
         Versión de reglas vigente: <span className="mono" id="version-reglas">{estado.config.version}</span>
       </p>
 
+      <p className="aviso aviso-atencion" role="note" style={{ marginTop: 10 }}>
+        Guardar crea una nueva versión de reglas, vuelve a evaluar las {estado.filas.length} facturas y borra las aprobaciones de la sesión.
+      </p>
       <h2>Parámetros editables</h2>
       <div className="tarjeta">
         <Formulario inicial={estado.parametros} />
       </div>
-      <p className="aviso aviso-atencion" role="note" style={{ marginTop: 10 }}>
-        Guardar crea una nueva versión de reglas, vuelve a evaluar las {estado.filas.length} facturas y borra las aprobaciones de la sesión.
-      </p>
 
-      <h2>Las 8 reglas (solo lectura)</h2>
+
+      <details><summary>Consultar las 8 reglas base (solo lectura)</summary>
       <div className="tabla-envoltura">
         <table className="tabla">
-          <caption className="tenue" style={{ textAlign: 'left', padding: '8px 12px', fontSize: 13 }}>
+          <caption className="tenue" style={{ textAlign: 'left', padding: '8px 12px', fontSize: 'var(--t2)' }}>
             Valores base del archivo de reglas. Los parámetros editados arriba se aplican sobre estos.
           </caption>
           <thead>
@@ -61,12 +62,13 @@ export default async function Reglas() {
                 <td>
                   <span className={r.si_incumple === 'FRENAR' ? 'pill pill-frenar' : 'pill pill-escalar'}>{r.si_incumple}</span>
                 </td>
-                <td className="mono">{parametro(r)}</td>
+                <td className="mono" data-label="Parámetro">{parametro(r)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      </details>
     </>
   );
 }

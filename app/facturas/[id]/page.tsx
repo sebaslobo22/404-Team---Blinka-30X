@@ -13,13 +13,18 @@ import {
   formatearCentavos,
   nombreRegla,
 } from '../../../src/demo/formato';
-import { clasePillEstado, construirTraza, fragmentosDetectados, partirTextoFuente, textoEstado } from '../../../src/demo/traza';
+import type { EstadoTraza } from '../../../src/demo/traza';
+import { clasePillEstado, construirTraza, fragmentosDetectados, partirTextoFuente } from '../../../src/demo/traza';
 import { obtenerEstado } from '../../../src/demo/singleton';
 
 export const dynamic = 'force-dynamic';
 
 const OCULTO = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' } as const;
 const CELDA_TH = { textTransform: 'none', letterSpacing: 0, whiteSpace: 'normal' } as const;
+
+function textoEstado(e: EstadoTraza): string {
+  return e === 'CUMPLE' ? '✓ Cumple' : e === 'FRENAR' ? '✕ No cumple (FRENAR)' : e === 'ESCALAR' ? '! Requiere revisión (ESCALAR)' : e === 'NO_APLICA' ? 'No aplica' : 'No evaluada';
+}
 
 function porQueNoHayInstruccion(fila: FilaDemo, ap: EstadoAprobacion): string {
   const d = fila.resultado.decision;
@@ -62,18 +67,16 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
       <h1>
         Factura <span className="mono">{fila.id}</span>
       </h1>
-      <p className="subtitulo">{fila.trampa}</p>
+      <p className="subtitulo">{resultado.explicacion}</p>
       <p className="acciones">
         <span>Decisión:</span> <span className={clasePill(d)}>{etiquetaDecision(d)}</span>
         <span>Aprobación:</span> <span className={clasePillAprobacion(ap)}>{etiquetaAprobacion(ap)}</span>
       </p>
 
-      <h2>Explicación del motor</h2>
-      <div className="tarjeta">
-        <p style={{ margin: 0 }}>{resultado.explicacion}</p>
-      </div>
-
-      <h2>Traza de las reglas</h2>
+      <section className="panel-decision" aria-label="Siguiente acción">
+        {d === 'FRENAR' ? <p>Corrige la factura en el origen y vuelve a presentarla. No admite aprobación.</p> : d === 'ESCALAR' && ap === 'PENDIENTE' ? <p>Una persona debe revisar esta factura. <Link href="/cola">Ir a la cola humana →</Link></p> : <p>{instruccion ? 'Instrucción de pago disponible. El sistema no ejecuta pagos.' : porQueNoHayInstruccion(fila, ap)}</p>}
+      </section>
+      <details name="detalle-factura"><summary>Comprobaciones de las reglas · {traza.length}</summary>
       <div className="tabla-envoltura">
         <table className="tabla">
           <caption style={OCULTO}>Resultado de cada regla para esta factura</caption>
@@ -110,7 +113,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
         </table>
       </div>
 
-      <h2>Campos extraídos de la factura</h2>
+      </details><details name="detalle-factura"><summary>Datos leídos de la factura</summary>
       <div className="tabla-envoltura">
         <table className="tabla">
           <caption style={OCULTO}>Campos que el agente leyó de la factura</caption>
@@ -180,7 +183,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
         </>
       ) : null}
 
-      <h2>Datos del registro</h2>
+      </details><details name="detalle-factura"><summary>Registro y hashes</summary>
       <div className="tabla-envoltura">
         <table className="tabla">
           <caption style={OCULTO}>Datos del registro encadenado de esta decisión</caption>
@@ -205,16 +208,8 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
         </table>
       </div>
 
-      <h2>Qué sigue</h2>
-      {d === 'FRENAR' ? (
-        <div className="aviso aviso-error">Una factura frenada no tiene aprobación posible. Se corrige en el origen y se vuelve a presentar.</div>
-      ) : d === 'ESCALAR' && ap === 'PENDIENTE' ? (
-        <div className="aviso aviso-atencion">
-          Esta factura espera la decisión de una persona. <Link href="/cola">Ir a la cola de aprobación</Link>
-        </div>
-      ) : null}
-
-      <h2>Instrucción de pago</h2>
+      </details>
+      <details name="detalle-factura"><summary>Instrucción de pago y datos técnicos</summary>
       {instruccion ? (
         <>
           <p>Este sistema no ejecuta pagos: esta es la instrucción que otro sistema ejecutaría</p>
@@ -223,6 +218,9 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
       ) : (
         <div className="aviso">{porQueNoHayInstruccion(fila, ap)}</div>
       )}
+      <h2>Lecturas de modelos</h2><p className="tenue">Este flujo usa datos de muestra. No expone las dos lecturas de modelos para esta decisión.</p>
+      <details><summary>JSON de la decisión</summary><pre className="codigo">{JSON.stringify(resultado, null, 2)}</pre></details>
+      </details>
     </>
   );
 }
