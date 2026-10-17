@@ -15,7 +15,7 @@
 
 ## Variables
 - Cargadas: `EXTRACTION_MODE=replay`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (públicas).
-- **No cargadas a propósito:** `SUPABASE_SERVICE_ROLE_KEY` y `EQUIPO_PIN` (secretas). Por eso **`/team` en Produfy muestra la semilla en solo lectura** y no acepta escrituras. El centro de mando en vivo sigue en https://404team.vercel.app/team. Para activarlo aquí hay que cargar esas dos como secretas con `set_env(..., secret=true)` y `restart_site`.
+- Secretas (cargadas el 17/10 a las 4:09 p.m. con `secret=true`, por pedido de Sebastián): `SUPABASE_SERVICE_ROLE_KEY` y `EQUIPO_PIN`. Con ellas, `/team` en Produfy lee Supabase en vivo y acepta escrituras con PIN (verificado: entrar 200, escribir sin PIN 401, con PIN 201).
 - `NEXT_PUBLIC_*` se fijan al construir: si cambian, hay que volver a desplegar.
 
 ## Límites del plan de prueba
