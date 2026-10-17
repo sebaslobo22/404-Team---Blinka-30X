@@ -1,6 +1,6 @@
 # Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
 
-**Actualizado:** 17/10/2026 - 12:18 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
+**Actualizado:** 17/10/2026 - 12:57 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
 
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
@@ -53,7 +53,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
   (Sebastián, sáb 11:25 a.m.).
 - ✅ Defensas fusionadas en `src/engine` (INYECCION, CONFIANZA, REGISTRO, IDs normalizados, R8 en horas), `comprobaciones()`, 173 pruebas (PR #2, sáb 12:10 p.m.).
 - ✅ Centro de mando `/team` + `/team/contexto.md` + `scripts/equipo.mjs`, 181 pruebas (PR #3, sáb 12:20 p.m.). En vivo en https://404team.vercel.app/team, **en modo semilla hasta conectar Supabase**.
-- ⏳ Supabase del equipo: crear proyecto, correr `supabase/migrations/0001` y `0002`, cargar variables en Vercel, `node scripts/equipo.mjs sembrar` (Sebastián).
+- ✅ Supabase del equipo conectado (17/10/2026 - 12:57 p.m.): proyecto `tajesvubxirgkgtuuxcj`, migraciones 0001 y 0002 aplicadas con `node scripts/migrar.mjs` y verificadas (RLS, bitácora y registro solo de insertar, realtime). `/team` en vivo con tiempo real comprobado. `OPENROUTER_API_KEY` vive solo en `.env` local; **no** va a Vercel (el demo público no lleva claves de IA).
 - ⏳ Lector de facturas, facturas reales, banco de modelos (Sebastián; bloqueado por clave OpenRouter).
 - ⏳ Persistir el producto en Supabase (Andrés). ⏳ Set ciego + suite adversarial (Joffre).
 
