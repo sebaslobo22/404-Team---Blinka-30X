@@ -2,10 +2,10 @@
 
 **Emitida:** 17/10/2026 - 1:00 p.m. (Caracas, Venezuela). Dura 10 minutos. Un paso a la vez.
 
-Centro de mando: **https://404team.vercel.app/team** (cualquiera puede leer; para escribir hace falta el PIN).
+Centro de mando: **https://404team.vercel.app/team** (solo para el equipo; para escribir hace falta el PIN).
 
 ## Paso 1 · Pedirle el PIN a Sebastián
-El PIN son 6 números. Sebastián lo envía **por mensaje privado**, nunca en un grupo, nunca en el repo.
+El PIN es una cadena aleatoria de 20 o más caracteres que Sebastián guarda en su gestor de contraseñas. Lo envía **por mensaje privado**, nunca en un grupo, nunca en el repo. Cópialo y pégalo; no lo escribas a mano ni lo apuntes en notas sueltas.
 
 ## Paso 2 · Entrar a la web
 1. Abre https://404team.vercel.app/team.
@@ -21,11 +21,11 @@ cd 404-Team---Blinka-30X
 npm install
 ```
 
-Crea un archivo `.env` en esa carpeta con **solo estas tres líneas** (cambia tu nombre y el PIN):
+Crea un archivo `.env` en esa carpeta con **solo estas tres líneas** (cambia tu nombre y pega el PIN):
 
 ```
 EQUIPO_URL=https://404team.vercel.app
-EQUIPO_PIN=000000
+EQUIPO_PIN=<pega aquí el PIN que te envió Sebastián>
 EQUIPO_QUIEN=Andrés
 ```
 
@@ -56,6 +56,8 @@ Si una carpeta aparece tomada por otro, **no la edites**: habla con esa persona 
 
 ## Si algo falla
 - **"401"**: el PIN está mal escrito.
+- **"429"**: demasiados intentos con PIN erróneo; espera 15 minutos.
+- **"503 PIN demasiado corto"**: el PIN configurado en Vercel tiene menos de 16 caracteres; avisa a Sebastián.
 - **"409 zona ya tomada"**: otra persona la tiene; mira en la web quién y desde cuándo.
 - **"503 sin conexión a Supabase"**: avisa a Sebastián.
 - **Cualquier otra cosa**: escribe en el grupo con la captura; no intentes arreglar configuración compartida.

@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { modoPublico } from '../../src/publico';
 import Centro from './Centro';
 import { cargarContexto } from './datos';
 import './equipo.css';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'Centro de mando 404', description: 'Tareas, zonas y bitácora del equipo 404, en tiempo real.' };
+export const metadata: Metadata = {
+  title: 'Centro de mando 404',
+  description: 'Tareas, zonas y bitácora del equipo 404, en tiempo real.',
+  robots: { index: false, follow: false, noarchive: true },
+};
 
 export default async function PaginaEquipo() {
+  // Defensa en profundidad: aunque el middleware fallara, en modo publico la pagina no se renderiza.
+  if (modoPublico(process.env)) notFound();
   const inicial = await cargarContexto();
   // Las variables públicas se leen en el servidor y se pasan al cliente: así funciona aunque cambien tras el build.
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? null;

@@ -1,13 +1,17 @@
 // Carga de datos del centro de mando (solo servidor). Sin variables de Supabase: usa la semilla.
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import semilla from '../../data/equipo-semilla.json';
+import { modoPublico } from '../../src/publico';
 import type { Bitacora, Contexto, Tarea, Zona } from './lib';
 
 export function hayServidorSupabase(): boolean {
+  if (modoPublico(process.env)) return false;
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
 
 export function clienteServidor(): SupabaseClient | null {
+  // Defensa en profundidad: el despliegue publico nunca crea un cliente, aunque haya variables.
+  if (modoPublico(process.env)) return null;
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;

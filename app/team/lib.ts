@@ -58,6 +58,19 @@ export function validarPin(recibido: string | null | undefined, esperado: string
   return diff === 0;
 }
 
+/** Largo minimo del PIN del equipo. Mas corto no se acepta: el limite de intentos no es una defensa real en serverless. */
+export const PIN_MIN = 16;
+
+/** ¿El PIN configurado en el servidor es lo bastante largo para usarse? */
+export function pinUsable(esperado: string | null | undefined): boolean {
+  return typeof esperado === 'string' && esperado.length >= PIN_MIN;
+}
+
+/** Como validarPin, pero un PIN configurado demasiado corto no autentica a nadie. */
+export function validarPinSeguro(recibido: string | null | undefined, esperado: string | null | undefined): boolean {
+  return pinUsable(esperado) && validarPin(recibido, esperado);
+}
+
 export function ordenarTareas(tareas: Tarea[]): Tarea[] {
   return [...tareas].sort((x, y) => x.bloque - y.bloque || x.orden - y.orden || x.titulo.localeCompare(y.titulo, 'es'));
 }
