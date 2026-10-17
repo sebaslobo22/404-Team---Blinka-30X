@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { BotonTour } from './tour/BotonTour';
 const enlaces = [['/', 'Decisiones'], ['/cola', 'Cola humana'], ['/reglas', 'Reglas'], ['/registro', 'Registro']] as const;
 export function Cabecera() {
   const ruta = usePathname();
@@ -9,10 +10,12 @@ export function Cabecera() {
   const [compacta, setCompacta] = useState(false);
   useEffect(() => {
     try { const t = localStorage.getItem('404-tema') ?? 'sistema'; setTema(t); if (t !== 'sistema') document.documentElement.dataset.theme = t; } catch { /* respaldo del sistema */ }
+    const releer = () => { try { setTema(localStorage.getItem('404-tema') ?? 'sistema'); } catch { /* respaldo del sistema */ } };
+    window.addEventListener('tema:cambio', releer);
     let anterior = window.scrollY;
     const scroll = () => { const y = window.scrollY; setCompacta(y > 80 && y > anterior); anterior = y; };
     window.addEventListener('scroll', scroll, { passive: true });
-    return () => window.removeEventListener('scroll', scroll);
+    return () => { window.removeEventListener('scroll', scroll); window.removeEventListener('tema:cambio', releer); };
   }, []);
   function cambiar() {
     const t = tema === 'light' ? 'dark' : tema === 'dark' ? 'sistema' : 'light';
@@ -20,6 +23,7 @@ export function Cabecera() {
     if (t === 'sistema') delete document.documentElement.dataset.theme;
     else document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
     try { localStorage.setItem('404-tema', t); } catch { /* tema en memoria */ }
+    window.dispatchEvent(new Event('tema:cambio'));
   }
   return <header className={`cabecera${compacta ? ' compacta' : ''}`}>
 
@@ -28,7 +32,7 @@ export function Cabecera() {
 
       <nav className="nav" aria-label="Principal">{enlaces.map(([href, texto]) => <Link key={href} href={href} aria-current={(href === '/' ? ruta === '/' || ruta.startsWith('/facturas/') : ruta === href) ? 'page' : undefined}>{texto}</Link>)}</nav>
 
-      <div className="acciones"><Link href="/team" aria-current={ruta === '/team' ? 'page' : undefined}>Equipo</Link><button className="btn tema" onClick={cambiar} aria-label={`Tema ${tema === 'light' ? 'claro' : tema === 'dark' ? 'oscuro' : 'del sistema'}. Cambiar tema`}>◐</button></div>
+      <div className="acciones"><BotonTour /><Link href="/team" aria-current={ruta === '/team' ? 'page' : undefined}>Equipo</Link><button className="btn tema" onClick={cambiar} aria-label={`Tema ${tema === 'light' ? 'claro' : tema === 'dark' ? 'oscuro' : 'del sistema'}. Cambiar tema`}>◐</button></div>
     </div>
   </header>;
 }

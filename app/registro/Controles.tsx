@@ -28,7 +28,7 @@ export default function Controles({ n }: { n: number }) {
   }
 
   return (
-    <div className="tarjeta">
+    <div className="tarjeta" data-tour="registro-verificar">
       <div className="acciones">
         <button type="button" className="btn btn-primario" disabled={ocupado || verificando} onClick={() => iniciarVerificacion(() => router.refresh())}>
           {verificando ? 'Verificando…' : 'Verificar cadena'}

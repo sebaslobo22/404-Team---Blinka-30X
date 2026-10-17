@@ -47,11 +47,11 @@ export default async function Cola() {
 
       <h2>Pendientes de aprobación ({pendientes.length})</h2>
       {pendientes.length === 0 ? (
-        <div className="aviso aviso-ok" role="status">
+        <div className="aviso aviso-ok" role="status" data-tour="pendientes">
           No hay facturas pendientes. Todas las escaladas ya fueron resueltas.
         </div>
       ) : (
-        <div className="rejilla-2">
+        <div className="rejilla-2" data-tour="pendientes">
           {pendientes.map((f) => (
             <article key={f.id} className="tarjeta" aria-label={`Factura ${f.id}`}>
               <span className="pill pill-escalar">ESCALAR</span><Datos fila={f} />

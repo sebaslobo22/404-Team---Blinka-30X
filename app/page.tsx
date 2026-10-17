@@ -11,7 +11,7 @@ export default async function PaginaDecisiones() {
     <h1>Decisiones de facturas</h1>
     <p className="subtitulo">La IA lee. Las reglas deciden. Revisa el motivo de cada decisión antes de continuar.</p>
 
-    <section className="autonomia" aria-label="Autonomía">
+    <section className="autonomia" aria-label="Autonomía" data-tour="autonomia">
       <div>
         <div className="rotulo">Autonomía</div>
         <div className="cifra"><Contador valor={r.pctSinPersona} /></div>
@@ -21,11 +21,11 @@ export default async function PaginaDecisiones() {
         <Link href="/cola">Revisar {r.pendientes} pendientes en la cola →</Link></div>
     </section>
 
-    <section className="rejilla" aria-label="Resumen de decisiones">{([{ d: 'PAGAR', n: r.PAGAR, t: 'Cumplen las reglas. No ejecuta el pago.' }, { d: 'FRENAR', n: r.FRENAR, t: 'Sin aprobación posible.' }, { d: 'ESCALAR', n: r.ESCALAR, t: 'Requieren revisión humana.' }]).map(x => <div className="tarjeta" key={x.d}><span className={`pill pill-${x.d.toLowerCase()}`}>{x.d}</span>
+    <section className="rejilla" aria-label="Resumen de decisiones">{([{ d: 'PAGAR', n: r.PAGAR, t: 'Cumplen las reglas. No ejecuta el pago.' }, { d: 'FRENAR', n: r.FRENAR, t: 'Sin aprobación posible.' }, { d: 'ESCALAR', n: r.ESCALAR, t: 'Requieren revisión humana.' }]).map(x => <div className="tarjeta" key={x.d} data-tour="tarjeta-decision"><span className={`pill pill-${x.d.toLowerCase()}`}>{x.d}</span>
       <p className="cifra">{x.n}</p>
       <div className="cifra-etiqueta">{x.t}</div>
     </div>)}
-      <div className="tarjeta"><p className="cifra">{r.decididasBien} de {r.total}</p>
+      <div className="tarjeta" data-tour="coincide"><p className="cifra">{r.decididasBien} de {r.total}</p>
         <div className="cifra-etiqueta">Coinciden con la decisión esperada. En el set de desarrollo, no mide generalización</div>
       </div></section>
 

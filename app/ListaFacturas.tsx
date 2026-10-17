@@ -16,7 +16,7 @@ export default function ListaFacturas({ filas }: { filas: Fila[] ;}) {
       <button className="btn" onClick={() => { setDecision(''); setBusqueda(''); }}>Limpiar filtros</button></details>
 
     <h2>Facturas · {visibles.length}</h2>
-    <div className="filas">{visibles.length ? visibles.map(f => <article className="tarjeta factura-fila" key={f.id}><Link className="mono" href={`/facturas/${f.id}`} aria-label={`Ver factura ${f.id}`}>{f.id} ↗</Link>
+    <div className="filas">{visibles.length ? visibles.map(f => <article className="tarjeta factura-fila" key={f.id} data-tour={f.id === 'F-016' ? 'factura-trampa' : undefined}><Link className="mono" href={`/facturas/${f.id}`} aria-label={`Ver factura ${f.id}`}>{f.id} ↗</Link>
       <div className="proveedor"><strong>{f.proveedor}</strong>
         <p className="mono">{f.monto}</p>
       </div>
