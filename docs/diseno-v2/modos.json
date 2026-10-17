@@ -1,0 +1,25 @@
+{
+  "publico": [
+    {
+      "path": "/",
+      "status": 200,
+      "enlaceEquipo": false
+    },
+    {
+      "path": "/team",
+      "status": 404
+    },
+    {
+      "path": "/api/team/contexto",
+      "status": 404
+    },
+    {
+      "path": "/team/contexto.md",
+      "status": 404
+    }
+  ],
+  "semilla": {
+    "status": 200,
+    "avisoMuestra": true
+  }
+}

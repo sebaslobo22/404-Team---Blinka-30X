@@ -1,0 +1,182 @@
+[
+  {
+    "nombre": "decisiones",
+    "zoom": 1,
+    "ancho": 1280,
+    "viewport": 1280,
+    "minimo": 16,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "Tus facturas, en orden\n\n¿Qué pasó con mis facturas?\n\nDe 18 facturas, 4 tienen pago autorizado, 4 se frenaron y 10 piden tu ayuda.\n\nEl agente decide. No envía dinero.\n\nRevisar 10 cobros pendientes\nSin tu ayuda\n\n44,4 %\n\nDecidió pagar o frenar por sí solo.\n\nEn esta prueba\n\n18 de 18\n\nCoinciden con lo esperado. Aún falta probar con facturas nuevas.\n\nTe esperan\n\n10\n\nCobros que aún esperan tu respuesta.\n\nBuscar facturas\nVer como tabla\nTe necesita · 10\nTe necesita\nF-016\n\nNecesitamos tu aprobación. La factura intenta dar órdenes al agente.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\n¿Por qué?\nTe necesita\nF-008\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nConsultores Cafetal S.A.S. · COP 9.600.000\n\n¿Por qué?\nTe necesita\nF-009\n\nNecesitamos tu aprobación. Hay datos que debes revisar antes de seguir.\n\nAgro Páramo Cía. Ltda. · USD 7.500\n\n¿Por qué?\nTe necesita\nF-011\n\nNecesitamos tu aprobación. La cuenta se registró hace poco.\n\nSoporte Quito Cía. Ltda. · USD 900\n\n¿Por qué?\nTe necesita\nF-012\n\nNecesitamos tu aprobación. Faltan datos o no se pudieron leer bien.\n\nConsultores Cafetal S.A.S. · Monto sin leer\n\n¿Por qué?\nTe necesita\nF-013\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nMarcos Rivas (contratista ficticio) · USD 3.000\n\n¿Por qué?\nVer más (3)\nFrenadas · 4\nPagadas · 4"
+  },
+  {
+    "nombre": "factura-F-005",
+    "zoom": 1,
+    "ancho": 1280,
+    "viewport": 1280,
+    "minimo": 16,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "Volver a mis facturas\n\nFactura F-005\n\n¿Por qué decidimos esto?\nTe necesita\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\nRevisar este pago\n¿Por qué? Las razones\n✕\n\nLímite por pago · Revisar\n\nMonto: USD 9.800. Tu límite: USD 5.000\n✓\n\nLa factura intenta dar órdenes · Cumple\n\nNo hay texto original para esta revisión.\n—\n\nLectura clara · Sin revisar\n\nNo se pudo revisar con los datos disponibles.\n✓\n\nProveedor autorizado · Cumple\n\nEl proveedor y la cuenta están en tu lista.\n✓\n\nNombre del proveedor · Cumple\n\nEl nombre leído coincide con tu lista.\n✓\n\nTope del mes · Cumple\n\nTotal del mes con este pago: USD 9.800. Tu tope: USD 12.000\n✓\n\nDinero para este tipo de gasto · Cumple\n\nTotal de este tipo de gasto: USD 11.400. Tu tope: USD 20.000\nVer más comprobaciones\nVer evidencia"
+  },
+  {
+    "nombre": "cola",
+    "zoom": 1,
+    "ancho": 1280,
+    "viewport": 1280,
+    "minimo": 16,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Qué necesita mi aprobación?\n\nHay 10 cobros que piden tu ayuda. Los de mayor monto van primero.\n\nRevisa cada uno y deja una nota. Aprobar no mueve dinero.\n\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-009\n\nNecesitamos tu aprobación. Hay datos que debes revisar antes de seguir.\n\nAgro Páramo Cía. Ltda. · USD 7.500\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-013\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nMarcos Rivas (contratista ficticio) · USD 3.000\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-008\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nConsultores Cafetal S.A.S. · COP 9.600.000\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-016\n\nNecesitamos tu aprobación. La factura intenta dar órdenes al agente.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-017\n\nNecesitamos tu aprobación. No se leyó con claridad.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-018\n\nNecesitamos tu aprobación. El nombre no coincide con el proveedor de tu lista.\n\nOtra Empresa Distinta · USD 1.190\n\n¿Por qué?\nRevisar este pago\nVer más (3)"
+  },
+  {
+    "nombre": "reglas",
+    "zoom": 1,
+    "ancho": 1280,
+    "viewport": 1280,
+    "minimo": 16,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Cuáles son mis reglas?\n\nTú pones los topes. El agente los respeta al revisar cada cobro.\n\nVersión actual: 0.1.0.\n\nCuánto puedo pagar\nPídeme permiso si un pago supera  USD.\nLímite por pago: lo máximo que decide solo. Como un tope al comprar sin pedir permiso.\nPídeme permiso si un proveedor supera en el mes  USD.\nTope del mes: suma los pagos al mismo proveedor. Como sumar sus cobros en una libreta.\nVer más límites de gasto\nA quién le pago\n\nSolo a proveedores de tu lista. Deben coincidir su número fiscal y su cuenta bancaria.\n\nProveedor: quien te vende algo. Como la persona que te trae los limones.\n\nCómo se cambia esta lista\nQué reviso de cada factura\nFrena un cobro igual que ya llegó en los últimos  días.\nCobro repetido: revisa si ya estaba. Como ver si ya pagaste los limones.\nPídeme permiso si el monto supera lo acordado en más de  %.\nMargen permitido: cuánto puede variar el cobro. Si acordaste USD 100, 2 % permite USD 2 más.\nPídeme permiso si la cuenta cambió en los últimos  días.\nCuenta nueva: espera antes de usarla. Como confirmar un número antes de enviar dinero.\n\nNo hay cambios por guardar.\n\nGuardar cambios\nVolver a las reglas iniciales"
+  },
+  {
+    "nombre": "registro",
+    "zoom": 1,
+    "ancho": 1280,
+    "viewport": 1280,
+    "minimo": 16,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Qué quedó registrado?\n\nCada decisión deja una huella. Así puedes revisar qué pasó.\n\nNo se detectaron cambios en el registro.\n\nLa cadena coincide con su punto de control.\n\nComprobar ahora\nPruebas de esta demostración\nLas decisiones, paso a paso\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-001\n\nAutorizamos PEN 6.000 para Luz Andina S.A.C.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-002\n\nAutorizamos COP 8.000.000 para Consultores Cafetal S.A.S.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-003\n\nAutorizamos USD 1.200 para Taller Orinoco C.A.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-004\n\nAutorizamos BRL 11.000 para Estúdio Beira-Mar Ltda.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nFrenada\nF-006\n\nFrenamos este cobro. Este cobro ya figura entre tus pagos.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nFrenada\nF-007\n\nFrenamos este cobro. El proveedor o su cuenta no está en tu lista.\n\nVer evidencia\nVer más (11)\nVer evidencia de la revisión"
+  },
+  {
+    "nombre": "team",
+    "zoom": 1,
+    "ancho": 1280,
+    "viewport": 1280,
+    "minimo": 16,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Cómo va el equipo?\n\nRevisa quién hace cada tarea y qué falta.\n\ncierre dom, 18/10, 1:00 p. m. (Caracas)\n20:51:08\nQuién eres\nSebastián\nAndrés\nJoffre\nPIN\nEntrar\nAhora\nMotor fusionado, producto en vivo y centro de mando con la base de datos en tiempo real. Falta el lector de facturas y las facturas reales.\nSiguiente hito\nV1: sáb 17/10 11:00 p.m. Caracas\nNos frena\n¿Cómo cuenta un cobro que pide tu ayuda para la autonomía? Preguntar al mentor (Andrés)\nFacturas reales en PDF, imagen, correo y chat (Sebastián)\nQue Andrés y Joffre confirmen su usuario de GitHub para CODEOWNERS y reciban el PIN\n¿Qué quieres ver?\nTareas\n23 abiertas\nZonas\n3 tomadas\nBitácora\núltimos movimientos\nAcuerdo\npara agentes y personas\nVer más del equipo"
+  },
+  {
+    "nombre": "decisiones",
+    "zoom": 2,
+    "ancho": 640,
+    "viewport": 640,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "Tus facturas, en orden\n\n¿Qué pasó con mis facturas?\n\nDe 18 facturas, 4 tienen pago autorizado, 4 se frenaron y 10 piden tu ayuda.\n\nEl agente decide. No envía dinero.\n\nRevisar 10 cobros pendientes\nSin tu ayuda\n\n44,4 %\n\nDecidió pagar o frenar por sí solo.\n\nEn esta prueba\n\n18 de 18\n\nCoinciden con lo esperado. Aún falta probar con facturas nuevas.\n\nTe esperan\n\n10\n\nCobros que aún esperan tu respuesta.\n\nBuscar facturas\nVer como tabla\nTe necesita · 10\nTe necesita\nF-016\n\nNecesitamos tu aprobación. La factura intenta dar órdenes al agente.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\n¿Por qué?\nTe necesita\nF-008\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nConsultores Cafetal S.A.S. · COP 9.600.000\n\n¿Por qué?\nTe necesita\nF-009\n\nNecesitamos tu aprobación. Hay datos que debes revisar antes de seguir.\n\nAgro Páramo Cía. Ltda. · USD 7.500\n\n¿Por qué?\nTe necesita\nF-011\n\nNecesitamos tu aprobación. La cuenta se registró hace poco.\n\nSoporte Quito Cía. Ltda. · USD 900\n\n¿Por qué?\nTe necesita\nF-012\n\nNecesitamos tu aprobación. Faltan datos o no se pudieron leer bien.\n\nConsultores Cafetal S.A.S. · Monto sin leer\n\n¿Por qué?\nTe necesita\nF-013\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nMarcos Rivas (contratista ficticio) · USD 3.000\n\n¿Por qué?\nVer más (3)\nFrenadas · 4\nPagadas · 4"
+  },
+  {
+    "nombre": "factura-F-005",
+    "zoom": 2,
+    "ancho": 640,
+    "viewport": 640,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "Volver a mis facturas\n\nFactura F-005\n\n¿Por qué decidimos esto?\nTe necesita\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\nRevisar este pago\n¿Por qué? Las razones\n✕\n\nLímite por pago · Revisar\n\nMonto: USD 9.800. Tu límite: USD 5.000\n✓\n\nLa factura intenta dar órdenes · Cumple\n\nNo hay texto original para esta revisión.\n—\n\nLectura clara · Sin revisar\n\nNo se pudo revisar con los datos disponibles.\n✓\n\nProveedor autorizado · Cumple\n\nEl proveedor y la cuenta están en tu lista.\n✓\n\nNombre del proveedor · Cumple\n\nEl nombre leído coincide con tu lista.\n✓\n\nTope del mes · Cumple\n\nTotal del mes con este pago: USD 9.800. Tu tope: USD 12.000\n✓\n\nDinero para este tipo de gasto · Cumple\n\nTotal de este tipo de gasto: USD 11.400. Tu tope: USD 20.000\nVer más comprobaciones\nVer evidencia"
+  },
+  {
+    "nombre": "cola",
+    "zoom": 2,
+    "ancho": 640,
+    "viewport": 640,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Qué necesita mi aprobación?\n\nHay 10 cobros que piden tu ayuda. Los de mayor monto van primero.\n\nRevisa cada uno y deja una nota. Aprobar no mueve dinero.\n\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-009\n\nNecesitamos tu aprobación. Hay datos que debes revisar antes de seguir.\n\nAgro Páramo Cía. Ltda. · USD 7.500\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-013\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nMarcos Rivas (contratista ficticio) · USD 3.000\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-008\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nConsultores Cafetal S.A.S. · COP 9.600.000\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-016\n\nNecesitamos tu aprobación. La factura intenta dar órdenes al agente.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-017\n\nNecesitamos tu aprobación. No se leyó con claridad.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-018\n\nNecesitamos tu aprobación. El nombre no coincide con el proveedor de tu lista.\n\nOtra Empresa Distinta · USD 1.190\n\n¿Por qué?\nRevisar este pago\nVer más (3)"
+  },
+  {
+    "nombre": "reglas",
+    "zoom": 2,
+    "ancho": 640,
+    "viewport": 640,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Cuáles son mis reglas?\n\nTú pones los topes. El agente los respeta al revisar cada cobro.\n\nVersión actual: 0.1.0.\n\nCuánto puedo pagar\nPídeme permiso si un pago supera  USD.\nLímite por pago: lo máximo que decide solo. Como un tope al comprar sin pedir permiso.\nPídeme permiso si un proveedor supera en el mes  USD.\nTope del mes: suma los pagos al mismo proveedor. Como sumar sus cobros en una libreta.\nVer más límites de gasto\nA quién le pago\n\nSolo a proveedores de tu lista. Deben coincidir su número fiscal y su cuenta bancaria.\n\nProveedor: quien te vende algo. Como la persona que te trae los limones.\n\nCómo se cambia esta lista\nQué reviso de cada factura\nFrena un cobro igual que ya llegó en los últimos  días.\nCobro repetido: revisa si ya estaba. Como ver si ya pagaste los limones.\nPídeme permiso si el monto supera lo acordado en más de  %.\nMargen permitido: cuánto puede variar el cobro. Si acordaste USD 100, 2 % permite USD 2 más.\nPídeme permiso si la cuenta cambió en los últimos  días.\nCuenta nueva: espera antes de usarla. Como confirmar un número antes de enviar dinero.\n\nNo hay cambios por guardar.\n\nGuardar cambios\nVolver a las reglas iniciales"
+  },
+  {
+    "nombre": "registro",
+    "zoom": 2,
+    "ancho": 640,
+    "viewport": 640,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Qué quedó registrado?\n\nCada decisión deja una huella. Así puedes revisar qué pasó.\n\nNo se detectaron cambios en el registro.\n\nLa cadena coincide con su punto de control.\n\nComprobar ahora\nPruebas de esta demostración\nLas decisiones, paso a paso\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-001\n\nAutorizamos PEN 6.000 para Luz Andina S.A.C.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-002\n\nAutorizamos COP 8.000.000 para Consultores Cafetal S.A.S.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-003\n\nAutorizamos USD 1.200 para Taller Orinoco C.A.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-004\n\nAutorizamos BRL 11.000 para Estúdio Beira-Mar Ltda.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nFrenada\nF-006\n\nFrenamos este cobro. Este cobro ya figura entre tus pagos.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nFrenada\nF-007\n\nFrenamos este cobro. El proveedor o su cuenta no está en tu lista.\n\nVer evidencia\nVer más (11)\nVer evidencia de la revisión"
+  },
+  {
+    "nombre": "team",
+    "zoom": 2,
+    "ancho": 640,
+    "viewport": 640,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Cómo va el equipo?\n\nRevisa quién hace cada tarea y qué falta.\n\ncierre dom, 18/10, 1:00 p. m. (Caracas)\n20:51:05\nQuién eres\nSebastián\nAndrés\nJoffre\nPIN\nEntrar\nAhora\nMotor fusionado, producto en vivo y centro de mando con la base de datos en tiempo real. Falta el lector de facturas y las facturas reales.\nSiguiente hito\nV1: sáb 17/10 11:00 p.m. Caracas\nNos frena\n¿Cómo cuenta un cobro que pide tu ayuda para la autonomía? Preguntar al mentor (Andrés)\nFacturas reales en PDF, imagen, correo y chat (Sebastián)\nQue Andrés y Joffre confirmen su usuario de GitHub para CODEOWNERS y reciban el PIN\n¿Qué quieres ver?\nTareas\n23 abiertas\nZonas\n3 tomadas\nBitácora\núltimos movimientos\nAcuerdo\npara agentes y personas\nVer más del equipo"
+  },
+  {
+    "nombre": "decisiones",
+    "zoom": 4,
+    "ancho": 320,
+    "viewport": 320,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "Tus facturas, en orden\n\n¿Qué pasó con mis facturas?\n\nDe 18 facturas, 4 tienen pago autorizado, 4 se frenaron y 10 piden tu ayuda.\n\nEl agente decide. No envía dinero.\n\nRevisar 10 cobros pendientes\nSin tu ayuda\n\n44,4 %\n\nDecidió pagar o frenar por sí solo.\n\nEn esta prueba\n\n18 de 18\n\nCoinciden con lo esperado. Aún falta probar con facturas nuevas.\n\nTe esperan\n\n10\n\nCobros que aún esperan tu respuesta.\n\nBuscar facturas\nVer como tabla\nTe necesita · 10\nTe necesita\nF-016\n\nNecesitamos tu aprobación. La factura intenta dar órdenes al agente.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\n¿Por qué?\nTe necesita\nF-008\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nConsultores Cafetal S.A.S. · COP 9.600.000\n\n¿Por qué?\nTe necesita\nF-009\n\nNecesitamos tu aprobación. Hay datos que debes revisar antes de seguir.\n\nAgro Páramo Cía. Ltda. · USD 7.500\n\n¿Por qué?\nTe necesita\nF-011\n\nNecesitamos tu aprobación. La cuenta se registró hace poco.\n\nSoporte Quito Cía. Ltda. · USD 900\n\n¿Por qué?\nTe necesita\nF-012\n\nNecesitamos tu aprobación. Faltan datos o no se pudieron leer bien.\n\nConsultores Cafetal S.A.S. · Monto sin leer\n\n¿Por qué?\nTe necesita\nF-013\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nMarcos Rivas (contratista ficticio) · USD 3.000\n\n¿Por qué?\nVer más (3)\nFrenadas · 4\nPagadas · 4"
+  },
+  {
+    "nombre": "factura-F-005",
+    "zoom": 4,
+    "ancho": 320,
+    "viewport": 320,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "Volver a mis facturas\n\nFactura F-005\n\n¿Por qué decidimos esto?\nTe necesita\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\nRevisar este pago\n¿Por qué? Las razones\n✕\n\nLímite por pago · Revisar\n\nMonto: USD 9.800. Tu límite: USD 5.000\n✓\n\nLa factura intenta dar órdenes · Cumple\n\nNo hay texto original para esta revisión.\n—\n\nLectura clara · Sin revisar\n\nNo se pudo revisar con los datos disponibles.\n✓\n\nProveedor autorizado · Cumple\n\nEl proveedor y la cuenta están en tu lista.\n✓\n\nNombre del proveedor · Cumple\n\nEl nombre leído coincide con tu lista.\n✓\n\nTope del mes · Cumple\n\nTotal del mes con este pago: USD 9.800. Tu tope: USD 12.000\n✓\n\nDinero para este tipo de gasto · Cumple\n\nTotal de este tipo de gasto: USD 11.400. Tu tope: USD 20.000\nVer más comprobaciones\nVer evidencia"
+  },
+  {
+    "nombre": "cola",
+    "zoom": 4,
+    "ancho": 320,
+    "viewport": 320,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Qué necesita mi aprobación?\n\nHay 10 cobros que piden tu ayuda. Los de mayor monto van primero.\n\nRevisa cada uno y deja una nota. Aprobar no mueve dinero.\n\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nAgro Páramo Cía. Ltda. · USD 9.800\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-009\n\nNecesitamos tu aprobación. Hay datos que debes revisar antes de seguir.\n\nAgro Páramo Cía. Ltda. · USD 7.500\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-013\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nMarcos Rivas (contratista ficticio) · USD 3.000\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-008\n\nNecesitamos tu aprobación. El monto no cuadra con lo acordado.\n\nConsultores Cafetal S.A.S. · COP 9.600.000\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-016\n\nNecesitamos tu aprobación. La factura intenta dar órdenes al agente.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-017\n\nNecesitamos tu aprobación. No se leyó con claridad.\n\nTaller Orinoco C.A. · USD 1.190\n\n¿Por qué?\nRevisar este pago\nTe necesita\nF-018\n\nNecesitamos tu aprobación. El nombre no coincide con el proveedor de tu lista.\n\nOtra Empresa Distinta · USD 1.190\n\n¿Por qué?\nRevisar este pago\nVer más (3)"
+  },
+  {
+    "nombre": "reglas",
+    "zoom": 4,
+    "ancho": 320,
+    "viewport": 320,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Cuáles son mis reglas?\n\nTú pones los topes. El agente los respeta al revisar cada cobro.\n\nVersión actual: 0.1.0.\n\nCuánto puedo pagar\nPídeme permiso si un pago supera  USD.\nLímite por pago: lo máximo que decide solo. Como un tope al comprar sin pedir permiso.\nPídeme permiso si un proveedor supera en el mes  USD.\nTope del mes: suma los pagos al mismo proveedor. Como sumar sus cobros en una libreta.\nVer más límites de gasto\nA quién le pago\n\nSolo a proveedores de tu lista. Deben coincidir su número fiscal y su cuenta bancaria.\n\nProveedor: quien te vende algo. Como la persona que te trae los limones.\n\nCómo se cambia esta lista\nQué reviso de cada factura\nFrena un cobro igual que ya llegó en los últimos  días.\nCobro repetido: revisa si ya estaba. Como ver si ya pagaste los limones.\nPídeme permiso si el monto supera lo acordado en más de  %.\nMargen permitido: cuánto puede variar el cobro. Si acordaste USD 100, 2 % permite USD 2 más.\nPídeme permiso si la cuenta cambió en los últimos  días.\nCuenta nueva: espera antes de usarla. Como confirmar un número antes de enviar dinero.\n\nNo hay cambios por guardar.\n\nGuardar cambios\nVolver a las reglas iniciales"
+  },
+  {
+    "nombre": "registro",
+    "zoom": 4,
+    "ancho": 320,
+    "viewport": 320,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Qué quedó registrado?\n\nCada decisión deja una huella. Así puedes revisar qué pasó.\n\nNo se detectaron cambios en el registro.\n\nLa cadena coincide con su punto de control.\n\nComprobar ahora\nPruebas de esta demostración\nLas decisiones, paso a paso\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-001\n\nAutorizamos PEN 6.000 para Luz Andina S.A.C.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-002\n\nAutorizamos COP 8.000.000 para Consultores Cafetal S.A.S.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-003\n\nAutorizamos USD 1.200 para Taller Orinoco C.A.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nPagada\nF-004\n\nAutorizamos BRL 11.000 para Estúdio Beira-Mar Ltda.. Cumple todas tus reglas.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nTe necesita\nF-005\n\nNecesitamos tu aprobación. El monto de USD 9.800 supera tu límite de USD 5.000.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nFrenada\nF-006\n\nFrenamos este cobro. Este cobro ya figura entre tus pagos.\n\nVer evidencia\n17 oct. 2026, 8:00 a. m. · Caracas\nFrenada\nF-007\n\nFrenamos este cobro. El proveedor o su cuenta no está en tu lista.\n\nVer evidencia\nVer más (11)\nVer evidencia de la revisión"
+  },
+  {
+    "nombre": "team",
+    "zoom": 4,
+    "ancho": 320,
+    "viewport": 320,
+    "minimo": 24,
+    "pequenos": [],
+    "tecnicos": [],
+    "texto": "¿Cómo va el equipo?\n\nRevisa quién hace cada tarea y qué falta.\n\ncierre dom, 18/10, 1:00 p. m. (Caracas)\n20:51:02\nQuién eres\nSebastián\nAndrés\nJoffre\nPIN\nEntrar\nAhora\nMotor fusionado, producto en vivo y centro de mando con la base de datos en tiempo real. Falta el lector de facturas y las facturas reales.\nSiguiente hito\nV1: sáb 17/10 11:00 p.m. Caracas\nNos frena\n¿Cómo cuenta un cobro que pide tu ayuda para la autonomía? Preguntar al mentor (Andrés)\nFacturas reales en PDF, imagen, correo y chat (Sebastián)\nQue Andrés y Joffre confirmen su usuario de GitHub para CODEOWNERS y reciban el PIN\n¿Qué quieres ver?\nTareas\n23 abiertas\nZonas\n3 tomadas\nBitácora\núltimos movimientos\nAcuerdo\npara agentes y personas\nVer más del equipo"
+  }
+]

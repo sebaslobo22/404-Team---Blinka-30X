@@ -1,0 +1,170 @@
+[
+  {
+    "tema": "claro",
+    "texto_o_borde": "tinta",
+    "fondo": "bg",
+    "ratio": 16.22,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "tinta",
+    "fondo": "superficie",
+    "ratio": 17.72,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "tenue",
+    "fondo": "bg",
+    "ratio": 8.43,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "tenue",
+    "fondo": "superficie",
+    "ratio": 9.21,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "acento",
+    "fondo": "superficie",
+    "ratio": 15.49,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "tinta",
+    "fondo": "acento-suave",
+    "ratio": 14.95,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "pagar",
+    "fondo": "pagar-suave",
+    "ratio": 8.59,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "frenar",
+    "fondo": "frenar-suave",
+    "ratio": 8.26,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "escalar",
+    "fondo": "escalar-suave",
+    "ratio": 8.39,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "sobre-acento",
+    "fondo": "acento",
+    "ratio": 15.49,
+    "minimo": 7
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "linea",
+    "fondo": "bg",
+    "ratio": 3.4,
+    "minimo": 3
+  },
+  {
+    "tema": "claro",
+    "texto_o_borde": "linea",
+    "fondo": "superficie",
+    "ratio": 3.72,
+    "minimo": 3
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "tinta",
+    "fondo": "bg",
+    "ratio": 17.19,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "tinta",
+    "fondo": "superficie",
+    "ratio": 15.48,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "tenue",
+    "fondo": "bg",
+    "ratio": 10.99,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "tenue",
+    "fondo": "superficie",
+    "ratio": 9.9,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "acento",
+    "fondo": "superficie",
+    "ratio": 15.48,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "tinta",
+    "fondo": "acento-suave",
+    "ratio": 12.74,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "pagar",
+    "fondo": "pagar-suave",
+    "ratio": 9.0,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "frenar",
+    "fondo": "frenar-suave",
+    "ratio": 9.22,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "escalar",
+    "fondo": "escalar-suave",
+    "ratio": 10.5,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "sobre-acento",
+    "fondo": "acento",
+    "ratio": 17.19,
+    "minimo": 7
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "linea",
+    "fondo": "bg",
+    "ratio": 6.15,
+    "minimo": 3
+  },
+  {
+    "tema": "oscuro",
+    "texto_o_borde": "linea",
+    "fondo": "superficie",
+    "ratio": 5.54,
+    "minimo": 3
+  }
+]
