@@ -57,7 +57,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - ✅ Centro de mando `/team` + `/team/contexto.md` + `scripts/equipo.mjs`, 181 pruebas (PR #3, sáb 12:20 p.m.). En vivo en https://404team.vercel.app/team, **en modo semilla hasta conectar Supabase**.
 - ✅ Supabase del equipo conectado (17/10/2026 - 12:57 p.m.): proyecto `tajesvubxirgkgtuuxcj`, migraciones 0001 y 0002 aplicadas con `node scripts/migrar.mjs` y verificadas (RLS, bitácora y registro solo de insertar, realtime). `/team` en vivo con tiempo real comprobado. `OPENROUTER_API_KEY` vive solo en `.env` local; **no** va a Vercel (el demo público no lleva claves de IA).
 - ✅ Lector de facturas + 12 facturas reales + banco de modelos (PR #5, 17/10/2026 - 1:27 p.m.): doble lectura Haiku 5.5 + Gemini 3.1 Flash-Lite, lecturas guardadas en `data/facturas/lecturas/`, 264 pruebas, motor 12/12 con lecturas reales (afinado sobre el mismo set: lo confirma el set ciego). Informe: `docs/banco-modelos-2026-10-17.md`, uso: `docs/extraccion.md`.
-- ⚠️ Dos datasets conviven: el producto usa **Aurora Cloud** (F-001…F-015) y el lector **Andina Labs** (F01–F12). Hay que unificar a una sola empresa antes de integrar (tarea abierta en `/team`).
+- ✅ Empresa única: **Aurora Cloud** (17/10/2026 - 2:09 p.m.). El lector se está rehaciendo sobre los 18 casos de Aurora (F-001…F-018); Andina Labs solo vive en `referencia/motor-js/`.
 - ⏳ Persistir el producto en Supabase (Andrés). ⏳ Set ciego + suite adversarial (Joffre).
 
 ## 5. Preferencias de Sebastián (líder; no técnico)
