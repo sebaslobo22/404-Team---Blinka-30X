@@ -1,10 +1,13 @@
 # Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
 
-**Actualizado:** 17/10/2026 - 2:45 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
+**Actualizado:** 17/10/2026 - 4:07 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
 
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
 `docs/brief-blinka.md`; la bitácora de decisiones en `docs/decisiones.md`.
+**Diseño bottom-up (diagrama → estados → razones → organismos → pantallas, con pruebas de trazabilidad):** `docs/diseno-bottom-up.md`. Toda interfaz nueva parte de ahí.
+**Despliegue:** Vercel está limitado hasta la madrugada del 18/10 (tope de 100 despliegues/24 h de la cuenta). Mientras tanto se despliega en **https://equipo404.produfy.co** siguiendo `docs/despliegue-produfy.md`. El centro de mando también funciona en vivo ahí: https://equipo404.produfy.co/team (y `EQUIPO_URL=https://equipo404.produfy.co` sirve para `scripts/equipo.mjs`).
+**Mapa de escenarios (clientes, entradas, salidas, decisiones) y diagrama:** `docs/mapa-escenarios.md` · FigJam https://www.figma.com/board/Z35gyUNofAP7wy2AWshTI6
 **Matriz requisito → dónde se cumple → cómo se prueba, con los huecos abiertos: `docs/requisitos.md`.** Toda función nueva debe servir a una fila de esa matriz.
 
 ## 0. Antes de tocar código (obligatorio para agentes)
