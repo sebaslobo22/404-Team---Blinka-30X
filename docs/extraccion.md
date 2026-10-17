@@ -115,6 +115,29 @@ Diferencias de **reglas** (no de decisión) respecto al dev-set de Andrés, que 
 - F-014 dispara `EXTRACCION` + `CONFIANZA` + `R7` (la imagen emborronada baja la confianza y el monto es null).
 - F-017 dispara `EXTRACCION` + `CONFIANZA` (confianza 0,5 de Haiku y fechas distintas entre las dos lecturas).
 
+## Defensas del lector
+
+Tres brechas cerradas en código (`src/extraccion/defensas.ts`, pruebas en `tests/extraccion-seguridad.test.ts`). Cada una
+termina en una **alerta** del lector, y toda alerta fuerza ESCALAR en el motor (regla `EXTRACCION`); ninguna lleva a PAGAR.
+
+- **Documento que no es un cobro** → `no_es_cobro:<tipo>`. El modelo declara `tipo_documento` (`factura`, `cuenta_de_cobro`,
+  `nota_credito`, `proforma`, `cotizacion`, `recibo`, `estado_de_cuenta`, `otro`); si cualquiera de las dos lecturas dice algo
+  distinto de `factura`/`cuenta_de_cobro` hay alerta. Además, el código busca marcas en el texto fuente ("nota de crédito",
+  "credit note", "proforma", "cotización", "quote", "recibo de pago", "payment receipt", "estado de cuenta"; sin acentos ni
+  mayúsculas) y alerta aunque el modelo diga `factura`. En imágenes solo cuenta lo que diga el modelo.
+- **Aritmética** → `aritmetica_no_cuadra:<detalle>`. El modelo puede traer `subtotal`, `impuestos` (`{nombre, monto}`, negativo
+  = retención), `descuento` y `lineas` (`{descripcion, monto}`), todo como texto `"1200.50"`. En centavos BigInt: las líneas
+  deben sumar el subtotal (o el total si no hay subtotal) y `subtotal − descuento + Σimpuestos` debe igualar el total, con 1
+  centavo de tolerancia por renglón. Un importe ilegible dentro de un desglose dado también alerta. **Sin desglose no se
+  evalúa** (sin alerta); las lecturas guardadas antes de este cambio no traen los campos y se tratan como no evaluadas.
+- **Fallo del modelo** → `lector_fallo:<motivo>` con todos los campos en null (nunca una excepción). Probado con `fetch`
+  simulado: HTTP 500, 429, tiempo agotado, error de red, JSON inválido, JSON que no cumple el esquema, `monto` no textual,
+  sin clave de API, y una lectura que llega mientras la otra falla. Un `monto` textual con formato raro (`"1.200,00"`) no es un
+  fallo total: queda `monto` null y alerta `monto_formato_invalido` (también ESCALAR).
+
+Límite honesto: las defensas por texto son marcas literales; un cobro legítimo que mencione "cotización" en su texto escalará
+(falso positivo seguro). Las lecturas reales no se regrabaron: el prompt nuevo no se ha probado contra los modelos reales.
+
 ## Qué falló o quedó sin probar
 
 - **F-017 depende de la confianza que declare el modelo.** Haiku dijo 0,5 y Gemini 0,95 con los mismos datos; escala porque se
