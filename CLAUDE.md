@@ -1,6 +1,6 @@
 # Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
 
-**Actualizado:** 17/10/2026 - 12:15 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
+**Actualizado:** 17/10/2026 - 12:18 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
 
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
@@ -8,7 +8,7 @@ de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; e
 
 ## 0. Antes de tocar código (obligatorio para agentes)
 1. Leer `docs/ZONAS.md` y trabajar solo en la zona de tu persona. Fuera de tu zona: abrir PR y avisar.
-2. Leer el estado vivo del equipo: `https://<dominio>/equipo/contexto.md` (o `GET /api/equipo/contexto`).
+2. Leer el estado vivo del equipo: `https://404team.vercel.app/equipo/contexto.md` (o `GET /api/equipo/contexto`).
    Ahí están las tareas, quién tiene tomada cada zona y la bitácora.
 3. Tomar tu zona antes de editar y soltarla al terminar: `node scripts/equipo.mjs tomar <zona>` /
    `soltar <zona>`. Anotar lo importante: `node scripts/equipo.mjs nota "<texto>"`.
@@ -51,7 +51,9 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - ✅ App Next.js del producto en `app/` (tablero, reglas, cola, registro, facturas) en modo replay con estado en memoria `src/demo` (Andrés, sáb 11:57 a.m.).
 - ✅ Motor de referencia JS con 12 casos y 37 pruebas; marco ejecutivo; revisión de la investigación
   (Sebastián, sáb 11:25 a.m.).
-- ⏳ Centro de mando `/equipo` + Supabase (Sebastián). ⏳ Fusión de defensas en `src/engine`.
+- ✅ Defensas fusionadas en `src/engine` (INYECCION, CONFIANZA, REGISTRO, IDs normalizados, R8 en horas), `comprobaciones()`, 173 pruebas (PR #2, sáb 12:10 p.m.).
+- ✅ Centro de mando `/equipo` + `/equipo/contexto.md` + `scripts/equipo.mjs`, 181 pruebas (PR #3, sáb 12:20 p.m.). En vivo en https://404team.vercel.app/equipo, **en modo semilla hasta conectar Supabase**.
+- ⏳ Supabase del equipo: crear proyecto, correr `supabase/migrations/0001` y `0002`, cargar variables en Vercel, `node scripts/equipo.mjs sembrar` (Sebastián).
 - ⏳ Lector de facturas, facturas reales, banco de modelos (Sebastián; bloqueado por clave OpenRouter).
 - ⏳ Persistir el producto en Supabase (Andrés). ⏳ Set ciego + suite adversarial (Joffre).
 
