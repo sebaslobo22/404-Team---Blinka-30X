@@ -3,6 +3,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MARGEN_PANTALLA, posicionarBurbuja, scrollNecesario, union } from './posicion';
 import type { Caja, Posicion } from './posicion';
+import { createPortal } from 'react-dom';
 import { pasosPara } from './pasos';
 import './tour.css';
 
@@ -25,6 +26,7 @@ export function Tour() {
   const [escritorio, setEscritorio] = useState(false);
   const [estable, setEstable] = useState(false);
   const [anima, setAnima] = useState(false);
+  const [contenedor, setContenedor] = useState<HTMLElement | null>(null);
   const [geom, setGeom] = useState<Geom | null>(null);
 
   const elsRef = useRef<Element[]>([]);
@@ -74,9 +76,7 @@ export function Tour() {
     if (rutaRef.current.startsWith('/team')) return;
     const guardado = leer(typeof sessionStorage === 'undefined' ? undefined : sessionStorage, CLAVE_PASO);
     if (guardado) { setPasoId(guardado); return; }
-    if (leer(typeof localStorage === 'undefined' ? undefined : localStorage, CLAVE_VISTO) || rutaRef.current !== '/') return;
-    const t = window.setTimeout(empezar, 700);
-    return () => window.clearTimeout(t);
+    // El recorrido se abre a petición. Nunca interrumpe la lectura por sí solo.
   }, [empezar]);
 
   useEffect(() => {
@@ -102,6 +102,7 @@ export function Tour() {
   useEffect(() => {
     if (!paso) return;
     setEstable(false);
+    if (paso.id !== 'texto-fuente') { document.querySelector<HTMLDialogElement>('.evidencia-dialogo[open]')?.close(); setContenedor(null); }
     let vivo = true;
     const timers: number[] = [];
     let observador: MutationObserver | undefined;
@@ -134,6 +135,7 @@ export function Tour() {
     let encontrado = false;
     const buscar = () => {
       if (!vivo || encontrado || rutaRef.current !== paso.ruta) return;
+      if (paso.id === 'texto-fuente') { const panel = document.querySelector<HTMLDialogElement>('.evidencia-dialogo'); if (panel && !panel.open) panel.showModal(); if(panel) setContenedor(panel); }
       if (paso.abrir) document.querySelectorAll<HTMLDetailsElement>(paso.abrir).forEach((d) => { if (d instanceof HTMLDetailsElement && !d.open) d.open = true; });
       const els = Array.from(document.querySelectorAll(paso.selector!)).filter(visible);
       if (els.length === 0) return;
@@ -222,7 +224,7 @@ export function Tour() {
   const inicio = paso.tipo === 'inicio';
   const fin = paso.tipo === 'fin';
 
-  return (
+  return createPortal(
     <div className="tour-capa">
       <div className={`tour-foco${anima ? ' tour-foco-anima' : ''}${foco ? ' tour-foco-activo' : ''}`} style={focoEstilo} aria-hidden="true" />
       <div
@@ -254,6 +256,6 @@ export function Tour() {
           )}
         </div>
       </div>
-    </div>
+    </div>, contenedor?.isConnected ? contenedor : document.body
   );
 }

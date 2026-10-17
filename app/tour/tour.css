@@ -1,34 +1,10 @@
-/* Recorrido guiado. Solo tokens de globals.css. */
-.tour-capa { position: fixed; inset: 0; z-index: 1000; --tour-velo: color-mix(in srgb, color-mix(in srgb, var(--bg) 10%, #000) 72%, transparent); }
-/* Anillo claro sobre el velo oscuro, en ambos temas: --superficie en claro, --tinta en oscuro. */
-.tour-capa { --tour-anillo: var(--superficie); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) .tour-capa { --tour-anillo: var(--tinta); } }
-:root[data-theme=dark] .tour-capa { --tour-anillo: var(--tinta); }
-.tour-foco { position: fixed; border-radius: var(--radio); box-shadow: 0 0 0 2px var(--tour-anillo), 0 0 0 9999px var(--tour-velo); pointer-events: none; }
-.tour-foco:not(.tour-foco-activo) { box-shadow: 0 0 0 9999px var(--tour-velo); }
-.tour-foco-anima { transition: left var(--duracion) var(--curva), top var(--duracion) var(--curva), width var(--duracion) var(--curva), height var(--duracion) var(--curva); }
-
-.tour-burbuja {
-  position: fixed; max-width: 360px; box-sizing: border-box; padding: var(--s4) var(--s5); border-radius: var(--radio);
-  background: var(--superficie); color: var(--tinta); border: 1px solid var(--linea); box-shadow: var(--sombra);
-  opacity: 0; pointer-events: none; transform: translateY(6px); transition: opacity var(--duracion) var(--curva), transform var(--duracion) var(--curva);
-}
-.tour-burbuja.tour-visible { opacity: 1; pointer-events: auto; transform: none; }
-.tour-contador { margin: 0 0 var(--s1); font: 600 var(--t1) var(--mono); color: var(--tenue); }
-.tour-titulo { margin: 0 0 var(--s2); font-size: var(--t3); letter-spacing: 0; text-transform: none; color: var(--tinta); font-weight: 700; }
-.tour-texto { margin: 0 0 var(--s4); font-size: var(--t2); color: var(--tinta); }
-.tour-botones { display: flex; flex-wrap: wrap; gap: var(--s2); justify-content: flex-end; }
-.tour-botones .btn { min-height: 40px; }
-.tour-saltar { margin-right: auto; border-color: transparent; background: transparent; color: var(--tenue); }
-.tour-burbuja[data-lado=hoja] { max-width: none; }
-
-.tour-flecha { position: absolute; width: 14px; height: 14px; background: var(--superficie); border: 1px solid var(--linea); transform: rotate(45deg); margin: -7px 0 0 -7px; }
-.tour-flecha[data-borde=arriba] { top: 0; border-right: 0; border-bottom: 0; }
-.tour-flecha[data-borde=abajo] { top: 100%; border-left: 0; border-top: 0; }
-.tour-flecha[data-borde=izquierda] { left: 0; border-top: 0; border-right: 0; }
-.tour-flecha[data-borde=derecha] { left: 100%; border-bottom: 0; border-left: 0; }
-
-@media (prefers-reduced-motion: reduce) {
-  .tour-foco-anima, .tour-burbuja { transition: none !important; transform: none !important; }
-}
-@media (forced-colors: active) { .tour-foco { outline: 2px solid Highlight; } }
+/* El texto del recorrido siempre descansa sobre una hoja sólida. */
+.tour-capa{position:fixed;inset:0;z-index:1000}
+.tour-foco{position:fixed;border-radius:var(--radio);box-shadow:0 0 0 .1875rem var(--anillo),0 0 0 999rem var(--velo);pointer-events:none}
+.tour-foco:not(.tour-foco-activo){box-shadow:0 0 0 999rem var(--velo)}
+.tour-foco-anima{transition:left var(--duracion) var(--curva),top var(--duracion) var(--curva),width var(--duracion) var(--curva),height var(--duracion) var(--curva)}
+.tour-burbuja{position:fixed;max-width:100%;max-height:calc(100dvh - 2rem);overflow-y:auto;padding:var(--s5);border:1px solid var(--linea);border-radius:var(--radio);background:var(--superficie);color:var(--tinta);box-shadow:var(--sombra);opacity:0;pointer-events:none}
+.tour-burbuja.tour-visible{opacity:1;pointer-events:auto}.tour-contador{font-size:var(--t1);color:var(--tenue)}.tour-titulo{font-size:var(--t3);font-weight:600}.tour-texto{font-size:var(--t2)}.tour-botones{display:flex;flex-wrap:wrap;gap:var(--s3)}.tour-saltar{background:var(--superficie);color:var(--tinta)}
+.tour-flecha{position:absolute;width:.75rem;height:.75rem;background:var(--superficie);border:1px solid var(--linea);transform:rotate(45deg);margin:-.375rem 0 0 -.375rem}
+.tour-flecha[data-borde=arriba]{top:0;border-right:0;border-bottom:0}.tour-flecha[data-borde=abajo]{top:100%;border-left:0;border-top:0}.tour-flecha[data-borde=izquierda]{left:0;border-top:0;border-right:0}.tour-flecha[data-borde=derecha]{left:100%;border-bottom:0;border-left:0}
+@media(prefers-reduced-motion:reduce){.tour-foco-anima,.tour-burbuja{transition:none!important;transform:none!important}}

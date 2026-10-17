@@ -5,5 +5,5 @@ import { usePathname } from 'next/navigation';
 export function BotonTour() {
   const ruta = usePathname();
   if (ruta.startsWith('/team')) return null;
-  return <button type="button" className="btn tema tour-boton" data-tour-boton title="Ver recorrido" aria-label="Ver recorrido" onClick={() => window.dispatchEvent(new Event('tour:abrir'))}>?</button>;
+  return <button type="button" className="btn tema tour-boton" data-tour-boton title="Ver recorrido" aria-label="Ver recorrido" onClick={() => window.dispatchEvent(new Event('tour:abrir'))}>Ver recorrido</button>;
 }
