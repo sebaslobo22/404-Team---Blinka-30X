@@ -19,3 +19,5 @@ el mismo archivo a la vez.
 
 Excepción acordada el 17/10: Sebastián abre una PR en `src/engine` para portar tres defensas
 (instrucciones ocultas, confianza, nombre normalizado). Andrés la revisa.
+
+**Alto riesgo:** `src/engine/types.ts` lo usan 16 archivos (medido con Graphify). Quien lo cambie avisa antes en la bitácora y corre `npm test` completo.

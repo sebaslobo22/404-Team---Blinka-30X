@@ -16,6 +16,8 @@ de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; e
 5. `npm test` en verde antes de cada PR. Si la prueba "ninguna factura trampa termina en PAGAR" falla,
    no se fusiona.
 
+**Consultas de código:** usa Graphify antes de leer archivos (repo indexado en la nube para `main`; grafo local con `graphify update .` para ramas). Guía de acceso del equipo: `docs/GUIA-EQUIPO.md`.
+
 ## 1. El reto en una frase
 Un agente que lee facturas con IA, decide con reglas en código si **PAGAR, FRENAR o ESCALAR**, y explica
 cada decisión para que una persona de finanzas la entienda sin abrir el código. No mueve dinero.
