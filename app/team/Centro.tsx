@@ -147,9 +147,9 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
         <section aria-label="Resumen">
           <div className="eq-facts">
-            <div className="eq-fact eq-ok"><b>Ahora</b><span>{a?.frase ?? 'Sin estado cargado.'}</span></div>
+            <div className="eq-fact eq-ok"><b>Ahora</b><span>{a?.frase?.replace(/Supabase/g, 'la base de datos') ?? 'Sin estado cargado.'}</span></div>
             <div className="eq-fact eq-warn"><b>Siguiente hito</b><span>{a?.hito ?? '--'}</span></div>
-            <div className="eq-fact eq-bad"><b>Nos frena</b><span>{a?.bloqueantes?.length ? a.bloqueantes.map((x, i) => <span key={i}>{x}</span>) : 'Nada por ahora.'}</span></div>
+            <div className="eq-fact eq-bad"><b>Nos frena</b><span>{a?.bloqueantes?.length ? a.bloqueantes.map((x, i) => <span key={i}>{x.replace(/\bESCALAR\b/g, 'cobro que pide tu ayuda')}</span>) : 'Nada por ahora.'}</span></div>
           </div>
         </section>
 

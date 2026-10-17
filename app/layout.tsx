@@ -4,6 +4,7 @@ import { BarraLateral } from './barra/Barra';
 import { Tour } from './tour/Tour';
 import { estadoAprobacion } from '../src/demo/estado';
 import { obtenerEstado } from '../src/demo/singleton';
+import { modoPublico } from '../src/publico';
 import type { ReactNode } from 'react';
 import './globals.css';
 import './barra/barra.css';
@@ -30,13 +31,14 @@ async function contarPendientes(): Promise<number | null> {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const pendientes = await contarPendientes();
+  const equipoDisponible = !modoPublico(process.env);
   return (
     <html lang="es" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: SCRIPT_BARRA }} /></head>
       <body>
         <a className="saltar" href="#contenido">Saltar al contenido</a>
-        <BarraLateral pendientes={pendientes} />
-        <Cabecera />
+        <BarraLateral pendientes={pendientes} equipoDisponible={equipoDisponible} />
+        <Cabecera equipoDisponible={equipoDisponible} />
         <div className="app-cuerpo">
           <AvisoReplay />
           <main id="contenido" className="contenedor principal">{children}</main>

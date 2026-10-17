@@ -19,7 +19,7 @@ export default async function Registro() {
       <Controles n={entradas.length} /></section>
 
     <h2>Las decisiones, paso a paso</h2>
-    {entradas.length ? <ol className="timeline"><VerMas total={entradas.length}>{entradas.map((e, i) => {
+    {entradas.length ? <ol className="timeline"><VerMas total={entradas.length} enLista>{entradas.map((e, i) => {
 const fila = estado.filas.find(f => f.id === e.resultado.factura_id); return <li key={e.indice} data-tour={i === 0 ? 'registro-linea' : undefined}><time className="fecha" dateTime={e.registrado_en}>{new Date(e.registrado_en).toLocaleString('es-VE', { timeZone: 'America/Caracas', dateStyle: 'medium', timeStyle: 'short' })} · Caracas</time><Veredicto id={e.resultado.factura_id} decision={e.resultado.decision} texto={fila ? frase({ ...fila, resultado: e.resultado }) : 'La decisión quedó guardada. Puedes ver sus datos.'}><Evidencia>
         <section>
           <h2>La huella de esta decisión</h2>

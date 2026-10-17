@@ -51,7 +51,8 @@ export function TamanoLetra() {
   function aplicar(t: string) { setTamano(t); document.documentElement.dataset.letra = t; try { localStorage.setItem('404-letra', t); } catch { } window.dispatchEvent(new Event('letra:cambio')); }
   return <div className="letra-control" role="group" aria-label="Tamaño de letra"><span>Tamaño de letra</span>{[['normal', 'A'], ['grande', 'A+'], ['muy-grande', 'A++']].map(([valor, texto]) => <button key={valor} type="button" aria-pressed={tamano === valor} aria-label={`Tamaño de letra ${texto}`} onClick={() => aplicar(valor!)}>{texto}</button>)}</div>;
 }
-export function VerMas({ children, total, inicial = 7 }: { children: ReactNode[]; total: number; inicial?: number ;}) {
-  const [todos, setTodos] = useState(false);
-  return <>{todos ? children : children.slice(0, inicial)}{total > inicial ? <button className="btn btn-texto" onClick={() => setTodos(!todos)}>{todos ? 'Ver menos' : `Ver más (${total - inicial})`}</button> : null}</>;
+export function VerMas({children,total,inicial=7,enLista=false}:{children:ReactNode[];total:number;inicial?:number;enLista?:boolean}) {
+  const [todos,setTodos]=useState(false);
+  const control=total>inicial?<button className="btn btn-texto" onClick={()=>setTodos(!todos)}>{todos?'Ver menos':`Ver más (${total-inicial})`}</button>:null;
+  return <>{todos?children:children.slice(0,inicial)}{control?(enLista?<li>{control}</li>:control):null}</>;
 }

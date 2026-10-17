@@ -143,6 +143,8 @@ export function Tour() {
       observador?.disconnect();
       if (intervalo) window.clearInterval(intervalo);
       elsRef.current = els;
+      // La evidencia tiene su propio scroll: mover la página no acerca ese texto.
+      if (els[0]?.closest('dialog[open]')) els[0].scrollIntoView({ block: 'start', behavior: 'instant' });
       const fija = els.some((e) => getComputedStyle(e).position === 'fixed');
       const cab = document.querySelector('.cabecera');
       const cabecera = cab && cab.getBoundingClientRect().height > 0 ? cab.getBoundingClientRect().bottom : 0;
