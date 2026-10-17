@@ -141,10 +141,30 @@ describe('combinar: validaciones deterministas fuera del LLM', () => {
     expect(combinar({ texto: TEXTO }, dos({}, { moneda_explicita: false }), MODELOS).factura.alertas).toContain('moneda_ambigua');
   });
 
-  it('imagen: se omite la comprobacion literal y se marca sin_texto_fuente', () => {
-    const r = combinar({ imagenBase64: 'AAAA', mime: 'image/png' }, dos(), MODELOS);
-    expect(r.factura.alertas).toEqual(['sin_texto_fuente']);
+  const IMG = { imagenBase64: 'AAAA', mime: 'image/png' };
+  it('imagen con dos lecturas coincidentes: sin alertas y con nota lectura_solo_visual (no es alerta)', () => {
+    const r = combinar(IMG, dos(), MODELOS);
+    expect(r.factura.alertas).toEqual([]);
+    expect(r.factura.notas).toEqual(['lectura_solo_visual']);
     expect(r.factura.texto_fuente).toBeUndefined();
+  });
+
+  it('imagen con lecturas distintas: alerta', () => {
+    const r = combinar(IMG, dos({}, { monto: '801.00' }), MODELOS);
+    expect(r.factura.alertas).toContain('lecturas_difieren:monto');
+  });
+
+  it('imagen con confianza final < 0.85: alerta', () => {
+    const r = combinar(IMG, dos({ confianza: 0.9 }, { confianza: 0.8 }), MODELOS);
+    expect(r.factura.alertas).toContain('imagen_confianza_baja');
+  });
+
+  it('imagen con instrucciones_detectadas en una lectura: alerta y el motor ESCALA', () => {
+    const r = combinar(IMG, dos({}, { instrucciones_detectadas: true }), MODELOS);
+    expect(r.factura.alertas).toContain('imagen_instrucciones_detectadas');
+    const ctx = contextoAndina();
+    const f = { ...r.factura, id_fiscal: '901234567-1', beneficiario: 'Estudio Pixel SAS', cuenta: 'CO-BCOL-4521-8890', categoria: 'Diseno grafico' };
+    expect(decidir('X', f, ctx, cfg).decision).toBe('ESCALAR');
   });
 
   it('datos criticos inventados por el modelo no aparecen en el texto -> no_literal', () => {
@@ -358,6 +378,7 @@ interface Indice {
   extraccion_esperada: Record<string, unknown>;
 }
 const facturas = indiceJson.facturas as unknown as Indice[];
+const soloIds = process.env['EXTRACCION_IDS']?.split(',');
 
 describe('data/facturas', () => {
   it('hay 12 facturas con su archivo y formato', () => {
@@ -459,8 +480,8 @@ describe('lecturas guardadas -> motor', () => {
     for (const c of corrida) if (c.f.decision_esperada === 'PAGAR' && c.decision !== 'PAGAR') expect(c.decision, c.f.id).toBe('ESCALAR');
   });
 
-  it('coinciden al menos 10 de 12 con lecturas reales', () => {
-    expect(corrida.filter((c) => c.decision === c.f.decision_esperada).length).toBeGreaterThanOrEqual(10);
+  it('coinciden las 12 de 12 con lecturas reales', () => {
+    expect(corrida.filter((c) => c.decision === c.f.decision_esperada).length).toBe(12);
   });
 
   it('F11: la instruccion oculta fue detectada y fuerza ESCALAR', () => {
@@ -482,7 +503,7 @@ describe.skipIf(!process.env['EXTRACCION_GRABAR'])('grabar lecturas reales', () 
     process.loadEnvFile('.env');
     const modelos = (process.env['EXTRACCION_MODELOS'] ?? 'anthropic/claude-haiku-5.5,google/gemini-3.1-flash-lite').split(',') as [string, string];
     let gasto = 0;
-    for (const f of facturas) {
+    for (const f of facturas.filter((x) => !soloIds || soloIds.includes(x.id))) {
       const entrada = await entradaDesdeArchivo(join('data/facturas', f.archivo));
       const r = await extraerFactura(entrada, { id: f.id, modelos, guardar: true, replay: false });
       gasto += r.costo_usd;

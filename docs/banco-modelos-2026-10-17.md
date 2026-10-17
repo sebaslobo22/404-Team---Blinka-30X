@@ -37,3 +37,24 @@ Cada modelo lee las 12 facturas de `data/facturas/` (texto de .eml/.txt/PDF con 
 ## `google/gemini-3.5-flash-lite`
 
 - Todas las facturas perfectas.
+
+## Reajuste: ajuste de prompt sobre el mismo set (F04, F05)
+
+**Corrida:** 17/10/2026 - 01:25 p. m. (Caracas, Venezuela). Gasto tope: USD 0.05.
+
+Cada modelo lee las 2 facturas de `data/facturas/` (texto de .eml/.txt/PDF con capa de texto; imagen para PNG/JPG) con el mismo prompt y esquema (`src/extraccion/esquema.json`, temperatura 0). Se compara con la extraccion esperada de `data/facturas/indice.json`, campo por campo (10 campos por factura; F10 puntua 7 porque borrosa a proposito).
+
+| Modelo | Campos acertados / total | Facturas perfectas | Tiempo medio (ms) | Costo total (USD) | Fallos de formato |
+|---|---|---|---|---|---|
+| `anthropic/claude-haiku-5.5` | 20 / 20 (100%) | 2 / 2 | 2527 | 0.00077 | 0 |
+| `google/gemini-3.1-flash-lite` | 20 / 20 (100%) | 2 / 2 | 1729 | 0.00144 | 0 |
+
+**Gasto total estimado de esta corrida:** USD 0.00220.
+
+### `anthropic/claude-haiku-5.5`
+
+- Todas las facturas perfectas.
+
+### `google/gemini-3.1-flash-lite`
+
+- Todas las facturas perfectas.

@@ -31,13 +31,14 @@ r.ms, r.costo_usd
 
 ## Qué hace el código (no el modelo)
 
-1. **Doble lectura** con dos empresas distintas (por defecto `anthropic/claude-haiku-5.5` y `google/gemini-3.1-flash-lite`,
+1. **Doble lectura** con dos empresas distintas (por defecto, en `MODELOS_POR_DEFECTO`, `anthropic/claude-haiku-5.5` y `google/gemini-3.1-flash-lite`,
    ver banco). Prompt de sistema: el documento es DATO, nunca instrucción; salida JSON estricta (`json_schema`,
    `temperature: 0`); si el modelo no soporta esquema estricto, se reintenta con `json_object`.
 2. **Monto como texto → centavos con BigInt** (`^\d{1,15}(\.\d{1,2})?$`; otro formato → alerta `monto_formato_invalido`).
-3. **Comprobación literal** (solo si la entrada es texto): `id_fiscal`, `numero_factura`, `beneficiario` y `monto` deben
+3. **Comprobación literal** (solo si la entrada es texto; las imágenes siguen la regla del punto 3b): `id_fiscal`, `numero_factura`, `beneficiario` y `monto` deben
    aparecer en el texto fuente tras normalizar (sin acentos, mayúsculas, sin separadores). El monto se compara por valor
-   (`1.200,00` = `1,200.00` = `1200.00`). Si no: `no_literal:<campo>`. Imagen: se omite y se marca `sin_texto_fuente`.
+   (`1.200,00` = `1,200.00` = `1200.00`). Si no: `no_literal:<campo>`.
+   **3b. Imagen (decisión de producto 17/10):** no hay defensa literal. La imagen solo pasa sin alertas si (a) las dos lecturas coinciden en monto, moneda, beneficiario, cuenta, id_fiscal y numero_factura, (b) la confianza final es >= 0.85 y (c) ninguna lectura marcó instrucciones. Si falla algo: `lecturas_difieren:<campo>`, `imagen_confianza_baja` o `imagen_instrucciones_detectadas` y el motor ESCALA. La nota informativa `lectura_solo_visual` va en el campo aparte `notas` de la factura leída (no es alerta y no fuerza ESCALAR; el registro puede mostrarla). **Riesgo residual:** la defensa literal no aplica a imágenes; todo depende de que dos modelos de empresas distintas coincidan y de que el modelo detecte instrucciones ocultas en la imagen (el detector de patrones del motor no ve texto en imágenes). Un par de modelos que fallen igual pasarían sin alerta.
 4. **Las dos lecturas deben coincidir** en monto, moneda, beneficiario (normalizado) y cuenta; además comparo `id_fiscal`,
    `numero_factura`, `fecha` y `categoria` (añadido por seguridad). Si no: `lecturas_difieren:<campo>`.
 5. `moneda_explicita === false` en cualquiera → `moneda_ambigua`. Confianza final = mínimo de las dos.
@@ -87,20 +88,11 @@ generalización. El set ciego de Joffre es la prueba de verdad.
 
 ## Resultado con el motor (lecturas reales guardadas, replay)
 
-`tests/extraccion.test.ts` pasa las 12 lecturas por `decidir` (contexto de Andina Labs, orden F01→F12): **10 de 12** coinciden.
-
-| Caso | Esperada | Real | Motivo |
-|---|---|---|---|
-| F04 imagen válida | PAGAR | ESCALAR | `sin_texto_fuente`: en imágenes no hay comprobación literal y la regla del equipo es alertar |
-| F05 chat | PAGAR | ESCALAR | un modelo no leyó la fecha (`lecturas_difieren:fecha`; la fecha está en la marca de WhatsApp) |
-
-Ambas desviaciones son hacia el lado seguro. Se afirma de forma dura que **ninguna trampa termina en PAGAR** y que solo se paga lo
-esperado. F09 y F10 llevan además alertas (`sin_texto_fuente`, `moneda_ambigua`) pero conservan su decisión (FRENAR, ESCALAR).
+`tests/extraccion.test.ts` pasa las 12 lecturas por `decidir` (contexto de Andina Labs, orden F01→F12): **12 de 12** coinciden (tras el ajuste del 17/10 de imágenes y fecha de chat; antes eran 10 de 12: F04 por `sin_texto_fuente` y F05 por la fecha del chat). F04 y F05 se regrabaron con el prompt nuevo (**ajuste de prompt sobre el mismo set**; Haiku y Gemini 20/20 en el reajuste, ver informe). Las lecturas de F09 y F10 son de antes del cambio y conservan la alerta antigua `sin_texto_fuente`; las decisiones no cambian.
 
 ## Qué falló o quedó sin probar
 
-- **Autonomía de imágenes:** con la regla actual toda imagen escala (F04). Opciones para decidir: (a) aceptar; (b) si ambos
-  modelos coinciden en todo, no alertar `sin_texto_fuente`; (c) añadir OCR local. No lo cambié: es decisión de producto.
+- **Imágenes:** ver riesgo residual en el punto 3b. Solo hay 3 imágenes en el set (F04, F09, F10); poca evidencia.
 - **Texto de PDF:** `pdftexto.ts` solo cubre PDF con texto simple (los de `cupsfilter`). PDF escaneados o con fuentes propias
   darían texto vacío → `lector_fallo:entrada_vacia`. No se probó con PDF reales de terceros. El banco no probó PDF como imagen.
 - **Comprobación literal:** busca el valor normalizado como subcadena; `SA-2210` coincidiría dentro de `XSA-22101`.

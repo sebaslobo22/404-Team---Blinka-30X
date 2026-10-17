@@ -5,7 +5,10 @@ import { apareceLiteral, fechaValida, montoAparece, montoACentavos, normalizarLi
 import { ErrorLLM, llamarOpenRouter, type PeticionLLM, type RespuestaLLM } from './openrouter';
 import { guardarLectura, leerLectura, modoReplay } from './replay';
 
-export const MODELOS_POR_DEFECTO: [string, string] = ['anthropic/claude-haiku-5.5', 'openai/gpt-6-luna'];
+export const MODELOS_POR_DEFECTO: [string, string] = ['anthropic/claude-haiku-5.5', 'google/gemini-3.1-flash-lite'];
+
+/** FacturaExtraida del motor + notas informativas del lector (no son alertas y no fuerzan ESCALAR). */
+export type FacturaLeida = FacturaExtraida & { notas?: string[] };
 
 export interface EntradaFactura {
   texto?: string;
@@ -43,7 +46,7 @@ export interface DetalleLectura {
 }
 
 export interface ResultadoExtraccion {
-  factura: FacturaExtraida;
+  factura: FacturaLeida;
   lecturas: DetalleLectura[];
   modelo_versiones: { pedido: string; servido: string | null }[];
   ms: number;
@@ -115,7 +118,7 @@ async function leerConModelo(modelo: string, entrada: EntradaFactura, llamar: No
   return v.ok ? { ...meta, ok: true, datos: v.datos } : { ...meta, ok: false, error: v.motivo };
 }
 
-const VACIA = (alertas: string[]): FacturaExtraida => ({
+const VACIA = (alertas: string[]): FacturaLeida => ({
   numero_factura: null, beneficiario: null, id_fiscal: null, cuenta: null, monto_centavos: null,
   moneda: null, fecha_emision: null, categoria: null, alertas, confianza: null, instrucciones_detectadas: false,
 });
@@ -199,8 +202,13 @@ export function combinar(entrada: EntradaFactura, lecturas: DetalleLectura[], mo
 
   // (a) Cada dato critico debe aparecer literal en el texto fuente.
   const texto = entrada.texto;
+  const notas: string[] = [];
   if (texto === undefined) {
-    alertas.push('sin_texto_fuente');
+    // Imagen: no hay defensa literal. Solo pasa si las dos lecturas coinciden (alertas
+    // lecturas_difieren arriba), la confianza final es >= 0.85 y nadie marco instrucciones.
+    notas.push('lectura_solo_visual');
+    if (Math.min(a.confianza, b.confianza) < 0.85) alertas.push('imagen_confianza_baja');
+    if (a.instrucciones_detectadas || b.instrucciones_detectadas) alertas.push('imagen_instrucciones_detectadas');
   } else {
     for (const l of [a, b]) {
       if (l.id_fiscal !== null && !apareceLiteral(texto, l.id_fiscal)) alertas.push('no_literal:id_fiscal');
@@ -210,7 +218,7 @@ export function combinar(entrada: EntradaFactura, lecturas: DetalleLectura[], mo
     }
   }
 
-  const factura: FacturaExtraida = {
+  const factura: FacturaLeida = {
     numero_factura: a.numero_factura,
     beneficiario: a.beneficiario,
     id_fiscal: a.id_fiscal,
@@ -225,6 +233,7 @@ export function combinar(entrada: EntradaFactura, lecturas: DetalleLectura[], mo
     instrucciones_detectadas: a.instrucciones_detectadas || b.instrucciones_detectadas,
   };
   if (texto !== undefined) factura.texto_fuente = texto;
+  if (notas.length) factura.notas = notas;
   void modelos;
   return { factura, lecturas, modelo_versiones: versiones, ms: Date.now() - t0, costo_usd: costo };
 }

@@ -42,7 +42,8 @@ if (!CLAVE) { console.error('Falta OPENROUTER_API_KEY en .env o en el entorno.')
 
 // ---- datos -------------------------------------------------------------------------------------
 const esquema = JSON.parse(readFileSync(join(raiz, 'src/extraccion/esquema.json'), 'utf8'));
-const indice = JSON.parse(readFileSync(join(raiz, 'data/facturas/indice.json'), 'utf8')).facturas;
+const soloIds = valor('--facturas')?.split(',');
+const indice = JSON.parse(readFileSync(join(raiz, 'data/facturas/indice.json'), 'utf8')).facturas.filter((f) => !soloIds || soloIds.includes(f.id));
 
 function textoDePdf(buf) {
   const s = buf.toString('latin1');
@@ -207,7 +208,7 @@ for (const modelo of modelos) {
 // ---- informe -----------------------------------------------------------------------------------
 const media = (a) => (a.length ? Math.round(a.reduce((x, y) => x + y, 0) / a.length) : null);
 const fecha = new Intl.DateTimeFormat('es-VE', { timeZone: 'America/Caracas', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }).format(new Date());
-let md = `# Banco de modelos de lectura de facturas\n\n**Corrida:** ${fecha.replace(',', ' -')} (Caracas, Venezuela). Gasto tope: USD ${maxUsd.toFixed(2)}.\n\n`;
+let md = `${soloIds ? '## Reajuste: ajuste de prompt sobre el mismo set (' + soloIds.join(', ') + ')' : '# Banco de modelos de lectura de facturas'}\n\n**Corrida:** ${fecha.replace(',', ' -')} (Caracas, Venezuela). Gasto tope: USD ${maxUsd.toFixed(2)}.\n\n`;
 md += `Cada modelo lee las ${indice.length} facturas de \`data/facturas/\` (texto de .eml/.txt/PDF con capa de texto; imagen para PNG/JPG) con el mismo prompt y esquema (\`src/extraccion/esquema.json\`, temperatura 0). Se compara con la extraccion esperada de \`data/facturas/indice.json\`, campo por campo (10 campos por factura; F10 puntua 7 porque borrosa a proposito).\n\n`;
 md += '| Modelo | Campos acertados / total | Facturas perfectas | Tiempo medio (ms) | Costo total (USD) | Fallos de formato |\n|---|---|---|---|---|---|\n';
 for (const r of resultados) {
@@ -223,6 +224,8 @@ for (const r of resultados) {
 }
 console.log(md);
 if (!sinInforme) {
-  writeFileSync(join(raiz, 'docs/banco-modelos-2026-10-17.md'), md, 'utf8');
+  const dest = join(raiz, 'docs/banco-modelos-2026-10-17.md');
+  if (soloIds) writeFileSync(dest, `${readFileSync(dest, 'utf8').split('\n## Reajuste')[0].trimEnd()}\n\n${md.replace(/^## `/gm, '### `')}`, 'utf8');
+  else writeFileSync(dest, md, 'utf8');
   console.error('Informe guardado en docs/banco-modelos-2026-10-17.md');
 }
