@@ -20,6 +20,24 @@ El producto es un agente que lee facturas con IA y decide, con reglas en código
 
 Ninguno de los dos es técnico ni tiene paciencia. Si la primera pantalla parece una cabina de avión, perdimos. La interfaz es el argumento del proyecto.
 
+## 1b. Para quién diseñamos: las dos personas límite
+
+Diseña para estas dos personas. Si ellas pueden usarla sin ayuda, cualquiera puede.
+
+- **Carmen, 70 años, administradora de una empresa familiar.** Tiene miopía severa: lee con la pantalla cerca, sube el zoom del navegador al 200 % y se cansa con letras pequeñas, grises claros o fondos con transparencias. Desconfía de lo que no entiende y teme "romper algo".
+- **Mateo, 12 años, tiene un puesto de chucherías y limonada.** Entiende "le pagué a mi proveedor de limones" pero no "beneficiario", "conciliación" ni "presupuesto por categoría". Lee rápido y salta lo largo. Aprende tocando.
+
+Consecuencias obligatorias para todo el diseño:
+1. **Texto grande por defecto.** Cuerpo mínimo 18 px (1.125 rem), veredicto 22–24 px, nada por debajo de 16 px (ni etiquetas, ni pies, ni cifras monoespaciadas). Interlineado 1.6. Todo en `rem` para respetar el tamaño de letra del sistema.
+2. **Contraste AAA (7:1) en todo el texto**, no solo en el veredicto. Nada de gris claro sobre blanco para información. El cristal translúcido nunca va detrás de texto: si hay cristal, el texto se apoya en una superficie sólida.
+3. **Zoom 200 % sin perder nada y 400 % sin scroll horizontal** (contenido que se reacomoda a una columna). Ninguna información depende de pasar el mouse por encima.
+4. **Objetivos táctiles de 48 × 48 px mínimo**, separados entre sí. Botones con texto, no solo icono. En la barra lateral, la versión ampliada (icono + palabra) es la predeterminada.
+5. **Foco de teclado muy visible** (anillo de 3 px con contraste alto) y nada que se mueva solo.
+6. **Control "Tamaño de letra" (A · A+ · A++)** siempre a mano en la barra lateral y en la cabecera móvil; se recuerda en el navegador.
+7. **Lectura fácil.** Frases de 15 palabras o menos, una idea por frase, palabras de todos los días. Usa el diccionario de la sección 7 y, la primera vez que aparece un concepto, una explicación de una línea con un ejemplo cotidiano ("Límite por pago: el máximo que el agente paga solo, sin preguntarte. Como si tu hijo pudiera comprar hasta 5 dólares sin pedirte permiso."). Objetivo: índice de legibilidad Fernández-Huerta ≥ 80 en los textos de la interfaz.
+8. **Nada da miedo:** toda acción importante se puede deshacer en la misma pantalla durante unos segundos ("Aprobada. Deshacer") o pide confirmación con palabras claras ("Sí, aprobar este pago de USD 9.800").
+9. **Iconos que se entienden sin leer:** pagada = ✓ en círculo verde, frenada = mano/alto en rojo, te necesita = persona/campana en ámbar; siempre con su palabra al lado.
+
 ## 2. La idea central: cada decisión es un veredicto en tres capas
 
 Todo el sistema se construye sobre un único patrón, que se repite en cada pantalla para que el usuario lo aprenda una sola vez:
@@ -49,8 +67,8 @@ Este patrón **es** la explicabilidad. Si un elemento de la interfaz no encaja e
 **Identidad propia del Equipo 404.** Prohibido usar colores, logo, textos o layout de blinka.co: el brief deja fuera "el diseño de la app de Blinka" y no debemos parecer su producto.
 
 - **Concepto material:** papel y tinta. Superficies claras y mates como hojas de un expediente ordenado; la información "se apila" en capas (veredicto → razones → evidencia) que se despliegan como hojas que salen de una carpeta. Un toque de cristal translúcido solo en elementos flotantes (barra lateral, panel de evidencia, burbuja del tour), nunca en el contenido.
-- **Color:** neutros cálidos (claro: fondo `#F5F5F2`, superficie `#FFFFFF`, tinta `#18181B`, tenue `#5E5D58`, línea `#E2E1DC`; oscuro: fondo `#0E0E10`, superficie `#1A1A1D`, tinta `#F2F2EF`, tenue `#A3A29C`, línea `#2F2F34`) y un acento grafito. Los únicos colores saturados son los tres de decisión, con versión suave para fondos. Defínelos como tokens en `:root`, en `@media (prefers-color-scheme: dark)` y en `[data-theme]`; ningún color literal en componentes. Contraste AA mínimo, AAA en el texto del veredicto.
-- **Tipografía:** una sans muy legible para todo (Inter u otra de Google Fonts con métricas similares, con `system-ui` de respaldo) y una monoespaciada solo para cifras alineadas, códigos de factura y huellas (`font-variant-numeric: tabular-nums`). Escala de 6 tamaños; el veredicto en tamaño de lectura cómodo (18–20 px), nunca diminuto.
+- **Color:** neutros cálidos (claro: fondo `#F5F5F2`, superficie `#FFFFFF`, tinta `#18181B`, tenue `#5E5D58`, línea `#E2E1DC`; oscuro: fondo `#0E0E10`, superficie `#1A1A1D`, tinta `#F2F2EF`, tenue `#A3A29C`, línea `#2F2F34`) y un acento grafito. Los únicos colores saturados son los tres de decisión, con versión suave para fondos. Defínelos como tokens en `:root`, en `@media (prefers-color-scheme: dark)` y en `[data-theme]`; ningún color literal en componentes. Contraste AAA (7:1) en todo el texto; AA (3:1) en bordes y controles.
+- **Tipografía:** una sans de alta legibilidad pensada para baja visión (Atkinson Hyperlegible o Inter, desde Google Fonts, con `system-ui` de respaldo; formas de letras inconfundibles: I/l/1, O/0) y una monoespaciada solo para cifras alineadas, códigos de factura y huellas (`font-variant-numeric: tabular-nums`). Escala de 6 tamaños que empieza en 16 px; cuerpo 18 px; veredicto 22–24 px; pesos 400 y 600 (nada de pesos finos).
 - **Espacio:** escala de 4 px; mucho aire; ancho de lectura máximo ~65 caracteres en frases largas.
 - **Iconos:** un set propio en SVG inline, trazo fino y uniforme; un icono por cada estado de decisión y por cada destino de navegación.
 - **Forma:** radios generosos y consistentes (tarjetas 16 px, controles 12 px, píldoras 999 px); sombras amplias y suaves solo en lo que flota.
@@ -101,12 +119,14 @@ Navegación: barra lateral en escritorio (≥ 1024 px), barra inferior de 4 dest
 ## 9. Definición de hecho
 
 Está hecho cuando todo esto es cierto y lo comprobaste tú:
-1. **Prueba de los 5 segundos:** en cada pantalla, una persona que la ve por primera vez puede decir en 5 segundos qué pregunta responde y qué tiene que hacer. Documenta tu verificación pantalla por pantalla en `docs/diseno-v2/README.md`.
+1. **Prueba de los 5 segundos:** en cada pantalla, una persona como Carmen o Mateo que la ve por primera vez puede decir en 5 segundos qué pregunta responde y qué tiene que hacer. Documenta tu verificación pantalla por pantalla en `docs/diseno-v2/README.md`.
 2. **Presupuesto cumplido:** ninguna pantalla supera 1 acción principal, 3 cifras grandes y 7 elementos visibles antes de "Ver más"; ningún término técnico fuera de la capa de evidencia (busca con `grep` "R1", "hash", "replay", "JSON" en el texto visible).
 3. **Tres tareas sin ayuda**, que describes paso a paso con capturas: (a) "Encuentra por qué se frenó la factura F-006"; (b) "Aprueba una factura que te necesita, con una nota"; (c) "Sube tu límite por pago a USD 6.000 y mira qué cambia antes de guardar". Cada una en 3 clics o menos.
 4. `npm run typecheck`, `npm test` y `npm run build` pasan; las pruebas existentes siguen en verde.
 5. Las 6 rutas se ven coherentes en 390 px y 1280 px, en claro y oscuro, colapsada y ampliada la barra lateral (capturas en `docs/diseno-v2/`).
-6. Accesibilidad: navegación completa con teclado y foco visible; contraste AA (AAA en el veredicto), con los valores calculados en el README; `prefers-reduced-motion` sin animación y sin nada oculto.
+6. Accesibilidad: navegación completa con teclado y foco visible; contraste AAA en todo el texto, con los valores calculados en el README; `prefers-reduced-motion` sin animación y sin nada oculto.
+6b. **Prueba Carmen:** con el navegador al 200 % y el control en "A++", las 6 pantallas se leen y se usan sin scroll horizontal y sin texto cortado; al 400 % todo se reacomoda a una columna. Capturas en `docs/diseno-v2/zoom/`.
+6c. **Prueba Mateo:** los textos visibles de cada pantalla, pegados en un medidor de legibilidad, dan Fernández-Huerta ≥ 80 (deja la cifra por pantalla en el README); ningún concepto aparece sin su explicación cotidiana la primera vez.
 7. El tour recorre todos sus pasos sobre los elementos nuevos sin quedarse colgado.
 8. `git diff --stat main` muestra cambios solo en `app/**` y `docs/diseno-v2/`.
 9. Entregas un resumen de 15 líneas: qué cambiaste, qué decisiones de diseño tomaste, qué datos faltaron y qué no pudiste verificar.
