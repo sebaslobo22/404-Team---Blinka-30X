@@ -13,7 +13,6 @@ export default async function PaginaEquipo() {
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? null;
   return (
     <>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" />
       <Centro inicial={inicial} supabaseUrl={inicial.conectado ? url : null} supabaseAnon={inicial.conectado ? anon : null} />
     </>
   );
