@@ -1,0 +1,88 @@
+{
+  "id": "F-014",
+  "fecha": "2026-10-17T18:24:44.157Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0014",
+      "beneficiario": "TALLER ORINOCO C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": null,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-15",
+      "categoria": "Operaciones",
+      "alertas": [
+        "imagen_confianza_baja"
+      ],
+      "confianza": 0.5,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3065,
+        "tokens_salida": 380,
+        "costo_usd": 0.0004965,
+        "ms": 3125,
+        "ok": true,
+        "datos": {
+          "beneficiario": "TALLER ORINOCO C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": null,
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0014",
+          "categoria": "Operaciones",
+          "confianza": 0.5,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2493,
+        "tokens_salida": 156,
+        "costo_usd": 0.00085725,
+        "ms": 1757,
+        "ok": true,
+        "datos": {
+          "beneficiario": "TALLER ORINOCO C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": null,
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0014",
+          "categoria": "Operaciones",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3125,
+    "costo_usd": 0.00135375
+  }
+}

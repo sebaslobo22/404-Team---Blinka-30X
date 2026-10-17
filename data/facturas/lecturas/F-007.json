@@ -1,0 +1,84 @@
+{
+  "id": "F-007",
+  "fecha": "2026-10-17T18:24:24.011Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "SN-0007",
+      "beneficiario": "SERVICIOS NUEVO HORIZONTE S.A.S.",
+      "id_fiscal": "FIC-CO-009",
+      "cuenta": "ACC-CO-0009",
+      "monto_centavos": 600000000,
+      "moneda": "COP",
+      "fecha_emision": "2026-10-10",
+      "categoria": "Consultoría",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "SERVICIOS NUEVO HORIZONTE S.A.S.\nNIT FIC-CO-009\nFactura SN-0007\nFecha de emisión: 2026-10-10\nCliente: Aurora Cloud Inc.\nConcepto: Consultoría de arquitectura de datos, octubre\nTotal a pagar: $6.000.000 COP\nPagar a la cuenta: ACC-CO-0009"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2449,
+        "tokens_salida": 387,
+        "costo_usd": 0.0004384,
+        "ms": 2669,
+        "ok": true,
+        "datos": {
+          "beneficiario": "SERVICIOS NUEVO HORIZONTE S.A.S.",
+          "id_fiscal": "FIC-CO-009",
+          "cuenta": "ACC-CO-0009",
+          "monto": "6000000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-10",
+          "fecha_vencimiento": null,
+          "numero_factura": "SN-0007",
+          "categoria": "Consultoría",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1524,
+        "tokens_salida": 171,
+        "costo_usd": 0.0006375,
+        "ms": 1582,
+        "ok": true,
+        "datos": {
+          "beneficiario": "SERVICIOS NUEVO HORIZONTE S.A.S.",
+          "id_fiscal": "FIC-CO-009",
+          "cuenta": "ACC-CO-0009",
+          "monto": "6000000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-10",
+          "fecha_vencimiento": null,
+          "numero_factura": "SN-0007",
+          "categoria": "Consultoría",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2669,
+    "costo_usd": 0.0010759
+  }
+}

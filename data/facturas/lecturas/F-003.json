@@ -1,0 +1,84 @@
+{
+  "id": "F-003",
+  "fecha": "2026-10-17T18:24:12.738Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0003",
+      "beneficiario": "Taller Orinoco C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 120000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-07",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: facturacion@tallerorinoco.example\r\nTo: cuentas@auroracloud.example\r\nSubject: Factura TO-0003\r\nDate: Wed, 7 Oct 2026 10:30:00 -0400\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\nAdjuntamos la factura TO-0003 del 2026-10-07, servicio de mantenimiento operativo, por USD 1.200,00. RIF FIC-VE-003. Cuenta ACC-VE-0003. Facturación, Taller Orinoco C.A.\r\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2521,
+        "tokens_salida": 364,
+        "costo_usd": 0.0004341,
+        "ms": 2465,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1200.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-07",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0003",
+          "categoria": "Operaciones",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1594,
+        "tokens_salida": 162,
+        "costo_usd": 0.0006415,
+        "ms": 1575,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1200.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-07",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0003",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2466,
+    "costo_usd": 0.0010756
+  }
+}
