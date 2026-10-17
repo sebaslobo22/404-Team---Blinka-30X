@@ -1,0 +1,89 @@
+{
+  "id": "F-017",
+  "fecha": "2026-10-17T18:24:54.296Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0017",
+      "beneficiario": "TALLER ORINOCO C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 119000,
+      "moneda": "USD",
+      "fecha_emision": "2025-10-16",
+      "categoria": "Operaciones",
+      "alertas": [
+        "lecturas_difieren:fecha",
+        "imagen_confianza_baja"
+      ],
+      "confianza": 0.5,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3029,
+        "tokens_salida": 686,
+        "costo_usd": 0.0006459,
+        "ms": 4365,
+        "ok": true,
+        "datos": {
+          "beneficiario": "TALLER ORINOCO C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1190.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2025-10-16",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0017",
+          "categoria": "Operaciones",
+          "confianza": 0.5,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2498,
+        "tokens_salida": 164,
+        "costo_usd": 0.0008705,
+        "ms": 1617,
+        "ok": true,
+        "datos": {
+          "beneficiario": "TALLER ORINOCO C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1190.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0017",
+          "categoria": "Operaciones",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 4365,
+    "costo_usd": 0.0015164
+  }
+}

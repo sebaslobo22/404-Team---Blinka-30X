@@ -1,6 +1,6 @@
 """Dibuja una factura ficticia como imagen con Pillow (ya instalado en esta Mac).
 
-Uso: python3 render.py salida.png|jpg lineas.json [borrosa]
+Uso: python3 render.py salida.png|jpg lineas.json [borrosa|fuerte]
 lineas.json: lista de {"texto": str, "negrita": bool, "desenfoque": float}.
 Con "borrosa", la imagen entera se degrada (desenfoque, reduccion y ruido) y las lineas con
 "desenfoque" > 0 quedan ilegibles a proposito.
@@ -12,7 +12,9 @@ import sys
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 salida, ruta = sys.argv[1], sys.argv[2]
-borrosa = len(sys.argv) > 3 and sys.argv[3] == "borrosa"
+modo = sys.argv[3] if len(sys.argv) > 3 else ""
+borrosa = modo in ("borrosa", "fuerte")
+fuerte = modo == "fuerte"
 lineas = json.load(open(ruta, encoding="utf-8"))
 
 FUENTE = "/System/Library/Fonts/Supplemental/Arial.ttf"
@@ -38,8 +40,9 @@ for l in lineas:
 
 if borrosa:
     random.seed(7)
-    img = img.filter(ImageFilter.GaussianBlur(2.4))
-    img = img.resize((ANCHO // 2, alto // 2)).resize((ANCHO, alto))
+    img = img.filter(ImageFilter.GaussianBlur(4.2 if fuerte else 2.4))
+    f = 4 if fuerte else 2
+    img = img.resize((ANCHO // f, alto // f)).resize((ANCHO, alto))
     px = img.load()
     for _ in range(ANCHO * alto // 6):
         x, yy = random.randrange(ANCHO), random.randrange(alto)

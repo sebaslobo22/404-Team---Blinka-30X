@@ -1,0 +1,84 @@
+{
+  "id": "F-004",
+  "fecha": "2026-10-17T18:24:15.847Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "EB-0004",
+      "beneficiario": "Estúdio Beira-Mar Ltda.",
+      "id_fiscal": "FIC-BR-005",
+      "cuenta": "ACC-BR-0005",
+      "monto_centavos": 1100000,
+      "moneda": "BRL",
+      "fecha_emision": "2026-10-08",
+      "categoria": "Diseño",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[WhatsApp 08/10/2026 10:14] Estúdio Beira-Mar Ltda.: Buen día! Les compartimos la factura EB-0004 por diseño de interfaz y piezas de marca, R$ 11.000,00 (BRL). CNPJ FIC-BR-005, cuenta ACC-BR-0005. Gracias!\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2428,
+        "tokens_salida": 401,
+        "costo_usd": 0.0004433,
+        "ms": 3108,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Estúdio Beira-Mar Ltda.",
+          "id_fiscal": "FIC-BR-005",
+          "cuenta": "ACC-BR-0005",
+          "monto": "11000.00",
+          "moneda": "BRL",
+          "moneda_explicita": true,
+          "fecha": "2026-10-08",
+          "fecha_vencimiento": null,
+          "numero_factura": "EB-0004",
+          "categoria": "Diseño",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1515,
+        "tokens_salida": 164,
+        "costo_usd": 0.00062475,
+        "ms": 1557,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Estúdio Beira-Mar Ltda.",
+          "id_fiscal": "FIC-BR-005",
+          "cuenta": "ACC-BR-0005",
+          "monto": "11000.00",
+          "moneda": "BRL",
+          "moneda_explicita": true,
+          "fecha": "2026-10-08",
+          "fecha_vencimiento": null,
+          "numero_factura": "EB-0004",
+          "categoria": "Diseño",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3108,
+    "costo_usd": 0.00106805
+  }
+}

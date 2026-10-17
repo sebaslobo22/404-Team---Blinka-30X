@@ -1,0 +1,86 @@
+{
+  "id": "F-002",
+  "fecha": "2026-10-17T18:24:10.271Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "CC-0002",
+      "beneficiario": "CONSULTORES CAFETAL S.A.S.",
+      "id_fiscal": "FIC-CO-002",
+      "cuenta": "ACC-CO-0002",
+      "monto_centavos": 800000000,
+      "moneda": "COP",
+      "fecha_emision": "2026-10-06",
+      "categoria": "Consultoría",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3029,
+        "tokens_salida": 164,
+        "costo_usd": 0.0003849,
+        "ms": 2808,
+        "ok": true,
+        "datos": {
+          "beneficiario": "CONSULTORES CAFETAL S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "8000000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-06",
+          "fecha_vencimiento": null,
+          "numero_factura": "CC-0002",
+          "categoria": "Consultoría",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2498,
+        "tokens_salida": 167,
+        "costo_usd": 0.000875,
+        "ms": 1792,
+        "ok": true,
+        "datos": {
+          "beneficiario": "CONSULTORES CAFETAL S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "8000000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-06",
+          "fecha_vencimiento": null,
+          "numero_factura": "CC-0002",
+          "categoria": "Consultoría",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2808,
+    "costo_usd": 0.0012599
+  }
+}

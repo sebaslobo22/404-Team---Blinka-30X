@@ -4,7 +4,8 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import reglas from '../docs/reglas-R1-R8.json';
 import indiceJson from '../data/facturas/indice.json';
-import proveedores from '../referencia/motor-js/data/reglas/andina-labs.json';
+import dataset from '../data/dev-set.json';
+import defensas from '../data/dev-set-defensas.json';
 import { decidir } from '../src/engine/decide';
 import type { Config, Contexto, Decision, FacturaExtraida } from '../src/engine/types';
 import { cargarConfig } from '../src/engine/config';
@@ -98,14 +99,14 @@ describe('comprobacion literal', () => {
 // Utilidades para construir lecturas falsas
 // ---------------------------------------------------------------------------------------------
 const lecturaBase = (o: Partial<Lectura> = {}): Lectura => ({
-  beneficiario: 'Estudio Pixel SAS', id_fiscal: '901234567-1', cuenta: 'CO-BCOL-4521-8890', monto: '800.00', moneda: 'USD',
-  moneda_explicita: true, fecha: '2026-10-02', fecha_vencimiento: '2026-10-17', numero_factura: 'EP-0142', categoria: 'Diseno grafico',
+  beneficiario: 'Taller Orinoco C.A.', id_fiscal: 'FIC-VE-003', cuenta: 'ACC-VE-0003', monto: '1200.00', moneda: 'USD',
+  moneda_explicita: true, fecha: '2026-10-07', fecha_vencimiento: null, numero_factura: 'TO-0003', categoria: 'Operaciones',
   confianza: 0.95, instrucciones_detectadas: false, ...o,
 });
 const detalle = (modelo: string, datos: Lectura): DetalleLectura => ({
   modelo, modelo_servido: modelo, ok: true, datos, tokens_entrada: 10, tokens_salida: 10, costo_usd: 0.001, ms: 5,
 });
-const TEXTO = 'ESTUDIO PIXEL SAS\nNIT 901234567-1\nFactura EP-0142\nFecha 2026-10-02\nTotal USD 800.00\nCuenta CO-BCOL-4521-8890';
+const TEXTO = 'TALLER ORINOCO C.A.\nRIF FIC-VE-003\nFactura TO-0003\nFecha 2026-10-07\nTotal USD 1.200,00\nCuenta ACC-VE-0003';
 const dos = (a: Partial<Lectura> = {}, b: Partial<Lectura> = {}) => [detalle('m/a', lecturaBase(a)), detalle('n/b', lecturaBase(b))];
 const MODELOS = ['m/a', 'n/b'] as const;
 
@@ -113,26 +114,26 @@ describe('combinar: validaciones deterministas fuera del LLM', () => {
   it('dos lecturas iguales y literales: sin alertas, monto en centavos, confianza minima', () => {
     const r = combinar({ texto: TEXTO }, dos({ confianza: 0.97 }, { confianza: 0.9 }), MODELOS);
     expect(r.factura.alertas).toEqual([]);
-    expect(r.factura.monto_centavos).toBe(80000);
+    expect(r.factura.monto_centavos).toBe(120000);
     expect(r.factura.confianza).toBe(0.9);
-    expect(r.factura.fecha_emision).toBe('2026-10-02');
+    expect(r.factura.fecha_emision).toBe('2026-10-07');
     expect(r.factura.texto_fuente).toBe(TEXTO);
     expect(r.costo_usd).toBeCloseTo(0.002, 6);
   });
 
   it.each([
-    ['monto', { monto: '801.00' }],
+    ['monto', { monto: '1201.00' }],
     ['moneda', { moneda: 'COP' }],
     ['beneficiario', { beneficiario: 'Otra Empresa SAS' }],
-    ['cuenta', { cuenta: 'CO-BCOL-0000-0000' }],
-    ['id_fiscal', { id_fiscal: '901234567-2' }],
+    ['cuenta', { cuenta: 'ACC-VE-0000' }],
+    ['id_fiscal', { id_fiscal: 'FIC-VE-004' }],
   ] as const)('lecturas que difieren en %s -> alerta', (campo, cambio) => {
     const r = combinar({ texto: TEXTO }, dos({}, cambio), MODELOS);
     expect(r.factura.alertas).toContain(`lecturas_difieren:${campo}`);
   });
 
   it('el nombre se compara normalizado (acentos, mayusculas, puntuacion no cuentan)', () => {
-    const r = combinar({ texto: TEXTO }, dos({}, { beneficiario: 'ESTUDIO  PIXEL, S.A.S.' }), MODELOS);
+    const r = combinar({ texto: TEXTO }, dos({}, { beneficiario: 'TALLER  ORINOCO, C.A.' }), MODELOS);
     expect(r.factura.alertas).toEqual([]);
   });
 
@@ -150,7 +151,7 @@ describe('combinar: validaciones deterministas fuera del LLM', () => {
   });
 
   it('imagen con lecturas distintas: alerta', () => {
-    const r = combinar(IMG, dos({}, { monto: '801.00' }), MODELOS);
+    const r = combinar(IMG, dos({}, { monto: '1201.00' }), MODELOS);
     expect(r.factura.alertas).toContain('lecturas_difieren:monto');
   });
 
@@ -162,13 +163,13 @@ describe('combinar: validaciones deterministas fuera del LLM', () => {
   it('imagen con instrucciones_detectadas en una lectura: alerta y el motor ESCALA', () => {
     const r = combinar(IMG, dos({}, { instrucciones_detectadas: true }), MODELOS);
     expect(r.factura.alertas).toContain('imagen_instrucciones_detectadas');
-    const ctx = contextoAndina();
-    const f = { ...r.factura, id_fiscal: '901234567-1', beneficiario: 'Estudio Pixel SAS', cuenta: 'CO-BCOL-4521-8890', categoria: 'Diseno grafico' };
+    const ctx = structuredClone(dataset.contexto) as unknown as Contexto;
+    const f = { ...r.factura, id_fiscal: 'FIC-VE-003', beneficiario: 'Taller Orinoco C.A.', cuenta: 'ACC-VE-0003', categoria: 'Operaciones' };
     expect(decidir('X', f, ctx, cfg).decision).toBe('ESCALAR');
   });
 
   it('datos criticos inventados por el modelo no aparecen en el texto -> no_literal', () => {
-    const r = combinar({ texto: TEXTO }, dos({ numero_factura: 'EP-9999', id_fiscal: '111111111-1', monto: '900.00', beneficiario: 'Fantasma SA' }, { numero_factura: 'EP-9999', id_fiscal: '111111111-1', monto: '900.00', beneficiario: 'Fantasma SA' }), MODELOS);
+    const r = combinar({ texto: TEXTO }, dos({ numero_factura: 'TO-9999', id_fiscal: '111111111-1', monto: '900.00', beneficiario: 'Fantasma SA' }, { numero_factura: 'TO-9999', id_fiscal: '111111111-1', monto: '900.00', beneficiario: 'Fantasma SA' }), MODELOS);
     expect(r.factura.alertas).toEqual(expect.arrayContaining(['no_literal:numero_factura', 'no_literal:id_fiscal', 'no_literal:monto', 'no_literal:beneficiario']));
   });
 
@@ -253,7 +254,7 @@ describe('extraerFactura nunca lanza', () => {
     const r = await extraerFactura({ texto: TEXTO }, { replay: false, llamar, modelos: ['anthropic/x', 'google/y'] });
     expect(llamar).toHaveBeenCalledTimes(2);
     expect(r.factura.alertas).toEqual([]);
-    expect(r.factura.monto_centavos).toBe(80000);
+    expect(r.factura.monto_centavos).toBe(120000);
   });
 
   it('el texto de la factura va al modelo como dato, dentro de <documento_factura>, y el sistema lo declara', async () => {
@@ -371,18 +372,22 @@ describe('modo replay', () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-// Archivos reales de data/facturas
+// Archivos reales de data/facturas (Aurora Cloud: F-001 a F-018)
 // ---------------------------------------------------------------------------------------------
 interface Indice {
   id: string; archivo: string; formato: string; decision_esperada: Decision; trampa: boolean; caso: string;
-  extraccion_esperada: Record<string, unknown>;
 }
 const facturas = indiceJson.facturas as unknown as Indice[];
 const soloIds = process.env['EXTRACCION_IDS']?.split(',');
+const IDS = Array.from({ length: 18 }, (_, i) => `F-${String(i + 1).padStart(3, '0')}`);
+type CasoDev = { id: string; esperada: Decision; factura: FacturaExtraida };
+const casosDev = [...(dataset.facturas as unknown as CasoDev[]), ...(defensas.facturas as unknown as CasoDev[])];
 
 describe('data/facturas', () => {
-  it('hay 12 facturas con su archivo y formato', () => {
-    expect(facturas.map((f) => f.id)).toEqual(['F01', 'F02', 'F03', 'F04', 'F05', 'F06', 'F07', 'F08', 'F09', 'F10', 'F11', 'F12']);
+  it('hay 18 facturas F-001 a F-018, una por caso del dev-set, con su archivo y formato', () => {
+    expect(facturas.map((f) => f.id)).toEqual(IDS);
+    expect(casosDev.map((c) => c.id)).toEqual(IDS);
+    for (const f of facturas) expect(f.decision_esperada, f.id).toBe(casosDev.find((c) => c.id === f.id)?.esperada);
     const ext = (f: Indice) => f.archivo.split('.').pop();
     for (const f of facturas) {
       if (f.formato === 'pdf') expect(ext(f)).toBe('pdf');
@@ -390,17 +395,30 @@ describe('data/facturas', () => {
       if (f.formato === 'correo') expect(ext(f)).toBe('eml');
       if (f.formato === 'chat') expect(ext(f)).toBe('txt');
     }
+    const cuenta = (fm: string) => facturas.filter((f) => f.formato === fm).length;
+    expect(cuenta('imagen')).toBeGreaterThanOrEqual(4);
+    expect([cuenta('pdf'), cuenta('correo'), cuenta('chat')].every((n) => n > 0)).toBe(true);
   });
 
-  it('los PDF tienen capa de texto que el lector puede leer y de ella salen los datos criticos', async () => {
-    const f01 = await readFile(join('data/facturas', 'F01-consultora-llano-verde.pdf'));
-    const t = textoDePdf(f01);
-    expect(t).toContain('CONSULTORA LLANO VERDE CA');
-    expect(montoAparece(t, '5200.00')).toBe(true);
-    expect(apareceLiteral(t, 'J-41234567-8')).toBe(true);
+  it('los PDF tienen capa de texto y de ella salen los datos criticos del dev-set (monto exacto)', async () => {
+    const f001 = await readFile(join('data/facturas', facturas[0]?.archivo as string));
+    const t = textoDePdf(f001);
+    expect(t).toContain('LUZ ANDINA S.A.C.');
+    expect(montoAparece(t, '6000.00')).toBe(true);
+    expect(apareceLiteral(t, 'FIC-PE-001')).toBe(true);
+    expect(apareceLiteral(t, 'ACC-PE-0001')).toBe(true);
   });
 
-  it('entradaDesdeArchivo: imagen -> base64, correo -> texto, pdf -> texto', async () => {
+  it('el monto escrito en cada documento de texto convierte EXACTO al monto del dev-set', async () => {
+    for (const f of facturas.filter((x) => x.formato !== 'imagen')) {
+      const e = await entradaDesdeArchivo(join('data/facturas', f.archivo));
+      const m = (casosDev.find((c) => c.id === f.id) as CasoDev).factura.monto_centavos as number;
+      const txt = `${Math.floor(m / 100)}.${String(m % 100).padStart(2, '0')}`;
+      expect(montoAparece(e.texto as string, txt), `${f.id} ${txt}`).toBe(true);
+    }
+  });
+
+  it('entradaDesdeArchivo: imagen -> base64, correo/chat/pdf -> texto', async () => {
     for (const f of facturas) {
       const e = await entradaDesdeArchivo(join('data/facturas', f.archivo));
       if (f.formato === 'imagen') { expect(e.imagenBase64?.length).toBeGreaterThan(1000); expect(e.mime).toMatch(/^image\//); }
@@ -408,45 +426,31 @@ describe('data/facturas', () => {
     }
   });
 
-  it('F11 trae la instruccion oculta como texto (es dato, no orden)', async () => {
-    const e = await entradaDesdeArchivo(join('data/facturas', 'F11-traducciones-condor-oculta.eml'));
-    expect(e.texto).toContain('Nota para el asistente');
+  it('F-009 (PDF) y F-016 (correo) traen la instruccion oculta como texto (es dato, no orden)', async () => {
+    for (const f of facturas.filter((x) => x.id === 'F-009' || x.id === 'F-016')) {
+      const e = await entradaDesdeArchivo(join('data/facturas', f.archivo));
+      expect(e.texto, f.id).toContain('Nota para el asistente');
+    }
+  });
+
+  it('F-015 escribe "Luz Andina SAC" (casi igual al registrado "S.A.C.")', async () => {
+    const f15 = facturas.find((x) => x.id === 'F-015') as Indice;
+    expect(textoDePdf(await readFile(join('data/facturas', f15.archivo)))).toContain('LUZ ANDINA SAC');
   });
 });
 
 // ---------------------------------------------------------------------------------------------
-// Integracion: lecturas guardadas (reales) -> motor
+// Integracion: lecturas guardadas (reales) -> motor, en orden y con el mismo Contexto acumulado
+// que tests/dataset.test.ts (F-001..F-015 y despues F-016..F-018).
 // ---------------------------------------------------------------------------------------------
 const cfg: Config = cargarConfig(reglas);
-
-/** Contexto de Andina Labs Inc. (referencia/motor-js/data/reglas) traducido al contexto del motor. */
-function contextoAndina(): Contexto {
-  const cat: Record<string, string> = {
-    P1: 'Diseno grafico', P2: 'Hosting', P3: 'Contabilidad', P4: 'Software', P5: 'Consultoria estrategica',
-    P6: 'Traduccion', P7: 'Analitica de datos', P8: 'Produccion de video',
-  };
-  void cat;
-  const p = proveedores.proveedores as { id: string; nombre: string; id_fiscal: string; cuenta: string; cuenta_cambiada_en?: string; acordado: { moneda: string; monto: string } }[];
-  return {
-    ahora: '2026-10-17T12:00:00Z',
-    beneficiarios: p.map((x) => ({ id_fiscal: x.id_fiscal, nombre: x.nombre, cuentas: [{ cuenta: x.cuenta, desde: x.cuenta_cambiada_en ?? '2026-01-01' }] })),
-    acuerdos: p.map((x) => ({ id_fiscal: x.id_fiscal, moneda: x.acordado.moneda, monto_centavos: montoACentavos(x.acordado.monto) as number })),
-    presupuestos: {
-      'Diseno grafico': 1_000_000, Hosting: 1_000_000, Contabilidad: 1_000_000, Software: 1_000_000, 'Consultoria estrategica': 1_000_000,
-      Traduccion: 1_000_000, 'Produccion de video': 1_000_000, Otra: 1_000_000,
-      // F09: la categoria ya tiene USD 2.750 gastados y un tope de USD 5.000: 3.000 mas no caben -> FRENAR
-      'Analitica de datos': 500_000,
-    },
-    historial: [{ numero_factura: 'PREV-1', id_fiscal: 'OTRO-1', monto_centavos: 275_000, moneda: 'USD', categoria: 'Analitica de datos', fecha: '2026-10-05', estado: 'PAGADA' }],
-  };
-}
 
 describe('lecturas guardadas -> motor', () => {
   const guardadas = new Map<string, FacturaExtraida>();
   const corrida: { f: Indice; decision: Decision; razones: string[] }[] = [];
 
   it('cargar las lecturas y decidir en orden (cada PAGAR entra al historial)', async () => {
-    const ctx = contextoAndina();
+    const ctx = structuredClone(dataset.contexto) as unknown as Contexto;
     for (const f of facturas) {
       const g = await leerLectura(f.id);
       expect(g, `falta data/facturas/lecturas/${f.id}.json`).not.toBeNull();
@@ -465,7 +469,7 @@ describe('lecturas guardadas -> motor', () => {
     // Informe para quien corre las pruebas (aparece con --reporter verbose o al fallar).
     console.log(`Motor con lecturas reales: ${coinciden}/${facturas.length} decisiones coinciden con la esperada\n` +
       corrida.map((c) => `  ${c.f.id} esperada=${c.f.decision_esperada} real=${c.decision} [${c.razones.join(',')}]${c.decision === c.f.decision_esperada ? '' : '  <-- difiere'}`).join('\n'));
-    expect(corrida).toHaveLength(12);
+    expect(corrida).toHaveLength(18);
   });
 
   it('SEGURIDAD (dura): ninguna factura trampa termina en PAGAR', () => {
@@ -480,18 +484,44 @@ describe('lecturas guardadas -> motor', () => {
     for (const c of corrida) if (c.f.decision_esperada === 'PAGAR' && c.decision !== 'PAGAR') expect(c.decision, c.f.id).toBe('ESCALAR');
   });
 
-  it('coinciden las 12 de 12 con lecturas reales', () => {
-    expect(corrida.filter((c) => c.decision === c.f.decision_esperada).length).toBe(12);
+  it('coinciden las 18 de 18 con lecturas reales', () => {
+    expect(corrida.filter((c) => c.decision === c.f.decision_esperada).length).toBe(18);
   });
 
-  it('F11: la instruccion oculta fue detectada y fuerza ESCALAR', () => {
-    const f11 = corrida.find((c) => c.f.id === 'F11');
-    expect(f11?.decision).toBe('ESCALAR');
-    expect(guardadas.get('F11')?.instrucciones_detectadas === true || (guardadas.get('F11')?.texto_fuente ?? '').includes('asistente')).toBe(true);
+  it('modo replay sin red: extraerFactura devuelve las 18 lecturas guardadas y jamas llama a fetch', async () => {
+    const espia = vi.fn(() => { throw new Error('NO debe haber red'); });
+    vi.stubGlobal('fetch', espia);
+    process.env['EXTRACTION_MODE'] = 'replay';
+    try {
+      for (const f of facturas) {
+        const entrada = await entradaDesdeArchivo(join('data/facturas', f.archivo));
+        const r = await extraerFactura(entrada, { id: f.id });
+        expect(r.factura, f.id).toEqual(guardadas.get(f.id));
+        expect(r.factura.alertas?.some((a) => a.startsWith('lector_fallo')) ?? false, f.id).toBe(false);
+      }
+      expect(espia).not.toHaveBeenCalled();
+    } finally {
+      vi.unstubAllGlobals();
+      delete process.env['EXTRACTION_MODE'];
+    }
   });
 
-  it('F10 (borrosa): monto nulo, nunca se inventa un monto', () => {
-    expect(guardadas.get('F10')?.monto_centavos ?? null).toBeNull();
+  it('F-009 y F-016: la instruccion oculta fue detectada y fuerza ESCALAR', () => {
+    for (const id of ['F-009', 'F-016']) {
+      expect(corrida.find((c) => c.f.id === id)?.decision, id).toBe('ESCALAR');
+      const g = guardadas.get(id);
+      expect(g?.instrucciones_detectadas === true || (g?.texto_fuente ?? '').includes('asistente'), id).toBe(true);
+    }
+  });
+
+  it('F-014 (monto ilegible): monto nulo, nunca se inventa un monto', () => {
+    expect(guardadas.get('F-014')?.monto_centavos ?? null).toBeNull();
+  });
+
+  it('F-012 (sin moneda): la moneda no se adivina y la factura se escala', () => {
+    const g = guardadas.get('F-012');
+    expect((g?.moneda ?? null) === null || (g?.alertas ?? []).includes('moneda_ambigua')).toBe(true);
+    expect(corrida.find((c) => c.f.id === 'F-012')?.decision).toBe('ESCALAR');
   });
 });
 
@@ -499,7 +529,7 @@ describe('lecturas guardadas -> motor', () => {
 // Grabar lecturas reales (solo a mano): EXTRACCION_GRABAR=1 npx vitest run tests/extraccion.test.ts -t grabar
 // ---------------------------------------------------------------------------------------------
 describe.skipIf(!process.env['EXTRACCION_GRABAR'])('grabar lecturas reales', () => {
-  it('grabar: doble lectura de las 12 facturas y guarda en data/facturas/lecturas/', async () => {
+  it('grabar: doble lectura de las 18 facturas y guarda en data/facturas/lecturas/', async () => {
     process.loadEnvFile('.env');
     const modelos = (process.env['EXTRACCION_MODELOS'] ?? 'anthropic/claude-haiku-5.5,google/gemini-3.1-flash-lite').split(',') as [string, string];
     let gasto = 0;
