@@ -1,12 +1,12 @@
-# Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
+# Pulso · Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
 
-**Actualizado:** 17/10/2026 - 4:07 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
+**Actualizado:** 17/10/2026 - 4:28 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
 
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
 `docs/brief-blinka.md`; la bitácora de decisiones en `docs/decisiones.md`.
 **Diseño bottom-up (diagrama → estados → razones → organismos → pantallas, con pruebas de trazabilidad):** `docs/diseno-bottom-up.md`. Toda interfaz nueva parte de ahí.
-**Despliegue:** Vercel está limitado hasta la madrugada del 18/10 (tope de 100 despliegues/24 h de la cuenta). Mientras tanto se despliega en **https://equipo404.produfy.co** siguiendo `docs/despliegue-produfy.md`. El centro de mando también funciona en vivo ahí: https://equipo404.produfy.co/team (y `EQUIPO_URL=https://equipo404.produfy.co` sirve para `scripts/equipo.mjs`).
+**Despliegue:** Vercel está limitado hasta la madrugada del 18/10 (tope de 100 despliegues/24 h de la cuenta). Mientras tanto se despliega en **https://equipo404.produfy.co** siguiendo `docs/despliegue-produfy.md`. **Enlace oficial del jurado: https://equipo404.produfy.co** (modo público: `/team` da 404; no se cambia aunque Vercel se libere). Centro de mando del equipo: https://404team.vercel.app/team (`EQUIPO_URL=https://404team.vercel.app`). Estado para retomar: `docs/estado-sesion.md`.
 **Mapa de escenarios (clientes, entradas, salidas, decisiones) y diagrama:** `docs/mapa-escenarios.md` · FigJam https://www.figma.com/board/Z35gyUNofAP7wy2AWshTI6
 **Matriz requisito → dónde se cumple → cómo se prueba, con los huecos abiertos: `docs/requisitos.md`.** Toda función nueva debe servir a una fila de esa matriz.
 
@@ -21,6 +21,8 @@ de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; e
    no se fusiona.
 
 **Consultas de código:** usa Graphify antes de leer archivos (repo indexado en la nube para `main`; grafo local con `graphify update .` para ramas). Guía de acceso del equipo: `docs/GUIA-EQUIPO.md`.
+
+**Nombre del producto: Pulso** · lema: **"Pulso firme en cada pago"** (decidido 17/10). Equipo: 404.
 
 ## 1. El reto en una frase
 Un agente que lee facturas con IA, decide con reglas en código si **PAGAR, FRENAR o ESCALAR**, y explica

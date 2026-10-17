@@ -1,4 +1,6 @@
-# Agente que paga por la empresa (Equipo 404, Hackathon 30X, reto Blinka)
+# Pulso — Pulso firme en cada pago
+
+Agente de pagos del **Equipo 404** para el reto Blinka del Hackathon 30X. **Demo en vivo: https://equipo404.produfy.co**
 
 Un agente que lee facturas y decide **PAGAR**, **FRENAR** o **ESCALAR** segun reglas de politica configurables. Registra y explica cada decision. **Nunca mueve dinero**: su salida es una instruccion de pago que otro sistema ejecutaria.
 

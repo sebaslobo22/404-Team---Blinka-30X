@@ -4,7 +4,7 @@
 
 **Por qué:** la cuenta de Vercel (plan Hobby) llegó al tope de 100 despliegues en 24 horas el 17/10 (hango-b2c 96 + 404team 44). Hasta que se liberen cupos (estimado: madrugada del domingo 18/10), Vercel no publica nada nuevo; https://404team.vercel.app sigue sirviendo la última versión que salió.
 
-**Sitio en Produfy:** **https://equipo404.produfy.co** (pila `nextjs`, sin base de datos propia; usa el Supabase del equipo). Primer despliegue: `main` en `dc12dc6`.
+**Sitio en Produfy — enlace oficial del jurado, no se cambia:** **https://equipo404.produfy.co** (pila `nextjs`, sin base de datos propia; usa el Supabase del equipo). Primer despliegue: `main` en `dc12dc6`.
 
 ## Cómo desplegar (lo hace un agente con el conector de Produfy)
 1. Empaquetar `main` sin `.env` ni `.git`: `git archive --format=zip -o equipo404.zip origin/main`.
@@ -15,7 +15,7 @@
 
 ## Variables
 - Cargadas: `EXTRACTION_MODE=replay`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (públicas).
-- Secretas (cargadas el 17/10 a las 4:09 p.m. con `secret=true`, por pedido de Sebastián): `SUPABASE_SERVICE_ROLE_KEY` y `EQUIPO_PIN`. Con ellas, `/team` en Produfy lee Supabase en vivo y acepta escrituras con PIN (verificado: entrar 200, escribir sin PIN 401, con PIN 201).
+- **Estado final (17/10/2026 - 4:28 p.m.):** `MODO_PUBLICO=1` (ocultas `/team`, `/api/team` y `/equipo`, que responden 404). `SUPABASE_SERVICE_ROLE_KEY` y `EQUIPO_PIN` **no están cargadas**: se cargaron a las 4:09 p.m. y se quitaron a las 4:20 p.m. por pedido de Andrés, porque este es el enlace del jurado. El centro de mando del equipo vive en https://404team.vercel.app/team.
 - `NEXT_PUBLIC_*` se fijan al construir: si cambian, hay que volver a desplegar.
 
 ## Límites del plan de prueba
