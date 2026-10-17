@@ -54,6 +54,13 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
   const razones: Razon[] = [];
   const hechos: Record<string, Hecho> = {};
 
+  // Alertas de las defensas deterministas de la extraccion: cualquiera fuerza ESCALAR.
+  const nAlertas = f.alertas === undefined ? 0 : Array.isArray(f.alertas) ? f.alertas.length : 1;
+  if (nAlertas > 0) {
+    razones.push({ regla: 'EXTRACCION', efecto: 'ESCALAR' });
+    hechos['alertas_n'] = nAlertas;
+  }
+
   // R7: campos criticos y moneda. Si falla, la extraccion no es confiable: se escala sin mas.
   const fallos: string[] = [];
   if (!texto(f.numero_factura)) fallos.push('numero_factura');

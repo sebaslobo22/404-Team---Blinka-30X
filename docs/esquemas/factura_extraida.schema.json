@@ -14,6 +14,11 @@
     "moneda": { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
     "fecha_emision": { "type": ["string", "null"], "format": "date" },
     "categoria": { "type": ["string", "null"] },
+    "alertas": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Alertas de las defensas deterministas de la extraccion (frase con forma de instruccion, suma que no cuadra, monto distinto al releido con regex). Cualquier alerta fuerza ESCALAR."
+    },
     "lineas": {
       "type": "array",
       "items": {

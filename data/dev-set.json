@@ -1,0 +1,63 @@
+{
+  "nombre": "Set de desarrollo F-001 a F-015",
+  "nota": "Datos 100% ficticios. Salida simulada del extractor (montos en centavos de la moneda de la factura). Se procesa en orden: cada PAGAR entra al historial como PAGADA. Fuente: hoja HACK 30X - BLINKA, pestanas Dataset de facturas y Reglas de politica.",
+  "contexto": {
+    "ahora": "2026-10-17T12:00:00Z",
+    "beneficiarios": [
+      { "id_fiscal": "FIC-PE-001", "nombre": "Luz Andina S.A.C.", "cuentas": [{ "cuenta": "ACC-PE-0001", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-CO-002", "nombre": "Consultores Cafetal S.A.S.", "cuentas": [{ "cuenta": "ACC-CO-0002", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-VE-003", "nombre": "Taller Orinoco C.A.", "cuentas": [{ "cuenta": "ACC-VE-0003", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-EC-004", "nombre": "Agro Páramo Cía. Ltda.", "cuentas": [{ "cuenta": "ACC-EC-0004", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-BR-005", "nombre": "Estúdio Beira-Mar Ltda.", "cuentas": [{ "cuenta": "ACC-BR-0005", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-MX-006", "nombre": "Diseños Azteca S. de R.L.", "cuentas": [{ "cuenta": "ACC-MX-0006", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-VE-007", "nombre": "Marcos Rivas (contratista ficticio)", "cuentas": [{ "cuenta": "ACC-VE-0007", "desde": "2026-01-01" }] },
+      { "id_fiscal": "FIC-EC-008", "nombre": "Soporte Quito Cía. Ltda.", "cuentas": [{ "cuenta": "ACC-EC-0008", "desde": "2026-10-15" }] }
+    ],
+    "acuerdos": [
+      { "id_fiscal": "FIC-PE-001", "moneda": "PEN", "monto_centavos": 600000, "categoria": "Infraestructura" },
+      { "id_fiscal": "FIC-CO-002", "moneda": "COP", "monto_centavos": 800000000, "categoria": "Consultoría" },
+      { "id_fiscal": "FIC-VE-003", "moneda": "USD", "monto_centavos": 120000, "categoria": "Operaciones" },
+      { "id_fiscal": "FIC-EC-004", "moneda": "USD", "monto_centavos": 980000, "categoria": "Infraestructura" },
+      { "id_fiscal": "FIC-BR-005", "moneda": "BRL", "monto_centavos": 1100000, "categoria": "Diseño" },
+      { "id_fiscal": "FIC-MX-006", "moneda": "MXN", "monto_centavos": 8100000, "categoria": "Diseño" },
+      { "id_fiscal": "FIC-VE-007", "moneda": "USD", "monto_centavos": 150000, "categoria": "Nómina" },
+      { "id_fiscal": "FIC-EC-008", "moneda": "USD", "monto_centavos": 90000, "categoria": "Operaciones" }
+    ],
+    "presupuestos": { "Infraestructura": 2000000, "Consultoría": 800000, "Operaciones": 600000, "Diseño": 400000, "Nómina": 600000 },
+    "historial": [
+      { "numero_factura": "NOM-0012", "id_fiscal": "FIC-VE-007", "monto_centavos": 150000, "moneda": "USD", "categoria": "Nómina", "fecha": "2026-10-01", "estado": "PAGADA" }
+    ]
+  },
+  "facturas": [
+    { "id": "F-001", "trampa": "Caso limpio", "esperada": "PAGAR", "reglas_esperadas": [],
+      "factura": { "numero_factura": "LA-0001", "beneficiario": "Luz Andina S.A.C.", "id_fiscal": "FIC-PE-001", "cuenta": "ACC-PE-0001", "monto_centavos": 600000, "moneda": "PEN", "fecha_emision": "2026-10-05", "categoria": "Infraestructura" } },
+    { "id": "F-002", "trampa": "Caso limpio", "esperada": "PAGAR", "reglas_esperadas": [],
+      "factura": { "numero_factura": "CC-0002", "beneficiario": "Consultores Cafetal S.A.S.", "id_fiscal": "FIC-CO-002", "cuenta": "ACC-CO-0002", "monto_centavos": 800000000, "moneda": "COP", "fecha_emision": "2026-10-06", "categoria": "Consultoría" } },
+    { "id": "F-003", "trampa": "Caso limpio", "esperada": "PAGAR", "reglas_esperadas": [],
+      "factura": { "numero_factura": "TO-0003", "beneficiario": "Taller Orinoco C.A.", "id_fiscal": "FIC-VE-003", "cuenta": "ACC-VE-0003", "monto_centavos": 120000, "moneda": "USD", "fecha_emision": "2026-10-07", "categoria": "Operaciones" } },
+    { "id": "F-004", "trampa": "Caso limpio", "esperada": "PAGAR", "reglas_esperadas": [],
+      "factura": { "numero_factura": "EB-0004", "beneficiario": "Estúdio Beira-Mar Ltda.", "id_fiscal": "FIC-BR-005", "cuenta": "ACC-BR-0005", "monto_centavos": 1100000, "moneda": "BRL", "fecha_emision": "2026-10-08", "categoria": "Diseño" } },
+    { "id": "F-005", "trampa": "Monto sobre el límite por pago", "esperada": "ESCALAR", "reglas_esperadas": ["R1"],
+      "factura": { "numero_factura": "AP-0005", "beneficiario": "Agro Páramo Cía. Ltda.", "id_fiscal": "FIC-EC-004", "cuenta": "ACC-EC-0004", "monto_centavos": 980000, "moneda": "USD", "fecha_emision": "2026-10-08", "categoria": "Infraestructura" } },
+    { "id": "F-006", "trampa": "Cobro duplicado", "esperada": "FRENAR", "reglas_esperadas": ["R5"],
+      "factura": { "numero_factura": "LA-0001", "beneficiario": "Luz Andina S.A.C.", "id_fiscal": "FIC-PE-001", "cuenta": "ACC-PE-0001", "monto_centavos": 600000, "moneda": "PEN", "fecha_emision": "2026-10-09", "categoria": "Infraestructura" } },
+    { "id": "F-007", "trampa": "Beneficiario nuevo", "esperada": "FRENAR", "reglas_esperadas": ["R2", "R6"],
+      "factura": { "numero_factura": "SN-0007", "beneficiario": "Servicios Nuevo Horizonte S.A.S.", "id_fiscal": "FIC-CO-009", "cuenta": "ACC-CO-0009", "monto_centavos": 600000000, "moneda": "COP", "fecha_emision": "2026-10-10", "categoria": "Consultoría" } },
+    { "id": "F-008", "trampa": "Factura que no cuadra con lo acordado", "esperada": "ESCALAR", "reglas_esperadas": ["R6"],
+      "factura": { "numero_factura": "CC-0008", "beneficiario": "Consultores Cafetal S.A.S.", "id_fiscal": "FIC-CO-002", "cuenta": "ACC-CO-0002", "monto_centavos": 960000000, "moneda": "COP", "fecha_emision": "2026-10-11", "categoria": "Consultoría" } },
+    { "id": "F-009", "trampa": "Instrucciones ocultas en el documento", "esperada": "ESCALAR", "reglas_esperadas": ["EXTRACCION", "R1", "R6"],
+      "factura": { "numero_factura": "AP-0009", "beneficiario": "Agro Páramo Cía. Ltda.", "id_fiscal": "FIC-EC-004", "cuenta": "ACC-EC-0004", "monto_centavos": 750000, "moneda": "USD", "fecha_emision": "2026-10-12", "categoria": "Infraestructura", "alertas": ["instruccion_oculta_en_documento"] } },
+    { "id": "F-010", "trampa": "Presupuesto insuficiente", "esperada": "FRENAR", "reglas_esperadas": ["R4"],
+      "factura": { "numero_factura": "DA-0010", "beneficiario": "Diseños Azteca S. de R.L.", "id_fiscal": "FIC-MX-006", "cuenta": "ACC-MX-0006", "monto_centavos": 8100000, "moneda": "MXN", "fecha_emision": "2026-10-12", "categoria": "Diseño" } },
+    { "id": "F-011", "trampa": "Cuenta bancaria cambiada hace 2 días", "esperada": "ESCALAR", "reglas_esperadas": ["R8"],
+      "factura": { "numero_factura": "SQ-0011", "beneficiario": "Soporte Quito Cía. Ltda.", "id_fiscal": "FIC-EC-008", "cuenta": "ACC-EC-0008", "monto_centavos": 90000, "moneda": "USD", "fecha_emision": "2026-10-14", "categoria": "Operaciones" } },
+    { "id": "F-012", "trampa": "Moneda ambigua", "esperada": "ESCALAR", "reglas_esperadas": ["R7"],
+      "factura": { "numero_factura": "CC-0012", "beneficiario": "Consultores Cafetal S.A.S.", "id_fiscal": "FIC-CO-002", "cuenta": "ACC-CO-0002", "monto_centavos": 100000000, "moneda": null, "fecha_emision": "2026-10-14", "categoria": "Consultoría" } },
+    { "id": "F-013", "trampa": "Pago doble de nómina", "esperada": "ESCALAR", "reglas_esperadas": ["R6"],
+      "factura": { "numero_factura": "NOM-0013", "beneficiario": "Marcos Rivas (contratista ficticio)", "id_fiscal": "FIC-VE-007", "cuenta": "ACC-VE-0007", "monto_centavos": 300000, "moneda": "USD", "fecha_emision": "2026-10-15", "categoria": "Nómina" } },
+    { "id": "F-014", "trampa": "Campo crítico vacío", "esperada": "ESCALAR", "reglas_esperadas": ["R7"],
+      "factura": { "numero_factura": "TO-0014", "beneficiario": "Taller Orinoco C.A.", "id_fiscal": "FIC-VE-003", "cuenta": "ACC-VE-0003", "monto_centavos": null, "moneda": "USD", "fecha_emision": "2026-10-15", "categoria": "Operaciones" } },
+    { "id": "F-015", "trampa": "Beneficiario casi igual con otra cuenta", "esperada": "FRENAR", "reglas_esperadas": ["R2", "R5"],
+      "factura": { "numero_factura": "LA-0015", "beneficiario": "Luz Andina SAC", "id_fiscal": "FIC-PE-001", "cuenta": "ACC-PE-9999", "monto_centavos": 600000, "moneda": "PEN", "fecha_emision": "2026-10-16", "categoria": "Infraestructura" } }
+  ]
+}

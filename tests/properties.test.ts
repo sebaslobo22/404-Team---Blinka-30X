@@ -10,6 +10,7 @@ import { cfg, contextoBase } from './fixtures';
  * y sin reutilizar codigo del motor. El motor decide PAGAR si y solo si el oraculo lo permite.
  */
 function oraculoPagable(f: FacturaExtraida, ctx: Contexto): boolean {
+  if (f.alertas !== undefined && (!Array.isArray(f.alertas) || f.alertas.length > 0)) return false;
   const s = (x: unknown) => typeof x === 'string' && x.trim() !== '';
   if (![f.numero_factura, f.beneficiario, f.id_fiscal, f.cuenta, f.categoria, f.moneda].every(s)) return false;
   const m = f.monto_centavos;
@@ -127,6 +128,11 @@ const arbFacturaSalvaje: fc.Arbitrary<FacturaExtraida> = fc.record({
   moneda: opcional(fc.constantFrom(...monedas)),
   fecha_emision: opcional(fc.constantFrom(...fechas)),
   categoria: opcional(fc.constantFrom(...cats)),
+  alertas: fc.oneof(
+    { weight: 8, arbitrary: fc.constant(undefined) },
+    { weight: 1, arbitrary: fc.constant([] as string[]) },
+    { weight: 1, arbitrary: fc.constant(['instruccion_oculta']) },
+  ),
 }) as fc.Arbitrary<FacturaExtraida>;
 
 /** Facturas casi validas: consistentes con un beneficiario y su acuerdo, con variaciones pequenas. */

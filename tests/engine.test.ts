@@ -211,6 +211,21 @@ describe('R8 cuenta cambiada recientemente', () => {
   });
 });
 
+describe('alertas de la extraccion', () => {
+  it('una factura perfecta con una alerta no se paga', () => {
+    const r = decidir('F', con({ alertas: ['instruccion_oculta_en_documento'] }), contextoBase(), cfg);
+    expect(r.decision).toBe('ESCALAR');
+    expect(reglasDe(r)).toEqual(['EXTRACCION']);
+  });
+  it('una lista vacia no afecta; un valor que no es lista escala', () => {
+    expect(decidir('F', con({ alertas: [] }), contextoBase(), cfg).decision).toBe('PAGAR');
+    expect(decidir('F', con({ alertas: 'nada' as never }), contextoBase(), cfg).decision).toBe('ESCALAR');
+  });
+  it('una alerta no le quita el FRENAR a un beneficiario desconocido', () => {
+    expect(decidir('F', con({ id_fiscal: 'J-9999', alertas: ['x'] }), contextoBase(), cfg).decision).toBe('FRENAR');
+  });
+});
+
 describe('falla cerrada', () => {
   it('un contexto roto escala con ESQUEMA en vez de lanzar error', () => {
     const ctx = contextoBase();

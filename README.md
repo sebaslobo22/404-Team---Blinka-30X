@@ -31,10 +31,16 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 
 ```
 npm install
-npm test          # 50 tests: ejemplos por regla y propiedades con fast-check
+npm test          # 71 tests: ejemplos por regla, propiedades con fast-check y el set F-001 a F-015
 npm run typecheck
 ```
 
 Las propiedades comparan el motor con un oraculo independiente escrito con BigInt: el motor decide PAGAR si y solo si el oraculo lo permite. Ademas se verifica que nunca lanza error, que es determinista, que no modifica sus entradas y que toda cifra de la explicacion sale de los hechos del motor.
 
 Supuestos pendientes de confirmar con el dataset del equipo: una cuenta nueva debe estar registrada en la lista de beneficiarios con su fecha de alta (una cuenta no registrada se frena por R2; una registrada hace menos de 3 dias escala por R8); la tolerancia de R6 aplica en ambos sentidos; sin presupuesto configurado para la categoria se escala.
+
+## Set de desarrollo (F-001 a F-015)
+
+`data/dev-set.json` es la salida simulada del extractor para las 15 facturas del Sheet del equipo, y `tests/dataset.test.ts` las corre en orden contra el motor: 4 PAGAR, 4 FRENAR y 7 ESCALAR, con las reglas esperadas en cada caso. Los beneficiarios, acuerdos, presupuestos y tasas salen del Sheet. Los numeros de factura, las fechas, la fecha de alta de la cuenta de F-011, el pago previo de nomina de F-013 y la alerta de F-009 los fijamos nosotros para poder ejecutar el caso.
+
+Este set lo disenamos nosotros: pasarlo no prueba que el agente generalice. Eso lo mide el set ciego, armado por otra persona y congelado antes de ver los resultados.

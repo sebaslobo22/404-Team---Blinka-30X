@@ -12,6 +12,12 @@ export interface FacturaExtraida {
   fecha_emision: string | null;
   categoria: string | null;
   lineas?: { descripcion: string; monto_centavos: number }[];
+  /**
+   * Alertas de las defensas deterministas de la extraccion (frase con forma de instruccion,
+   * suma de lineas que no cuadra, monto distinto al releido con regex, etc.).
+   * Cualquier alerta fuerza ESCALAR.
+   */
+  alertas?: string[];
 }
 
 export interface CuentaRegistrada {

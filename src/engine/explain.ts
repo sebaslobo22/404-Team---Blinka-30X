@@ -27,6 +27,7 @@ const PLANTILLAS: Record<string, (h: Hechos) => string> = {
       : `El monto difiere del acuerdo en mas de ${num(h, 'tolerancia_pct')} por ciento.`,
   R7: (h) => `Hay ${num(h, 'campos_invalidos_n')} campos criticos de la factura faltantes o invalidos.`,
   R8: (h) => `La cuenta se registro hace ${num(h, 'dias_desde_cambio_cuenta')} dias y la ventana de cambio reciente es de ${num(h, 'ventana_cuenta_dias')} dias.`,
+  EXTRACCION: (h) => `La extraccion levanto ${num(h, 'alertas_n')} alertas de seguridad en el documento.`,
   ESQUEMA: () => 'No se pudo evaluar la factura; se escala por seguridad.',
 };
 
