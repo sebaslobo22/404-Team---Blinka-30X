@@ -117,8 +117,8 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
       <div className="eq-wrap">
         <header className="eq-top">
           <div>
-            <h1>Centro de mando 404</h1>
-            <p className="eq-sub">Quién hace qué, qué zona está tomada y qué pasó. {vivo ? <span className="eq-pill eq-p-ok">en vivo</span> : null}</p>
+            <h1>¿Cómo va el equipo?</h1>
+            <p className="eq-sub">Revisa quién hace cada tarea y qué falta. {vivo ? <span className="eq-pill eq-p-ok">en vivo</span> : null}</p>
           </div>
           <div className="eq-lado">
             {a ? (
@@ -141,7 +141,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
         </header>
 
         {!ctx.conectado ? (
-          <div className="eq-aviso" role="status">Sin conexión a Supabase: mostrando la semilla. Solo lectura.</div>
+          <div className="eq-aviso" role="status">No hay conexión. Ves datos de muestra, sin poder cambiarlos.</div>
         ) : null}
         {msg ? <div className="eq-aviso eq-aviso-mal" role="alert">{msg}</div> : null}
 
@@ -153,6 +153,18 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
           </div>
         </section>
 
+        <section aria-label="Puertas">
+          <h2>¿Qué quieres ver?</h2>
+          <div className="eq-doors">
+            {puertas.map((p) => (
+              <button key={p.id} className="eq-door" aria-expanded={puerta === p.id} aria-controls={`eq-p-${p.id}`} onClick={() => setPuerta(puerta === p.id ? null : p.id)}>
+                {p.titulo}<small>{p.sub}</small>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <details><summary>Ver más del equipo</summary>
         <section aria-label="Personas">
           <div className="eq-personas">
             {PERSONAS.map((p) => {
@@ -169,17 +181,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
           </div>
         </section>
 
-        <section aria-label="Puertas">
-          <h2>¿Qué quieres ver?</h2>
-          <div className="eq-doors">
-            {puertas.map((p) => (
-              <button key={p.id} className="eq-door" aria-expanded={puerta === p.id} aria-controls={`eq-p-${p.id}`} onClick={() => setPuerta(puerta === p.id ? null : p.id)}>
-                {p.titulo}<small>{p.sub}</small>
-              </button>
-            ))}
-          </div>
-        </section>
-
+        </details>
         {puerta === 'tareas' ? (
           <section className="eq-panel" id="eq-p-tareas">
             <h3>Tareas</h3>
