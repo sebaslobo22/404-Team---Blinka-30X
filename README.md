@@ -31,7 +31,7 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 
 ```
 npm install
-npm test          # 124 tests: motor, set F-001 a F-015, propiedades, registro y estado de la demo
+npm test          # 277 tests: motor, set F-001 a F-018, propiedades, registro, lector y estado de la demo
 npm run typecheck
 ```
 
