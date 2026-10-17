@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { modoPublico } from '../../src/publico';
 import Centro from './Centro';
 import { cargarContexto } from './datos';
 import './equipo.css';
@@ -11,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function PaginaEquipo() {
+  // Defensa en profundidad: aunque el middleware fallara, en modo publico la pagina no se renderiza.
+  if (modoPublico(process.env)) notFound();
   const inicial = await cargarContexto();
   // Las variables públicas se leen en el servidor y se pasan al cliente: así funciona aunque cambien tras el build.
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? null;
