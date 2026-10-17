@@ -50,3 +50,5 @@ Este set lo disenamos nosotros: pasarlo no prueba que el agente generalice. Eso 
 `src/ledger/`: cada decision se anade a un registro donde el hash de cada entrada incluye el de la anterior (SHA-256 sobre JSON canonico). `verificarCadena` detecta cambios de una decision, de un monto o de cualquier campo, entradas borradas, insertadas o reordenadas. Las escrituras se serializan y, si el almacen no puede escribir, la llamada falla y la decision no debe publicarse.
 
 Es evidencia de manipulacion, no inmutabilidad: quien controle el almacen puede reescribir toda la cadena con hashes recalculados, y recortar el final no se nota. Eso solo lo delata un ancla (numero de entradas y hash de la ultima) guardada aparte, que `Registro.ancla()` produce y `verificar(ancla)` comprueba.
+
+Para Supabase, `supabase/migrations/0001_registro.sql` crea la tabla con triggers que bloquean UPDATE, DELETE y TRUNCATE y que exigen indice consecutivo y hash previo correcto. **No esta probada contra un Postgres real**: antes de confiar en ella hay que correr su bloque de verificacion manual en una base de pruebas. El esquema de una entrada esta en `docs/esquemas/registro.schema.json`.

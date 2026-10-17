@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EntradaRegistro",
+  "description": "Una entrada del registro de decisiones solo de anadir, con hash encadenado (src/ledger/registro.ts). Es evidencia de manipulacion, no inmutabilidad. El $ref a decision.schema.json es relativo: el cargador debe registrar ese esquema con la clave 'decision.schema.json'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["indice", "hash_previo", "hash", "registrado_en", "resultado"],
+  "properties": {
+    "indice": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Posicion en la cadena, desde 0 y sin saltos."
+    },
+    "hash_previo": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Hash de la entrada anterior. null solo en el indice 0."
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 en hexadecimal minuscula de la forma canonica de {indice, hash_previo, registrado_en, resultado}."
+    },
+    "registrado_en": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Marca de tiempo ISO 8601 tal como la genero la app; se conserva como texto porque forma parte del hash."
+    },
+    "resultado": {
+      "$ref": "decision.schema.json"
+    }
+  },
+  "if": {
+    "properties": { "indice": { "const": 0 } },
+    "required": ["indice"]
+  },
+  "then": {
+    "properties": { "hash_previo": { "type": "null" } }
+  },
+  "else": {
+    "properties": { "hash_previo": { "type": "string" } }
+  }
+}
