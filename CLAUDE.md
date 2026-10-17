@@ -1,6 +1,6 @@
 # Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
 
-**Actualizado:** 17/10/2026 - 2:27 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
+**Actualizado:** 17/10/2026 - 2:45 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
 
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
@@ -12,7 +12,7 @@ de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; e
    Ahí están las tareas, quién tiene tomada cada zona y la bitácora.
 3. Tomar tu zona antes de editar y soltarla al terminar: `node scripts/equipo.mjs tomar <zona>` /
    `soltar <zona>`. Anotar lo importante: `node scripts/equipo.mjs nota "<texto>"`.
-4. Una rama por persona y tema (`nombre/tema`), PR a `main`, nunca `push --force`. Integrador: Sebastián.
+4. Una rama por persona y tema (`nombre/tema`), PR a `main`, nunca `push --force`. Integrador: Sebastián. **Solo Sebastián fusiona, con "Create a merge commit"** (Vercel Hobby bloquea commits firmados por otros; ver `docs/GUIA-EQUIPO.md`).
 5. `npm test` en verde antes de cada PR. Si la prueba "ninguna factura trampa termina en PAGAR" falla,
    no se fusiona.
 

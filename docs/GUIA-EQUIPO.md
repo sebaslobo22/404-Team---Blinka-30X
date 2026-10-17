@@ -61,3 +61,12 @@ Si una carpeta aparece tomada por otro, **no la edites**: habla con esa persona 
 - **"409 zona ya tomada"**: otra persona la tiene; mira en la web quién y desde cuándo.
 - **"503 sin conexión a Supabase"**: avisa a Sebastián.
 - **Cualquier otra cosa**: escribe en el grupo con la captura; no intentes arreglar configuración compartida.
+
+## Cómo se publica (plan gratuito de Vercel, sin Pro)
+Vercel (plan Hobby) bloquea todo despliegue cuyo **último commit** lo firma alguien que no es el dueño de la cuenta. Por eso:
+
+1. **Tú trabajas en tu rama** (`andres/tema`, `joffre/tema`) y haces `push`. Verás "Blocked" en Vercel para tu rama: **es normal, ignóralo**.
+2. **Abres una PR** a `main` en GitHub y avisas a Sebastián en el centro de mando (nota en la bitácora).
+3. **Solo Sebastián fusiona**, con el botón **"Create a merge commit"**. Ese commit de fusión lo firma Sebastián y Vercel publica sin problema. GitHub ya no deja usar "Squash" ni "Rebase" (conservarían tu firma y Vercel los bloquearía).
+4. **Nunca fusiones tú a `main`** y no hagas `push` directo a `main`.
+5. Si algo urgente queda bloqueado: Sebastián publica a mano con `vercel --prod` desde su computadora (no depende de quién firmó).
