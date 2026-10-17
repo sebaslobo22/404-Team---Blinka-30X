@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { Cabecera, AvisoReplay, Movimiento } from './Interfaz';
+import { Cabecera, AvisoReplay, NavegacionMovil } from './Interfaz';
 import { BarraLateral } from './barra/Barra';
 import { Tour } from './tour/Tour';
 import { estadoAprobacion } from '../src/demo/estado';
 import { obtenerEstado } from '../src/demo/singleton';
+import { modoPublico } from '../src/publico';
 import type { ReactNode } from 'react';
 import './globals.css';
 import './barra/barra.css';
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
 // Pinta el ancho guardado de la barra antes del primer cuadro, para que no parpadee al cargar.
-const SCRIPT_BARRA = "try{if(localStorage.getItem('404-barra')==='colapsada')document.documentElement.dataset.barra='colapsada'}catch(e){}";
+const SCRIPT_BARRA = "try{let d=document.documentElement.dataset,s=localStorage;if(s.getItem('404-barra')==='colapsada')d.barra='colapsada';let t=s.getItem('404-tema');if(t==='light'||t==='dark')d.theme=t;let l=s.getItem('404-letra');if(l==='grande'||l==='muy-grande')d.letra=l}catch(e){}";
 
 /** Facturas escaladas que esperan a una persona. Si el estado no está disponible, sin contador. */
 async function contarPendientes(): Promise<number | null> {
@@ -30,19 +31,20 @@ async function contarPendientes(): Promise<number | null> {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const pendientes = await contarPendientes();
+  const equipoDisponible = !modoPublico(process.env);
   return (
     <html lang="es" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: SCRIPT_BARRA }} /></head>
       <body>
         <a className="saltar" href="#contenido">Saltar al contenido</a>
-        <BarraLateral pendientes={pendientes} />
-        <Cabecera />
+        <BarraLateral pendientes={pendientes} equipoDisponible={equipoDisponible} />
+        <Cabecera equipoDisponible={equipoDisponible} />
         <div className="app-cuerpo">
           <AvisoReplay />
           <main id="contenido" className="contenedor principal">{children}</main>
-          <Movimiento /><footer className="contenedor pie">Equipo 404 · Decisiones explicables. El sistema nunca ejecuta pagos.</footer>
+          <footer className="contenedor pie">Equipo 404 · El agente decide. Nunca mueve dinero.</footer>
         </div>
-        <Tour />
+        <NavegacionMovil /><Tour />
       </body>
     </html>
   );

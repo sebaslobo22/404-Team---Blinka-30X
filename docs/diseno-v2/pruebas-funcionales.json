@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "pasos": [
+    {
+      "titulo": "Recorrido de un minuto",
+      "foco": 0
+    },
+    {
+      "titulo": "Desde aquí navegas",
+      "foco": 1
+    },
+    {
+      "titulo": "Autonomía",
+      "foco": 1
+    },
+    {
+      "titulo": "Tres decisiones posibles",
+      "foco": 1
+    },
+    {
+      "titulo": "Seguridad",
+      "foco": 1
+    },
+    {
+      "titulo": "Una factura trampa",
+      "foco": 1
+    },
+    {
+      "titulo": "Explicación en palabras",
+      "foco": 1
+    },
+    {
+      "titulo": "Deciden las reglas, no la IA",
+      "foco": 1
+    },
+    {
+      "titulo": "La orden escondida",
+      "foco": 1
+    },
+    {
+      "titulo": "Solo lo dudoso pide permiso",
+      "foco": 1
+    },
+    {
+      "titulo": "La empresa pone sus reglas",
+      "foco": 1
+    },
+    {
+      "titulo": "Un registro a prueba de cambios",
+      "foco": 1
+    },
+    {
+      "titulo": "Eso es todo",
+      "foco": 0
+    }
+  ],
+  "errores": []
+}

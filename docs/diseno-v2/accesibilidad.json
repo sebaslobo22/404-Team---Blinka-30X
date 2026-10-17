@@ -1,0 +1,4391 @@
+{
+  "ok": true,
+  "resultados": [
+    {
+      "ruta": "/",
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(245, 245, 242)",
+      "pequenos": [],
+      "animados": [],
+      "controles": 32,
+      "alcanzados": [
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Revisar 10 cobros pendientes",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Buscar facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver como tabla",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Te necesita · 10",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-011",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-012",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (3)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Frenadas · 4",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pagadas · 4",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Revisar 10 cobros pendientes",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Buscar facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver como tabla",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Te necesita · 10",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-011",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-012",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (3)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Frenadas · 4",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pagadas · 4",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Revisar 10 cobros pendientes",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Buscar facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver como tabla",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Te necesita · 10",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-011",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-012",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (3)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Frenadas · 4",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pagadas · 4",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Revisar 10 cobros pendientes",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Buscar facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver como tabla",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Te necesita · 10",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-011",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        }
+      ]
+    },
+    {
+      "ruta": "/facturas/F-005",
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(245, 245, 242)",
+      "pequenos": [],
+      "animados": [],
+      "controles": 16,
+      "alcanzados": [
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Volver a mis facturas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué? Las razones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más comprobaciones",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        }
+      ]
+    },
+    {
+      "ruta": "/cola",
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(245, 245, 242)",
+      "pequenos": [],
+      "animados": [],
+      "controles": 33,
+      "alcanzados": [
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-017",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-018",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (3)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-017",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-018",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (3)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-016",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-017",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-018",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (3)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-009",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-013",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Revisar este pago",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-008",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "¿Por qué?",
+          "id": "",
+          "foco": "solid"
+        }
+      ]
+    },
+    {
+      "ruta": "/reglas",
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(245, 245, 242)",
+      "pequenos": [],
+      "animados": [],
+      "controles": 20,
+      "alcanzados": [
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-limite_pago_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tope_mensual_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más límites de gasto",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Cómo se cambia esta lista",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_duplicado_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tolerancia_pct",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_cuenta_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Volver a las reglas iniciales",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-limite_pago_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tope_mensual_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más límites de gasto",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Cómo se cambia esta lista",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_duplicado_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tolerancia_pct",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_cuenta_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Volver a las reglas iniciales",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-limite_pago_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tope_mensual_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más límites de gasto",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Cómo se cambia esta lista",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_duplicado_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tolerancia_pct",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_cuenta_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Volver a las reglas iniciales",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-limite_pago_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tope_mensual_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más límites de gasto",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Cómo se cambia esta lista",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_duplicado_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tolerancia_pct",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_cuenta_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Volver a las reglas iniciales",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-limite_pago_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tope_mensual_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más límites de gasto",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Cómo se cambia esta lista",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_duplicado_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tolerancia_pct",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_cuenta_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Volver a las reglas iniciales",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-limite_pago_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tope_mensual_usd",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más límites de gasto",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Cómo se cambia esta lista",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_duplicado_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-tolerancia_pct",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "campo-ventana_cuenta_dias",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Volver a las reglas iniciales",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        }
+      ]
+    },
+    {
+      "ruta": "/registro",
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(245, 245, 242)",
+      "pequenos": [],
+      "animados": [],
+      "controles": 29,
+      "alcanzados": [
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Comprobar ahora",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pruebas de esta demostración",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-001",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-002",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-003",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-004",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-006",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-007",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (11)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver evidencia de la revisión",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Comprobar ahora",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pruebas de esta demostración",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-001",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-002",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-003",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-004",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-006",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-007",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (11)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver evidencia de la revisión",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Comprobar ahora",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pruebas de esta demostración",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-001",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-002",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-003",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-004",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-006",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-007",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (11)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver evidencia de la revisión",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Cerrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Comprobar ahora",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Pruebas de esta demostración",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-001",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-002",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-003",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-004",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-005",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-006",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "F-007",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver evidencia",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Ver más (11)",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver evidencia de la revisión",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        }
+      ]
+    },
+    {
+      "ruta": "/team",
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(245, 245, 242)",
+      "pequenos": [],
+      "animados": [],
+      "controles": 18,
+      "alcanzados": [
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SELECT",
+          "texto": "SebastiánAndrésJoffre",
+          "id": "eq-quien",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "eq-pin",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Entrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Tareas23 abiertas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Zonas3 tomadas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Bitácoraúltimos movimientos",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Acuerdopara agentes y personas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más del equipo",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SELECT",
+          "texto": "SebastiánAndrésJoffre",
+          "id": "eq-quien",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "eq-pin",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Entrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Tareas23 abiertas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Zonas3 tomadas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Bitácoraúltimos movimientos",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Acuerdopara agentes y personas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más del equipo",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SELECT",
+          "texto": "SebastiánAndrésJoffre",
+          "id": "eq-quien",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "eq-pin",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Entrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Tareas23 abiertas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Zonas3 tomadas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Bitácoraúltimos movimientos",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Acuerdopara agentes y personas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más del equipo",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SELECT",
+          "texto": "SebastiánAndrésJoffre",
+          "id": "eq-quien",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "eq-pin",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Entrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Tareas23 abiertas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Zonas3 tomadas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Bitácoraúltimos movimientos",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Acuerdopara agentes y personas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más del equipo",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SELECT",
+          "texto": "SebastiánAndrésJoffre",
+          "id": "eq-quien",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "eq-pin",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Entrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Tareas23 abiertas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Zonas3 tomadas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Bitácoraúltimos movimientos",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Acuerdopara agentes y personas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más del equipo",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SELECT",
+          "texto": "SebastiánAndrésJoffre",
+          "id": "eq-quien",
+          "foco": "solid"
+        },
+        {
+          "tag": "INPUT",
+          "texto": "",
+          "id": "eq-pin",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Entrar",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Tareas23 abiertas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Zonas3 tomadas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Bitácoraúltimos movimientos",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "Acuerdopara agentes y personas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Ver más del equipo",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Inicio",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Tu ayuda",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Reglas",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Registro",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BODY",
+          "texto": "Saltar al contenidoAgente pagadorEquipo 404DecisionesTu apro",
+          "id": "",
+          "foco": "none"
+        },
+        {
+          "tag": "A",
+          "texto": "Saltar al contenido",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "A",
+          "texto": "Agente pagador · 404",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "SUMMARY",
+          "texto": "Más",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A+",
+          "id": "",
+          "foco": "solid"
+        },
+        {
+          "tag": "BUTTON",
+          "texto": "A++",
+          "id": "",
+          "foco": "solid"
+        }
+      ]
+    }
+  ]
+}

@@ -1,66 +1,14 @@
-/* Barra lateral (solo >= 1024 px). Debajo de ese ancho se conserva la cabecera. */
-:root { --barra-ancho: 248px; --barra-dur: 320ms; --barra-curva: cubic-bezier(.2,.8,.2,1); }
-html[data-barra=colapsada] { --barra-ancho: 72px; }
-
-.barra { display: none; }
-
-@media (min-width: 1024px) {
-  .cabecera { display: none; }
-  .app-cuerpo { padding-left: var(--barra-ancho); transition: padding-left var(--barra-dur) var(--barra-curva); }
-  .barra {
-    position: fixed; inset: 0 auto 0 0; z-index: 20; width: var(--barra-ancho);
-    display: flex; flex-direction: column; gap: var(--s4); padding: var(--s4) var(--s3);
-    background: var(--superficie); color: var(--tinta); border-right: 1px solid var(--linea);
-    transition: width var(--barra-dur) var(--barra-curva);
-  }
-  .barra-marca { display: flex; align-items: center; gap: var(--s3); min-height: 48px; padding: 0 var(--s3); color: var(--tinta); text-decoration: none; border-radius: var(--radio); position: relative; }
-  .barra-marca-icono { display: grid; place-items: center; width: 24px; flex: none; }
-  .barra-marca-texto { display: flex; flex-direction: column; line-height: 1.2; }
-  .barra-marca-texto strong { font-size: var(--t2); }
-  .barra-marca-texto small { font-size: var(--t1); color: var(--tenue); }
-  .barra-nav { flex: 1; min-height: 0; }
-  .barra-lista { list-style: none; margin: 0; padding: 0; position: relative; display: flex; flex-direction: column; gap: var(--s1); }
-  .barra-lista li { position: relative; z-index: 1; }
-  .barra-pie { display: flex; flex-direction: column; gap: var(--s1); border-top: 1px solid var(--linea); padding-top: var(--s3); }
-  .barra-separador { height: 1px; background: var(--linea); margin: var(--s2) var(--s3); }
-
-  .barra-item {
-    position: relative; display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 0 var(--s3);
-    border: 0; border-radius: var(--radio); background: transparent; color: var(--tinta); font: inherit; font-size: var(--t2); text-decoration: none; cursor: pointer; text-align: left;
-    transition: background var(--duracion) var(--curva), color var(--duracion) var(--curva);
-  }
-  .barra-item:hover { background: var(--acento-suave); }
-  .barra-item[aria-current=page] { color: var(--tinta); font-weight: 600; }
-  .barra-item:focus-visible, .barra-marca:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
-  .barra-icono { flex: none; }
-  .barra-colapsar .barra-icono { transition: transform var(--barra-dur) var(--barra-curva); }
-  html[data-barra=colapsada] .barra-colapsar .barra-icono { transform: rotate(180deg); }
-
-  .barra-lista li.barra-pildora { position: absolute; left: 0; right: 0; top: 0; z-index: 0; border-radius: var(--radio); background: var(--acento-suave); box-shadow: inset 3px 0 0 var(--acento); pointer-events: none; }
-  .barra-lista li.barra-pildora-anima { transition: transform var(--barra-dur) var(--barra-curva), height var(--barra-dur) var(--barra-curva); }
-
-  .barra-texto { white-space: nowrap; overflow: hidden; opacity: 1; transform: none; transition: opacity 200ms var(--curva) 90ms, transform var(--barra-dur) var(--barra-curva); }
-  html[data-barra=colapsada] .barra-texto { opacity: 0; transform: translateX(-8px); pointer-events: none; transition-delay: 0s; transition-duration: 120ms, var(--barra-dur); }
-
-  .barra-contador { margin-left: auto; min-width: 22px; padding: 0 6px; flex: none; border-radius: var(--pildora); background: var(--escalar-suave); color: var(--escalar); font: 600 var(--t1)/20px var(--fuente); text-align: center; transition: transform var(--barra-dur) var(--barra-curva); }
-  html[data-barra=colapsada] .barra-contador { position: absolute; top: 4px; left: 26px; margin: 0; min-width: 18px; padding: 0 4px; line-height: 16px; font-size: 10px; transform: none; }
-
-  /* Tooltip: solo con la barra colapsada, al pasar el mouse o enfocar con teclado. */
-  .barra [data-tip]::after {
-    content: attr(data-tip); position: absolute; left: calc(100% + 14px); top: 50%; transform: translate(-4px, -50%); white-space: nowrap; pointer-events: none; opacity: 0; z-index: 40;
-    padding: var(--s1) var(--s3); border-radius: var(--radio); background: var(--tinta); color: var(--bg); font: 500 var(--t1)/1.6 var(--fuente); box-shadow: var(--sombra);
-    transition: opacity 160ms var(--curva), transform 160ms var(--curva); display: none;
-  }
-  html[data-barra=colapsada] .barra [data-tip]::after { display: block; }
-  html[data-barra=colapsada] .barra [data-tip]:hover::after, html[data-barra=colapsada] .barra [data-tip]:focus-visible::after { opacity: 1; transform: translate(0, -50%); }
-}
-
-@supports (backdrop-filter: blur(1px)) {
-  @media (min-width: 1024px) and (prefers-contrast: no-preference) {
-    .barra { background: var(--cristal); backdrop-filter: blur(20px); }
-  }
-}
-@media (forced-colors: active) { .barra-pildora { border: 1px solid CanvasText; } }
-@media (prefers-reduced-motion: reduce) {
-  .app-cuerpo, .barra, .barra-texto, .barra-pildora-anima, .barra-colapsar .barra-icono, .barra [data-tip]::after { transition: none !important; }
+.barra{display:none}
+@media(min-width:1024px){
+  .cabecera{display:none}.app-cuerpo{padding-left:var(--barra-ancho)}
+  .barra{position:fixed;inset:0 auto 0 0;z-index:20;width:var(--barra-ancho);display:flex;flex-direction:column;gap:var(--s6);padding:var(--s6) var(--s4);background:var(--superficie);border-right:1px solid var(--linea);overflow-y:auto;overflow-x:hidden}
+  .barra-marca{display:flex;gap:var(--s3);align-items:center;padding:var(--s3);min-height:3rem;text-decoration:none;font-weight:600}.barra-marca small{display:block;font-size:var(--t1);font-weight:400}
+  .barra-lista{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+  .barra-item{display:flex;align-items:center;gap:var(--s3);width:100%;min-width:3rem;min-height:3rem;padding:var(--s3);border:1px solid transparent;border-radius:var(--control);background:var(--superficie);color:var(--tinta);font:inherit;font-size:var(--t2);text-decoration:none;text-align:left;overflow-wrap:anywhere}
+  .barra-item[aria-current=page]{background:var(--acento-suave);border-color:var(--linea);font-weight:600}
+  .barra-item:hover{border-color:var(--linea)}.barra-icono{width:1.5rem;height:1.5rem;flex:none}.barra-contador{margin-left:auto;font-size:var(--t1);background:var(--escalar-suave);color:var(--escalar);border-radius:var(--pildora);padding:0 var(--s2)}
+  .barra-pie{margin-top:auto;display:grid;gap:var(--s3);padding-top:var(--s6);border-top:1px solid var(--linea)}
+  html[data-barra=colapsada] .app-cuerpo{padding-left:10rem}html[data-barra=colapsada] .barra{width:10rem}
+  html[data-barra=colapsada] .barra-item{flex-direction:column;justify-content:center;text-align:center;font-size:var(--t1);gap:var(--s2)}
+  html[data-barra=colapsada] .barra-marca{flex-direction:column;text-align:center;font-size:var(--t1)}html[data-barra=colapsada] .barra-contador{margin:0}
 }

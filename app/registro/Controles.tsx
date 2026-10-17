@@ -1,77 +1,18 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
-
-export default function Controles({ n }: { n: number }) {
-  const router = useRouter();
-  const [verificando, iniciarVerificacion] = useTransition();
-  const [indice, setIndice] = useState('0');
-  const [ocupado, setOcupado] = useState(false);
-  const [mensaje, setMensaje] = useState<{ tipo: 'ok' | 'error'; texto: string } | null>(null);
-
-  async function llamar(url: string, cuerpo: unknown, exito: string) {
-    setOcupado(true);
-    setMensaje(null);
-    try {
-      const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo) });
-      const d: { ok?: boolean; error?: string } = await r.json().catch(() => ({}));
-      if (!r.ok || !d.ok) setMensaje({ tipo: 'error', texto: d.error ?? 'La operación falló.' });
-      else {
-        setMensaje({ tipo: 'ok', texto: exito });
-        router.refresh();
-      }
-    } catch {
-      setMensaje({ tipo: 'error', texto: 'No se pudo contactar con el servidor.' });
-    }
-    setOcupado(false);
-  }
-
-  return (
-    <div className="tarjeta" data-tour="registro-verificar">
-      <div className="acciones">
-        <button type="button" className="btn btn-primario" disabled={ocupado || verificando} onClick={() => iniciarVerificacion(() => router.refresh())}>
-          {verificando ? 'Verificando…' : 'Verificar cadena'}
-        </button>
-      </div><details><summary>Controles de la demo</summary><div className="acciones"><button
-          type="button"
-          className="btn"
-          disabled={ocupado}
-          onClick={() => llamar('/api/demo/restaurar', {}, 'Demo restaurada: el registro se reconstruyó con los parámetros por defecto.')}
-        >
-          Restaurar demo
-        </button>
-      </div>
-      <div className="acciones" style={{ marginTop: 12, alignItems: 'flex-end' }}>
-        <div className="campo" style={{ maxWidth: 220 }}>
-          <label htmlFor="indice-manipular">Entrada a alterar</label>
-          <select id="indice-manipular" value={indice} onChange={(e) => setIndice(e.target.value)} disabled={ocupado}>
-            {Array.from({ length: n }, (_, i) => (
-              <option key={i} value={String(i)}>
-                Entrada {i}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button
-          type="button"
-          className="btn btn-peligro"
-          disabled={ocupado}
-          onClick={() => llamar('/api/demo/manipular', { indice: Number(indice) }, `Se alteró la entrada ${indice}. La verificación debería fallar.`)}
-        >
-          Simular una manipulación
-        </button>
-      </div>
-      <p className="tenue" style={{ fontSize: 'var(--t2)', marginTop: 10 }}>
-        La simulación cambia la decisión guardada en la entrada elegida, sin recalcular su hash. Sirve solo para ver que la alteración se detecta.
-      </p>
-      </details><div aria-live="polite">
-        {mensaje ? (
-          <p className={mensaje.tipo === 'ok' ? 'aviso aviso-ok' : 'aviso aviso-error'} role={mensaje.tipo === 'error' ? 'alert' : 'status'} style={{ marginTop: 8 }}>
-            {mensaje.texto}
-          </p>
-        ) : null}
-      </div>
-    </div>
-  );
+import { useRef, useState, useTransition } from 'react';
+export default function Controles({ n }: { n: number ;}) {
+  const router = useRouter(); const [verificando, iniciar] = useTransition(); const [ocupado, setOcupado] = useState(false); const [indice, setIndice] = useState('0'); const [mensaje, setMensaje] = useState<{ ok: boolean; texto: string ;} | null>(null); const [confirmar, setConfirmar] = useState<'restaurar' | 'manipular' | null>(null); const candado = useRef(false);
+  async function llamar(url: string, cuerpo: unknown, texto: string) { if (candado.current) return; candado.current = true; setOcupado(true); setMensaje(null); try { const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo) }); const d = await r.json(); if (!r.ok || !d.ok) throw new Error(); setMensaje({ ok: true, texto }); setConfirmar(null); router.refresh(); } catch { setMensaje({ ok: false, texto: 'No se pudo hacer la prueba. Revisa la conexión e intenta de nuevo.' }); } finally { setOcupado(false); candado.current = false; } }
+  return <>
+    <div className="acciones"><button className="btn btn-primario" disabled={ocupado || verificando} onClick={() => iniciar(() => router.refresh())}>{verificando ? 'Comprobando…' : 'Comprobar ahora'}</button></div>
+    <details>
+      <summary>Pruebas de esta demostración</summary>
+      <p>Estas acciones cambian solo la sesión de prueba.</p>
+      <div className="campo"><label htmlFor="indice-manipular">Qué entrada quieres probar</label><select id="indice-manipular" value={indice} onChange={e => setIndice(e.target.value)} disabled={ocupado}>{Array.from({ length: n }, (_, i) => <option key={i} value={i}>Entrada {i + 1}</option>)}</select></div>
+      <div className="acciones"><button className="btn btn-texto" disabled={ocupado} onClick={() => setConfirmar('manipular')}>Probar un cambio no autorizado</button><button className="btn btn-texto" disabled={ocupado} onClick={() => setConfirmar('restaurar')}>Volver al inicio de la demo</button></div>
+      {confirmar ? <div className="aviso">
+        <p>{confirmar === 'restaurar' ? 'Se borran los cambios y respuestas de esta sesión.' : 'Se cambia un dato para comprobar si el registro lo detecta.'}</p>
+        <button className="btn" disabled={ocupado} onClick={() => confirmar === 'restaurar' ? llamar('/api/demo/restaurar', {}, 'La demo volvió al inicio.') : llamar('/api/demo/manipular', { indice: Number(indice) }, 'Se cambió la entrada. Comprueba el registro para ver el fallo.')}>{ocupado ? 'Guardando…' : 'Sí, hacer esta prueba'}</button><button className="btn btn-texto" disabled={ocupado} onClick={() => setConfirmar(null)}>Cancelar</button></div> : null}{mensaje ? <p className={`aviso ${mensaje.ok ? 'aviso-ok' : 'aviso-error'}`} role={mensaje.ok ? 'status' : 'alert'}>{mensaje.texto}</p> : null}</details>
+  </>;
 }
