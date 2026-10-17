@@ -1,6 +1,6 @@
 # Equipo 404 · Reto Blinka (Hackathon 30X) — contexto compartido para personas y agentes
 
-**Actualizado:** 17/10/2026 - 12:57 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
+**Actualizado:** 17/10/2026 - 1:27 p.m. (Caracas, Venezuela). Cierre: dom 18/10 12:00 Colombia (1:00 p.m. Caracas).
 
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
@@ -40,7 +40,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - **Stack:** Next.js (App Router, TypeScript) en Vercel + Supabase. Pruebas con vitest.
 - **Motor único:** `src/engine` (R1–R8) + defensas portadas del motor de referencia
   (`referencia/motor-js`): instrucciones ocultas, confianza de lectura, nombre normalizado.
-- **Modelos (OpenRouter):** `anthropic/claude-haiku-5.5` y `openai/gpt-6-luna`, doble lectura; si
+- **Modelos (OpenRouter):** `anthropic/claude-haiku-5.5` y `google/gemini-3.1-flash-lite`, doble lectura (medido en el banco; reemplaza a GPT-6 Luna); si
   difieren en monto, moneda, beneficiario o cuenta → ESCALAR. Se confirma con el banco de pruebas.
 - **Presupuesto insuficiente → FRENAR.** Beneficiario por ID fiscal exacto, nunca por parecido.
 - **Reparto:** Sebastián lectura + banco de modelos + centro de mando · Andrés motor, registro y
@@ -56,7 +56,8 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - ✅ Defensas fusionadas en `src/engine` (INYECCION, CONFIANZA, REGISTRO, IDs normalizados, R8 en horas), `comprobaciones()`, 173 pruebas (PR #2, sáb 12:10 p.m.).
 - ✅ Centro de mando `/team` + `/team/contexto.md` + `scripts/equipo.mjs`, 181 pruebas (PR #3, sáb 12:20 p.m.). En vivo en https://404team.vercel.app/team, **en modo semilla hasta conectar Supabase**.
 - ✅ Supabase del equipo conectado (17/10/2026 - 12:57 p.m.): proyecto `tajesvubxirgkgtuuxcj`, migraciones 0001 y 0002 aplicadas con `node scripts/migrar.mjs` y verificadas (RLS, bitácora y registro solo de insertar, realtime). `/team` en vivo con tiempo real comprobado. `OPENROUTER_API_KEY` vive solo en `.env` local; **no** va a Vercel (el demo público no lleva claves de IA).
-- ⏳ Lector de facturas, facturas reales, banco de modelos (Sebastián; bloqueado por clave OpenRouter).
+- ✅ Lector de facturas + 12 facturas reales + banco de modelos (PR #5, 17/10/2026 - 1:27 p.m.): doble lectura Haiku 5.5 + Gemini 3.1 Flash-Lite, lecturas guardadas en `data/facturas/lecturas/`, 264 pruebas, motor 12/12 con lecturas reales (afinado sobre el mismo set: lo confirma el set ciego). Informe: `docs/banco-modelos-2026-10-17.md`, uso: `docs/extraccion.md`.
+- ⚠️ Dos datasets conviven: el producto usa **Aurora Cloud** (F-001…F-015) y el lector **Andina Labs** (F01–F12). Hay que unificar a una sola empresa antes de integrar (tarea abierta en `/team`).
 - ⏳ Persistir el producto en Supabase (Andrés). ⏳ Set ciego + suite adversarial (Joffre).
 
 ## 5. Preferencias de Sebastián (líder; no técnico)
