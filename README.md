@@ -31,7 +31,7 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 
 ```
 npm install
-npm test          # 71 tests: ejemplos por regla, propiedades con fast-check y el set F-001 a F-015
+npm test          # 98 tests: motor, set F-001 a F-015, propiedades con fast-check y registro
 npm run typecheck
 ```
 
@@ -44,3 +44,9 @@ Supuestos pendientes de confirmar con el dataset del equipo: una cuenta nueva de
 `data/dev-set.json` es la salida simulada del extractor para las 15 facturas del Sheet del equipo, y `tests/dataset.test.ts` las corre en orden contra el motor: 4 PAGAR, 4 FRENAR y 7 ESCALAR, con las reglas esperadas en cada caso. Los beneficiarios, acuerdos, presupuestos y tasas salen del Sheet. Los numeros de factura, las fechas, la fecha de alta de la cuenta de F-011, el pago previo de nomina de F-013 y la alerta de F-009 los fijamos nosotros para poder ejecutar el caso.
 
 Este set lo disenamos nosotros: pasarlo no prueba que el agente generalice. Eso lo mide el set ciego, armado por otra persona y congelado antes de ver los resultados.
+
+## Registro con hash encadenado (paso 4)
+
+`src/ledger/`: cada decision se anade a un registro donde el hash de cada entrada incluye el de la anterior (SHA-256 sobre JSON canonico). `verificarCadena` detecta cambios de una decision, de un monto o de cualquier campo, entradas borradas, insertadas o reordenadas. Las escrituras se serializan y, si el almacen no puede escribir, la llamada falla y la decision no debe publicarse.
+
+Es evidencia de manipulacion, no inmutabilidad: quien controle el almacen puede reescribir toda la cadena con hashes recalculados, y recortar el final no se nota. Eso solo lo delata un ancla (numero de entradas y hash de la ultima) guardada aparte, que `Registro.ancla()` produce y `verificar(ancla)` comprueba.
