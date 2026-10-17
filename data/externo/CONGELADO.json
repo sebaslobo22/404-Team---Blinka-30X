@@ -1,0 +1,14 @@
+{
+  "nota": "Hashes SHA-256 de lo fijado antes de correr el motor sobre el set externo.",
+  "hashes": {
+    "docs/set-externo.md": "50936baa98f01f4e596650c7b68012ef5d778174e99f5cd13003f4bce576e8ba",
+    "data/externo/fuente-joffre.csv": "13275e27a49c9137a63e64a8c3c7c1e081317ad2c99cfd935b60efda5d3ed7f6",
+    "data/externo/set-externo.json": "8481667fd69323e27ecae1de23e60ef5f1e5713642e2f24d596e29f0f1d0be11",
+    "src/externo/convertir.ts": "dbe757de8311345f7413975fafec093019e3e73f0515abfebab12a9c27964ca5",
+    "src/externo/puntuar.ts": "9f6c392a4b430c91c349b0cea229560c27ab799bc99df18351d4ca758c4a3f8a",
+    "src/externo/hashes.ts": "48a3adbce1e2810e9c2a81c415abc764ef453f94d3125644c56c95f7b6ae7a89",
+    "scripts/externo-convertir.ts": "b21b7e647b6824baea1e506104db681c2d3bacb25095dd8226ae3920e7f9b9df",
+    "scripts/externo-congelar.ts": "79b036675ae0f4daaa61cff27e922a02b2f87e53071573c8158b836addf9160a",
+    "scripts/externo-correr.ts": "a731a4626cfd81fbc18fd74f7dad5b9c06250d9eb60fcd66afd53394aa0c9f53"
+  }
+}
