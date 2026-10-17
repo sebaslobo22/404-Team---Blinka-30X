@@ -1,0 +1,225 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ruta MVP Blinka (Copy)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Concepto: libro de control. Papel gris azulado, tinta oscura, columna de pasos como asientos contables; verde/ámbar/rojo solo para estados. */
+:root{
+  --bg:#f1f3f5; --surface:#ffffff; --ink:#14202b; --muted:#5b6b7a; --line:#d5dbe1;
+  --accent:#1f4e79; --accent-soft:#e3edf6;
+  --ok:#1d7a4d; --ok-soft:#e1f3e9; --warn:#a15c00; --warn-soft:#fbefd9; --bad:#b3261e;
+  --font-body:'IBM Plex Sans',system-ui,sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f161d; --surface:#17212b; --ink:#e6ecf1; --muted:#93a3b2; --line:#2a3947;
+  --accent:#7fb2e0; --accent-soft:#1c2e40; --ok:#5ac28c; --ok-soft:#14301f; --warn:#e3a54a; --warn-soft:#352610; --bad:#f08a82; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161d; --surface:#17212b; --ink:#e6ecf1; --muted:#93a3b2; --line:#2a3947;
+  --accent:#7fb2e0; --accent-soft:#1c2e40; --ok:#5ac28c; --ok-soft:#14301f; --warn:#e3a54a; --warn-soft:#352610; --bad:#f08a82; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font-body);padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+h1{font-size:26px;line-height:1.2;margin:0;font-weight:600;text-wrap:balance}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:8px 0 0;font-weight:600}
+.sub{color:var(--muted);margin:4px 0 0;max-width:65ch}
+.top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end}
+@media(max-width:560px){.top{grid-template-columns:1fr}}
+.clock{font:500 13px var(--font-mono);color:var(--muted);text-align:right}
+.clock b{display:block;font-size:22px;color:var(--ink);font-weight:500}
+@media(max-width:560px){.clock{text-align:left}}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;gap:12px;font:13px var(--font-mono);color:var(--muted);margin-top:6px;flex-wrap:wrap}
+.status{font-size:13px;color:var(--muted)}
+.status.off{color:var(--warn)}
+details.step{background:var(--surface);border:1px solid var(--line);border-radius:6px}
+details.step[open]{border-color:var(--accent)}
+summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:focus-visible,select:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.n{font:500 20px var(--font-mono);color:var(--accent);width:2ch}
+.t{min-width:0}
+.t strong{display:block;font-weight:600}
+.t span{font-size:13px;color:var(--muted)}
+.pill{font:500 12px var(--font-mono);padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.pill.done{background:var(--ok-soft);color:var(--ok)}
+.body{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-top:12px}
+.row label{font-size:13px;color:var(--muted)}
+select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink)}
+.tag{font:12px var(--font-mono);color:var(--muted)}
+ul.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+ul.tasks li label{display:flex;gap:10px;align-items:flex-start;padding:8px 6px;border-radius:4px;cursor:pointer}
+ul.tasks li label:hover{background:var(--bg)}
+input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:var(--ok);flex:none}
+li.done .tx{color:var(--muted);text-decoration:line-through}
+.tx{min-width:0}
+.by{display:block;font:11px var(--font-mono);color:var(--muted);text-decoration:none}
+.gate{background:var(--warn-soft);border-radius:4px;padding:10px 12px;font-size:14px}
+.gate.pass{background:var(--ok-soft)}
+.gate b{font:600 12px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+.out{font-size:14px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.panel ul.tasks{margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+.scroll{overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 12px var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.firm{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.firm div{background:var(--bg);border-radius:4px;padding:10px 12px;font-size:14px}
+.firm b{display:block;font-size:13px;margin-bottom:2px}
+.foot{font-size:13px;color:var(--muted)}
+button.ghost{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--ink);padding:5px 10px;border-radius:4px;cursor:pointer}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Ruta MVP Blinka</h1>
+      <p class="sub">Agente que lee facturas y decide PAGAR, FRENAR o ESCALAR. Seis pasos, cada uno con su puerta. Marca lo que termines: el equipo lo ve al instante.</p>
+    </div>
+    <div class="clock">cierre dom 18 oct 12:00 COL<b id="left">--</b></div>
+  </header>
+
+  <section>
+    <div class="bar" role="progressbar" aria-label="Avance total" aria-valuemin="0" aria-valuemax="100" id="pbar"><i id="pfill"></i></div>
+    <div class="meta"><span id="pcount">0 de 0 actividades</span><span id="sync" class="status">Conectando...</span></div>
+  </section>
+
+  <h2>Pasos en orden</h2>
+  <div id="steps" style="display:flex;flex-direction:column;gap:10px"></div>
+
+  <h2>Bloqueantes de hoy</h2>
+  <div class="panel"><ul class="tasks" id="blk"></ul></div>
+
+  <h2>Si falta tiempo, se corta en este orden</h2>
+  <div class="panel scroll"><table>
+    <thead><tr><th>#</th><th>Se corta</th><th>Se conserva</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Nómina como escenario completo</td><td>Un caso de pago doble</td></tr>
+      <tr><td>2</td><td>Modo en vivo en el demo público</td><td>Modo en vivo solo en el video</td></tr>
+      <tr><td>3</td><td>Canales de imagen, correo y chat</td><td>Texto y PDF</td></tr>
+      <tr><td>4</td><td>Adaptador tipo QuickBooks</td><td>Archivo de entrada con formato tipo QuickBooks</td></tr>
+      <tr><td>5</td><td>Refinamientos de la cola de aprobación</td><td>Aprobar y rechazar con registro</td></tr>
+      <tr><td>6</td><td>Hash encadenado</td><td>Triggers que bloquean UPDATE y DELETE</td></tr>
+    </tbody></table></div>
+
+  <h2>Lo que nunca se corta</h2>
+  <div class="firm">
+    <div><b>El LLM no decide</b>Decide una función pura de reglas. Ante duda, ESCALAR.</div>
+    <div><b>FRENAR sin botón de aprobar</b>Solo ESCALAR llega a la cola de una persona.</div>
+    <div><b>Ningún endpoint mueve dinero</b>La salida es una instrucción de pago, nada más.</div>
+    <div><b>Sin claves en el repo ni en el demo</b>gitleaks desde el commit 1. Demo público en modo replay.</div>
+  </div>
+
+  <p class="foot">Origen: nota Flujo-de-Trabajo-MVP-Agente-Pagador-2026-10-17 del vault y Sheet "HACK 30X - BLINKA". Datos de facturas, empresas y límites son ficticios. Horas en Colombia. La disponibilidad de mentores no está confirmada.</p>
+</div>
+
+<script>
+var STEPS=[
+ {id:'s0',n:'0',title:'Decisiones del equipo',sub:'Tope 45 min con los tres',when:'Sáb 17, al arrancar',owner:'Todos',
+  out:'Stack, roles, integrador, editor del video y responsable del set ciego definidos; repo con gitleaks.',
+  gate:'Las preguntas bloqueantes respondidas.',
+  tasks:['Elegir stack: Next.js + Supabase + Vercel, o Python + FastAPI','Asignar roles y nombrar a quien integra el contrato entre piezas','Nombrar al editor del video y a quien arma el set ciego (no puede ser quien escribió las reglas)','Decidir qué organización de Console recibe el crédito de API y reclamarlo (hora límite 14:00)','Crear el repo con gitleaks como pre-commit desde el commit 1']},
+ {id:'s1',n:'1',title:'Contratos',sub:'Tope 45 min, luego todos en paralelo',when:'Sáb 17, mañana',owner:'Quien integra',
+  out:'Esquemas JSON compartidos y reglas R1 a R8 en un archivo.',
+  gate:'Los tres leyeron los esquemas. Lo que no se resuelva en el tope lo decide quien integra.',
+  tasks:['Esquema de la factura extraída','Reglas R1 a R8 en JSON (límite por pago, beneficiario, tope mensual, presupuesto, duplicado, cotejo, moneda, cuenta cambiada)','Esquema de la decisión: PAGAR / FRENAR / ESCALAR con códigos de razón','Esquema de la instrucción de pago (solo salida, no mueve dinero)','Despliegue vacío funcionando']},
+ {id:'s2',n:'2',title:'Núcleo sin IA',sub:'Motor de reglas y su prueba',when:'Sáb 17, hasta las 14:00',owner:'Jofre',
+  out:'Motor puro con tests de propiedades y el dataset F-001 a F-015.',
+  gate:'15 de 15 casos del set de desarrollo dan la decisión esperada, con datos ya extraídos.',
+  tasks:['Motor de reglas como función pura, dinero en centavos enteros','Precedencia FRENAR > ESCALAR > PAGAR, y todo campo faltante o raro da ESCALAR','Tests de propiedades (ningún PAGAR fuera de reglas)','Dataset F-001 a F-015 cargado con su decisión esperada','Puerta: 15 de 15 en verde']},
+ {id:'s3',n:'3',title:'Extracción',sub:'Lectura con LLM, validada fuera del LLM',when:'Sáb 17, hasta las 14:00',owner:'Sebastián',
+  out:'Extractor de doble pasada, validaciones deterministas y extracciones guardadas para el replay.',
+  gate:'El set completo corre de punta a punta y las extracciones quedan guardadas. Sin saldo de API a las 14:00: extracciones escritas a mano, declarado en el README.',
+  tasks:['Doble pasada con JSON estricto; si difieren en monto, moneda, beneficiario o cuenta, ESCALAR','Validaciones fuera del LLM: suma de líneas = total, monto releído con regex, proveedor en la lista permitida','Frase con forma de instrucción dentro de la factura ("ignora las reglas") fuerza ESCALAR','Guardar extracciones con fecha y modelo para el modo replay','Explicación por plantillas con cifras del motor; chequeo de que cada número está en los hechos']},
+ {id:'s4',n:'4',title:'Registro y pantalla',sub:'Lo que el jurado toca',when:'Sáb 17, tarde',owner:'Andrés',
+  out:'Registro solo de añadir, tabla de decisiones, reglas editables, cola de aprobación. Guion del video.',
+  gate:'Una decisión viaja de la factura al registro y a la pantalla; alterar o borrar un registro se detecta o se bloquea.',
+  tasks:['Registro solo de añadir: hash encadenado con verificación, o triggers que bloquean UPDATE y DELETE','Tabla de decisiones con detalle de la traza (reglas aplicadas y por qué)','Reglas editables desde la pantalla, con versión de reglas por decisión','Cola de aprobación solo para ESCALAR; FRENAR sin botón de aprobar','Despliegue público en subdominio gratuito, modo replay y sin ninguna clave','Guion del video: caso de usuario, costo del trabajo manual y cómo se adopta']},
+ {id:'s5',n:'5',title:'Endurecer y entregar',sub:'Sin funciones nuevas',when:'Sáb 22:00 envío v1; Dom 06:00 a 12:00',owner:'Todos',
+  out:'Repo público con README, video de hasta 3 min y demo desplegado.',
+  gate:'Los tres enlaces abren desde un navegador sin sesión iniciada. Cierre domingo 12:00 COL.',
+  tasks:['Sáb 22:00: congelar funciones y enviar la v1 con un video corto grabado sobre ella','Suite adversarial de 30 o más casos (inyección en PDF, beneficiario casi idéntico, fraccionamiento, monto en palabras)','Set ciego armado por otra persona y congelado el sábado; reportar x/n, matriz de confusión y falsos FRENAR','README: app, flujos, arquitectura, invariantes, tests, resultado del set ciego, cómo se conecta a Blinka','Video final de hasta 3 min','Revisión final 10:00 a 11:00 y verificación de los tres enlaces','Reenviar solo por error grave; el cierre es a las 12:00']}
+];
+var BLOCK=[
+ {id:'b0',t:'Crédito de API: nadie tiene saldo. Quien reclame lo vincula a UNA organización de Console y no se puede deshacer.'},
+ {id:'b1',t:'Stack decidido en 15 minutos.'},
+ {id:'b2',t:'Quién integra y quién edita el video.'},
+ {id:'b3',t:'Cómo cuenta un ESCALAR para la autonomía (preguntar al mentor de 30X).'}
+];
+var PEOPLE=['Sin asignar','Andrés','Sebastián','Jofre','Todos'];
+var state={tasks:{},owners:{}}; var db=null,uid=null,online=false,expanded={s0:true};
+
+function ls(k,v){try{if(v===undefined){return JSON.parse(localStorage.getItem(k)||'null')}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function allTasks(){var a=[];STEPS.forEach(function(s){s.tasks.forEach(function(_,i){a.push(s.id+'-'+i)})});BLOCK.forEach(function(b){a.push(b.id)});return a}
+function isDone(id){return !!(state.tasks[id]&&state.tasks[id].done)}
+
+function render(){
+  var host=document.getElementById('steps');
+  host.innerHTML=STEPS.map(function(s){
+    var done=s.tasks.filter(function(_,i){return isDone(s.id+'-'+i)}).length, tot=s.tasks.length, pass=done===tot;
+    var own=(state.owners[s.id]&&state.owners[s.id].owner)||'';
+    var opts=PEOPLE.map(function(p){var v=p==='Sin asignar'?'':p;return '<option value="'+esc(v)+'"'+((own===v||(!own&&!v))?' selected':'')+'>'+esc(p)+'</option>'}).join('');
+    var li=s.tasks.map(function(t,i){var id=s.id+'-'+i,d=isDone(id),by=state.tasks[id]&&state.tasks[id].by;
+      return '<li class="'+(d?'done':'')+'"><label><input type="checkbox" data-t="'+id+'"'+(d?' checked':'')+'><span class="tx">'+esc(t)+(d&&by?'<span class="by">hecho por '+esc(by)+'</span>':'')+'</span></label></li>'}).join('');
+    return '<details class="step" data-s="'+s.id+'"'+(expanded[s.id]?' open':'')+'><summary><span class="n">'+s.n+'</span><span class="t"><strong>'+esc(s.title)+'</strong><span>'+esc(s.sub)+' · '+esc(s.when)+'</span></span><span class="pill'+(pass?' done':'')+'">'+(pass?'completo':done+'/'+tot)+'</span></summary>'+
+    '<div class="body"><div class="row"><label for="o-'+s.id+'">Responsable</label><select id="o-'+s.id+'" data-o="'+s.id+'">'+opts+'</select><span class="tag">propuesto: '+esc(s.owner)+'</span></div>'+
+    '<ul class="tasks">'+li+'</ul><div class="out"><b>Entrega:</b> '+esc(s.out)+'</div>'+
+    '<div class="gate'+(pass?' pass':'')+'"><b>'+(pass?'Puerta superada':'Puerta de salida')+'</b>'+esc(s.gate)+'</div></div></details>';
+  }).join('');
+  document.getElementById('blk').innerHTML=BLOCK.map(function(b){var d=isDone(b.id),by=state.tasks[b.id]&&state.tasks[b.id].by;
+    return '<li class="'+(d?'done':'')+'"><label><input type="checkbox" data-t="'+b.id+'"'+(d?' checked':'')+'><span class="tx">'+esc(b.t)+(d&&by?'<span class="by">resuelto por '+esc(by)+'</span>':'')+'</span></label></li>'}).join('');
+  var ids=allTasks(),n=ids.filter(isDone).length,pct=Math.round(100*n/ids.length);
+  document.getElementById('pfill').style.width=pct+'%';
+  document.getElementById('pbar').setAttribute('aria-valuenow',pct);
+  document.getElementById('pcount').textContent=n+' de '+ids.length+' actividades · '+pct+'%';
+}
+
+function setSync(t,off){var e=document.getElementById('sync');e.textContent=t;e.className='status'+(off?' off':'')}
+
+async function writeTask(id,done){
+  var who=(await whoAmI())||'alguien';
+  var rec={done:done,by:done?who:'',at:Date.now()};
+  state.tasks[id]=rec; ls('rm-tasks',state.tasks); render();
+  if(db){try{await db.doc('tasks/'+id).set(rec)}catch(e){setSync('No se pudo guardar para el equipo. Tu cambio queda solo en este navegador.',true)}}
+}
+async function writeOwner(id,owner){
+  state.owners[id]={owner:owner}; ls('rm-owners',state.owners); render();
+  if(db){try{await db.doc('owners/'+id).set({owner:owner})}catch(e){setSync('No se pudo guardar para el equipo. Tu cambio queda solo en este navegador.',true)}}
+}
+var meName=null;
+async function whoAmI(){return meName}
+
+document.addEventListener('change',function(e){
+  var t=e.target.getAttribute&&e.target.getAttribute('data-t'); if(t){writeTask(t,e.target.checked);return}
+  var o=e.target.getAttribute&&e.target.getAttribute('data-o'); if(o){writeOwner(o,e.target.value)}
+});
+document.addEventListener('toggle',function(e){var s=e.target.getAttribute&&e.target.getAttribute('data-s');if(s){expanded[s]=e.target.open}},true);
+
+function tick(){
+  var ms=Date.parse('2026-10-18T17:00:00Z')-Date.now(),el=document.getElementById('left');
+  if(ms<=0){el.textContent='cerrado';return}
+  var h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);
+  el.textContent=h+' h '+(m<10?'0':'')+m+' min';
+}
+tick(); setInterval(tick,30000);
+
+state.tasks=ls('rm-tasks')||{}; state.owners=ls('rm-owners')||{}; render();
+
+(async function(){
+  try{
+    var user=window.claude&&await window.claude.use('user');
+    if(user){uid=await user.id(); try{var me=await user.me(); meName=(me&&me.name)||null}catch(e){}}
+    db=window.claude&&await window.claude.use('db');
+  }catch(e){db=null}
+  if(!db){setSync('Modo individual: el avance se guarda solo en este navegador.',true);return}
+  var first=true;
+  db.collection('tasks').onSnapshot(function(s){var t={};s.docs.forEach(function(d){t[d.id]=d.data()});state.tasks=t;online=true;setSync('Compartido con el equipo en vivo');render()},function(){setSync('Sin conexión con el equipo. Cambios solo en este navegador.',true)});
+  db.collection('owners').onSnapshot(function(s){var t={};s.docs.forEach(function(d){t[d.id]=d.data()});state.owners=t;render()},function(){});
+})();
+</script>
+
+</body></html>
