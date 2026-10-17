@@ -1,7 +1,9 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { crearEstado, estadoAprobacion, instruccionPago, resolver, resumen } from '../src/demo/estado';
 import type { EstadoDemo } from '../src/demo/estado';
+import { nombreRegla } from '../src/demo/formato';
 import { parametrosPorDefecto, validarParametros } from '../src/demo/parametros';
+import { construirTraza, fragmentosDetectados, partirTextoFuente, textoEstado } from '../src/demo/traza';
 
 let estado: EstadoDemo;
 beforeAll(async () => {
@@ -10,15 +12,15 @@ beforeAll(async () => {
 const fila = (e: EstadoDemo, id: string) => e.filas.find((f) => f.id === id)!;
 
 describe('estado del modo replay', () => {
-  it('reproduce el resumen del Sheet: 4 PAGAR, 4 FRENAR, 7 ESCALAR, 53,3% sin persona', () => {
+  it('18 facturas: 4 PAGAR, 4 FRENAR, 10 ESCALAR, 44,4% sin persona y 18 de 18 en el set de desarrollo', () => {
     const r = resumen(estado);
-    expect(r).toMatchObject({ total: 15, PAGAR: 4, FRENAR: 4, ESCALAR: 7, pendientes: 7, pctSinPersona: 53.3 });
+    expect(r).toMatchObject({ total: 18, PAGAR: 4, FRENAR: 4, ESCALAR: 10, pendientes: 10, pctSinPersona: 44.4, decididasBien: 18 });
   });
   it('cada fila coincide con la decision esperada del set', () => {
     for (const f of estado.filas) expect(f.resultado.decision, f.id).toBe(f.esperada);
   });
   it('el registro de decisiones y el de aprobaciones verifican, y las decisiones coinciden con el ancla', async () => {
-    expect(await estado.registroDecisiones.verificar(estado.anclaInicial)).toMatchObject({ ok: true, n: 15 });
+    expect(await estado.registroDecisiones.verificar(estado.anclaInicial)).toMatchObject({ ok: true, n: 18 });
     expect(await estado.registroAprobaciones.verificar()).toMatchObject({ ok: true, n: 0 });
   });
   it('simular una manipulacion se detecta y restaurar la deshace', async () => {
@@ -27,6 +29,115 @@ describe('estado del modo replay', () => {
     expect(await e.registroDecisiones.verificar(e.anclaInicial)).toMatchObject({ ok: false, indice: 3, motivo: 'HASH_NO_COINCIDE' });
     expect(await (await crearEstado()).registroDecisiones.verificar()).toMatchObject({ ok: true });
     expect(e.almacenDecisiones.corromper(99)).toBe(false);
+    // La ultima entrada (indice 17, F-018) tambien se puede alterar.
+    expect((await crearEstado()).almacenDecisiones.corromper(17)).toBe(true);
+  });
+});
+
+describe('defensas F-016 a F-018 en el producto', () => {
+  const ids = ['F-016', 'F-017', 'F-018'];
+
+  it('quedan al final del estado y todas son ESCALAR con su razon', () => {
+    expect(estado.filas.map((f) => f.id).slice(-3)).toEqual(ids);
+    const razones: Record<string, string> = { 'F-016': 'INYECCION', 'F-017': 'CONFIANZA', 'F-018': 'REGISTRO' };
+    for (const id of ids) {
+      expect(fila(estado, id).resultado.decision, id).toBe('ESCALAR');
+      expect(fila(estado, id).resultado.razones.map((r) => r.regla), id).toEqual([razones[id]]);
+    }
+  });
+  it('sin aprobacion no producen instruccion de pago', () => {
+    for (const id of ids) {
+      expect(estadoAprobacion(estado, fila(estado, id))).toBe('PENDIENTE');
+      expect(instruccionPago(estado, fila(estado, id)), id).toBeNull();
+    }
+  });
+  it('se pueden rechazar (sin instruccion) y aprobar (instruccion de origen PERSONA) con el flujo existente', async () => {
+    const e = await crearEstado();
+    for (const id of ids) {
+      const rechazo = await resolver(e, id, 'RECHAZAR', 'revisor-demo');
+      expect(rechazo, id).toMatchObject({ ok: true, instruccion: null });
+      expect(estadoAprobacion(e, fila(e, id))).toBe('RECHAZADA');
+    }
+    expect(e.filas.filter((f) => ids.includes(f.id)).map((f) => instruccionPago(e, f))).toEqual([null, null, null]);
+    const e2 = await crearEstado();
+    for (const id of ids) {
+      const r = await resolver(e2, id, 'APROBAR', 'revisor-demo');
+      expect(r.ok, id).toBe(true);
+      if (r.ok) expect(r.instruccion, id).toMatchObject({ factura_id: id, origen_aprobacion: 'PERSONA', aprobado_por: 'revisor-demo' });
+      expect(estadoAprobacion(e2, fila(e2, id))).toBe('APROBADA');
+    }
+    expect(await e2.registroAprobaciones.verificar()).toMatchObject({ ok: true, n: 3 });
+  });
+  it('los nombres legibles de las razones nuevas existen', () => {
+    expect(nombreRegla('INYECCION')).toMatch(/Instrucciones ocultas/);
+    expect(nombreRegla('CONFIANZA')).toMatch(/Confianza/);
+    expect(nombreRegla('REGISTRO')).toMatch(/registro/);
+  });
+});
+
+describe('traza con INYECCION, CONFIANZA y REGISTRO', () => {
+  const traza = (id: string) => {
+    const f = fila(estado, id);
+    return construirTraza(f.resultado, estado.config, f.factura);
+  };
+  const de = (id: string, codigo: string) => traza(id).find((t) => t.id === codigo)!;
+
+  it('toda traza trae las tres comprobaciones nuevas', () => {
+    for (const f of estado.filas) {
+      const codigos = traza(f.id).map((t) => t.id);
+      for (const c of ['INYECCION', 'CONFIANZA', 'REGISTRO']) expect(codigos, `${f.id} ${c}`).toContain(c);
+    }
+  });
+  it('F-016: INYECCION no cumple, con los fragmentos detectados', () => {
+    const t = de('F-016', 'INYECCION');
+    expect(t.estado).toBe('ESCALAR');
+    expect(textoEstado(t.estado)).toBe('No cumple (ESCALAR)');
+    expect(t.cifra).toMatch(/fragmento/);
+    expect(fragmentosDetectados(fila(estado, 'F-016').resultado.hechos).length).toBeGreaterThan(0);
+    expect(de('F-016', 'CONFIANZA').cifra).toBe('Sin dato de confianza (el lector no la reportó)');
+    expect(de('F-016', 'REGISTRO').estado).toBe('CUMPLE');
+  });
+  it('F-017: CONFIANZA no cumple con la cifra frente al minimo', () => {
+    const t = de('F-017', 'CONFIANZA');
+    expect(t.estado).toBe('ESCALAR');
+    expect(t.cifra).toBe('Confianza de lectura 31 % frente al mínimo de 85 %');
+    expect(de('F-017', 'INYECCION').estado).toBe('CUMPLE');
+  });
+  it('F-018: REGISTRO no cumple con nombre_coincide', () => {
+    const t = de('F-018', 'REGISTRO');
+    expect(t.estado).toBe('ESCALAR');
+    expect(t.cifra).toMatch(/nombre_coincide = no/);
+    expect(t.cifra).toContain('Otra Empresa Distinta');
+  });
+  it('un caso limpio cumple INYECCION y REGISTRO; REGISTRO no aplica si R2 no encontro la cuenta', () => {
+    expect(['INYECCION', 'CONFIANZA', 'REGISTRO'].map((c) => de('F-001', c).estado)).toEqual(['CUMPLE', 'NO_EVALUADA', 'CUMPLE']);
+    const sinCuenta = estado.filas.find((f) => f.resultado.razones.some((r) => r.regla === 'R2') && !f.resultado.razones.some((r) => r.regla === 'R7'))!;
+    expect(construirTraza(sinCuenta.resultado, estado.config, sinCuenta.factura).find((t) => t.id === 'REGISTRO')?.estado).toBe('NO_APLICA');
+  });
+  it('si R7 corta, las demas reglas y REGISTRO van como No evaluada, pero INYECCION se sigue evaluando', () => {
+    const t = traza('F-014');
+    expect(t.find((x) => x.id === 'R1')?.estado).toBe('NO_EVALUADA');
+    expect(t.find((x) => x.id === 'REGISTRO')?.estado).toBe('NO_EVALUADA');
+    expect(t.find((x) => x.id === 'INYECCION')?.estado).toBe('CUMPLE');
+  });
+  it('FRENAR sigue sin aprobacion posible', async () => {
+    expect(fila(estado, 'F-006').resultado.decision).toBe('FRENAR');
+    expect(await resolver(await crearEstado(), 'F-006', 'APROBAR', 'x')).toMatchObject({ ok: false, codigo: 'NO_SE_PUEDE_APROBAR' });
+  });
+  it('el texto fuente de F-016 se parte y marca lo detectado', () => {
+    const f = fila(estado, 'F-016');
+    const trozos = partirTextoFuente(f.factura.texto_fuente as string, fragmentosDetectados(f.resultado.hechos));
+    expect(trozos.map((x) => x.texto).join('')).toBe(f.factura.texto_fuente);
+    expect(trozos.some((x) => x.marcado)).toBe(true);
+  });
+  it('partirTextoFuente tolera acentos y fragmentos que no aparecen', () => {
+    expect(partirTextoFuente('Total: ¡aprobación! Nada más', ['aprobacion'])).toEqual([
+      { texto: 'Total: ¡', marcado: false },
+      { texto: 'aprobación', marcado: true },
+      { texto: '! Nada más', marcado: false },
+    ]);
+    expect(partirTextoFuente('hola', ['marcada por el lector'])).toEqual([{ texto: 'hola', marcado: false }]);
+    expect(partirTextoFuente('', [])).toEqual([{ texto: '', marcado: false }]);
   });
 });
 

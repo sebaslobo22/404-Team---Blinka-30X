@@ -1,5 +1,6 @@
 import { estadoAprobacion, instruccionPago } from '../../src/demo/estado';
 import type { FilaDemo } from '../../src/demo/estado';
+import { nombreRegla } from '../../src/demo/formato';
 import { obtenerEstado } from '../../src/demo/singleton';
 import Acciones from './Acciones';
 
@@ -23,7 +24,7 @@ function Datos({ fila }: { fila: FilaDemo }) {
           Reglas activadas:{' '}
           {fila.resultado.razones.map((r) => (
             <span key={`${r.regla}-${r.efecto}`} className="mono" style={{ marginRight: 8 }}>
-              {r.regla} ({r.efecto})
+              {r.regla} {nombreRegla(r.regla)} ({r.efecto})
             </span>
           ))}
         </p>

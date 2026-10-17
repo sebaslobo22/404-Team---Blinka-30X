@@ -13,11 +13,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'El cuerpo debe ser JSON válido.' }, { status: 400 });
   }
   const indice = typeof cuerpo === 'object' && cuerpo !== null ? (cuerpo as Record<string, unknown>)['indice'] : undefined;
-  if (typeof indice !== 'number' || !Number.isInteger(indice) || indice < 0 || indice > 14) {
-    return NextResponse.json({ ok: false, error: 'El índice debe ser un entero entre 0 y 14.' }, { status: 400 });
-  }
   try {
     const estado = await obtenerEstado();
+    const ultimo = estado.filas.length - 1;
+    if (typeof indice !== 'number' || !Number.isInteger(indice) || indice < 0 || indice > ultimo) {
+      return NextResponse.json({ ok: false, error: `El índice debe ser un entero entre 0 y ${ultimo}.` }, { status: 400 });
+    }
     if (!estado.almacenDecisiones.corromper(indice)) {
       return NextResponse.json({ ok: false, error: 'No existe esa entrada en el registro.' }, { status: 400 });
     }

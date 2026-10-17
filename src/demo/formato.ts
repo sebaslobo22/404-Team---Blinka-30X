@@ -83,6 +83,9 @@ const NOMBRES: Record<string, string> = {
   R6: 'Cotejo con lo acordado',
   R7: 'Moneda permitida y campos críticos completos',
   R8: 'Cuenta bancaria cambiada recientemente',
+  INYECCION: 'Instrucciones ocultas en la factura',
+  CONFIANZA: 'Confianza de la lectura',
+  REGISTRO: 'Nombre coincide con el registro',
   EXTRACCION: 'Alertas de la extracción',
   ESQUEMA: 'Error interno al evaluar',
 };
