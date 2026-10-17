@@ -4,7 +4,11 @@ import { cargarContexto } from './datos';
 import './equipo.css';
 
 export const dynamic = 'force-dynamic';
-export const metadata: Metadata = { title: 'Centro de mando 404', description: 'Tareas, zonas y bitácora del equipo 404, en tiempo real.' };
+export const metadata: Metadata = {
+  title: 'Centro de mando 404',
+  description: 'Tareas, zonas y bitácora del equipo 404, en tiempo real.',
+  robots: { index: false, follow: false, noarchive: true },
+};
 
 export default async function PaginaEquipo() {
   const inicial = await cargarContexto();

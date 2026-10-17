@@ -1,12 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  async redirects() {
-    // Lo interno vive en /team; /equipo fue el nombre inicial.
-    return [
-      { source: '/equipo', destination: '/team', permanent: true },
-      { source: '/equipo/:path*', destination: '/team/:path*', permanent: true },
-      { source: '/api/equipo/:path*', destination: '/api/team/:path*', permanent: false },
-    ];
-  },
-};
+// Las redirecciones de /equipo (nombre inicial de /team) viven en middleware.ts: asi, con
+// MODO_PUBLICO=1, /equipo responde 404 en lugar de revelar que /team existe.
+const nextConfig = {};
 export default nextConfig;

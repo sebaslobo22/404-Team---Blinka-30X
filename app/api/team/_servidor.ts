@@ -2,7 +2,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { clienteServidor } from '../../team/datos';
-import { validarPin } from '../../team/lib';
+import { pinUsable, validarPinSeguro } from '../../team/lib';
+import { modoPublico } from '../../../src/publico';
 
 export const PIN_COOKIE = 'equipo_pin';
 
@@ -10,9 +11,18 @@ export function pinDeSolicitud(req: NextRequest): string | undefined {
   return req.headers.get('x-equipo-pin') ?? req.cookies.get(PIN_COOKIE)?.value;
 }
 
+/** 404 vacio, sin pistas: lo que ve quien llama a lo interno en el despliegue publico. */
+export function respuesta404(): NextResponse {
+  return new NextResponse(null, { status: 404 });
+}
+
 /** Devuelve una respuesta de error si no se puede escribir; null si todo bien. */
 export function exigirEscritura(req: NextRequest): { error: NextResponse } | { db: SupabaseClient } {
-  if (!validarPin(pinDeSolicitud(req), process.env.EQUIPO_PIN)) {
+  if (modoPublico(process.env)) return { error: respuesta404() };
+  if (!pinUsable(process.env.EQUIPO_PIN)) {
+    return { error: NextResponse.json({ error: 'PIN demasiado corto' }, { status: 503 }) };
+  }
+  if (!validarPinSeguro(pinDeSolicitud(req), process.env.EQUIPO_PIN)) {
     return { error: NextResponse.json({ error: 'PIN requerido o inválido' }, { status: 401 }) };
   }
   const db = clienteServidor();
