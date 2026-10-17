@@ -10,6 +10,11 @@ export function dinero(centavos: unknown, moneda: unknown) {
   if (typeof centavos !== 'number' || !Number.isFinite(centavos) || typeof moneda !== 'string' || !moneda.trim()) return 'Monto sin leer';
   return `${moneda} ${(centavos / 100).toLocaleString('es-CO', { maximumFractionDigits: 2 })}`;
 }
+/** Nombre llano de cada dato que leen los modelos (para decir en cuál no coincidieron). */
+export const camposLeidos: Record<string, string> = {
+  beneficiario: 'proveedor', id_fiscal: 'número fiscal', cuenta: 'cuenta bancaria', monto: 'monto', moneda: 'moneda',
+  fecha: 'fecha del cobro', numero_factura: 'número de factura', categoria: 'tipo de gasto',
+};
 export const nombres: Record<string, string> = {
   R1: 'Límite por pago', R2: 'Proveedor autorizado', R3: 'Tope del mes', R4: 'Dinero para este tipo de gasto',
   R5: 'Cobro repetido', R6: 'Monto acordado', R7: 'Datos completos', R8: 'Cuenta cambiada hace poco',
@@ -30,7 +35,7 @@ export function motivo(fila: FilaDemo): string {
     case 'R6': return h.acuerdo_encontrado === false ? 'No encontramos un monto acordado para este cobro.' : 'El monto no cuadra con lo acordado.';
     case 'R7': return 'Faltan datos o no se pudieron leer bien.';
     case 'R8': return 'La cuenta se registró hace poco.';
-    case 'INYECCION': return 'La factura intenta dar órdenes al agente.';
+    case 'INYECCION': return 'La factura intenta dar órdenes a Pulso.';
     case 'CONFIANZA': return 'No se leyó con claridad.';
     case 'REGISTRO': return 'El nombre no coincide con el proveedor de tu lista.';
     default: return 'Hay datos que debes revisar antes de seguir.';

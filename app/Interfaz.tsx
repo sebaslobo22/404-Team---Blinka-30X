@@ -12,7 +12,7 @@ export function Cabecera({equipoDisponible=true}:{equipoDisponible?:boolean}) {
   function cambiar() { const t = tema === 'light' ? 'dark' : tema === 'dark' ? 'sistema' : 'light'; setTema(t); if (t === 'sistema') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = t; try { localStorage.setItem('404-tema', t); } catch { } window.dispatchEvent(new Event('tema:cambio')); }
   return <header className="cabecera">
     <div className="contenedor cabecera-interior">
-      <div className="cabecera-fila"><Link className="marca" href="/">Agente pagador · 404</Link>
+      <div className="cabecera-fila"><Link className="marca" href="/">Pulso<span className="tenue"> · Equipo 404</span></Link>
         <details className="menu-movil">
           <summary><Ic nombre="colapsar" size={20} className="en-linea" />Más</summary>
           <div className="cabecera-utiles">{equipoDisponible?<Link className="btn btn-texto" href="/team"><IconoEquipo />Equipo</Link>:null}<BotonTour /><button className="btn" onClick={cambiar}><IconoTema />Tema {tema === 'light' ? 'claro' : tema === 'dark' ? 'oscuro' : 'del sistema'}</button></div>
@@ -25,7 +25,7 @@ export function NavegacionMovil() { const ruta = usePathname(); return <nav clas
 export function AvisoReplay() {
 const [visible, setVisible] = useState(true); const ruta = usePathname(); if (!visible || ruta.startsWith('/team')) return null; return <aside className="aviso-demo">
     <div className="contenedor">
-      <p className="con-ic"><Ic nombre="info" size={24} /><span><strong>Demostración.</strong> Usamos datos ficticios. No se mueve dinero.</span></p>
+      <p className="con-ic"><Ic nombre="info" size={24} /><span><strong>Demostración.</strong> Los datos son ficticios. Las lecturas son reales: se grabaron y se reproducen sin llamar a ningún modelo ni usar claves. El sistema nunca mueve dinero.</span></p>
       <button className="btn btn-texto" onClick={() => setVisible(false)}><Ic nombre="x" size={20} />Cerrar</button></div>
   </aside>;
 }

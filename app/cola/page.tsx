@@ -1,7 +1,6 @@
 import { estadoAprobacion } from '../../src/demo/estado';
 import { obtenerEstado } from '../../src/demo/singleton';
-import { construirTraza } from '../../src/demo/traza';
-import { dinero, frase } from '../ui/lenguaje';
+import { vistaFactura } from '../ui/vista';
 import Lista from './Lista';
 import { Ic } from '../ui/iconos';
 export const dynamic = 'force-dynamic';
@@ -14,5 +13,5 @@ export default async function Cola() {
       <p>Hay {pendientes.length} cobros que piden tu ayuda. Los de mayor monto van primero.</p>
       <p className="tenue">Revisa cada uno y deja una nota. Aprobar no mueve dinero.</p>
     </header>
-    <Lista filas={pendientes.map(f => ({ id: f.id, decision: f.resultado.decision, texto: frase(f), proveedor: f.factura.beneficiario ?? 'Proveedor sin leer', monto: dinero(f.factura.monto_centavos, f.factura.moneda), razones: construirTraza(f.resultado, estado.config, f.factura), aprobacion: 'PENDIENTE' }))} /></>;
+    <Lista filas={pendientes.map(f => vistaFactura(estado, f))} /></>;
 }

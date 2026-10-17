@@ -62,7 +62,7 @@ export default function Formulario({ inicial }: { inicial: ParametrosReglas ;}) 
           <summary>Ver más cambios</summary>
           <ul>{vista.cambios.slice(7).map(c => <li key={c.id}>{c.id}: {estados[c.antes].etiqueta} → {estados[c.despues].etiqueta}</li>)}</ul>
         </details> : null}</> : <p>No cambia ninguna decisión de esta prueba.</p>}
-      <p className="tenue">Se usan las mismas reglas del agente. No se ha guardado nada.</p>
+      <p className="tenue">Se usan las mismas reglas de Pulso. No se ha guardado nada.</p>
     </section> : <p>No hay cambios por guardar.</p>}
     {confirmar ? <div className="aviso">
       <p>Guardar vuelve a revisar todas las facturas. Borra las respuestas dadas en esta sesión.</p>

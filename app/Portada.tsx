@@ -9,6 +9,10 @@ export interface DatosPortada {
   usd: { pagar: number; frenar: number; espera: number }; // centavos
   sinMonto: number; leidas: number;
   riesgos: { id: string; n: number }[]; motivoTop: { id: string; n: number } | null;
+  /** Costo de leer todas las facturas, sumado de las lecturas grabadas (ya con formato). */
+  costoLectura: string;
+  /** Cuántas facturas llegaron en cada formato de documento. */
+  formatos: { etiqueta: string; n: number }[];
 }
 
 const FRASE_MOTIVO: Record<string, [string, string]> = {
@@ -104,13 +108,14 @@ export default function Portada({ d }: { d: DatosPortada }) {
       <li className="kpi ic-pagar"><Ic nombre="check-circulo" size={24} /><div><p className="kpi-etiqueta">Pagadas solas</p><p className="kpi-cifra mono">{d.pagar} · {usd(d.usd.pagar)}</p></div></li>
       <li className="kpi ic-frenar"><Ic nombre="mano" size={24} /><div><p className="kpi-etiqueta">Frenadas</p><p className="kpi-cifra mono">{d.frenar} · {usd(d.usd.frenar)}</p></div></li>
       <li className="kpi" data-tour="coincide"><Ic nombre="decisiones" size={24} /><div><p className="kpi-etiqueta">Coinciden con lo esperado</p><p className="kpi-cifra mono">{d.bien} de {d.total}</p><p className="kpi-nota">Aún falta probar con facturas nuevas.</p></div></li>
+      <li className="kpi" data-costo-lectura><Ic nombre="monedas" size={24} /><div><p className="kpi-etiqueta">Costo de leer las {d.total}</p><p className="kpi-cifra mono">{d.costoLectura}</p><p className="kpi-nota">Dos modelos por factura. Suma de las lecturas grabadas.</p></div></li>
     </ul>
 
     <div className="tarjeta flujo-tarjeta">
-      <h3 className="titulo-ic"><Ic nombre="flecha-salida" size={24} />Cómo decidió el agente</h3>
+      <h3 className="titulo-ic"><Ic nombre="flecha-salida" size={24} />Cómo decidió Pulso</h3>
       <ol className="flujo">
-        <li><Ic nombre="documento" size={24} /><strong>Llegaron</strong><span className="mono">{d.total}</span></li>
-        <li><Ic nombre="ojos" size={24} /><strong>Leímos</strong><span className="mono">{d.leidas}</span><small>con datos completos</small></li>
+        <li><Ic nombre="documento" size={24} /><strong>Llegaron</strong><span className="mono">{d.total}</span>{d.formatos.length ? <small>{d.formatos.map(x => `${x.etiqueta} ${x.n}`).join(' · ')}</small> : null}</li>
+        <li><Ic nombre="ojos" size={24} /><strong>Leímos</strong><span className="mono">{d.leidas}</span><small>con dos modelos, datos completos</small></li>
         <li><Ic nombre="reglas" size={24} /><strong>Revisamos reglas</strong><span className="mono">{d.total}</span></li>
         <li className="flujo-salidas"><ul>
           <li className="ic-pagar"><Ic nombre="check-circulo" size={24} /><strong>Pagamos</strong><span className="mono">{d.pagar}</span></li>

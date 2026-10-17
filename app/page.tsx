@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { estadoAprobacion, resumen } from '../src/demo/estado';
+import { costoLecturasUsd, estadoAprobacion, resumen } from '../src/demo/estado';
+import { etiquetaFormato, formatearCostoLectura } from '../src/demo/formato';
 import { obtenerEstado } from '../src/demo/singleton';
-import { construirTraza } from '../src/demo/traza';
 import ListaFacturas from './ListaFacturas';
 import Portada, { type DatosPortada } from './Portada';
 import { Ic } from './ui/iconos';
-import { dinero, frase } from './ui/lenguaje';
+import { vistaFactura } from './ui/vista';
 export const dynamic = 'force-dynamic';
 export default async function PaginaDecisiones() {
   const estado = await obtenerEstado(); const r = resumen(estado);
@@ -21,16 +21,18 @@ export default async function PaginaDecisiones() {
     usd: { pagar: suma(estado.filas.filter(f => f.resultado.decision === 'PAGAR')), frenar: suma(estado.filas.filter(f => f.resultado.decision === 'FRENAR')), espera: suma(pendientes) },
     sinMonto: pendientes.filter(f => centavos(f) === null).length, leidas: estado.filas.filter(f => !reglasDe(f).includes('R7')).length,
     riesgos: conteo(estado.filas.filter(f => f.resultado.decision !== 'PAGAR'), reglasDe), motivoTop: principal[0] ?? null,
+    costoLectura: formatearCostoLectura(costoLecturasUsd(estado)),
+    formatos: ['pdf', 'imagen', 'correo', 'chat'].map(k => ({ etiqueta: etiquetaFormato(k), n: estado.filas.filter(f => f.fuente?.formato === k).length })).filter(x => x.n > 0),
   };
   return <>
     <header>
       <p className="rotulo">Tus facturas, en orden</p>
       <h1 className="titulo-ic"><Ic nombre="decisiones" size={28} />¿Qué pasó con mis facturas?</h1>
       <p>De {r.total} facturas, {r.PAGAR} tienen pago autorizado, {r.FRENAR} se frenaron y {r.ESCALAR} piden tu ayuda.</p>
-      <p className="tenue">El agente decide. No envía dinero.</p></header>
+      <p className="tenue">Pulso decide. No envía dinero.</p></header>
 
     <Portada d={datos} />
 
-    <ListaFacturas filas={estado.filas.map(f => ({ id: f.id, decision: f.resultado.decision, texto: frase(f), proveedor: f.factura.beneficiario ?? 'Proveedor sin leer', monto: dinero(f.factura.monto_centavos, f.factura.moneda), razones: construirTraza(f.resultado, estado.config, f.factura), reglas: reglasDe(f), aprobacion: estadoAprobacion(estado, f) }))} />
+    <ListaFacturas filas={estado.filas.map(f => vistaFactura(estado, f))} />
   </>;
 }
