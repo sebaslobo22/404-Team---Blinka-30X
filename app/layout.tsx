@@ -8,6 +8,7 @@ import { modoPublico } from '../src/publico';
 import type { ReactNode } from 'react';
 import './globals.css';
 import './barra/barra.css';
+import './ui/iconos.css';
 
 export const metadata: Metadata = {
   title: 'Agente pagador 404',

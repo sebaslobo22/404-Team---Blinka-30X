@@ -61,3 +61,9 @@ export function detalleRazon(t: FilaTraza): string {
     .replace('Tolerancia ','Margen: ').replace('Acuerdo encontrado: sí','Hay un precio acordado.').replace('Acuerdo encontrado: no','No hay un precio acordado.')
     .replace(', ventana de ','. Tu espera: ').replace(/beneficiario/gi,'proveedor').replace(/extracción/g,'lectura');
 }
+
+/** Regla que explica la decisión: la primera fila que no cumple y coincide con la decisión. */
+export function reglaPrincipal(filas: FilaTraza[] | undefined, decision: DecisionUI): string | undefined {
+  if (!filas || decision === 'PAGAR') return undefined;
+  return (filas.find(f => f.estado === decision) ?? filas.find(f => f.estado === 'FRENAR' || f.estado === 'ESCALAR'))?.id;
+}

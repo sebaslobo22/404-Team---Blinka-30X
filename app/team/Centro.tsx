@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { Ic } from '../ui/iconos';
+import type { NombreIcono } from '../ui/mapa-iconos';
 import {
   DUENOS, ESTADOS, ETIQUETA_ESTADO, PERSONAS, agruparPorDueno, cuentaRegresiva, formatearCaracas, haceCuanto,
   type Contexto, type Dueno, type EstadoTarea,
@@ -13,17 +15,10 @@ const TABLAS = ['equipo_tareas', 'equipo_zonas', 'equipo_bitacora', 'equipo_esta
 
 const sinAcentos = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const clasePill: Record<EstadoTarea, string> = { pendiente: 'eq-p-acc', en_curso: 'eq-p-warn', bloqueada: 'eq-p-bad', hecha: 'eq-p-ok' };
+const iconoTarea: Record<EstadoTarea, NombreIcono> = { pendiente: 'reloj', en_curso: 'vivo', bloqueada: 'mano', hecha: 'check-circulo' };
 
 function Icono({ agente }: { agente: boolean }) {
-  return agente ? (
-    <svg className="eq-ico" viewBox="0 0 24 24" width="18" height="18" aria-label="Agente" role="img" fill="none" stroke="currentColor" strokeWidth="2">
-      <rect x="5" y="8" width="14" height="11" rx="2" /><path d="M12 4v4M9 13h.01M15 13h.01" />
-    </svg>
-  ) : (
-    <svg className="eq-ico" viewBox="0 0 24 24" width="18" height="18" aria-label="Persona" role="img" fill="none" stroke="currentColor" strokeWidth="2">
-      <circle cx="12" cy="8" r="4" /><path d="M4 20c1-4 4-6 8-6s7 2 8 6" />
-    </svg>
-  );
+  return <span className="eq-ico" role="img" aria-label={agente ? 'Agente' : 'Persona'}><Ic nombre={agente ? 'agente' : 'persona'} size={24} /></span>;
 }
 
 export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial: Contexto; supabaseUrl: string | null; supabaseAnon: string | null }) {
@@ -105,11 +100,11 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
     const n = sinAcentos(p);
     return ctx.zonas.find((z) => z.agente && sinAcentos(z.agente).includes(n));
   }
-  const puertas: { id: Puerta; titulo: string; sub: string }[] = [
-    { id: 'tareas', titulo: 'Tareas', sub: `${ctx.tareas.filter((t) => t.estado !== 'hecha').length} abiertas` },
-    { id: 'zonas', titulo: 'Zonas', sub: `${ctx.zonas.filter((z) => z.agente).length} tomadas` },
-    { id: 'bitacora', titulo: 'Bitácora', sub: 'últimos movimientos' },
-    { id: 'acuerdo', titulo: 'Acuerdo', sub: 'para agentes y personas' },
+  const puertas: { id: Puerta; titulo: string; sub: string; icono: NombreIcono }[] = [
+    { id: 'tareas', titulo: 'Tareas', sub: `${ctx.tareas.filter((t) => t.estado !== 'hecha').length} abiertas`, icono: 'tarea' },
+    { id: 'zonas', titulo: 'Zonas', sub: `${ctx.zonas.filter((z) => z.agente).length} tomadas`, icono: 'zona' },
+    { id: 'bitacora', titulo: 'Bitácora', sub: 'últimos movimientos', icono: 'reloj' },
+    { id: 'acuerdo', titulo: 'Acuerdo', sub: 'para agentes y personas', icono: 'acuerdo' },
   ];
 
   return (
@@ -117,15 +112,15 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
       <div className="eq-wrap">
         <header className="eq-top">
           <div>
-            <h1>¿Cómo va el equipo?</h1>
-            <p className="eq-sub">Revisa quién hace cada tarea y qué falta. {vivo ? <span className="eq-pill eq-p-ok">en vivo</span> : null}</p>
+            <h1 className="titulo-ic"><Ic nombre="equipo" size={28} />¿Cómo va el equipo?</h1>
+            <p className="eq-sub">Revisa quién hace cada tarea y qué falta. {vivo ? <span className="eq-pill eq-p-ok"><Ic nombre="vivo" size={20} />en vivo</span> : null}</p>
           </div>
           <div className="eq-lado">
             {a ? (
               <div className="eq-clock">cierre {formatearCaracas(a.cierre_iso)}<b>{ahora === null ? '--' : cuentaRegresiva(a.cierre_iso, ahora)}</b></div>
             ) : null}
             {entrado ? (
-              <span className="eq-pill eq-p-ok">Entraste como {quien}</span>
+              <span className="eq-pill eq-p-ok"><Ic nombre="persona" size={20} />Entraste como {quien}</span>
             ) : (
               <form className="eq-pin" onSubmit={entrar}>
                 <label className="eq-oculto" htmlFor="eq-quien">Quién eres</label>
@@ -147,24 +142,24 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
         <section aria-label="Resumen">
           <div className="eq-facts">
-            <div className="eq-fact eq-ok"><b>Ahora</b><span>{a?.frase?.replace(/Supabase/g, 'la base de datos') ?? 'Sin estado cargado.'}</span></div>
-            <div className="eq-fact eq-warn"><b>Siguiente hito</b><span>{a?.hito ?? '--'}</span></div>
-            <div className="eq-fact eq-bad"><b>Nos frena</b><span>{a?.bloqueantes?.length ? a.bloqueantes.map((x, i) => <span key={i}>{x.replace(/\bESCALAR\b/g, 'cobro que pide tu ayuda')}</span>) : 'Nada por ahora.'}</span></div>
+            <div className="eq-fact eq-ok"><b className="con-ic"><Ic nombre="vivo" size={24} />Ahora</b><span>{a?.frase?.replace(/Supabase/g, 'la base de datos') ?? 'Sin estado cargado.'}</span></div>
+            <div className="eq-fact eq-warn"><b className="con-ic"><Ic nombre="bandera" size={24} />Siguiente hito</b><span>{a?.hito ?? '--'}</span></div>
+            <div className="eq-fact eq-bad"><b className="con-ic"><Ic nombre="mano" size={24} />Nos frena</b><span>{a?.bloqueantes?.length ? a.bloqueantes.map((x, i) => <span key={i}>{x.replace(/\bESCALAR\b/g, 'cobro que pide tu ayuda')}</span>) : 'Nada por ahora.'}</span></div>
           </div>
         </section>
 
         <section aria-label="Puertas">
-          <h2>¿Qué quieres ver?</h2>
+          <h2 className="titulo-ic"><Ic nombre="decisiones" size={28} />¿Qué quieres ver?</h2>
           <div className="eq-doors">
             {puertas.map((p) => (
               <button key={p.id} className="eq-door" aria-expanded={puerta === p.id} aria-controls={`eq-p-${p.id}`} onClick={() => setPuerta(puerta === p.id ? null : p.id)}>
-                {p.titulo}<small>{p.sub}</small>
+                <span className="con-ic"><Ic nombre={p.icono} size={24} />{p.titulo}</span><small>{p.sub}</small>
               </button>
             ))}
           </div>
         </section>
 
-        <details><summary>Ver más del equipo</summary>
+        <details><summary><Ic nombre="equipo" size={24} className="en-linea" />Ver más del equipo</summary>
         <section aria-label="Personas">
           <div className="eq-personas">
             {PERSONAS.map((p) => {
@@ -172,8 +167,8 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
               const z = zonaDe(p);
               return (
                 <article className="eq-persona" key={p}>
-                  <h3>{p}</h3>
-                  {t ? <p><span className={`eq-pill ${clasePill[t.estado]}`}>{ETIQUETA_ESTADO[t.estado]}</span> {t.titulo}</p> : <p className="eq-tenue">Sin tarea abierta.</p>}
+                  <h3 className="con-ic"><Ic nombre="persona" size={24} />{p}</h3>
+                  {t ? <p><span className={`eq-pill ${clasePill[t.estado]}`}><Ic nombre={iconoTarea[t.estado]} size={20} />{ETIQUETA_ESTADO[t.estado]}</span> {t.titulo}</p> : <p className="eq-tenue">Sin tarea abierta.</p>}
                   <p className="eq-tenue">{z ? <>Zona tomada: <code>{z.ruta}</code> {haceCuanto(z.tomada_en, ahora ?? undefined)}</> : 'No tiene ninguna zona tomada.'}</p>
                 </article>
               );
@@ -184,7 +179,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
         </details>
         {puerta === 'tareas' ? (
           <section className="eq-panel" id="eq-p-tareas">
-            <h3>Tareas</h3>
+            <h3 className="titulo-ic"><Ic nombre="tarea" size={28} />Tareas</h3>
             <div className="eq-cols">
               {DUENOS.map((d) => (
                 <div className="eq-col" key={d}>
@@ -192,7 +187,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
                   {grupos[d].length === 0 ? <p className="eq-tenue">Sin tareas.</p> : null}
                   {grupos[d].map((t) => (
                     <div className={`eq-tarea${t.estado === 'hecha' ? ' eq-hecha' : ''}`} key={t.id}>
-                      <div className="eq-tarea-cab"><span className="eq-bloque">Bloque {t.bloque}</span><span className={`eq-pill ${clasePill[t.estado]}`}>{ETIQUETA_ESTADO[t.estado]}</span></div>
+                      <div className="eq-tarea-cab"><span className="eq-bloque">Bloque {t.bloque}</span><span className={`eq-pill ${clasePill[t.estado]}`}><Ic nombre={iconoTarea[t.estado]} size={20} />{ETIQUETA_ESTADO[t.estado]}</span></div>
                       <p>{t.titulo}</p>
                       {puedeEscribir ? (
                         <div className="eq-botones" role="group" aria-label="Cambiar estado">
@@ -220,11 +215,11 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
         {puerta === 'zonas' ? (
           <section className="eq-panel" id="eq-p-zonas">
-            <h3>Zonas</h3>
+            <h3 className="titulo-ic"><Ic nombre="zona" size={28} />Zonas</h3>
             <ul className="eq-zonas">
               {ctx.zonas.map((z) => (
                 <li key={z.ruta}>
-                  <span className={`eq-sem ${z.agente ? 'eq-sem-warn' : 'eq-sem-ok'}`} aria-hidden="true" />
+                  <span className="ic-col"><Ic nombre="zona" size={24} /></span><span className={`eq-sem ${z.agente ? 'eq-sem-warn' : 'eq-sem-ok'}`} aria-hidden="true" />
                   <div className="eq-zona-txt">
                     <code>{z.ruta}</code>
                     <span className="eq-tenue">Dueño: {z.dueno}. {z.agente ? `Tomada por ${z.agente} ${haceCuanto(z.tomada_en, ahora ?? undefined)}.` : 'Libre.'}</span>
@@ -241,7 +236,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
         {puerta === 'bitacora' ? (
           <section className="eq-panel" id="eq-p-bitacora">
-            <h3>Bitácora</h3>
+            <h3 className="titulo-ic"><Ic nombre="reloj" size={28} />Bitácora</h3>
             {ctx.bitacora.length === 0 ? <p className="eq-tenue">Sin movimientos todavía.</p> : null}
             <ul className="eq-bit">
               {ctx.bitacora.map((b) => (
@@ -259,7 +254,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
         {puerta === 'acuerdo' ? (
           <section className="eq-panel" id="eq-p-acuerdo">
-            <h3>Acuerdo</h3>
+            <h3 className="titulo-ic"><Ic nombre="acuerdo" size={28} />Acuerdo</h3>
             <p>Un agente de IA debe leer el contexto antes de tocar nada, tomar su zona y soltarla al terminar.</p>
             <ul>
               <li><a href="/team/contexto.md">Contexto en Markdown para agentes</a></li>
