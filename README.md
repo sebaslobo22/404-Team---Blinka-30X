@@ -24,3 +24,17 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 - El demo publico corre en modo replay, sin ninguna clave desplegada.
 - El texto de una factura es dato no confiable, nunca instruccion.
 - Las reglas son politica interna de pago de una empresa ficticia, no normativa legal.
+
+## Motor de reglas (paso 2)
+
+`src/engine/`: funcion pura `decidir(facturaId, factura, contexto, config)` que devuelve PAGAR, FRENAR o ESCALAR con razones, hechos y explicacion por plantilla. Dinero en centavos enteros, conversion a USD redondeando hacia arriba, ante error interno ESCALAR.
+
+```
+npm install
+npm test          # 50 tests: ejemplos por regla y propiedades con fast-check
+npm run typecheck
+```
+
+Las propiedades comparan el motor con un oraculo independiente escrito con BigInt: el motor decide PAGAR si y solo si el oraculo lo permite. Ademas se verifica que nunca lanza error, que es determinista, que no modifica sus entradas y que toda cifra de la explicacion sale de los hechos del motor.
+
+Supuestos pendientes de confirmar con el dataset del equipo: una cuenta nueva debe estar registrada en la lista de beneficiarios con su fecha de alta (una cuenta no registrada se frena por R2; una registrada hace menos de 3 dias escala por R8); la tolerancia de R6 aplica en ambos sentidos; sin presupuesto configurado para la categoria se escala.
