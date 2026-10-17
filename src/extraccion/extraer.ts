@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import type { FacturaExtraida } from '../engine/types';
+import { alertasAritmetica, alertasTipoDocumento, TIPOS_DOCUMENTO } from './defensas';
 import esquema from './esquema.json';
 import { apareceLiteral, fechaValida, montoAparece, montoACentavos, normalizarLiteral } from './monto';
 import { ErrorLLM, llamarOpenRouter, type PeticionLLM, type RespuestaLLM } from './openrouter';
@@ -30,6 +31,12 @@ export interface Lectura {
   categoria: string | null;
   confianza: number;
   instrucciones_detectadas: boolean;
+  /** Opcionales: si faltan (lecturas guardadas antes de las defensas) se tratan como no evaluados. */
+  tipo_documento?: string | null;
+  subtotal?: string | null;
+  impuestos?: { nombre: string; monto: string }[] | null;
+  descuento?: string | null;
+  lineas?: { descripcion: string; monto: string }[] | null;
 }
 
 export interface DetalleLectura {
@@ -78,6 +85,17 @@ export function validarLectura(x: unknown): { ok: true; datos: Lectura } | { ok:
   if (!('categoria' in o) || (o['categoria'] !== null && !esquema.categorias.includes(o['categoria'] as string))) return { ok: false, motivo: 'esquema_campo_categoria' };
   if (typeof o['moneda_explicita'] !== 'boolean') return { ok: false, motivo: 'esquema_campo_moneda_explicita' };
   if (typeof o['instrucciones_detectadas'] !== 'boolean') return { ok: false, motivo: 'esquema_campo_instrucciones_detectadas' };
+  const td = o['tipo_documento'];
+  if (td !== undefined && td !== null && !(typeof td === 'string' && (TIPOS_DOCUMENTO as readonly string[]).includes(td))) return { ok: false, motivo: 'esquema_campo_tipo_documento' };
+  for (const c of ['subtotal', 'descuento'] as const) {
+    if (o[c] !== undefined && o[c] !== null && typeof o[c] !== 'string') return { ok: false, motivo: `esquema_campo_${c}` };
+  }
+  for (const [c, k] of [['impuestos', 'nombre'], ['lineas', 'descripcion']] as const) {
+    const v = o[c];
+    if (v === undefined || v === null) continue;
+    const bien = Array.isArray(v) && v.every((x) => x && typeof x === 'object' && typeof (x as Record<string, unknown>)[k] === 'string' && typeof (x as Record<string, unknown>)['monto'] === 'string');
+    if (!bien) return { ok: false, motivo: `esquema_campo_${c}` };
+  }
   const c = o['confianza'];
   if (typeof c !== 'number' || !Number.isFinite(c) || c < 0 || c > 1) return { ok: false, motivo: 'esquema_campo_confianza' };
   return { ok: true, datos: o as unknown as Lectura };
@@ -199,6 +217,12 @@ export function combinar(entrada: EntradaFactura, lecturas: DetalleLectura[], mo
   if (a.moneda !== null && moneda === null) alertas.push('moneda_formato_invalido');
   const fecha_emision = fechaValida(a.fecha) ? a.fecha : null;
   if (a.fecha !== null && fecha_emision === null) alertas.push('fecha_formato_invalido');
+
+  // (d) Documento que no es un cobro (tipo dicho por el modelo o marcas deterministas en el texto).
+  alertas.push(...alertasTipoDocumento(entrada.texto, [a.tipo_documento, b.tipo_documento]));
+
+  // (f) Aritmetica del desglose, en centavos BigInt, sobre cada lectura que lo traiga.
+  alertas.push(...alertasAritmetica(a), ...alertasAritmetica(b));
 
   // (a) Cada dato critico debe aparecer literal en el texto fuente.
   const texto = entrada.texto;

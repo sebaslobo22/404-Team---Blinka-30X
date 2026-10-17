@@ -62,3 +62,20 @@ export function fechaValida(s: unknown): s is string {
   const d = new Date(`${s}T00:00:00Z`);
   return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
 }
+
+/** Como montoACentavos pero admite signo ("-12.50", "+3"): para retenciones. BigInt; formato invalido -> null. */
+export function montoFirmadoACentavos(texto: unknown): bigint | null {
+  if (typeof texto !== 'string') return null;
+  const signo = texto.startsWith('-') ? -1n : 1n;
+  const limpio = texto.startsWith('-') || texto.startsWith('+') ? texto.slice(1) : texto;
+  if (!RE_MONTO.test(limpio)) return null;
+  const [ent = '0', dec = ''] = limpio.split('.');
+  return signo * (BigInt(ent) * 100n + BigInt(dec.padEnd(2, '0')));
+}
+
+/** bigint de centavos -> "1200.50" (para el detalle de las alertas). */
+export function centavosATexto(c: bigint): string {
+  const neg = c < 0n;
+  const a = neg ? -c : c;
+  return `${neg ? '-' : ''}${a / 100n}.${String(a % 100n).padStart(2, '0')}`;
+}
