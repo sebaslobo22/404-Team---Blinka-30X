@@ -1,0 +1,285 @@
+<title>Marco Blinka 404</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: un solo tablero de auditor. Primera pantalla = tres hechos y cinco puertas. Cada puerta abre una sola sección; dentro, cada punto se abre por separado. */
+:root{
+  --bg:#f4f5f3; --surface:#ffffff; --ink:#1a2430; --muted:#5d6b78; --line:#d9dedf;
+  --accent:#1f5f8b; --accent-soft:#e4eef5;
+  --ok:#1f7a4c; --ok-soft:#e0f2e8; --warn:#9a5b00; --warn-soft:#fbefd6; --bad:#b02e24; --bad-soft:#f9e3e0;
+  --body:'Atkinson Hyperlegible',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121a20; --surface:#1a242d; --ink:#e7ecef; --muted:#9aa9b5; --line:#2d3b47;
+  --accent:#8dbfe6; --accent-soft:#1d3346; --ok:#63c58f; --ok-soft:#173424; --warn:#e6ad52; --warn-soft:#3a2a10; --bad:#f09088; --bad-soft:#44201c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121a20; --surface:#1a242d; --ink:#e7ecef; --muted:#9aa9b5; --line:#2d3b47;
+  --accent:#8dbfe6; --accent-soft:#1d3346; --ok:#63c58f; --ok-soft:#173424; --warn:#e6ad52; --warn-soft:#3a2a10; --bad:#f09088; --bad-soft:#44201c; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body);padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1{font-size:28px;line-height:1.15;margin:0;font-weight:700;text-wrap:balance}
+.sub{color:var(--muted);margin:6px 0 0;max-width:62ch}
+.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.clock{font:500 13px var(--mono);color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.clock b{display:block;font-size:24px;color:var(--ink);font-weight:500}
+@media(max-width:560px){.clock{text-align:left}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;min-width:0}
+.fact b{display:block;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.fact span{display:block}
+.fact.ok{border-left:4px solid var(--ok)}.fact.warn{border-left:4px solid var(--warn)}.fact.bad{border-left:4px solid var(--bad)}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0;font-weight:700}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.door{font:inherit;font-size:15px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
+.door small{color:var(--muted);font-size:13px}
+.door[aria-expanded="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.door:hover{border-color:var(--accent)}
+.door:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 18px 8px;display:flex;flex-direction:column;gap:12px}
+.panel h3{margin:0;font-size:20px;font-weight:700;text-wrap:balance}
+.panel p{margin:0;max-width:65ch}
+.lead{font-size:17px}
+details{border-top:1px solid var(--line)}
+details:last-child{border-bottom:0}
+summary{list-style:none;cursor:pointer;padding:12px 0;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary .k{font:500 13px var(--mono);color:var(--accent);min-width:3ch}
+summary .t{min-width:0}
+summary .t span{display:block;font-size:13px;color:var(--muted)}
+summary .arrow{color:var(--muted);transition:transform .2s}
+details[open] summary .arrow{transform:rotate(90deg)}
+.inner{padding:0 0 14px 0;display:flex;flex-direction:column;gap:10px}
+.inner p,.inner li{max-width:65ch}
+.inner ul{margin:0;padding-left:20px}
+.pill{font:500 12px var(--mono);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}.p-warn{background:var(--warn-soft);color:var(--warn)}.p-bad{background:var(--bad-soft);color:var(--bad)}.p-acc{background:var(--accent-soft);color:var(--accent)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:15px}
+.kv b{font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.firm{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;padding-bottom:12px}
+.firm div{background:var(--bg);border-radius:6px;padding:10px 12px;font-size:15px}
+.firm b{display:block;margin-bottom:2px}
+.foot{font-size:13px;color:var(--muted);max-width:70ch}
+.foot a{color:var(--accent)}
+@media(prefers-reduced-motion:reduce){summary .arrow{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Marco Blinka 404</h1>
+      <p class="sub">Lo acordado por el equipo en una sola hoja. Abre solo lo que necesites.</p>
+    </div>
+    <div class="clock">cierre dom 18 oct · 1:00 p.m. Caracas<b id="left">--</b></div>
+  </header>
+
+  <section>
+    <h2>Ahora mismo</h2>
+    <div class="facts" style="margin-top:8px">
+      <div class="fact ok"><b>Hecho y probado</b><span>Motor de reglas con 11 comprobaciones, 12 facturas de prueba, 37 pruebas en verde.</span></div>
+      <div class="fact warn"><b>Siguiente hito</b><span>V1 enviada el sábado a las 11:00 p.m.: repositorio, video corto y demo que abren sin sesión.</span></div>
+      <div class="fact bad"><b>Nos frena hoy</b><span>La clave de OpenRouter. Sin ella no hay lector de facturas. Plan B: lecturas escritas a mano, declaradas.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>¿Qué quieres ver?</h2>
+    <div class="doors" style="margin-top:8px" id="doors">
+      <button class="door" data-p="marco" aria-expanded="false" aria-controls="p-marco">Marco<small>qué construimos y por qué</small></button>
+      <button class="door" data-p="ruta" aria-expanded="false" aria-controls="p-ruta">Ruta<small>quién hace qué y cuándo</small></button>
+      <button class="door" data-p="riesgos" aria-expanded="false" aria-controls="p-riesgos">Puntos ciegos<small>14 riesgos y su respuesta</small></button>
+      <button class="door" data-p="decisiones" aria-expanded="false" aria-controls="p-decisiones">Decisiones<small>cerradas y abiertas</small></button>
+      <button class="door" data-p="set" aria-expanded="false" aria-controls="p-set">Set de facturas<small>12 casos y su respuesta</small></button>
+    </div>
+  </section>
+
+  <!-- MARCO -->
+  <section class="panel" id="p-marco" hidden>
+    <h3>Qué construimos</h3>
+    <p class="lead">Un agente que lee facturas con IA, decide con reglas en código si <b>PAGAR, FRENAR o ESCALAR</b>, y explica cada decisión para que una persona de finanzas la entienda sin abrir el código.</p>
+    <details><summary><span class="k">01</span><span class="t">Cómo se gana el reto<span>tres criterios; uno es eliminatorio</span></span><span class="arrow">›</span></summary>
+      <div class="inner">
+        <div class="kv">
+          <b>Seguridad</b><span>Cero pagos fuera de reglas. Un solo pago indebido descalifica. Por eso la IA no decide: decide el motor, y solo paga si las 11 comprobaciones dan ok.</span>
+          <b>Autonomía</b><span>Porcentaje de facturas decididas bien sin una persona. FRENAR cuenta como autónomo. Se escala solo cuando una persona aporta algo que el código no puede.</span>
+          <b>Explicabilidad</b><span>Cualquiera entiende cada decisión leyendo el registro. Cada una lleva un texto en español y, aparte, el detalle técnico.</span>
+        </div>
+      </div>
+    </details>
+    <details><summary><span class="k">02</span><span class="t">Cómo funciona por dentro<span>el modelo lee, el código decide</span></span><span class="arrow">›</span></summary>
+      <div class="inner">
+        <ul>
+          <li><b>Lectura (IA):</b> dos modelos de empresas distintas leen la factura y devuelven los mismos campos. Si difieren en monto, moneda, beneficiario o cuenta, se escala.</li>
+          <li><b>Validación (código):</b> cada dato debe aparecer tal cual en el texto de la factura. Monto vacío, cero o raro se rechaza.</li>
+          <li><b>Decisión (código):</b> 11 comprobaciones se revisan siempre; manda la falla más grave (FRENAR &gt; ESCALAR &gt; PAGAR). Cualquier error interno termina en ESCALAR.</li>
+          <li><b>Explicación:</b> plantilla con las cifras del motor. El modelo no inventa números.</li>
+          <li><b>Registro:</b> solo se agrega, nunca se edita. Guarda factura, datos leídos, reglas aplicadas, versión de reglas, decisión, explicación y hora.</li>
+          <li><b>Pantalla:</b> reglas editables, tabla de decisiones, cola de aprobación solo para ESCALAR.</li>
+        </ul>
+      </div>
+    </details>
+    <details><summary><span class="k">03</span><span class="t">Las 11 comprobaciones<span>en el orden en que se reportan</span></span><span class="arrow">›</span></summary>
+      <div class="inner scroll"><table>
+        <tr><th>Comprobación</th><th>Si falla</th></tr>
+        <tr><td>Datos completos y legibles</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Lectura confiable (confianza ≥ 85 %, sin alertas)</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Sin instrucciones ocultas para el agente</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Moneda aceptada (USD, COP, MXN)</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>No es cobro duplicado (mismo nº, o mismo monto en 30 días)</td><td><span class="pill p-bad">FRENAR</span></td></tr>
+        <tr><td>Beneficiario en la lista (por ID fiscal exacto)</td><td><span class="pill p-bad">FRENAR</span></td></tr>
+        <tr><td>Nombre y cuenta coinciden con el registro</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Cuenta sin cambios en las últimas 72 h</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Monto cuadra con lo acordado (±2 %)</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Dentro del límite por pago (USD 5.000)</td><td><span class="pill p-warn">ESCALAR</span></td></tr>
+        <tr><td>Alcanza el presupuesto del mes (USD 12.000)</td><td><span class="pill p-bad">FRENAR</span></td></tr>
+      </table></div>
+    </details>
+    <details><summary><span class="k">04</span><span class="t">Lo que nunca se corta<span>cuatro reglas de la casa</span></span><span class="arrow">›</span></summary>
+      <div class="inner"><div class="firm">
+        <div><b>El modelo no decide</b>Decide una función de reglas con pruebas. Ante la duda, ESCALAR.</div>
+        <div><b>FRENAR sin botón de aprobar</b>Solo ESCALAR llega a la cola de una persona.</div>
+        <div><b>Nada mueve dinero</b>La salida es una instrucción de pago, nada más.</div>
+        <div><b>Sin claves en el repo ni en el demo</b>El demo público corre en modo replay con lecturas guardadas.</div>
+      </div><p>Si la prueba "ninguna factura trampa termina en PAGAR" falla, no hay demo.</p></div>
+    </details>
+  </section>
+
+  <!-- RUTA -->
+  <section class="panel" id="p-ruta" hidden>
+    <h3>Ruta hasta el cierre</h3>
+    <p class="lead">Horas en Caracas. Colombia va una hora atrás. Cada bloque tiene una puerta: si no se cruza, no se avanza.</p>
+    <details open><summary><span class="k">0</span><span class="t">Motor, set y pruebas<span>hecho · sáb 10:50 a.m.</span></span><span class="pill p-ok">completo</span></summary>
+      <div class="inner"><p>Motor en JavaScript, reglas en JSON, 12 facturas con su respuesta, 37 pruebas (incluye 5.000 facturas al azar contra un verificador independiente).</p></div>
+    </details>
+    <details><summary><span class="k">1</span><span class="t">Clave, facturas reales y banco de modelos<span>sáb 11:30 a.m. – 2:30 p.m. · Sebastián</span></span><span class="pill p-warn">en curso</span></summary>
+      <div class="inner"><ul><li>Clave de OpenRouter con USD 5 en <code>.env</code>.</li><li>Las 12 facturas en su formato real: PDF, imagen, correo, chat.</li><li>Banco de pruebas: cada modelo candidato lee las 12; se mide aciertos, tiempo y costo.</li></ul><p><b>Puerta:</b> tabla de resultados de al menos dos modelos.</p></div>
+    </details>
+    <details><summary><span class="k">2</span><span class="t">Lector doble, validación y replay<span>sáb 2:30 – 5:00 p.m. · Sebastián</span></span><span class="pill p-acc">pendiente</span></summary>
+      <div class="inner"><ul><li>Dos modelos de empresas distintas; si difieren, ESCALAR.</li><li>Cada dato debe aparecer literal en el texto; moneda ambigua ("$" sin código) → alerta.</li><li>Lecturas guardadas con fecha y modelo para el modo replay.</li></ul><p><b>Puerta:</b> el set completo corre de punta a punta sin tocar el motor. F10 y F11 escalan por la lectura.</p></div>
+    </details>
+    <details><summary><span class="k">3</span><span class="t">Registro inmutable y pantalla<span>sáb 12:00 m. – 7:00 p.m. · Andrés</span></span><span class="pill p-acc">pendiente</span></summary>
+      <div class="inner"><ul><li>Registro solo de insertar (Supabase con triggers que bloquean editar y borrar; plan B: JSON solo de añadir con hash).</li><li>Reglas editables con versión; cada cambio de reglas queda registrado.</li><li>Tabla de decisiones con detalle; cola de aprobación solo para ESCALAR. Al aprobar, el motor vuelve a revisar el presupuesto.</li></ul><p><b>Puerta:</b> una decisión viaja factura → registro → pantalla; editar o borrar un registro se bloquea.</p></div>
+    </details>
+    <details><summary><span class="k">4</span><span class="t">Suite adversarial y set ciego<span>sáb 12:00 m. – 8:00 p.m. · Joffre</span></span><span class="pill p-acc">pendiente</span></summary>
+      <div class="inner"><ul><li>30 o más casos de ataque: instrucción oculta en PDF, beneficiario casi idéntico, fraccionamiento, monto en palabras, moneda ambigua.</li><li>Set ciego de 5 a 10 facturas armado por quien no escribió las reglas, congelado el sábado. Nadie lo abre hasta el domingo.</li></ul><p><b>Puerta:</b> set ciego entregado cerrado.</p></div>
+    </details>
+    <details><summary><span class="k">5</span><span class="t">Integración, despliegue y video corto<span>sáb 7:00 – 11:00 p.m. · todos</span></span><span class="pill p-acc">pendiente</span></summary>
+      <div class="inner"><p><b>Hito V1, 11:00 p.m.:</b> repositorio, video corto y demo en modo replay abren desde un navegador sin sesión iniciada. Después, descanso.</p></div>
+    </details>
+    <details><summary><span class="k">6</span><span class="t">Endurecer y entregar<span>dom 7:00 a.m. – 12:30 p.m. · todos</span></span><span class="pill p-acc">pendiente</span></summary>
+      <div class="inner"><ul><li>Correr el set ciego y reportar x/n con honestidad, incluidos los falsos FRENAR.</li><li>README: qué hace, cómo corre, arquitectura, invariantes, pruebas, resultado del set ciego.</li><li>Video final de hasta 3 minutos. Sin funciones nuevas.</li><li>11:00 a.m.: revisión final de los tres enlaces. Cierre 1:00 p.m. Reenviar solo por error grave.</li></ul></div>
+    </details>
+    <details><summary><span class="k">✂</span><span class="t">Si falta tiempo, se corta en este orden<span>decidido de antemano</span></span><span class="arrow">›</span></summary>
+      <div class="inner"><ol style="margin:0;padding-left:20px"><li>JEV de TypeSafe: no se intenta.</li><li>Hash encadenado: quedan los triggers (o el JSON solo de añadir).</li><li>Imagen, correo y chat como archivos reales: quedan texto y PDF.</li><li>Segunda lectura con otro modelo: queda una lectura con validación literal.</li><li>Refinamientos de la cola: queda aprobar y rechazar con registro.</li></ol><p>Nómina y adaptador QuickBooks no entran desde ya.</p></div>
+    </details>
+  </section>
+
+  <!-- RIESGOS -->
+  <section class="panel" id="p-riesgos" hidden>
+    <h3>Puntos ciegos</h3>
+    <p class="lead">Lo que podría hundirnos, ordenado por daño. Cada uno con su respuesta y su estado.</p>
+    <details><summary><span class="k">1</span><span class="t">Nadie tiene saldo de API<span>sin lector no hay demo</span></span><span class="pill p-bad">abierto</span></summary><div class="inner"><p>Respuesta: clave de OpenRouter con USD 5 (Sebastián, hoy). Plan B: lecturas escritas a mano, guardadas como datos de prueba y declaradas en el README.</p></div></details>
+    <details><summary><span class="k">2</span><span class="t">La confianza que reporta el modelo no prueba nada<span>puede inventar un dato con 95 %</span></span><span class="pill p-acc">diseñado</span></summary><div class="inner"><p>Respuesta: dos modelos de empresas distintas, cada dato debe aparecer literal en el texto, y el cotejo final es contra el registro de proveedores (ID fiscal, cuenta, monto acordado), no contra la confianza.</p></div></details>
+    <details><summary><span class="k">3</span><span class="t">Instrucción oculta con palabras no previstas<span>el detector de frases la deja pasar</span></span><span class="pill p-warn">parcial</span></summary><div class="inner"><p>Respuesta: el lector no tiene herramientas ni acceso a reglas, y el motor igual exige proveedor, cuenta y monto acordados. En el peor caso se paga lo que ya se debía, a quien ya se le debía.</p></div></details>
+    <details><summary><span class="k">4</span><span class="t">Editar reglas desde la pantalla es una puerta<span>alguien sube el límite y el agente "cumple"</span></span><span class="pill p-acc">por construir</span></summary><div class="inner"><p>Respuesta: cada decisión guarda la versión de reglas; cada cambio registra quién, cuándo, antes y después; las reglas se validan al cargar y si están rotas todo termina en ESCALAR. Nada que venga de una factura puede escribir en las reglas ni en la lista de proveedores.</p></div></details>
+    <details><summary><span class="k">5</span><span class="t">Dos aprobaciones a la vez rompen el presupuesto<span>se aprueban dos pagos que juntos exceden el tope</span></span><span class="pill p-acc">por construir</span></summary><div class="inner"><p>Respuesta: al aprobar, el motor vuelve a evaluar con el estado actual del periodo. Un solo escritor del estado.</p></div></details>
+    <details><summary><span class="k">6</span><span class="t">El set lo diseñamos nosotros para pasar<span>autonomía inflada</span></span><span class="pill p-acc">por hacer</span></summary><div class="inner"><p>Respuesta: set ciego armado por Joffre y congelado el sábado; se reporta x/n aunque duela. Si otro equipo comparte facturas, también se corren.</p></div></details>
+    <details><summary><span class="k">7</span><span class="t">No sabemos cómo cuenta un ESCALAR para la autonomía<span>podemos medir distinto que el jurado</span></span><span class="pill p-bad">abierto</span></summary><div class="inner"><p>Respuesta: preguntar al mentor de 30X (Andrés). Mientras tanto reportar dos cifras: decididas sin persona, y decididas correctamente.</p></div></details>
+    <details><summary><span class="k">8</span><span class="t">Tres personas, unas 25 horas, tres piezas<span>integración de última hora</span></span><span class="pill p-acc">diseñado</span></summary><div class="inner"><p>Respuesta: el contrato entre piezas ya está fijo en <code>data/casos/casos.json</code> y en la salida del motor. La integración empieza a las 7:00 p.m., no a las 11:00 p.m.</p></div></details>
+    <details><summary><span class="k">9</span><span class="t">Tasas de cambio fijas<span>COP o MXN mal valorados</span></span><span class="pill p-ok">aceptado</span></summary><div class="inner"><p>Respuesta: se declara. Las tasas viven en las reglas y cada explicación muestra la tasa usada. Se redondea hacia arriba para no subestimar.</p></div></details>
+    <details><summary><span class="k">10</span><span class="t">Duplicado con número casi igual y más de 30 días<span>doble pago</span></span><span class="pill p-acc">baja prioridad</span></summary><div class="inner"><p>Respuesta: mismo monto en 30 días ya frena. Un caso de número casi idéntico entra en la suite adversarial.</p></div></details>
+    <details><summary><span class="k">11</span><span class="t">Un modelo local (Qwen) no sirve en el demo desplegado<span>demo muerta</span></span><span class="pill p-ok">resuelto</span></summary><div class="inner"><p>Respuesta: lector intercambiable por configuración; el demo público corre en replay con lecturas guardadas.</p></div></details>
+    <details><summary><span class="k">12</span><span class="t">Hora de cierre distinta entre documentos<span>entregar tarde</span></span><span class="pill p-ok">cerrado</span></summary><div class="inner"><p>Fijada: domingo 12:00 Colombia = 1:00 p.m. Caracas. V1 el sábado a las 11:00 p.m. Caracas.</p></div></details>
+    <details><summary><span class="k">13</span><span class="t">Afirmaciones no verificables en el pitch<span>"fracasaron dos veces", "USD 2.3B"</span></span><span class="pill p-ok">acordado</span></summary><div class="inner"><p>No se usan. El propio documento admite que no hay fuente, y una cita tiene fecha futura. El pitch se apoya en el set ciego y las pruebas.</p></div></details>
+    <details><summary><span class="k">14</span><span class="t">Bloquear facturas vencidas<span>dejaría deudas reales sin pagar</span></span><span class="pill p-ok">acordado</span></summary><div class="inner"><p>No es regla. La fecha de vencimiento se muestra como aviso en la explicación.</p></div></details>
+  </section>
+
+  <!-- DECISIONES -->
+  <section class="panel" id="p-decisiones" hidden>
+    <h3>Decisiones</h3>
+    <p class="lead">Las cerradas no se reabren. Las abiertas tienen dueño.</p>
+    <details open><summary><span class="k">●</span><span class="t">Cerradas<span>siete</span></span><span class="arrow">›</span></summary>
+      <div class="inner"><ul>
+        <li><b>Stack:</b> Next.js en Vercel, registro en Supabase. El motor ya existe en JavaScript; cambiar a Python tiraría 37 pruebas.</li>
+        <li><b>Modelos:</b> Claude Haiku 5.5 (sin razonamiento) y GPT-6 Luna, vía OpenRouter. Se confirma con el banco de pruebas.</li>
+        <li><b>Decisión:</b> se revisan todas las comprobaciones y manda la más grave; no "la primera que falla".</li>
+        <li><b>Presupuesto insuficiente → FRENAR.</b> Sin dinero, aprobar no sirve.</li>
+        <li><b>Beneficiario:</b> por ID fiscal exacto, no por parecido de nombre.</li>
+        <li><b>Demo público en replay,</b> sin claves. El modo en vivo solo en el video.</li>
+        <li><b>Reparto:</b> Sebastián lectura y banco de pruebas · Andrés registro y pantalla · Joffre set ciego y suite adversarial.</li>
+      </ul></div>
+    </details>
+    <details><summary><span class="k">○</span><span class="t">Abiertas<span>dos</span></span><span class="arrow">›</span></summary>
+      <div class="inner"><ul>
+        <li><b>Clave de OpenRouter</b> en <code>.env</code>. Dueño: Sebastián. Hoy.</li>
+        <li><b>Cómo cuenta un ESCALAR para la autonomía.</b> Dueño: Andrés, con el mentor de 30X.</li>
+      </ul></div>
+    </details>
+    <details><summary><span class="k">✕</span><span class="t">Descartadas de la investigación<span>y por qué</span></span><span class="arrow">›</span></summary>
+      <div class="inner"><ul>
+        <li>Pitch "ustedes fracasaron dos veces con agentes de IA": sin fuente y arriesgado ante Blinka.</li>
+        <li>Frenar facturas vencidas: una deuda vencida igual se debe.</li>
+        <li>Beneficiario por parecido de nombre al 90 %: abre la puerta a la suplantación.</li>
+        <li>Revisión humana al azar del 5–10 %: baja la autonomía y rompe la reproducibilidad.</li>
+        <li>Umbral SARLAFT y reglas de Pix: cumplimiento está fuera del reto.</li>
+        <li>Seis herramientas de monitoreo: con el registro y un panel de números basta.</li>
+        <li>Nómina y adaptador QuickBooks: escenarios nuevos que el reto no pide.</li>
+      </ul></div>
+    </details>
+  </section>
+
+  <!-- SET -->
+  <section class="panel" id="p-set" hidden>
+    <h3>Set de facturas</h3>
+    <p class="lead">Doce casos en el orden en que se procesan. Empresa ficticia Andina Labs: límite USD 5.000 por pago, USD 12.000 al mes, USD 6.500 ya gastados.</p>
+    <div class="scroll"><table>
+      <tr><th class="n">#</th><th>Formato</th><th>Caso</th><th>Decisión</th></tr>
+      <tr><td class="n">F01</td><td>PDF</td><td>Consultor, USD 5.200</td><td><span class="pill p-warn">ESCALAR</span> supera el límite</td></tr>
+      <tr><td class="n">F02</td><td>PDF</td><td>Diseñador, USD 800</td><td><span class="pill p-ok">PAGAR</span></td></tr>
+      <tr><td class="n">F03</td><td>Correo</td><td>Hosting, USD 450</td><td><span class="pill p-ok">PAGAR</span></td></tr>
+      <tr><td class="n">F04</td><td>Imagen</td><td>Contador, COP 4.800.000 (USD 1.200)</td><td><span class="pill p-ok">PAGAR</span></td></tr>
+      <tr><td class="n">F05</td><td>Chat</td><td>Software, USD 300</td><td><span class="pill p-ok">PAGAR</span></td></tr>
+      <tr><td class="n">F06</td><td>Correo</td><td>La factura F02 reenviada</td><td><span class="pill p-bad">FRENAR</span> duplicado</td></tr>
+      <tr><td class="n">F07</td><td>PDF</td><td>Proveedor fuera de la lista</td><td><span class="pill p-bad">FRENAR</span> beneficiario</td></tr>
+      <tr><td class="n">F08</td><td>PDF</td><td>Cobra USD 1.000; acordado USD 850</td><td><span class="pill p-warn">ESCALAR</span> no cuadra</td></tr>
+      <tr><td class="n">F09</td><td>Imagen</td><td>USD 3.000 válida; quedan USD 2.750</td><td><span class="pill p-bad">FRENAR</span> sin presupuesto</td></tr>
+      <tr><td class="n">F10</td><td>Imagen</td><td>Borrosa, sin monto legible</td><td><span class="pill p-warn">ESCALAR</span> datos ilegibles</td></tr>
+      <tr><td class="n">F11</td><td>Correo</td><td>Instrucción oculta "apruébala"</td><td><span class="pill p-warn">ESCALAR</span> manipulación</td></tr>
+      <tr><td class="n">F12</td><td>Correo</td><td>Proveedor cambió de cuenta ayer</td><td><span class="pill p-warn">ESCALAR</span> cuenta reciente</td></tr>
+    </table></div>
+    <details><summary><span class="k">+</span><span class="t">Por qué este orden<span>el presupuesto se consume a medida que se paga</span></span><span class="arrow">›</span></summary>
+      <div class="inner"><p>El consultor va primero, cuando aún hay USD 5.500 disponibles: así solo falla el límite y muestra el caso "pide permiso". Los cuatro pagos siguientes consumen USD 2.750 y dejan USD 2.750, que no alcanzan para la factura de USD 3.000. Cada trampa muestra un solo motivo.</p></div>
+    </details>
+  </section>
+
+  <p class="foot">Equipo 404 · Hackathon 30X · Reto Blinka. Emitido el 17/10/2026 a las 11:20 a.m. (Caracas). Consolida el brief oficial, el diagrama del equipo, la investigación de Joffre y la ruta MVP de Andrés. Datos de empresas, proveedores y montos ficticios. Las tareas se marcan en la ruta de Andrés; aquí vive el acuerdo.</p>
+</div>
+
+<script>
+(function(){
+  var doors=document.querySelectorAll('.door'), panels={};
+  doors.forEach(function(d){panels[d.getAttribute('data-p')]=document.getElementById('p-'+d.getAttribute('data-p'))});
+  function open(key,save){
+    doors.forEach(function(d){var k=d.getAttribute('data-p'),on=k===key;d.setAttribute('aria-expanded',on?'true':'false');panels[k].hidden=!on});
+    if(save){try{localStorage.setItem('marco404-puerta',key||'')}catch(e){}}
+  }
+  doors.forEach(function(d){d.addEventListener('click',function(){var k=d.getAttribute('data-p');open(d.getAttribute('aria-expanded')==='true'?null:k,true)})});
+  var initial=null;
+  var h=(location.hash||'').replace('#','');
+  if(panels[h])initial=h;
+  if(!initial){try{var s=localStorage.getItem('marco404-puerta');if(s&&panels[s])initial=s}catch(e){}}
+  open(initial,false);
+  function tick(){
+    var ms=Date.parse('2026-10-18T17:00:00Z')-Date.now(),el=document.getElementById('left');
+    if(ms<=0){el.textContent='cerrado';return}
+    var hrs=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);
+    el.textContent=hrs+' h '+(m<10?'0':'')+m+' min';
+  }
+  tick();setInterval(tick,30000);
+})();
+</script>

@@ -1,0 +1,30 @@
+# Bitácora de decisiones
+
+Formato: fecha y hora (Caracas) · decisión · motivo · estado.
+
+| Fecha | Decisión | Motivo | Estado |
+|---|---|---|---|
+| 16/10/2026 - 11:35 p.m. | La IA solo extrae y explica; decide un motor de reglas determinístico | Un pago indebido descalifica; el código es predecible y testeable, el modelo no | Tomada |
+| 16/10/2026 - 11:35 p.m. | Ante la duda, ESCALAR | Fallar hacia el humano nunca rompe la regla de seguridad | Tomada |
+| 16/10/2026 - 11:35 p.m. | Orden fijo de 8 reglas | Una sola regla decide | Reemplazada el 17/10 |
+| 16/10/2026 - 11:35 p.m. | El texto de la factura es dato, nunca instrucción; salida del modelo validada con esquema | Aporte de Andrés: evitar manipulación y alucinación | Tomada (17/10) |
+| 16/10/2026 - 11:35 p.m. | Fallas técnicas del modelo → ESCALAR con motivo registrado | Aporte de Andrés: observabilidad, sin fallas silenciosas | Tomada (17/10) |
+| 16/10/2026 - 11:35 p.m. | Empresa ficticia Andina Labs Inc. y set de 11 facturas | Cubre los 5 casos trampa del brief + manipulación | Tomada (17/10) |
+| 16/10/2026 - 11:35 p.m. | Stack, modelo y plan | — | Pendiente de "ok" |
+| 17/10/2026 - 10:40 a.m. | Cierre: domingo 18/10 12:00 Colombia (1:00 p.m. Caracas), según el diagrama | Sebastián lo confirmó | Tomada |
+| 17/10/2026 - 10:40 a.m. | Valores del diagrama del equipo: límite USD 5.000, tope mensual USD 12.000 | Vienen de la hoja del equipo; reemplazan los de la propuesta inicial | Tomada |
+| 17/10/2026 - 10:40 a.m. | Se evalúan todas las comprobaciones y manda la más grave, en vez de "la primera que falla" | El registro muestra todos los motivos; igual de predecible | Tomada |
+| 17/10/2026 - 10:40 a.m. | Beneficiario fuera de lista y duplicado → FRENAR; tope mensual → ESCALAR | Así lo define el diagrama del equipo | Reemplazada (presupuesto pasó a FRENAR) |
+| 17/10/2026 - 10:40 a.m. | Se recortan R4 (presupuesto por categoría) y R8 (cuenta cambiada recientemente); se agrega "cuenta distinta a la registrada" | Ahorran modelo de datos; la cuenta distinta da la misma protección con 5 líneas | Tomada |
+| 17/10/2026 - 10:40 a.m. | Montos solo como texto, en centavos enteros; conversión a USD redondea hacia arriba | Un número con decimales puede perder centavos; redondear hacia arriba nunca subestima | Tomada |
+| 17/10/2026 - 10:40 a.m. | Doble detección de manipulación: aviso del lector + búsqueda de frases en el código | Si el lector es engañado, el código igual lo detecta | Tomada |
+| 17/10/2026 - 10:40 a.m. | Gastado al iniciar el set: USD 8.000 | Cada trampa muestra solo su motivo | Reemplazada |
+| 17/10/2026 - 10:40 a.m. | Pendiente: modelo de extracción (Qwen 3 8B local vs. modelo en la nube con visión) y stack de la pantalla | Falta el resultado de las pruebas con Qwen | Pendiente |
+| 17/10/2026 - 10:48 a.m. | Presupuesto insuficiente → FRENAR (antes ESCALAR) | Sin dinero, aprobar no sirve; además sube la autonomía: el agente lo resuelve sin una persona | Tomada (Sebastián) |
+| 17/10/2026 - 10:48 a.m. | Set reordenado: consultor (USD 5.200) primero; analítica sube a USD 3.000; gastado inicial USD 6.500 | Con presupuesto en FRENAR, el consultor salía FRENAR y perdíamos el caso "supera el límite → pide permiso" que el reto pide | Tomada |
+| 17/10/2026 - 10:58 a.m. | Nueva comprobación: cuenta cambiada en las últimas 72 h → ESCALAR (caso F12) | Riesgo real n.º 1 de Blinka (BEC); lo resaltan los documentos de Joffre; 15 líneas de código | Tomada |
+| 17/10/2026 - 10:58 a.m. | No adoptar: fuzzy match de beneficiario, bloquear facturas vencidas, muestreo aleatorio, umbral SARLAFT, stack de 6 herramientas de observabilidad | Bajan seguridad, autonomía o salen del alcance (detalle en `investigacion-joffre.md`) | Tomada |
+| 17/10/2026 - 10:58 a.m. | No usar en el pitch "ustedes fracasaron dos veces" ni cifras sin fuente | El propio documento admite que no hay fuente; un dato tiene fecha futura | Propuesta al equipo |
+| 17/10/2026 - 11:19 a.m. | Marco ejecutivo y roadmap definitivos (`marco-ejecutivo.md` + artefacto compartible) consolidan brief, diagrama, investigación de Joffre y ruta de Andrés | Una sola fuente de verdad del plan; las tareas con casillas siguen en la ruta de Andrés | Tomada |
+| 17/10/2026 - 11:19 a.m. | Stack cerrado: Next.js + Vercel + Supabase (registro solo de insertar, plan B JSON con hash); demo público en replay | El motor ya está en JavaScript; Sebastián conoce Supabase y Vercel | Tomada |
+| 17/10/2026 - 11:19 a.m. | Joffre pasa de "motor" a set ciego + suite adversarial; integración empieza sáb 7:00 p.m. | El motor ya está hecho; el set ciego no lo puede armar quien escribió las reglas | Tomada |

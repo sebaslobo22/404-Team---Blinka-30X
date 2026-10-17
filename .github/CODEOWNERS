@@ -1,0 +1,16 @@
+# Dueños por zona (ver docs/ZONAS.md). GitHub pide su revisión en cada PR que toque la zona.
+# Reemplazar los usuarios de Andrés y Joffre cuando confirmen sus cuentas de GitHub.
+/src/engine/            @sebaslobo22
+/src/ledger/            @sebaslobo22
+/data/dev-set.json      @sebaslobo22
+/src/extraccion/        @sebaslobo22
+/data/facturas/         @sebaslobo22
+/src/app/equipo/        @sebaslobo22
+/src/app/api/equipo/    @sebaslobo22
+/scripts/equipo.mjs     @sebaslobo22
+/tests/adversarial/     @sebaslobo22
+/data/ciego/            @sebaslobo22
+/docs/                  @sebaslobo22
+/CLAUDE.md              @sebaslobo22
+/package.json           @sebaslobo22
+/tsconfig.json          @sebaslobo22

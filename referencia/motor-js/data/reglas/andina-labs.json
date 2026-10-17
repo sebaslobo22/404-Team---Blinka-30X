@@ -1,0 +1,120 @@
+{
+  "version": "2026-10-17.3",
+  "empresa": "Andina Labs Inc.",
+  "moneda_base": "USD",
+  "monedas_aceptadas": [
+    "USD",
+    "COP",
+    "MXN"
+  ],
+  "tasas_por_usd": {
+    "USD": "1.00",
+    "COP": "4000.00",
+    "MXN": "18.50"
+  },
+  "limite_por_pago_usd": "5000.00",
+  "tope_mensual_usd": "12000.00",
+  "tolerancia_acordado_pct": 2,
+  "ventana_duplicado_dias": 30,
+  "congelamiento_cambio_cuenta_horas": 72,
+  "confianza_minima": 0.85,
+  "proveedores": [
+    {
+      "id": "P1",
+      "nombre": "Estudio Pixel SAS",
+      "pais": "CO",
+      "servicio": "Diseño gráfico",
+      "id_fiscal": "901234567-1",
+      "cuenta": "CO-BCOL-4521-8890",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "800.00"
+      }
+    },
+    {
+      "id": "P2",
+      "nombre": "Servidores Andinos SA de CV",
+      "pais": "MX",
+      "servicio": "Hosting",
+      "id_fiscal": "SAN201015AB3",
+      "cuenta": "MX-BBVA-0012-7741",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "450.00"
+      }
+    },
+    {
+      "id": "P3",
+      "nombre": "Rojas & Asociados Contadores SAS",
+      "pais": "CO",
+      "servicio": "Contabilidad",
+      "id_fiscal": "900876543-2",
+      "cuenta": "CO-DAVI-7710-3321",
+      "acordado": {
+        "moneda": "COP",
+        "monto": "4800000.00"
+      }
+    },
+    {
+      "id": "P4",
+      "nombre": "Kodigo Licencias SA de CV",
+      "pais": "MX",
+      "servicio": "Software",
+      "id_fiscal": "KLI190320XY9",
+      "cuenta": "MX-BANO-5530-2210",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "300.00"
+      }
+    },
+    {
+      "id": "P5",
+      "nombre": "Consultora Llano Verde CA",
+      "pais": "VE",
+      "servicio": "Consultoría estratégica",
+      "id_fiscal": "J-41234567-8",
+      "cuenta": "US-MERC-8800-1123",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "5200.00"
+      }
+    },
+    {
+      "id": "P6",
+      "nombre": "Traducciones Condor SAS",
+      "pais": "CO",
+      "servicio": "Traducción",
+      "id_fiscal": "901555444-3",
+      "cuenta": "CO-BBOG-6601-4478",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "850.00"
+      }
+    },
+    {
+      "id": "P7",
+      "nombre": "Datos del Pacifico SAS",
+      "pais": "CO",
+      "servicio": "Analítica de datos",
+      "id_fiscal": "901777888-5",
+      "cuenta": "CO-BCOL-9912-0034",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "3000.00"
+      }
+    },
+    {
+      "id": "P8",
+      "nombre": "Nomada Video SAS",
+      "pais": "CO",
+      "servicio": "Producción de video",
+      "id_fiscal": "901333222-7",
+      "cuenta": "CO-NEQU-2024-7788",
+      "cuenta_cambiada_en": "2026-10-16",
+      "acordado": {
+        "moneda": "USD",
+        "monto": "600.00"
+      }
+    }
+  ]
+}
