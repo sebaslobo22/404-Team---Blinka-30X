@@ -1,0 +1,258 @@
+{
+  "estado": {
+    "ahora": {
+      "frase": "Motor y app del producto listos en modo replay; falta el lector de facturas, Supabase y el centro de mando.",
+      "hito": "V1: sáb 17/10 11:00 p.m. Caracas",
+      "cierre_iso": "2026-10-18T17:00:00Z",
+      "bloqueantes": [
+        "Clave de OpenRouter (Sebastián)",
+        "Proyecto Supabase del equipo: URL y claves (Sebastián)",
+        "¿Cómo cuenta un ESCALAR para la autonomía? Preguntar al mentor (Andrés)"
+      ]
+    }
+  },
+  "tareas": [
+    {
+      "titulo": "Motor R1–R8 + ledger + 98 pruebas",
+      "dueno": "Andrés",
+      "bloque": 0,
+      "estado": "hecha",
+      "orden": 0
+    },
+    {
+      "titulo": "Motor de referencia JS + marco ejecutivo",
+      "dueno": "Sebastián",
+      "bloque": 0,
+      "estado": "hecha",
+      "orden": 1
+    },
+    {
+      "titulo": "App Next.js del producto en modo replay",
+      "dueno": "Andrés",
+      "bloque": 0,
+      "estado": "hecha",
+      "orden": 2
+    },
+    {
+      "titulo": "Unificación del repo: CLAUDE.md, zonas, docs",
+      "dueno": "Sebastián",
+      "bloque": 0,
+      "estado": "hecha",
+      "orden": 3
+    },
+    {
+      "titulo": "Clave de OpenRouter en .env (USD 5)",
+      "dueno": "Sebastián",
+      "bloque": 1,
+      "estado": "pendiente",
+      "orden": 4
+    },
+    {
+      "titulo": "12 facturas en formato real (PDF, imagen, correo, chat)",
+      "dueno": "Sebastián",
+      "bloque": 1,
+      "estado": "pendiente",
+      "orden": 5
+    },
+    {
+      "titulo": "Banco de pruebas: cada modelo lee las 12; aciertos, tiempo y costo",
+      "dueno": "Sebastián",
+      "bloque": 1,
+      "estado": "pendiente",
+      "orden": 6
+    },
+    {
+      "titulo": "Lector doble con dos modelos; si difieren, ESCALAR",
+      "dueno": "Sebastián",
+      "bloque": 2,
+      "estado": "pendiente",
+      "orden": 7
+    },
+    {
+      "titulo": "Cada dato debe aparecer literal en el texto; moneda ambigua → alerta",
+      "dueno": "Sebastián",
+      "bloque": 2,
+      "estado": "pendiente",
+      "orden": 8
+    },
+    {
+      "titulo": "Guardar lecturas con fecha y modelo para el modo replay",
+      "dueno": "Sebastián",
+      "bloque": 2,
+      "estado": "pendiente",
+      "orden": 9
+    },
+    {
+      "titulo": "Registro solo de insertar en Supabase (migración 0001 probada)",
+      "dueno": "Andrés",
+      "bloque": 3,
+      "estado": "pendiente",
+      "orden": 10
+    },
+    {
+      "titulo": "Reglas editables con versión; cada cambio queda registrado",
+      "dueno": "Andrés",
+      "bloque": 3,
+      "estado": "pendiente",
+      "orden": 11
+    },
+    {
+      "titulo": "Cola de aprobación solo para ESCALAR; al aprobar se re-evalúa el presupuesto",
+      "dueno": "Andrés",
+      "bloque": 3,
+      "estado": "pendiente",
+      "orden": 12
+    },
+    {
+      "titulo": "Tablero del producto conectado a Supabase",
+      "dueno": "Andrés",
+      "bloque": 3,
+      "estado": "pendiente",
+      "orden": 13
+    },
+    {
+      "titulo": "Suite adversarial de 30+ casos (inyección en PDF, beneficiario casi idéntico, fraccionamiento, monto en palabras, moneda ambigua)",
+      "dueno": "Joffre",
+      "bloque": 4,
+      "estado": "pendiente",
+      "orden": 14
+    },
+    {
+      "titulo": "Set ciego de 5–10 facturas, congelado el sábado",
+      "dueno": "Joffre",
+      "bloque": 4,
+      "estado": "pendiente",
+      "orden": 15
+    },
+    {
+      "titulo": "Integración de las tres piezas",
+      "dueno": "Todos",
+      "bloque": 5,
+      "estado": "pendiente",
+      "orden": 16
+    },
+    {
+      "titulo": "Despliegue público en modo replay sin claves",
+      "dueno": "Todos",
+      "bloque": 5,
+      "estado": "pendiente",
+      "orden": 17
+    },
+    {
+      "titulo": "Video corto sobre la V1",
+      "dueno": "Todos",
+      "bloque": 5,
+      "estado": "pendiente",
+      "orden": 18
+    },
+    {
+      "titulo": "HITO V1 sáb 11:00 p.m.: repo, video y demo abren sin sesión",
+      "dueno": "Todos",
+      "bloque": 5,
+      "estado": "pendiente",
+      "orden": 19
+    },
+    {
+      "titulo": "Correr el set ciego y reportar x/n",
+      "dueno": "Todos",
+      "bloque": 6,
+      "estado": "pendiente",
+      "orden": 20
+    },
+    {
+      "titulo": "README completo",
+      "dueno": "Todos",
+      "bloque": 6,
+      "estado": "pendiente",
+      "orden": 21
+    },
+    {
+      "titulo": "Video final ≤ 3 min",
+      "dueno": "Todos",
+      "bloque": 6,
+      "estado": "pendiente",
+      "orden": 22
+    },
+    {
+      "titulo": "Revisión final de los tres enlaces",
+      "dueno": "Todos",
+      "bloque": 7,
+      "estado": "pendiente",
+      "orden": 23
+    },
+    {
+      "titulo": "Envío antes de dom 1:00 p.m. Caracas",
+      "dueno": "Todos",
+      "bloque": 7,
+      "estado": "pendiente",
+      "orden": 24
+    }
+  ],
+  "zonas": [
+    {
+      "ruta": "src/engine",
+      "dueno": "Andrés",
+      "nota": "Motor R1–R8"
+    },
+    {
+      "ruta": "src/ledger",
+      "dueno": "Andrés",
+      "nota": "Registro encadenado"
+    },
+    {
+      "ruta": "app",
+      "dueno": "Andrés",
+      "nota": "Tablero del producto (menos app/equipo)"
+    },
+    {
+      "ruta": "src/demo",
+      "dueno": "Andrés",
+      "nota": "Demo"
+    },
+    {
+      "ruta": "src/extraccion",
+      "dueno": "Sebastián",
+      "nota": "Lector de facturas"
+    },
+    {
+      "ruta": "data/facturas",
+      "dueno": "Sebastián",
+      "nota": "Archivos reales"
+    },
+    {
+      "ruta": "scripts/banco-modelos",
+      "dueno": "Sebastián",
+      "nota": "Banco de modelos"
+    },
+    {
+      "ruta": "app/equipo",
+      "dueno": "Sebastián",
+      "nota": "Centro de mando"
+    },
+    {
+      "ruta": "tests/adversarial",
+      "dueno": "Joffre",
+      "nota": "Suite adversarial"
+    },
+    {
+      "ruta": "data/ciego",
+      "dueno": "Joffre",
+      "nota": "Set ciego (congelado)"
+    },
+    {
+      "ruta": "docs",
+      "dueno": "Sebastián",
+      "nota": "Contexto y acuerdos (integrador)"
+    },
+    {
+      "ruta": "package.json",
+      "dueno": "Sebastián",
+      "nota": "Configuración compartida (integrador)"
+    },
+    {
+      "ruta": "referencia",
+      "dueno": "nadie",
+      "nota": "Solo lectura"
+    }
+  ]
+}
