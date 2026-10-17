@@ -13,21 +13,27 @@ function num(h: Hechos, clave: string): string {
 }
 
 const PLANTILLAS: Record<string, (h: Hechos) => string> = {
-  R1: (h) => `El monto de ${usd(h, 'monto_usd_centavos')} USD supera el limite por pago de ${usd(h, 'limite_pago_usd_centavos')} USD.`,
-  R2: () => 'El beneficiario o la cuenta no estan en la lista permitida (coincidencia exacta de ID fiscal y cuenta).',
-  R3: (h) => `El acumulado del mes con este pago seria ${usd(h, 'acumulado_mes_con_pago_usd_centavos')} USD y el tope mensual es ${usd(h, 'tope_mensual_usd_centavos')} USD.`,
+  R1: (h) => `El monto de ${usd(h, 'monto_usd_centavos')} USD supera el límite por pago de ${usd(h, 'limite_pago_usd_centavos')} USD.`,
+  R2: () => 'El beneficiario o la cuenta no están en la lista permitida (coincidencia exacta de ID fiscal y cuenta).',
+  R3: (h) => `El acumulado del mes con este pago sería ${usd(h, 'acumulado_mes_con_pago_usd_centavos')} USD y el tope mensual es ${usd(h, 'tope_mensual_usd_centavos')} USD.`,
   R4: (h) =>
     h['presupuesto_configurado'] === false
-      ? 'La categoria no tiene presupuesto configurado.'
-      : `El gasto de la categoria con este pago seria ${usd(h, 'gasto_categoria_con_pago_usd_centavos')} USD y el presupuesto es ${usd(h, 'presupuesto_categoria_usd_centavos')} USD.`,
-  R5: (h) => `Parece duplicada: ya hay un pago o reserva del mismo beneficiario con el mismo numero de factura, o con igual monto dentro de ${num(h, 'ventana_duplicado_dias')} dias.`,
+      ? 'La categoría no tiene presupuesto configurado.'
+      : `El gasto de la categoría con este pago sería ${usd(h, 'gasto_categoria_con_pago_usd_centavos')} USD y el presupuesto es ${usd(h, 'presupuesto_categoria_usd_centavos')} USD.`,
+  R5: (h) => `Parece duplicada: ya hay un pago o reserva del mismo beneficiario con el mismo número de factura, o con igual monto dentro de ${num(h, 'ventana_duplicado_dias')} días.`,
   R6: (h) =>
     h['acuerdo_encontrado'] === false
       ? 'No hay un acuerdo registrado que coincida con este beneficiario y esta moneda.'
-      : `El monto difiere del acuerdo en mas de ${num(h, 'tolerancia_pct')} por ciento.`,
-  R7: (h) => `Hay ${num(h, 'campos_invalidos_n')} campos criticos de la factura faltantes o invalidos.`,
-  R8: (h) => `La cuenta se registro hace ${num(h, 'dias_desde_cambio_cuenta')} dias y la ventana de cambio reciente es de ${num(h, 'ventana_cuenta_dias')} dias.`,
-  EXTRACCION: (h) => `La extraccion levanto ${num(h, 'alertas_n')} alertas de seguridad en el documento.`,
+      : `El monto difiere del acuerdo en más de ${num(h, 'tolerancia_pct')} por ciento.`,
+  R7: (h) =>
+    h['campos_invalidos_n'] === 1
+      ? `Hay ${num(h, 'campos_invalidos_n')} campo crítico de la factura faltante o inválido.`
+      : `Hay ${num(h, 'campos_invalidos_n')} campos críticos de la factura faltantes o inválidos.`,
+  R8: (h) => `La cuenta se registró hace ${num(h, 'dias_desde_cambio_cuenta')} días y la ventana de cambio reciente es de ${num(h, 'ventana_cuenta_dias')} días.`,
+  EXTRACCION: (h) =>
+    h['alertas_n'] === 1
+      ? `La extracción levantó ${num(h, 'alertas_n')} alerta de seguridad en el documento.`
+      : `La extracción levantó ${num(h, 'alertas_n')} alertas de seguridad en el documento.`,
   ESQUEMA: () => 'No se pudo evaluar la factura; se escala por seguridad.',
 };
 

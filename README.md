@@ -31,7 +31,7 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 
 ```
 npm install
-npm test          # 98 tests: motor, set F-001 a F-015, propiedades con fast-check y registro
+npm test          # 124 tests: motor, set F-001 a F-015, propiedades, registro y estado de la demo
 npm run typecheck
 ```
 
@@ -52,3 +52,18 @@ Este set lo disenamos nosotros: pasarlo no prueba que el agente generalice. Eso 
 Es evidencia de manipulacion, no inmutabilidad: quien controle el almacen puede reescribir toda la cadena con hashes recalculados, y recortar el final no se nota. Eso solo lo delata un ancla (numero de entradas y hash de la ultima) guardada aparte, que `Registro.ancla()` produce y `verificar(ancla)` comprueba.
 
 Para Supabase, `supabase/migrations/0001_registro.sql` crea la tabla con triggers que bloquean UPDATE, DELETE y TRUNCATE y que exigen indice consecutivo y hash previo correcto. **No esta probada contra un Postgres real**: antes de confiar en ella hay que correr su bloque de verificacion manual en una base de pruebas. El esquema de una entrada esta en `docs/esquemas/registro.schema.json`.
+
+## Pantallas (modo replay)
+
+```
+npm run dev      # http://localhost:3000
+npm run build && npm start
+```
+
+- `/` Decisiones: las 15 facturas con decisión, reglas activadas y estado de aprobación.
+- `/facturas/F-0xx` Detalle con la traza de las 8 reglas, la explicación, el registro y la instrucción de pago.
+- `/cola` Cola de aprobación, solo para ESCALAR. Las facturas FRENAR aparecen sin botón y el servidor rechaza (403) cualquier intento de aprobarlas.
+- `/reglas` Reglas editables. Guardar crea una nueva versión, vuelve a evaluar las 15 facturas y borra las aprobaciones de la sesión.
+- `/registro` Registro encadenado, verificación y una simulación de manipulación para mostrar que se detecta.
+
+El modo replay no llama a ningún modelo: las lecturas de las facturas están guardadas en `data/dev-set.json` y son de muestra. El estado vive en la memoria del servidor: en un despliegue sin servidor cada instancia tiene el suyo y todos los visitantes comparten el de su instancia. Un visitante puede reiniciar o cambiar las reglas para los demás.
