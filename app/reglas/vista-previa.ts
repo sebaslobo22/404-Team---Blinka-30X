@@ -8,10 +8,10 @@ export async function previsualizar(cuerpo: unknown) {
   if (!v.ok) return { ok: false as const, error: v.error };
   const actual = await obtenerEstado();
   const prueba = await crearEstado(v.params, actual.edicion + 1);
-  return {    
-ok: true as const, cambios: prueba.filas.flatMap(f => {
+  return {
+    ok: true as const, cambios: prueba.filas.flatMap(f => {
       const antes = actual.filas.find(a => a.id === f.id)?.resultado.decision;
       return antes && antes !== f.resultado.decision ? [{ id: f.id, antes, despues: f.resultado.decision }] : [];
-    })  
-};
+    })
+  };
 }
