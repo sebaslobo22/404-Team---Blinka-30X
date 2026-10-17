@@ -48,11 +48,12 @@ Explicabilidad (el registro se entiende sin abrir el código).
 
 ## 4. Estado (actualizar al cerrar cada bloque)
 - ✅ Motor R1–R8, ledger, dev-set F-001…F-015, 98 pruebas (Andrés, sáb 10:44 a.m.).
+- ✅ App Next.js del producto en `app/` (tablero, reglas, cola, registro, facturas) en modo replay con estado en memoria `src/demo` (Andrés, sáb 11:57 a.m.).
 - ✅ Motor de referencia JS con 12 casos y 37 pruebas; marco ejecutivo; revisión de la investigación
   (Sebastián, sáb 11:25 a.m.).
-- ⏳ App Next.js + centro de mando `/equipo` (Sebastián). ⏳ Fusión de defensas en `src/engine`.
+- ⏳ Centro de mando `/equipo` + Supabase (Sebastián). ⏳ Fusión de defensas en `src/engine`.
 - ⏳ Lector de facturas, facturas reales, banco de modelos (Sebastián; bloqueado por clave OpenRouter).
-- ⏳ Tablero del producto (Andrés). ⏳ Set ciego + suite adversarial (Joffre).
+- ⏳ Persistir el producto en Supabase (Andrés). ⏳ Set ciego + suite adversarial (Joffre).
 
 ## 5. Preferencias de Sebastián (líder; no técnico)
 Español; pasos cortos y uno a la vez; marca de tiempo real (`TZ=America/Caracas date`) en respuestas y

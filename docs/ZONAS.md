@@ -9,9 +9,9 @@ el mismo archivo a la vez.
 | Zona (carpetas) | Dueño | Qué contiene |
 |---|---|---|
 | `src/engine/`, `src/ledger/`, `supabase/migrations/0001*`, `tests/engine*`, `tests/ledger*`, `tests/properties*`, `data/dev-set.json` | Andrés | Motor R1–R8, registro encadenado, set de desarrollo |
-| `src/app/(producto)/`, `src/app/api/decisiones/` | Andrés | Tablero del producto: reglas, decisiones, cola de aprobación |
+| `app/` (menos `app/equipo`), `app/api/` (menos `app/api/equipo`), `src/demo/` | Andrés | Tablero del producto: reglas, decisiones, cola de aprobación |
 | `src/extraccion/`, `data/facturas/`, `scripts/banco-modelos*` | Sebastián | Lector de facturas, archivos reales, banco de modelos |
-| `src/app/equipo/`, `src/app/api/equipo/`, `scripts/equipo.mjs`, `supabase/migrations/0002*` | Sebastián | Centro de mando |
+| `app/equipo/`, `app/api/equipo/`, `scripts/equipo.mjs`, `supabase/migrations/0002*` | Sebastián | Centro de mando |
 | `tests/adversarial/`, `data/ciego/` | Joffre | Suite adversarial y set ciego (congelado; nadie lo abre antes del domingo) |
 | `docs/`, `CLAUDE.md`, `README.md` | Sebastián (integrador) | Contexto y acuerdos; cualquiera propone por PR |
 | `package.json`, `tsconfig.json`, `next.config.*`, `vitest.config.ts` | Sebastián (integrador) | Configuración compartida; cambios solo por PR avisada |
