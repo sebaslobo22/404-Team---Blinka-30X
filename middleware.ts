@@ -9,8 +9,12 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (debeOcultar(pathname, process.env)) {
-    // Reescribe a una ruta que no existe: Next responde su 404 estandar, sin pistas.
-    return NextResponse.rewrite(new URL('/__no_existe__', req.url), { status: 404 });
+    // 404 directo, sin pistas. No se reescribe a otra ruta: detras de un proxy (Produfy) req.url apunta a
+    // https://localhost y la reescritura falla con 500 en vez de 404.
+    return new NextResponse('404 · Página no encontrada', {
+      status: 404,
+      headers: { 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow, noarchive' },
+    });
   }
 
   const legado = destinoLegado(pathname);
