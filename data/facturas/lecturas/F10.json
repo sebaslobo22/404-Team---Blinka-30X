@@ -1,6 +1,6 @@
 {
   "id": "F10",
-  "fecha": "2026-10-17T17:22:22.367Z",
+  "fecha": "2026-10-17T17:26:09.110Z",
   "modelos": [
     "anthropic/claude-haiku-5.5",
     "google/gemini-3.1-flash-lite"
@@ -17,19 +17,22 @@
       "categoria": "Hosting",
       "alertas": [
         "moneda_ambigua",
-        "sin_texto_fuente"
+        "imagen_confianza_baja"
       ],
       "confianza": 0.4,
-      "instrucciones_detectadas": false
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
     },
     "lecturas": [
       {
         "modelo": "anthropic/claude-haiku-5.5",
         "modelo_servido": "anthropic/claude-haiku-5.5",
-        "tokens_entrada": 2598,
-        "tokens_salida": 140,
-        "costo_usd": 0.0003298,
-        "ms": 2368,
+        "tokens_entrada": 2680,
+        "tokens_salida": 297,
+        "costo_usd": 0.0004165,
+        "ms": 3407,
         "ok": true,
         "datos": {
           "beneficiario": "SERVIDORES ANDINOS",
@@ -49,10 +52,10 @@
       {
         "modelo": "google/gemini-3.1-flash-lite",
         "modelo_servido": "google/gemini-3.1-flash-lite",
-        "tokens_entrada": 2283,
-        "tokens_salida": 140,
-        "costo_usd": 0.00078075,
-        "ms": 2109,
+        "tokens_entrada": 2331,
+        "tokens_salida": 139,
+        "costo_usd": 0.00079125,
+        "ms": 1937,
         "ok": true,
         "datos": {
           "beneficiario": "SERVIDORES ANDINOS",
@@ -65,7 +68,7 @@
           "fecha_vencimiento": null,
           "numero_factura": null,
           "categoria": "Hosting",
-          "confianza": 0.85,
+          "confianza": 0.8,
           "instrucciones_detectadas": false
         }
       }
@@ -80,7 +83,7 @@
         "servido": "google/gemini-3.1-flash-lite"
       }
     ],
-    "ms": 2368,
-    "costo_usd": 0.00111055
+    "ms": 3408,
+    "costo_usd": 0.00120775
   }
 }

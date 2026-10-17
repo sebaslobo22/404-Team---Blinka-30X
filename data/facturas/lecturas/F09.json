@@ -1,6 +1,6 @@
 {
   "id": "F09",
-  "fecha": "2026-10-17T17:22:19.996Z",
+  "fecha": "2026-10-17T17:26:05.700Z",
   "modelos": [
     "anthropic/claude-haiku-5.5",
     "google/gemini-3.1-flash-lite"
@@ -15,20 +15,21 @@
       "moneda": "USD",
       "fecha_emision": "2026-10-10",
       "categoria": "Analitica de datos",
-      "alertas": [
-        "sin_texto_fuente"
-      ],
-      "confianza": 0.95,
-      "instrucciones_detectadas": false
+      "alertas": [],
+      "confianza": 0.93,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
     },
     "lecturas": [
       {
         "modelo": "anthropic/claude-haiku-5.5",
         "modelo_servido": "anthropic/claude-haiku-5.5",
-        "tokens_entrada": 2706,
+        "tokens_entrada": 2788,
         "tokens_salida": 168,
-        "costo_usd": 0.0003546,
-        "ms": 3391,
+        "costo_usd": 0.0003628,
+        "ms": 2520,
         "ok": true,
         "datos": {
           "beneficiario": "DATOS DEL PACIFICO SAS",
@@ -41,17 +42,17 @@
           "fecha_vencimiento": "2026-10-25",
           "numero_factura": "DP-1204",
           "categoria": "Analitica de datos",
-          "confianza": 0.95,
+          "confianza": 0.93,
           "instrucciones_detectadas": false
         }
       },
       {
         "modelo": "google/gemini-3.1-flash-lite",
         "modelo_servido": "google/gemini-3.1-flash-lite",
-        "tokens_entrada": 2254,
+        "tokens_entrada": 2302,
         "tokens_salida": 182,
-        "costo_usd": 0.0008365,
-        "ms": 1890,
+        "costo_usd": 0.0008485,
+        "ms": 2337,
         "ok": true,
         "datos": {
           "beneficiario": "DATOS DEL PACIFICO SAS",
@@ -79,7 +80,7 @@
         "servido": "google/gemini-3.1-flash-lite"
       }
     ],
-    "ms": 3392,
-    "costo_usd": 0.0011911
+    "ms": 2522,
+    "costo_usd": 0.0012113
   }
 }
