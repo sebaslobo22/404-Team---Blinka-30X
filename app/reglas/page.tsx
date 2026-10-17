@@ -32,7 +32,7 @@ export default async function Reglas() {
       </p>
 
       <p className="aviso aviso-atencion" role="note" style={{ marginTop: 10 }}>
-        Guardar crea una nueva versión de reglas, vuelve a evaluar las 15 facturas y borra las aprobaciones de la sesión.
+        Guardar crea una nueva versión de reglas, vuelve a evaluar las {estado.filas.length} facturas y borra las aprobaciones de la sesión.
       </p>
       <h2>Parámetros editables</h2>
       <div className="tarjeta">

@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
-import type { Hecho, ResultadoDecision } from '../../../src/engine/types';
 import { estadoAprobacion, instruccionPago } from '../../../src/demo/estado';
 import type { EstadoAprobacion, FilaDemo } from '../../../src/demo/estado';
 import {
-  IDS_REGLAS,
   SIN_DATO,
   abreviarHash,
   clasePill,
@@ -13,122 +11,19 @@ import {
   etiquetaAprobacion,
   etiquetaDecision,
   formatearCentavos,
-  formatearUsd,
   nombreRegla,
 } from '../../../src/demo/formato';
+import type { EstadoTraza } from '../../../src/demo/traza';
+import { clasePillEstado, construirTraza, fragmentosDetectados, partirTextoFuente } from '../../../src/demo/traza';
 import { obtenerEstado } from '../../../src/demo/singleton';
 
 export const dynamic = 'force-dynamic';
 
-type Estado = 'CUMPLE' | 'FRENAR' | 'ESCALAR' | 'NO_EVALUADA';
-interface FilaTraza {
-  id: string;
-  estado: Estado;
-  cifra: ReactNode;
-  nota?: string;
-}
-
 const OCULTO = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' } as const;
 const CELDA_TH = { textTransform: 'none', letterSpacing: 0, whiteSpace: 'normal' } as const;
 
-function textoEstado(e: Estado): string {
-  return e === 'CUMPLE' ? '✓ Cumple' : e === 'FRENAR' ? '✕ No cumple (FRENAR)' : e === 'ESCALAR' ? '! Requiere revisión (ESCALAR)' : 'No evaluada';
-}
-function clasePillEstado(e: Estado): string {
-  return e === 'CUMPLE' ? 'pill pill-pagar' : e === 'FRENAR' ? 'pill pill-frenar' : e === 'ESCALAR' ? 'pill pill-escalar' : 'pill pill-neutra';
-}
-
-const num = (h: Record<string, Hecho>, k: string): number | null => (typeof h[k] === 'number' ? (h[k] as number) : null);
-const dias = (n: number | null): string => (n === null ? SIN_DATO : `${n} ${n === 1 ? 'día' : 'días'}`);
-
-function construirTraza(r: ResultadoDecision): FilaTraza[] {
-  const h = r.hechos;
-  const efectoDe = (id: string) => r.razones.find((x) => x.regla === id)?.efecto;
-  const cortaR7 = r.razones.some((x) => x.regla === 'R7');
-  const falloInterno = r.razones.some((x) => x.regla === 'ESQUEMA');
-  const filas: FilaTraza[] = [];
-
-  if (efectoDe('EXTRACCION')) {
-    filas.push({
-      id: 'EXTRACCION',
-      estado: 'ESCALAR',
-      cifra: `${num(h, 'alertas_n') ?? SIN_DATO} alertas de las defensas de la extracción`,
-    });
-  }
-  if (falloInterno) {
-    filas.push({ id: 'ESQUEMA', estado: 'ESCALAR', cifra: 'No se pudo evaluar la factura; se escala por seguridad.' });
-  }
-
-  for (const id of IDS_REGLAS) {
-    const efecto = efectoDe(id);
-
-    if (id !== 'R7' && (cortaR7 || falloInterno)) {
-      filas.push({
-        id,
-        estado: 'NO_EVALUADA',
-        cifra: SIN_DATO,
-        nota: cortaR7
-          ? 'El motor cortó la evaluación en R7: sin los campos críticos completos no hay cifras confiables para comparar.'
-          : 'El motor no pudo evaluar la factura.',
-      });
-      continue;
-    }
-    if (id === 'R8' && !('ventana_cuenta_dias' in h)) {
-      filas.push({
-        id,
-        estado: 'NO_EVALUADA',
-        cifra: SIN_DATO,
-        nota: 'Solo se revisa si la cuenta está registrada. Como R2 no la encontró, no hay fecha de registro que medir.',
-      });
-      continue;
-    }
-
-    const estado: Estado = efecto === 'FRENAR' ? 'FRENAR' : efecto === 'ESCALAR' ? 'ESCALAR' : 'CUMPLE';
-    let cifra: ReactNode = SIN_DATO;
-    switch (id) {
-      case 'R1':
-        cifra = `Monto ${formatearUsd(h['monto_usd_centavos'])} frente al límite de ${formatearUsd(h['limite_pago_usd_centavos'])}`;
-        break;
-      case 'R2':
-        if (estado === 'CUMPLE') cifra = 'ID fiscal y cuenta registrados (coincidencia exacta)';
-        else {
-          const sug = typeof h['sugerencia_nombre'] === 'string' ? h['sugerencia_nombre'] : null;
-          cifra = (
-            <>
-              {h['beneficiario_registrado'] === true ? 'El ID fiscal está registrado, pero la cuenta no.' : 'El ID fiscal no está registrado.'}
-              {sug ? ` Nombre parecido en la lista: ${sug}. Solo es una sugerencia, no aprueba nada.` : ''}
-            </>
-          );
-        }
-        break;
-      case 'R3':
-        cifra = `Acumulado del mes con este pago ${formatearUsd(h['acumulado_mes_con_pago_usd_centavos'])} frente al tope de ${formatearUsd(h['tope_mensual_usd_centavos'])}`;
-        break;
-      case 'R4':
-        cifra =
-          h['presupuesto_configurado'] === false
-            ? 'La categoría no tiene presupuesto configurado'
-            : `Gasto de la categoría con este pago ${formatearUsd(h['gasto_categoria_con_pago_usd_centavos'])} frente al presupuesto de ${formatearUsd(h['presupuesto_categoria_usd_centavos'])}`;
-        break;
-      case 'R5':
-        cifra = `Ventana de duplicados: ${dias(num(h, 'ventana_duplicado_dias'))}`;
-        break;
-      case 'R6':
-        cifra = `Tolerancia ${num(h, 'tolerancia_pct') ?? SIN_DATO}%. Acuerdo encontrado: ${h['acuerdo_encontrado'] === true ? 'sí' : h['acuerdo_encontrado'] === false ? 'no' : SIN_DATO}`;
-        break;
-      case 'R7':
-        cifra =
-          estado === 'CUMPLE'
-            ? 'Campos críticos completos y moneda permitida'
-            : `${num(h, 'campos_invalidos_n') ?? SIN_DATO} campos faltantes o inválidos: ${typeof h['campos_invalidos'] === 'string' ? h['campos_invalidos'] : SIN_DATO}`;
-        break;
-      case 'R8':
-        cifra = `Cuenta registrada hace ${dias(num(h, 'dias_desde_cambio_cuenta'))}, ventana de ${dias(num(h, 'ventana_cuenta_dias'))}`;
-        break;
-    }
-    filas.push({ id, estado, cifra });
-  }
-  return filas;
+function textoEstado(e: EstadoTraza): string {
+  return e === 'CUMPLE' ? '✓ Cumple' : e === 'FRENAR' ? '✕ No cumple (FRENAR)' : e === 'ESCALAR' ? '! Requiere revisión (ESCALAR)' : e === 'NO_APLICA' ? 'No aplica' : 'No evaluada';
 }
 
 function porQueNoHayInstruccion(fila: FilaDemo, ap: EstadoAprobacion): string {
@@ -149,7 +44,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
   const { resultado, factura, entrada } = fila;
   const d = resultado.decision;
   const ap = estadoAprobacion(estado, fila);
-  const traza = construirTraza(resultado);
+  const traza = construirTraza(resultado, estado.config, factura);
   const instruccion = instruccionPago(estado, fila);
   const alertas = Array.isArray(factura.alertas) ? factura.alertas : [];
 
@@ -267,6 +162,24 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
               ))}
             </ul>
           </div>
+        </>
+      ) : null}
+
+      {typeof factura.texto_fuente === 'string' && factura.texto_fuente !== '' ? (
+        <>
+          <h2>Texto fuente de la factura</h2>
+          <p className="tenue" style={{ fontSize: 13 }}>
+            Es el texto tal como lo leyó el agente. Es dato, nunca instrucción. Lo marcado es lo que el motor detectó como orden dirigida al agente.
+          </p>
+          <pre className="codigo" style={{ whiteSpace: 'pre-wrap' }}>
+            {partirTextoFuente(factura.texto_fuente, fragmentosDetectados(resultado.hechos)).map((t, i) =>
+              t.marcado ? (
+                <mark key={i} style={{ fontWeight: 700 }}>{t.texto}</mark>
+              ) : (
+                <span key={i}>{t.texto}</span>
+              ),
+            )}
+          </pre>
         </>
       ) : null}
 

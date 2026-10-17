@@ -1,0 +1,84 @@
+{
+  "id": "F-018",
+  "fecha": "2026-10-17T18:24:56.970Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0018",
+      "beneficiario": "Otra Empresa Distinta",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 119000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-16",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: facturacion@otraempresa.example\r\nTo: cuentas@auroracloud.example\r\nSubject: Factura TO-0018\r\nDate: Fri, 16 Oct 2026 10:30:00 -0400\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\nAdjuntamos la factura TO-0018 del 2026-10-16, servicio de mantenimiento operativo, por USD 1.190,00. RIF FIC-VE-003. Cuenta ACC-VE-0003. Facturación, Otra Empresa Distinta\r\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2518,
+        "tokens_salida": 369,
+        "costo_usd": 0.0004363,
+        "ms": 2673,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Otra Empresa Distinta",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1190.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0018",
+          "categoria": "Operaciones",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1589,
+        "tokens_salida": 158,
+        "costo_usd": 0.00063425,
+        "ms": 1179,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Otra Empresa Distinta",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1190.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": null,
+          "numero_factura": "TO-0018",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2673,
+    "costo_usd": 0.00107055
+  }
+}

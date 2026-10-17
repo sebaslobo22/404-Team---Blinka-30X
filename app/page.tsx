@@ -24,7 +24,10 @@ export default async function PaginaDecisiones() {
     <section className="rejilla" aria-label="Resumen de decisiones">{([{ d: 'PAGAR', n: r.PAGAR, t: 'Cumplen las reglas. No ejecuta el pago.' }, { d: 'FRENAR', n: r.FRENAR, t: 'Sin aprobación posible.' }, { d: 'ESCALAR', n: r.ESCALAR, t: 'Requieren revisión humana.' }]).map(x => <div className="tarjeta" key={x.d}><span className={`pill pill-${x.d.toLowerCase()}`}>{x.d}</span>
       <p className="cifra">{x.n}</p>
       <div className="cifra-etiqueta">{x.t}</div>
-    </div>)}</section>
+    </div>)}
+      <div className="tarjeta"><p className="cifra">{r.decididasBien} de {r.total}</p>
+        <div className="cifra-etiqueta">Coinciden con la decisión esperada. En el set de desarrollo, no mide generalización</div>
+      </div></section>
 
     <ListaFacturas filas={estado.filas.map(f => ({ id: f.id, proveedor: f.factura.beneficiario ?? 'Sin proveedor leído', monto: formatearCentavos(f.factura.monto_centavos, f.factura.moneda), decision: f.resultado.decision, motivo: f.resultado.explicacion, aprobacion: etiquetaAprobacion(estadoAprobacion(estado, f)) }))} />
   </>;

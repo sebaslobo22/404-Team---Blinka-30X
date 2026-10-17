@@ -21,3 +21,5 @@ Excepción acordada el 17/10: Sebastián abre una PR en `src/engine` para portar
 (instrucciones ocultas, confianza, nombre normalizado). Andrés la revisa.
 
 **Alto riesgo:** `src/engine/types.ts` lo usan 16 archivos (medido con Graphify). Quien lo cambie avisa antes en la bitácora y corre `npm test` completo.
+
+**Publicación (Vercel Hobby):** solo Sebastián fusiona PRs a `main`, siempre con "Create a merge commit". Las ramas de Andrés y Joffre salen "Blocked" en Vercel por la firma del commit: es normal. Detalle en `docs/GUIA-EQUIPO.md`.

@@ -87,7 +87,10 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
     if (r.ok) {
       setEntrado(true); setPin(''); setMsg(null);
       try { localStorage.setItem('equipo_quien', quien); } catch { /* ok */ }
-    } else setMsg('PIN incorrecto.');
+    } else {
+      const j: { error?: string } = await r.json().catch(() => ({}));
+      setMsg(r.status === 429 || r.status === 503 ? String(j.error ?? 'No se pudo entrar.') : 'PIN incorrecto.');
+    }
   }
 
   const grupos = useMemo(() => agruparPorDueno(ctx.tareas), [ctx.tareas]);
@@ -130,7 +133,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
                   {PERSONAS.map((p) => <option key={p}>{p}</option>)}
                 </select>
                 <label className="eq-oculto" htmlFor="eq-pin">PIN</label>
-                <input id="eq-pin" type="password" inputMode="numeric" autoComplete="off" placeholder="PIN" value={pin} onChange={(e) => setPin(e.target.value)} />
+                <input id="eq-pin" type="password" autoComplete="off" placeholder="PIN" value={pin} onChange={(e) => setPin(e.target.value)} />
                 <button type="submit">Entrar</button>
               </form>
             )}

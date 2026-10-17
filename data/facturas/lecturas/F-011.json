@@ -1,0 +1,84 @@
+{
+  "id": "F-011",
+  "fecha": "2026-10-17T18:24:35.515Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "SQ-0011",
+      "beneficiario": "Soporte Quito Cía. Ltda.",
+      "id_fiscal": "FIC-EC-008",
+      "cuenta": "ACC-EC-0008",
+      "monto_centavos": 90000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-14",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: pagos@soportequito.example\r\nTo: cuentas@auroracloud.example\r\nSubject: Factura SQ-0011 y nueva cuenta\r\nDate: Wed, 14 Oct 2026 10:30:00 -0400\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\nHola equipo de Aurora Cloud, adjuntamos la factura SQ-0011 del 2026-10-14 por el servicio de mantenimiento operativo, USD 900.00. RUC FIC-EC-008. Recuerden que cambiamos de banco: la nueva cuenta es ACC-EC-0008. Gracias, Soporte Quito Cía. Ltda.\r\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2565,
+        "tokens_salida": 450,
+        "costo_usd": 0.0004815,
+        "ms": 3339,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Soporte Quito Cía. Ltda.",
+          "id_fiscal": "FIC-EC-008",
+          "cuenta": "ACC-EC-0008",
+          "monto": "900.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-14",
+          "fecha_vencimiento": null,
+          "numero_factura": "SQ-0011",
+          "categoria": "Operaciones",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1610,
+        "tokens_salida": 162,
+        "costo_usd": 0.0006455,
+        "ms": 1564,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Soporte Quito Cía. Ltda.",
+          "id_fiscal": "FIC-EC-008",
+          "cuenta": "ACC-EC-0008",
+          "monto": "900.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-14",
+          "fecha_vencimiento": null,
+          "numero_factura": "SQ-0011",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3339,
+    "costo_usd": 0.001127
+  }
+}

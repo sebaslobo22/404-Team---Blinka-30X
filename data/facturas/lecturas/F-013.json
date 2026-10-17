@@ -1,0 +1,84 @@
+{
+  "id": "F-013",
+  "fecha": "2026-10-17T18:24:41.031Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "NOM-0013",
+      "beneficiario": "Marcos Rivas",
+      "id_fiscal": "FIC-VE-007",
+      "cuenta": "ACC-VE-0007",
+      "monto_centavos": 300000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-15",
+      "categoria": "Nómina",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[WhatsApp 15/10/2026 16:02] Marcos: Hola! Les paso mi factura del mes, emitida por Marcos Rivas (contratista ficticio): NOM-0013 por honorarios del mes (nómina de contratista), USD 3,000.00. CI FIC-VE-007, cuenta ACC-VE-0007. Gracias!\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2430,
+        "tokens_salida": 504,
+        "costo_usd": 0.000495,
+        "ms": 3071,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Marcos Rivas",
+          "id_fiscal": "FIC-VE-007",
+          "cuenta": "ACC-VE-0007",
+          "monto": "3000.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": null,
+          "numero_factura": "NOM-0013",
+          "categoria": "Nómina",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1519,
+        "tokens_salida": 159,
+        "costo_usd": 0.00061825,
+        "ms": 2002,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Marcos Rivas",
+          "id_fiscal": "FIC-VE-007",
+          "cuenta": "ACC-VE-0007",
+          "monto": "3000.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": null,
+          "numero_factura": "NOM-0013",
+          "categoria": "Nómina",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3071,
+    "costo_usd": 0.00111325
+  }
+}
