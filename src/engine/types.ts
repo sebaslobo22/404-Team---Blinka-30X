@@ -18,6 +18,12 @@ export interface FacturaExtraida {
    * Cualquier alerta fuerza ESCALAR.
    */
   alertas?: string[];
+  /** Texto plano de la factura. Se revisa en busca de instrucciones dirigidas al agente. */
+  texto_fuente?: string;
+  /** Confianza de lectura (0 a 1). Si el campo no viene, no se evalua; si viene null o invalido, ESCALAR. */
+  confianza?: number | null;
+  /** El lector marco instrucciones dirigidas al agente. */
+  instrucciones_detectadas?: boolean;
 }
 
 export interface CuentaRegistrada {
@@ -70,6 +76,8 @@ export interface Config {
   ventana_cuenta_dias: number;
   /** Unidades de cada moneda por 1 USD, multiplicadas por 1000 (enteros). */
   tasas_milli: Record<string, number>;
+  /** Confianza minima de lectura (0 a 1). Si falta, 0.85. */
+  confianza_minima?: number;
 }
 
 export interface Razon {

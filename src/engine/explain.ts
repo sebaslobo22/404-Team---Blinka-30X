@@ -29,7 +29,16 @@ const PLANTILLAS: Record<string, (h: Hechos) => string> = {
     h['campos_invalidos_n'] === 1
       ? `Hay ${num(h, 'campos_invalidos_n')} campo crítico de la factura faltante o inválido.`
       : `Hay ${num(h, 'campos_invalidos_n')} campos críticos de la factura faltantes o inválidos.`,
-  R8: (h) => `La cuenta se registró hace ${num(h, 'dias_desde_cambio_cuenta')} días y la ventana de cambio reciente es de ${num(h, 'ventana_cuenta_dias')} días.`,
+  R8: (h) =>
+    h['horas_desde_cambio_cuenta'] === null
+      ? 'No se pudo leer la fecha de registro de la cuenta; se escala por seguridad.'
+      : `La cuenta se registró hace ${num(h, 'horas_desde_cambio_cuenta')} horas (${num(h, 'dias_desde_cambio_cuenta')} días completos) y la ventana de cambio reciente es de ${num(h, 'ventana_cuenta_dias')} días.`,
+  INYECCION: () => 'El texto de la factura contiene instrucciones dirigidas al agente; se ignoran como orden y se pide revisión de una persona.',
+  CONFIANZA: (h) =>
+    h['confianza_valida'] === true
+      ? `La confianza de lectura es ${num(h, 'confianza_pct')} por ciento y el mínimo es ${num(h, 'confianza_minima_pct')} por ciento.`
+      : 'El lector no reportó una confianza válida.',
+  REGISTRO: () => 'El nombre leído no coincide con el registrado para este ID fiscal y esta cuenta; lo revisa una persona.',
   EXTRACCION: (h) =>
     h['alertas_n'] === 1
       ? `La extracción levantó ${num(h, 'alertas_n')} alerta de seguridad en el documento.`

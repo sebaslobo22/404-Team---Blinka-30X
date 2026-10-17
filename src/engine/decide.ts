@@ -1,6 +1,7 @@
-import { diaNumero, mesDe } from './dates';
+import { diaNumero, instanteMs, mesDe } from './dates';
 import { explicar } from './explain';
 import { aUsdCentavos, esEnteroSeguro } from './money';
+import { buscarInstrucciones, nombreCoincide, normalizarId } from './normalizar';
 import type { Config, Contexto, Decision, FacturaExtraida, Hecho, Historial, Razon, ResultadoDecision } from './types';
 
 /**
@@ -61,6 +62,29 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
     hechos['alertas_n'] = nAlertas;
   }
 
+  // Instrucciones ocultas: el texto de la factura es dato, nunca orden. Se evalua antes de R7
+  // para que quede registrada aunque falten datos.
+  const hallazgos = buscarInstrucciones(f.texto_fuente);
+  if (f.instrucciones_detectadas === true) hallazgos.push('marcada por el lector');
+  if (hallazgos.length > 0) {
+    razones.push({ regla: 'INYECCION', efecto: 'ESCALAR' });
+    hechos['inyeccion_n'] = hallazgos.length;
+    hechos['inyeccion_fragmentos'] = hallazgos.map((h) => h.slice(0, 60)).join(' | ');
+  }
+
+  // Confianza de lectura. Decision: si el campo NO viene (undefined) no se evalua, para ser
+  // compatible con el set de desarrollo y extractores que aun no lo reportan. Si viene y es null,
+  // no numerico, NaN o menor al minimo, se escala.
+  if (f.confianza !== undefined) {
+    const minima = cfg.confianza_minima ?? 0.85;
+    const c = f.confianza;
+    const valida = typeof c === 'number' && Number.isFinite(c);
+    hechos['confianza_valida'] = valida;
+    hechos['confianza_minima_pct'] = Math.round(minima * 100);
+    if (valida) hechos['confianza_pct'] = Math.round(c * 100);
+    if (!valida || c < minima) razones.push({ regla: 'CONFIANZA', efecto: 'ESCALAR' });
+  }
+
   // R7: campos criticos y moneda. Si falla, la extraccion no es confiable: se escala sin mas.
   const fallos: string[] = [];
   if (!texto(f.numero_factura)) fallos.push('numero_factura');
@@ -83,12 +107,12 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
     return armar(facturaId, 'ESCALAR', razones, hechos, ctx, cfg);
   }
 
-  const idFiscal = (f.id_fiscal as string).trim();
-  const cuenta = (f.cuenta as string).trim();
+  const idFiscal = normalizarId(f.id_fiscal);
+  const cuenta = normalizarId(f.cuenta);
   const moneda = f.moneda as string;
   const monto = f.monto_centavos as number;
   const categoria = (f.categoria as string).trim();
-  const numero = (f.numero_factura as string).trim();
+  const numero = normalizarId(f.numero_factura);
   const mes = mesDe(ctx.ahora);
 
   const usd = aUsdCentavos(monto, moneda, cfg.tasas_milli);
@@ -102,8 +126,8 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
   };
 
   // R2: beneficiario permitido (ID fiscal y cuenta, coincidencia exacta). Lo difuso solo sugiere.
-  const benef = ctx.beneficiarios.find((b) => b.id_fiscal === idFiscal);
-  const reg = benef?.cuentas.find((c) => c.cuenta === cuenta);
+  const benef = ctx.beneficiarios.find((b) => normalizarId(b.id_fiscal) === idFiscal);
+  const reg = benef?.cuentas.find((c) => normalizarId(c.cuenta) === cuenta);
   if (!reg) {
     razones.push({ regla: 'R2', efecto: 'FRENAR' });
     hechos['beneficiario_registrado'] = benef !== undefined;
@@ -113,13 +137,24 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
     if (cercano) hechos['sugerencia_nombre'] = cercano.nombre;
   }
 
-  // R8: cuenta registrada hace menos de la ventana (cambio reciente).
+  // REGISTRO: el ID y la cuenta coinciden, pero el nombre leido no es el registrado. No es FRENAR:
+  // la persona revisa la inconsistencia.
+  if (reg && benef && !nombreCoincide(f.beneficiario, benef.nombre)) {
+    razones.push({ regla: 'REGISTRO', efecto: 'ESCALAR' });
+    hechos['nombre_coincide'] = false;
+  }
+
+  // R8: cuenta registrada hace 72 horas o menos (ventana en dias x 24) -> ESCALAR.
   if (reg) {
-    const desde = diaNumero(reg.desde);
-    const dias = desde === null ? null : hoy - desde;
-    hechos['dias_desde_cambio_cuenta'] = dias;
+    const desdeMs = instanteMs(reg.desde);
+    const ahoraMs = instanteMs(ctx.ahora);
+    const horas = desdeMs === null || ahoraMs === null ? null : Math.floor((ahoraMs - desdeMs) / 3_600_000);
+    hechos['dias_desde_cambio_cuenta'] = horas === null ? null : Math.floor(horas / 24);
+    hechos['horas_desde_cambio_cuenta'] = horas;
     hechos['ventana_cuenta_dias'] = cfg.ventana_cuenta_dias;
-    if (dias === null || dias < cfg.ventana_cuenta_dias) razones.push({ regla: 'R8', efecto: 'ESCALAR' });
+    const limiteMs = cfg.ventana_cuenta_dias * 24 * 3_600_000;
+    const dentro = desdeMs === null || ahoraMs === null || ahoraMs - desdeMs <= limiteMs;
+    if (dentro) razones.push({ regla: 'R8', efecto: 'ESCALAR' });
   }
 
   // R1: limite por pago.
@@ -128,7 +163,7 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
 
   // R3: tope mensual por beneficiario (pagos y reservas del mes).
   const acumulado = ctx.historial
-    .filter((h) => activo(h) && h.id_fiscal === idFiscal && mesDe(h.fecha) === mes)
+    .filter((h) => activo(h) && normalizarId(h.id_fiscal) === idFiscal && mesDe(h.fecha) === mes)
     .reduce((s, h) => s + usdDe(h), 0);
   hechos['acumulado_mes_con_pago_usd_centavos'] = acumulado + usd;
   hechos['tope_mensual_usd_centavos'] = cfg.tope_mensual_usd_centavos;
@@ -150,8 +185,8 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
 
   // R5: duplicado. Mismo numero de factura del mismo beneficiario, o mismo monto y moneda dentro de la ventana.
   const duplicada = ctx.historial.some((h) => {
-    if (!activo(h) || h.id_fiscal !== idFiscal) return false;
-    if (h.numero_factura === numero) return true;
+    if (!activo(h) || normalizarId(h.id_fiscal) !== idFiscal) return false;
+    if (normalizarId(h.numero_factura) === numero) return true;
     const d = diaNumero(h.fecha);
     return h.monto_centavos === monto && h.moneda === moneda && d !== null && Math.abs(hoy - d) <= cfg.ventana_duplicado_dias;
   });
@@ -160,7 +195,7 @@ function evaluar(facturaId: string, f: FacturaExtraida, ctx: Contexto, cfg: Conf
 
   // R6: cotejo con lo acordado. Sin acuerdo registrado, se escala.
   const acuerdos = ctx.acuerdos.filter(
-    (a) => a.id_fiscal === idFiscal && a.moneda === moneda && (a.categoria === undefined || a.categoria === categoria),
+    (a) => normalizarId(a.id_fiscal) === idFiscal && a.moneda === moneda && (a.categoria === undefined || a.categoria === categoria),
   );
   hechos['tolerancia_pct'] = cfg.tolerancia_bps / 100;
   hechos['acuerdo_encontrado'] = acuerdos.length > 0;
