@@ -40,7 +40,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
   const refrescar = useCallback(async () => {
     try {
-      const r = await fetch('/api/equipo/contexto', { cache: 'no-store' });
+      const r = await fetch('/api/team/contexto', { cache: 'no-store' });
       if (!r.ok) return;
       const j = await r.json();
       const aplanadas = Object.values(j.tareas as Record<string, Contexto['tareas']>).flat();
@@ -52,7 +52,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
     setAhora(Date.now());
     const t = setInterval(() => setAhora(Date.now()), 1000);
     try { setQuien(localStorage.getItem('equipo_quien') ?? 'Sebastián'); } catch { /* sin almacenamiento */ }
-    fetch('/api/equipo/entrar').then((r) => r.json()).then((j) => setEntrado(Boolean(j.entrado))).catch(() => {});
+    fetch('/api/team/entrar').then((r) => r.json()).then((j) => setEntrado(Boolean(j.entrado))).catch(() => {});
     return () => clearInterval(t);
   }, []);
 
@@ -72,7 +72,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
   async function escribir(ruta: string, cuerpo: Record<string, unknown>) {
     setMsg(null);
-    const r = await fetch(`/api/equipo/${ruta}`, {
+    const r = await fetch(`/api/team/${ruta}`, {
       method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...cuerpo, quien }),
     });
     const j = await r.json().catch(() => ({}));
@@ -83,7 +83,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
 
   async function entrar(e: React.FormEvent) {
     e.preventDefault();
-    const r = await fetch('/api/equipo/entrar', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pin, quien }) });
+    const r = await fetch('/api/team/entrar', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ pin, quien }) });
     if (r.ok) {
       setEntrado(true); setPin(''); setMsg(null);
       try { localStorage.setItem('equipo_quien', quien); } catch { /* ok */ }
@@ -257,7 +257,7 @@ export default function Centro({ inicial, supabaseUrl, supabaseAnon }: { inicial
             <h3>Acuerdo</h3>
             <p>Un agente de IA debe leer el contexto antes de tocar nada, tomar su zona y soltarla al terminar.</p>
             <ul>
-              <li><a href="/equipo/contexto.md">Contexto en Markdown para agentes</a></li>
+              <li><a href="/team/contexto.md">Contexto en Markdown para agentes</a></li>
               <li><a href={ARTEFACTO} target="_blank" rel="noreferrer">Marco Blinka 404 (artefacto)</a></li>
               <li>Comandos: <code>node scripts/equipo.mjs contexto | tomar &lt;ruta&gt; | soltar &lt;ruta&gt; | tarea &lt;texto&gt; &lt;estado&gt; | nota &quot;...&quot;</code></li>
             </ul>

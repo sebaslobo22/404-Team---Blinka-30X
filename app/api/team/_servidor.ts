@@ -1,8 +1,8 @@
 // Ayudas de las rutas de escritura: PIN, cliente de servicio, bitácora.
 import { NextResponse, type NextRequest } from 'next/server';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { clienteServidor } from '../../equipo/datos';
-import { validarPin } from '../../equipo/lib';
+import { clienteServidor } from '../../team/datos';
+import { validarPin } from '../../team/lib';
 
 export const PIN_COOKIE = 'equipo_pin';
 

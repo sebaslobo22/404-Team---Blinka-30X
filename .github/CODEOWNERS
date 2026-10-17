@@ -5,8 +5,8 @@
 /data/dev-set.json      @sebaslobo22
 /src/extraccion/        @sebaslobo22
 /data/facturas/         @sebaslobo22
-/app/equipo/            @sebaslobo22
-/app/api/equipo/     @sebaslobo22
+/app/team/            @sebaslobo22
+/app/api/team/     @sebaslobo22
 /scripts/equipo.mjs     @sebaslobo22
 /tests/adversarial/     @sebaslobo22
 /data/ciego/            @sebaslobo22

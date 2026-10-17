@@ -202,7 +202,7 @@
     {
       "ruta": "app",
       "dueno": "Andrés",
-      "nota": "Tablero del producto (menos app/equipo)"
+      "nota": "Tablero del producto (menos app/team)"
     },
     {
       "ruta": "src/demo",
@@ -225,7 +225,7 @@
       "nota": "Banco de modelos"
     },
     {
-      "ruta": "app/equipo",
+      "ruta": "app/team",
       "dueno": "Sebastián",
       "nota": "Centro de mando"
     },

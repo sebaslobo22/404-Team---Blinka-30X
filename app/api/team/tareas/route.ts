@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { esDueno, esEstado } from '../../../equipo/lib';
+import { esDueno, esEstado } from '../../../team/lib';
 import { anotar, exigirEscritura, falla, leerJson, quienDe, texto } from '../_servidor';
 
 export const runtime = 'nodejs';

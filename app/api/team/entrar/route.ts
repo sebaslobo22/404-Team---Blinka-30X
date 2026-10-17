@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { validarPin } from '../../../equipo/lib';
+import { validarPin } from '../../../team/lib';
 import { PIN_COOKIE, leerJson, pinDeSolicitud, texto } from '../_servidor';
 
 export const runtime = 'nodejs';

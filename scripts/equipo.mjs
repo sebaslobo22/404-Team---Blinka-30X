@@ -51,7 +51,7 @@ async function api(ruta, cuerpo) {
   if (!env.EQUIPO_PIN) fallar('falta EQUIPO_PIN en .env o en el entorno.');
   let r;
   try {
-    r = await fetch(`${BASE}/api/equipo/${ruta}`, {
+    r = await fetch(`${BASE}/api/team/${ruta}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-equipo-pin': env.EQUIPO_PIN, 'x-equipo-agente': '1', 'x-equipo-quien': QUIEN },
       body: JSON.stringify({ ...cuerpo, quien: QUIEN, es_agente: true }),
@@ -65,7 +65,7 @@ async function api(ruta, cuerpo) {
 }
 
 async function leerContexto() {
-  const r = await fetch(`${BASE}/api/equipo/contexto`).catch((e) => fallar(`no pude conectar con ${BASE} (${e.message}).`));
+  const r = await fetch(`${BASE}/api/team/contexto`).catch((e) => fallar(`no pude conectar con ${BASE} (${e.message}).`));
   if (!r.ok) fallar(`contexto respondió ${r.status}`);
   return r.json();
 }
@@ -107,7 +107,7 @@ async function sembrar(args) {
 const [, , cmd, ...args] = process.argv;
 switch (cmd) {
   case 'contexto': {
-    const r = await fetch(`${BASE}/equipo/contexto.md`).catch((e) => fallar(`no pude conectar con ${BASE} (${e.message}).`));
+    const r = await fetch(`${BASE}/team/contexto.md`).catch((e) => fallar(`no pude conectar con ${BASE} (${e.message}).`));
     if (!r.ok) fallar(`contexto respondió ${r.status}`);
     process.stdout.write(await r.text());
     break;
