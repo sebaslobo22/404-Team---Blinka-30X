@@ -48,6 +48,12 @@ export default async function PaginaDecisiones() {
           <div className="cifra">{r.pctSinPersona}%</div>
           <div className="cifra-etiqueta">Decididas sin intervención de una persona (PAGAR y FRENAR)</div>
         </div>
+        <div className="tarjeta">
+          <div className="cifra">
+            {r.decididasBien} de {r.total}
+          </div>
+          <div className="cifra-etiqueta">Coinciden con la decisión esperada. En el set de desarrollo, no mide generalización</div>
+        </div>
       </div>
 
       <h2>Las {r.total} facturas</h2>

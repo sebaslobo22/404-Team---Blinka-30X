@@ -1,3 +1,4 @@
+import defensas from '../../data/dev-set-defensas.json';
 import dataset from '../../data/dev-set.json';
 import { decidir } from '../engine/decide';
 import type { Config, Contexto, Decision, FacturaExtraida, ResultadoDecision } from '../engine/types';
@@ -7,8 +8,9 @@ import { VERSION_BASE, configDesdeParametros, parametrosPorDefecto } from './par
 import type { ParametrosReglas } from './parametros';
 
 /**
- * Estado del modo replay: las 15 facturas del set de desarrollo, decididas por el motor,
- * con su registro encadenado. Las "extracciones" son de muestra: no se llama a ningun modelo.
+ * Estado del modo replay: las 18 facturas del set de desarrollo (F-001 a F-015 y los casos de
+ * defensas F-016 a F-018, que se procesan despues sobre el mismo contexto acumulado), decididas por
+ * el motor, con su registro encadenado. Las "extracciones" son de muestra: no se llama a ningun modelo.
  * Vive en memoria del servidor; no hay base de datos ni claves.
  */
 
@@ -88,7 +90,7 @@ export async function crearEstado(parametros: ParametrosReglas = parametrosPorDe
   const registroAprobaciones = new Registro<EventoAprobacion>(new AlmacenEnMemoria<EventoAprobacion>(), () => AHORA);
   const filas: FilaDemo[] = [];
 
-  for (const caso of dataset.facturas as unknown as CasoJson[]) {
+  for (const caso of [...(dataset.facturas as unknown as CasoJson[]), ...(defensas.facturas as unknown as CasoJson[])]) {
     const resultado = decidir(caso.id, caso.factura, ctx, config);
     const entrada = await registroDecisiones.anadir(resultado);
     filas.push({ id: caso.id, trampa: caso.trampa, esperada: caso.esperada, factura: caso.factura, resultado, entrada });
@@ -203,11 +205,15 @@ export function resumen(estado: EstadoDemo) {
   for (const f of estado.filas) cuenta[f.resultado.decision]++;
   const pendientes = estado.filas.filter((f) => estadoAprobacion(estado, f) === 'PENDIENTE').length;
   const total = estado.filas.length;
+  // Cuantas coinciden con la decision esperada del set. Es una medida sobre el set de desarrollo
+  // (el mismo con el que se afinaron las reglas): no mide generalizacion.
+  const decididasBien = estado.filas.filter((f) => f.resultado.decision === f.esperada).length;
   return {
     total,
     ...cuenta,
     pendientes,
     sinPersona: cuenta.PAGAR + cuenta.FRENAR,
+    decididasBien,
     pctSinPersona: total === 0 ? 0 : Math.round(((cuenta.PAGAR + cuenta.FRENAR) / total) * 1000) / 10,
   };
 }

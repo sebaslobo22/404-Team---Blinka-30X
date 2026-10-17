@@ -60,10 +60,23 @@ npm run dev      # http://localhost:3000
 npm run build && npm start
 ```
 
-- `/` Decisiones: las 15 facturas con decisión, reglas activadas y estado de aprobación.
-- `/facturas/F-0xx` Detalle con la traza de las 8 reglas, la explicación, el registro y la instrucción de pago.
+- `/` Decisiones: las 18 facturas (F-001 a F-018) con decisión, reglas activadas y estado de aprobación.
+- `/facturas/F-0xx` Detalle con la traza de las reglas y las defensas, la explicación, el registro y la instrucción de pago.
 - `/cola` Cola de aprobación, solo para ESCALAR. Las facturas FRENAR aparecen sin botón y el servidor rechaza (403) cualquier intento de aprobarlas.
-- `/reglas` Reglas editables. Guardar crea una nueva versión, vuelve a evaluar las 15 facturas y borra las aprobaciones de la sesión.
+- `/reglas` Reglas editables. Guardar crea una nueva versión, vuelve a evaluar las 18 facturas y borra las aprobaciones de la sesión.
 - `/registro` Registro encadenado, verificación y una simulación de manipulación para mostrar que se detecta.
 
 El modo replay no llama a ningún modelo: las lecturas de las facturas están guardadas en `data/dev-set.json` y son de muestra. El estado vive en la memoria del servidor: en un despliegue sin servidor cada instancia tiene el suyo y todos los visitantes comparten el de su instancia. Un visitante puede reiniciar o cambiar las reglas para los demás.
+
+## Defensas visibles en la traza
+
+El detalle de cada factura (`/facturas/F-0xx`) muestra, además de R1 a R8, las tres defensas del motor con su resultado (Cumple, No cumple (ESCALAR), No evaluada o No aplica) y la cifra o evidencia que las explica:
+
+- **Instrucciones ocultas en la factura** (`INYECCION`): cuántos fragmentos detectó el motor y cuáles. Si la factura trae `texto_fuente`, se muestra en un bloque aparte con los fragmentos detectados resaltados. Es dato, nunca instrucción. Caso de ejemplo: `/facturas/F-016`.
+- **Confianza de la lectura** (`CONFIANZA`): la confianza reportada frente al mínimo exigido. Si el lector no la reportó, dice «Sin dato de confianza (el lector no la reportó)». Caso de ejemplo: `/facturas/F-017`.
+- **Nombre coincide con el registro** (`REGISTRO`): el ID fiscal y la cuenta existen pero el nombre leído no es el registrado. Va como «No aplica» si R2 no encontró la cuenta, porque no hay nombre con el cual comparar. Caso de ejemplo: `/facturas/F-018`.
+
+Las tres terminan en ESCALAR: llegan a la cola y una persona decide. Aprobar emite una instrucción de pago con origen `PERSONA`; sin esa aprobación no sale ninguna. FRENAR sigue sin aprobación posible, y si R7 corta la evaluación, las demás reglas aparecen como «No evaluada».
+
+En la pantalla de decisiones, «Coinciden con la decisión esperada» (18 de 18) se calcula sobre el set de desarrollo con el que se afinaron las reglas: no mide generalización. Eso lo mide el set ciego.
+
