@@ -1,0 +1,221 @@
+{
+  "results": [
+    {
+      "ruta": "/",
+      "width": 390,
+      "theme": "light",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/facturas/F-005",
+      "width": 390,
+      "theme": "light",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/cola",
+      "width": 390,
+      "theme": "light",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/reglas",
+      "width": 390,
+      "theme": "light",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/registro",
+      "width": 390,
+      "theme": "light",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/team",
+      "width": 390,
+      "theme": "light",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/",
+      "width": 390,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/facturas/F-005",
+      "width": 390,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/cola",
+      "width": 390,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/reglas",
+      "width": 390,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/registro",
+      "width": 390,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/team",
+      "width": 390,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 390,
+      "vista": 390,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/",
+      "width": 1280,
+      "theme": "light",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/facturas/F-005",
+      "width": 1280,
+      "theme": "light",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/cola",
+      "width": 1280,
+      "theme": "light",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/reglas",
+      "width": 1280,
+      "theme": "light",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/registro",
+      "width": 1280,
+      "theme": "light",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/team",
+      "width": 1280,
+      "theme": "light",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(243, 245, 253)"
+    },
+    {
+      "ruta": "/",
+      "width": 1280,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/facturas/F-005",
+      "width": 1280,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/cola",
+      "width": 1280,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/reglas",
+      "width": 1280,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/registro",
+      "width": 1280,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(17, 23, 39)"
+    },
+    {
+      "ruta": "/team",
+      "width": 1280,
+      "theme": "dark",
+      "status": 200,
+      "ancho": 1280,
+      "vista": 1280,
+      "tema": "rgb(17, 23, 39)"
+    }
+  ],
+  "errors": []
+}
