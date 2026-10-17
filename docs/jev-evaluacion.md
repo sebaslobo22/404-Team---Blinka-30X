@@ -18,6 +18,7 @@ Un modelo que no escribe texto: recibe un texto y una pregunta con opciones fija
 - Tiempo: 2–4 h para un punto mínimo; 6–10 h para varios.
 - Dinero: casi nada por llamada.
 - **Acceso: incierto.** El alta directa de TypeSafe estaría pausada (guías de terceros). Probamos `typesafe/jev-router` en OpenRouter: **la llamada se desvió a otro modelo (deepseek/deepseek-v4.1-flash-1017) y devolvió una respuesta vacía.** No es JEV.
+- **Vía alterna confirmada: Vercel AI Gateway** lista `typesafe-ai/jev` (USD 0,042 por millón de tokens de entrada, salida gratis). La prueba con la credencial del proyecto respondió: "AI Gateway requiere una tarjeta de crédito registrada para atender solicitudes y desbloquear los créditos gratuitos". Activarlo es un paso de Sebastián en el panel de Vercel (Equipo → AI Gateway → agregar tarjeta). El acceso directo de TypeSafe (`api.typesafe.ai`) responde 403 sin llave.
 - Con 18 facturas no se puede demostrar calibración; solo aciertos anecdóticos.
 - No encontramos bases públicas del hackathon que den puntos por usar tecnología de patrocinadores.
 
