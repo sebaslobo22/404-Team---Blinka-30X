@@ -147,7 +147,7 @@ export function Tour() {
       if (els[0]?.closest('dialog[open]')) els[0].scrollIntoView({ block: 'start', behavior: 'instant' });
       const fija = els.some((e) => getComputedStyle(e).position === 'fixed');
       const cab = document.querySelector('.cabecera');
-      const cabecera = cab && cab.getBoundingClientRect().height > 0 ? cab.getBoundingClientRect().bottom : 0;
+      const cabecera = cab && cab.getBoundingClientRect().height > 0 ? Math.max(0, cab.getBoundingClientRect().bottom) : 0; // la cabecera no es fija: con la página desplazada su borde queda arriba de la pantalla
       const doc = document.documentElement;
       const movil = doc.clientWidth <= 600;
       const reserva = movil ? (burbuja.current?.offsetHeight ?? 240) + MARGEN_PANTALLA + 12 : 0;
