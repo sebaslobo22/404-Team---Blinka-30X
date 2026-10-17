@@ -40,7 +40,7 @@ export function frase(fila: FilaDemo): string {
   const monto = dinero(fila.factura.monto_centavos, fila.factura.moneda);
   const proveedor = fila.factura.beneficiario ?? 'proveedor sin leer';
   return fila.resultado.decision === 'PAGAR'
-    ? `Autorizamos ${monto} para ${proveedor}. ${motivo(fila)}`
+    ? `Autorizamos ${monto} para ${proveedor}${/[.!?]$/.test(String(proveedor)) ? '' : '.'} ${motivo(fila)}`
     : `${fila.resultado.decision === 'FRENAR' ? 'Frenamos este cobro.' : 'Necesitamos tu aprobación.'} ${motivo(fila)}`;
 }
 // Solo presenta los estados y hechos de la traza existente; no evalúa reglas.
