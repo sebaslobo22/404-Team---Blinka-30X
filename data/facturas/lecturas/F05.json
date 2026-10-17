@@ -1,0 +1,86 @@
+{
+  "id": "F05",
+  "fecha": "2026-10-17T17:22:09.878Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "KL-5512",
+      "beneficiario": "Kodigo Licencias",
+      "id_fiscal": "KLI190320XY9",
+      "cuenta": "MX-BANO-5530-2210",
+      "monto_centavos": 30000,
+      "moneda": "USD",
+      "fecha_emision": null,
+      "categoria": "Software",
+      "alertas": [
+        "lecturas_difieren:fecha"
+      ],
+      "confianza": 0.85,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[WhatsApp 06/10/2026 10:14] Kodigo Licencias: Buen día! Les compartimos la factura KL-5512 por las licencias de octubre, USD 300.00. RFC KLI190320XY9, cuenta MX-BANO-5530-2210. Gracias!\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2047,
+        "tokens_salida": 515,
+        "costo_usd": 0.0004622,
+        "ms": 3400,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Kodigo Licencias",
+          "id_fiscal": "KLI190320XY9",
+          "cuenta": "MX-BANO-5530-2210",
+          "monto": "300.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": null,
+          "fecha_vencimiento": null,
+          "numero_factura": "KL-5512",
+          "categoria": "Software",
+          "confianza": 0.85,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1271,
+        "tokens_salida": 165,
+        "costo_usd": 0.00056525,
+        "ms": 1605,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Kodigo Licencias",
+          "id_fiscal": "KLI190320XY9",
+          "cuenta": "MX-BANO-5530-2210",
+          "monto": "300.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-06",
+          "fecha_vencimiento": null,
+          "numero_factura": "KL-5512",
+          "categoria": "Software",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3401,
+    "costo_usd": 0.00102745
+  }
+}

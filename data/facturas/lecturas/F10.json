@@ -1,0 +1,86 @@
+{
+  "id": "F10",
+  "fecha": "2026-10-17T17:22:22.367Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": null,
+      "beneficiario": "SERVIDORES ANDINOS",
+      "id_fiscal": "SAN201015AB3",
+      "cuenta": null,
+      "monto_centavos": null,
+      "moneda": null,
+      "fecha_emision": "2026-10-11",
+      "categoria": "Hosting",
+      "alertas": [
+        "moneda_ambigua",
+        "sin_texto_fuente"
+      ],
+      "confianza": 0.4,
+      "instrucciones_detectadas": false
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2598,
+        "tokens_salida": 140,
+        "costo_usd": 0.0003298,
+        "ms": 2368,
+        "ok": true,
+        "datos": {
+          "beneficiario": "SERVIDORES ANDINOS",
+          "id_fiscal": "SAN201015AB3",
+          "cuenta": null,
+          "monto": null,
+          "moneda": null,
+          "moneda_explicita": false,
+          "fecha": "2026-10-11",
+          "fecha_vencimiento": null,
+          "numero_factura": null,
+          "categoria": "Hosting",
+          "confianza": 0.4,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2283,
+        "tokens_salida": 140,
+        "costo_usd": 0.00078075,
+        "ms": 2109,
+        "ok": true,
+        "datos": {
+          "beneficiario": "SERVIDORES ANDINOS",
+          "id_fiscal": "SAN201015AB3",
+          "cuenta": null,
+          "monto": null,
+          "moneda": null,
+          "moneda_explicita": false,
+          "fecha": "2026-10-11",
+          "fecha_vencimiento": null,
+          "numero_factura": null,
+          "categoria": "Hosting",
+          "confianza": 0.85,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2368,
+    "costo_usd": 0.00111055
+  }
+}

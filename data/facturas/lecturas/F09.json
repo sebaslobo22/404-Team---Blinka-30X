@@ -1,0 +1,85 @@
+{
+  "id": "F09",
+  "fecha": "2026-10-17T17:22:19.996Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "DP-1204",
+      "beneficiario": "DATOS DEL PACIFICO SAS",
+      "id_fiscal": "901777888-5",
+      "cuenta": "CO-BCOL-9912-0034",
+      "monto_centavos": 300000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-10",
+      "categoria": "Analitica de datos",
+      "alertas": [
+        "sin_texto_fuente"
+      ],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2706,
+        "tokens_salida": 168,
+        "costo_usd": 0.0003546,
+        "ms": 3391,
+        "ok": true,
+        "datos": {
+          "beneficiario": "DATOS DEL PACIFICO SAS",
+          "id_fiscal": "901777888-5",
+          "cuenta": "CO-BCOL-9912-0034",
+          "monto": "3000.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-10",
+          "fecha_vencimiento": "2026-10-25",
+          "numero_factura": "DP-1204",
+          "categoria": "Analitica de datos",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2254,
+        "tokens_salida": 182,
+        "costo_usd": 0.0008365,
+        "ms": 1890,
+        "ok": true,
+        "datos": {
+          "beneficiario": "DATOS DEL PACIFICO SAS",
+          "id_fiscal": "901777888-5",
+          "cuenta": "CO-BCOL-9912-0034",
+          "monto": "3000.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-10",
+          "fecha_vencimiento": "2026-10-25",
+          "numero_factura": "DP-1204",
+          "categoria": "Analitica de datos",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3392,
+    "costo_usd": 0.0011911
+  }
+}
