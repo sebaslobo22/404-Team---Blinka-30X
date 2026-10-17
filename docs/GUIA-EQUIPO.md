@@ -5,7 +5,7 @@
 Centro de mando: **https://404team.vercel.app/team** (solo para el equipo; para escribir hace falta el PIN).
 
 ## Paso 1 · Pedirle el PIN a Sebastián
-El PIN es una cadena aleatoria de 20 o más caracteres que Sebastián guarda en su gestor de contraseñas. Lo envía **por mensaje privado**, nunca en un grupo, nunca en el repo. Cópialo y pégalo; no lo escribas a mano ni lo apuntes en notas sueltas.
+El PIN es una cadena aleatoria de 16 o más caracteres que Sebastián guarda en su gestor de contraseñas. Lo envía **por mensaje privado**, nunca en un grupo, nunca en el repo. Cópialo y pégalo; no lo escribas a mano ni lo apuntes en notas sueltas.
 
 ## Paso 2 · Entrar a la web
 1. Abre https://404team.vercel.app/team.

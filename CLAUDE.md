@@ -46,7 +46,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - **Reparto:** Sebastián lectura + banco de modelos + centro de mando · Andrés motor, registro y
   tablero del producto · Joffre set ciego y suite adversarial.
 - **Rutas:** `/` producto (tablero), `/team` centro de mando. Un solo proyecto Vercel (`404team`).
-- No usar en el pitch "ustedes fracasaron dos veces" ni cifras sin fuente (`docs/investigacion-joffre.md`).
+- No usar en el pitch afirmaciones no verificadas sobre la historia del patrocinador ni cifras sin fuente (`docs/investigacion-joffre.md`).
 
 ## 4. Estado (actualizar al cerrar cada bloque)
 - ✅ Motor R1–R8, ledger, dev-set F-001…F-015, 98 pruebas (Andrés, sáb 10:44 a.m.).

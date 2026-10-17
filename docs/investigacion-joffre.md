@@ -39,7 +39,7 @@ explicabilidad, y atacar nuestro propio diseño.
 
 | Recomendación | Problema |
 |---|---|
-| Frase de pitch "Ustedes fracasaron dos veces con agentes de IA" | El propio documento admite que "no hay documentación pública de por qué". Un pivote no es lo mismo que un fracaso del agente. Decírselo a los jueces de Blinka es arriesgado y puede ser falso. **No usar.** |
+| Frase de pitch afirmaciones no verificadas sobre la historia del patrocinador | El propio documento admite que "no hay documentación pública de por qué". Un pivote no es lo mismo que un fracaso del agente. Decírselo a los jueces de Blinka es arriesgado y puede ser falso. **No usar.** |
 | Validar que "la fecha no esté en el pasado" | Una factura vencida igual se debe. Bloquearla haría que el agente no pague deudas reales. A lo sumo se muestra como aviso. |
 | Beneficiario por coincidencia aproximada de nombre (>90 %) | Abre la puerta a la suplantación ("Estudio Pixel SA" vs "Estudio Pixel SAS"). Nosotros exigimos el ID fiscal exacto. |
 | Muestreo aleatorio del 5–10 % de aprobadas a revisión humana | Baja la autonomía de forma aleatoria y rompe la reproducibilidad de las pruebas. En producción tiene sentido como auditoría posterior, sin bloquear el pago. |

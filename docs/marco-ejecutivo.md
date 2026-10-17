@@ -82,7 +82,7 @@ decisión para que una persona de finanzas la entienda sin abrir el código.
 | 10 | "¿Cómo cuenta un ESCALAR para la autonomía?" | Medimos distinto que el jurado | Preguntar al mentor de 30X; mientras tanto reportar dos cifras: decididas sin persona y decididas correctamente | Abierto (Andrés) |
 | 11 | Hora de cierre distinta entre documentos | Entregar tarde | Fijada: dom 12:00 Colombia = 1:00 p.m. Caracas; V1 el sábado 11:00 p.m. | Cerrado |
 | 12 | Tres personas, ~25 h, 3 zonas de trabajo | Integración de última hora | Esquemas ya fijos en `casos.json`; integración empieza 7:00 p.m., no 11:00 p.m. | Diseñado |
-| 13 | Pitch con afirmaciones no verificables ("fracasaron dos veces", "USD 2.3B") | Perder credibilidad ante Blinka | No usar; el pitch se apoya en el set ciego y las pruebas | Acordado |
+| 13 | Pitch con afirmaciones no verificables (afirmaciones sin fuente sobre el patrocinador, "USD 2.3B") | Perder credibilidad ante Blinka | No usar; el pitch se apoya en el set ciego y las pruebas | Acordado |
 | 14 | Factura legítima pero vencida | Bloquearla deja deudas sin pagar | No es regla; se muestra como aviso | Acordado |
 
 ## 9. Qué cambia respecto a la ruta de Andrés
