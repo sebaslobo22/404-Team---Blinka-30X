@@ -1,5 +1,7 @@
 # Metaprompt para Codex — UI y UX transversal del sitio
 
+> **Reemplazado** el 17/10/2026 por `docs/METAPROMPT-DISENO-V2.md` (sistema de diseño "Veredicto").
+
 **Emitido:** 17/10/2026 - 2:25 p.m. (Caracas, Venezuela). Lo corre Sebastián, rama `sebastian/ui`.
 Antes de pegarlo: `node scripts/equipo.mjs tomar app --agente codex-sebastian` y avisar a Andrés en el grupo.
 
@@ -23,13 +25,15 @@ Hoy las pantallas funcionan pero se construyeron por partes: dos paletas, dos fa
 
 ## 3. Dirección visual (no negociable, con margen de interpretación)
 
-Fusiona dos referencias:
-1. **La marca de Blinka (blinka.co)**, el patrocinador del reto: tipografía sans limpia tipo Inter; texto en azul marino profundo (`#1C253A`), grises fríos para lo secundario (`#656975`, `#B2BBC7`), superficies claras gris-azul (`#F3F5FD`, `#F0F2F4`), un solo azul primario (`#2A4BD0`) usado con moderación, botones principales en píldora (radio 999 px), tarjetas de radio 12 px, rótulos en mayúsculas pequeñas con tracking sobre los títulos, mucho aire, y un único gesto gráfico: líneas finas y fluidas, casi topográficas. **No copies su layout ni sus textos**: el reto excluye diseñar la app de Blinka. Toma el tono, no la página.
-2. **Una estética tipo iOS 26 / Liquid Glass, minimalista**: capas translúcidas con desenfoque (`backdrop-filter`) en cabeceras y paneles flotantes, bordes de 1 px casi invisibles con luz interior, sombras suaves y amplias, esquinas continuas, jerarquía por tamaño y peso más que por color. Úsalo con disciplina: el cristal en dos o tres elementos clave (cabecera fija, panel de detalle, barra de acciones); el resto, plano y limpio.
+> **Corregido el 17/10/2026:** la primera versión pedía heredar la marca de Blinka y Codex copió su paleta exacta. El brief deja fuera "el diseño de la app de Blinka": no debemos parecer su producto. La identidad es propia del Equipo 404.
 
-Semántica de color separada del acento: PAGAR verde, FRENAR rojo, ESCALAR ámbar, siempre con texto y forma (pastilla con etiqueta), nunca solo color. Mantén y amplía los tokens existentes en `app/globals.css` (`--bg`, `--superficie`, `--tinta`, `--tenue`, `--linea`, `--acento`, `--pagar`, `--frenar`, `--escalar` y sus `-suave`) y **elimina los `--eq-*` duplicados** de `/team` apuntándolos a los mismos tokens. Modo claro y oscuro completos, definidos solo en `:root`, `@media (prefers-color-scheme: dark)` y `[data-theme]`; ningún color literal dentro de componentes.
+**Identidad propia, monocromo grafito.** Neutros cálidos (claro: fondo `#F5F5F2`, tinta `#18181B`; oscuro: fondo `#0E0E10`, tinta `#F2F2EF`) y acento grafito. **El único color de la interfaz es la semántica de decisión**: PAGAR verde, FRENAR rojo, ESCALAR ámbar, siempre con texto y forma (pastilla con etiqueta), nunca solo color. Prohibido usar colores, logo, textos o layout de blinka.co.
 
-Tipografía: una sola familia sans para todo (Inter desde Google Fonts, con `system-ui` de respaldo) y JetBrains Mono solo para números, códigos de factura y hashes, con `font-variant-numeric: tabular-nums`. Escala tipográfica fija de 6 tamaños. Títulos con `text-wrap: balance`.
+**Estética tipo iOS 26 / Liquid Glass, minimalista**: capas translúcidas con desenfoque (`backdrop-filter`) en cabecera, barra lateral y paneles flotantes, bordes de 1 px casi invisibles, sombras suaves y amplias, esquinas continuas, jerarquía por tamaño y peso más que por color. Úsalo con disciplina: el cristal en dos o tres elementos clave; el resto, plano y limpio.
+
+Tokens en `app/globals.css` (`--bg`, `--superficie`, `--tinta`, `--tenue`, `--linea`, `--acento`, `--pagar`, `--frenar`, `--escalar` y sus `-suave`), compartidos con `/team`. Modo claro y oscuro completos, definidos solo en `:root`, `@media (prefers-color-scheme: dark)` y `[data-theme]`; ningún color literal dentro de componentes.
+
+Tipografía: una sola familia sans (Inter desde Google Fonts, con `system-ui` de respaldo) y JetBrains Mono solo para números, códigos de factura y hashes, con `font-variant-numeric: tabular-nums`. Escala tipográfica fija de 6 tamaños. Títulos con `text-wrap: balance`.
 
 ## 4. Principios de experiencia
 
@@ -61,7 +65,7 @@ Haz commits pequeños por pantalla, en español, terminados en `Co-Authored-By: 
 - No toques `src/engine`, `src/ledger`, `src/extraccion`, `src/demo/estado.ts`, `supabase/`, `data/`, `tests/` (salvo añadir pruebas nuevas), `package.json`, `package-lock.json`, `tsconfig.json`, `next.config.mjs`. Si crees que necesitas cambiar uno, detente y explica por qué.
 - No instales dependencias: ni Tailwind, ni shadcn, ni librerías de animación o iconos. CSS propio, SVG inline y las APIs del navegador bastan.
 - No cambies rutas, nombres de rutas de API, nombres de campos, ni el comportamiento de ninguna acción (aprobar, rechazar, guardar reglas, tomar zona). Cambias la piel y la disposición, no la lógica.
-- No inventes datos ni textos de marketing; no uses nombres de clientes reales; no copies textos ni el layout de blinka.co.
+- No inventes datos ni textos de marketing; no uses nombres de clientes reales; no copies colores, logo, textos ni layout de blinka.co.
 - No metas animaciones que bloqueen la lectura, autoplay, parallax agresivo ni efectos que dependan del cursor. Nada de `100vh` en portadas.
 - No dejes colores literales en componentes, ni estilos inline salvo valores calculados.
 - No borres la funcionalidad de modo oscuro ni el modo semilla de `/team`.

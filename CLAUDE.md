@@ -5,6 +5,7 @@
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
 `docs/brief-blinka.md`; la bitácora de decisiones en `docs/decisiones.md`.
+**Matriz requisito → dónde se cumple → cómo se prueba, con los huecos abiertos: `docs/requisitos.md`.** Toda función nueva debe servir a una fila de esa matriz.
 
 ## 0. Antes de tocar código (obligatorio para agentes)
 1. Leer `docs/ZONAS.md` y trabajar solo en la zona de tu persona. Fuera de tu zona: abrir PR y avisar.
