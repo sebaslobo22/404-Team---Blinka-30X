@@ -35,7 +35,7 @@ export default async function Reglas() {
         Guardar crea una nueva versión de reglas, vuelve a evaluar las {estado.filas.length} facturas y borra las aprobaciones de la sesión.
       </p>
       <h2>Parámetros editables</h2>
-      <div className="tarjeta">
+      <div className="tarjeta" data-tour="reglas-form">
         <Formulario inicial={estado.parametros} />
       </div>
 

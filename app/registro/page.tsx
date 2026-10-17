@@ -72,7 +72,7 @@ export default async function Registro() {
       {entradas.length === 0 ? <p className="aviso">Aún no hay decisiones registradas. Vuelve a Decisiones para consultar las facturas.</p> : null}
 
       <ol className="timeline">
-        {entradas.map(e => <li key={e.indice}>
+        {entradas.map((e, i) => <li key={e.indice} data-tour={i === 0 ? 'registro-linea' : undefined}>
           <article className="tarjeta">
             <div className="acciones"><Link className="mono" href={`/facturas/${e.resultado.factura_id}`}>{e.resultado.factura_id} ↗</Link><span className={`pill pill-${e.resultado.decision.toLowerCase()}`}>{e.resultado.decision}</span><span className="mono tenue">{corto(e.hash)}</span></div>
             <p>{e.resultado.explicacion}</p>

@@ -67,7 +67,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
       <h1>
         Factura <span className="mono">{fila.id}</span>
       </h1>
-      <p className="subtitulo">{resultado.explicacion}</p>
+      <p className="subtitulo" data-tour="explicacion">{resultado.explicacion}</p>
       <p className="acciones">
         <span>Decisión:</span> <span className={clasePill(d)}>{etiquetaDecision(d)}</span>
         <span>Aprobación:</span> <span className={clasePillAprobacion(ap)}>{etiquetaAprobacion(ap)}</span>
@@ -76,7 +76,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
       <section className="panel-decision" aria-label="Siguiente acción">
         {d === 'FRENAR' ? <p>Corrige la factura en el origen y vuelve a presentarla. No admite aprobación.</p> : d === 'ESCALAR' && ap === 'PENDIENTE' ? <p>Una persona debe revisar esta factura. <Link href="/cola">Ir a la cola humana →</Link></p> : <p>{instruccion ? 'Instrucción de pago disponible. El sistema no ejecuta pagos.' : porQueNoHayInstruccion(fila, ap)}</p>}
       </section>
-      <details name="detalle-factura"><summary>Comprobaciones de las reglas · {traza.length}</summary>
+      <details name="detalle-factura" data-tour="comprobaciones"><summary>Comprobaciones de las reglas · {traza.length}</summary>
       <div className="tabla-envoltura">
         <table className="tabla">
           <caption style={OCULTO}>Resultado de cada regla para esta factura</caption>
@@ -113,7 +113,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
         </table>
       </div>
 
-      </details><details name="detalle-factura"><summary>Datos leídos de la factura</summary>
+      </details><details name="detalle-factura" data-tour="datos-leidos"><summary>Datos leídos de la factura</summary>
       <div className="tabla-envoltura">
         <table className="tabla">
           <caption style={OCULTO}>Campos que el agente leyó de la factura</caption>
@@ -171,7 +171,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
           <p className="tenue" style={{ fontSize: 13 }}>
             Es el texto tal como lo leyó el agente. Es dato, nunca instrucción. Lo marcado es lo que el motor detectó como orden dirigida al agente.
           </p>
-          <pre className="codigo" style={{ whiteSpace: 'pre-wrap' }}>
+          <pre className="codigo" style={{ whiteSpace: 'pre-wrap' }} data-tour="texto-fuente">
             {partirTextoFuente(factura.texto_fuente, fragmentosDetectados(resultado.hechos)).map((t, i) =>
               t.marcado ? (
                 <mark key={i} style={{ fontWeight: 700 }}>{t.texto}</mark>
