@@ -5,6 +5,7 @@
 Este archivo lo leen los tres agentes del equipo (Sebastián, Andrés, Joffre) al arrancar. Es la fuente
 de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; el brief oficial en
 `docs/brief-blinka.md`; la bitácora de decisiones en `docs/decisiones.md`.
+**Diseño bottom-up (diagrama → estados → razones → organismos → pantallas, con pruebas de trazabilidad):** `docs/diseno-bottom-up.md`. Toda interfaz nueva parte de ahí.
 **Mapa de escenarios (clientes, entradas, salidas, decisiones) y diagrama:** `docs/mapa-escenarios.md` · FigJam https://www.figma.com/board/Z35gyUNofAP7wy2AWshTI6
 **Matriz requisito → dónde se cumple → cómo se prueba, con los huecos abiertos: `docs/requisitos.md`.** Toda función nueva debe servir a una fila de esa matriz.
 

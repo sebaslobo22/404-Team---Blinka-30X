@@ -149,6 +149,7 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 
 - [`docs/brief-blinka.md`](docs/brief-blinka.md): texto oficial del reto. [`docs/requisitos.md`](docs/requisitos.md): cada exigencia, dónde se cumple y cómo se prueba.
 - [`docs/mapa-escenarios.md`](docs/mapa-escenarios.md): clientes posibles, entradas, salidas y decisiones, con el diagrama de flujo.
+- [`docs/diseno-bottom-up.md`](docs/diseno-bottom-up.md): cómo cada caja del diagrama se convierte en lo que ve el usuario.
 - [`docs/flujo-y-pasos.md`](docs/flujo-y-pasos.md): ruta de trabajo en 6 pasos con sus puertas de salida.
 - [`docs/reglas-R1-R8.json`](docs/reglas-R1-R8.json): las 8 reglas de politica y su precedencia.
 - [`docs/esquemas/`](docs/esquemas/): contratos JSON entre piezas (factura extraida, decision, instruccion de pago).
