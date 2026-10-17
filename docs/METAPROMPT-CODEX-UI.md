@@ -1,5 +1,7 @@
 # Metaprompt para Codex — UI y UX transversal del sitio
 
+> **Reemplazado** el 17/10/2026 por `docs/METAPROMPT-DISENO-V2.md` (sistema de diseño "Veredicto").
+
 **Emitido:** 17/10/2026 - 2:25 p.m. (Caracas, Venezuela). Lo corre Sebastián, rama `sebastian/ui`.
 Antes de pegarlo: `node scripts/equipo.mjs tomar app --agente codex-sebastian` y avisar a Andrés en el grupo.
 
