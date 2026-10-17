@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Verificacion } from '../../src/ledger/registro';
 import { obtenerEstado } from '../../src/demo/singleton';
 import Controles from './Controles';
@@ -12,7 +13,7 @@ const MOTIVOS: Record<string, string> = {
   ANCLA_NO_COINCIDE: 'la cadena no coincide con el ancla tomada al inicio (se recortó o se reescribió)',
 };
 
-function describir(nombre: string, v: Verificacion): { ok: boolean; texto: string } {
+function describir(nombre: string, v: Verificacion): { ok: boolean; texto: string; } {
   if (v.ok) return { ok: true, texto: `${nombre}: la cadena verifica (${v.n} entradas).` };
   return {
     ok: false,
@@ -35,63 +36,61 @@ export default async function Registro() {
 
   return (
     <>
+
       <h1>Registro de decisiones</h1>
+
       <p className="subtitulo">
         Cada decisión y cada aprobación quedan encadenadas por hash. Versión de reglas vigente: <span className="mono">{estado.config.version}</span>.
       </p>
 
+
       <div aria-live="polite">
+
         <div className={todoOk ? 'aviso aviso-ok' : 'aviso aviso-error'} role={todoOk ? 'status' : 'alert'}>
           <strong>{todoOk ? 'Verificación correcta.' : 'Verificación fallida.'}</strong>
+
           <ul className="lista-simple" style={{ marginTop: 4 }}>
+
             <li>{a.texto}</li>
+
             <li>{b.texto}</li>
           </ul>
         </div>
       </div>
 
+
       <p style={{ marginTop: 10 }}>
         Es evidencia de manipulación, no inmutabilidad: la cadena detecta cambios, borrados y reordenamientos; reescribirla entera solo se detecta contra el ancla tomada al inicio.
       </p>
 
-      <h2>Controles de la demostración</h2>
+
+      <h2>Verificar la integridad</h2>
       <Controles n={entradas.length} />
 
+
       <h2>Entradas de decisiones ({entradas.length})</h2>
-      <div className="tabla-envoltura">
-        <table className="tabla">
-          <thead>
-            <tr>
-              <th scope="col" className="num">Índice</th>
-              <th scope="col">Factura</th>
-              <th scope="col">Decisión</th>
-              <th scope="col">Hash</th>
-              <th scope="col">Hash previo</th>
-              <th scope="col">Versión de reglas</th>
-            </tr>
-          </thead>
-          <tbody>
-            {entradas.map((e) => {
-              const d = e.resultado.decision;
-              const clase = d === 'PAGAR' ? 'pill pill-pagar' : d === 'FRENAR' ? 'pill pill-frenar' : 'pill pill-escalar';
-              const roto = !dec.ok && dec.indice === e.indice;
-              return (
-                <tr key={e.indice}>
-                  <td className="num">{e.indice}</td>
-                  <td className="mono">{e.resultado.factura_id}</td>
-                  <td>
-                    <span className={clase}>{d}</span>
-                    {roto ? <span className="pill pill-frenar" style={{ marginLeft: 6 }}>FALLA</span> : null}
-                  </td>
-                  <td className="mono">{corto(e.hash)}</td>
-                  <td className="mono">{corto(e.hash_previo)}</td>
-                  <td className="mono">{e.resultado.version_reglas}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      {entradas.length === 0 ? <p className="aviso">Aún no hay decisiones registradas. Vuelve a Decisiones para consultar las facturas.</p> : null}
+
+      <ol className="timeline">
+        {entradas.map(e => <li key={e.indice}>
+          <article className="tarjeta">
+            <div className="acciones"><Link className="mono" href={`/facturas/${e.resultado.factura_id}`}>{e.resultado.factura_id} ↗</Link><span className={`pill pill-${e.resultado.decision.toLowerCase()}`}>{e.resultado.decision}</span><span className="mono tenue">{corto(e.hash)}</span></div>
+            <p>{e.resultado.explicacion}</p>
+            <details name="entrada-registro">
+              <summary>Detalle de la entrada {e.indice}</summary>
+              <dl>
+                <dt>Versión de reglas</dt>
+                <dd className="mono">{e.resultado.version_reglas}</dd>
+                <dt>Hash completo</dt>
+                <dd className="mono corto">{e.hash}</dd>
+                <dt>Hash anterior</dt>
+                <dd className="mono corto">{e.hash_previo ?? 'Primera entrada'}</dd>
+              </dl>
+              <pre className="codigo">{JSON.stringify(e, null, 2)}</pre>
+            </details>
+          </article>
+        </li>)}
+      </ol>
     </>
   );
 }
