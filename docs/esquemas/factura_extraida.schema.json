@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FacturaExtraida",
+  "description": "Salida del extractor. Cada valor debe aparecer literal en el documento. Null o ambiguo implica ESCALAR.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["numero_factura", "beneficiario", "id_fiscal", "cuenta", "monto_centavos", "moneda", "fecha_emision", "categoria"],
+  "properties": {
+    "numero_factura": { "type": ["string", "null"] },
+    "beneficiario": { "type": ["string", "null"] },
+    "id_fiscal": { "type": ["string", "null"] },
+    "cuenta": { "type": ["string", "null"] },
+    "monto_centavos": { "type": ["integer", "null"], "minimum": 0, "description": "Entero en centavos de la moneda de la factura" },
+    "moneda": { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
+    "fecha_emision": { "type": ["string", "null"], "format": "date" },
+    "categoria": { "type": ["string", "null"] },
+    "lineas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["descripcion", "monto_centavos"],
+        "properties": { "descripcion": { "type": "string" }, "monto_centavos": { "type": "integer" } }
+      }
+    }
+  }
+}

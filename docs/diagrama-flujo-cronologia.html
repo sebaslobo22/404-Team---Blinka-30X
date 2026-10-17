@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hack 30X Blinka - Flujo y cronología</title>
+<style>
+:root{--bg:#f7f6f2;--card:#fff;--ink:#1d1d1b;--mut:#6b6a64;--line:#d8d6cc;--llm:#e8dcff;--llmb:#7a4fd6;--det:#e3edf9;--detb:#2f6db5;--pay:#d9f0df;--payb:#2e8b4a;--stop:#fbdcdc;--stopb:#c23b3b;--esc:#fdebc8;--escb:#c98a12;--hum:#fff3d6}
+@media(prefers-color-scheme:dark){:root{--bg:#161614;--card:#201f1c;--ink:#ecebe4;--mut:#a09f96;--line:#3a3935;--llm:#2d2347;--det:#17283d;--pay:#183323;--stop:#3d1e1e;--esc:#3d2f12;--hum:#3a3015}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,sans-serif;padding:24px 16px}
+.w{max-width:960px;margin:auto}h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:32px 0 12px}
+.s{color:var(--mut);font-size:13px}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0}
+.n{width:100%;max-width:560px;border:2px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--card)}
+.n b{display:block}.n span{font-size:13px;color:var(--mut)}
+.n.llm{background:var(--llm);border-color:var(--llmb)}.n.det{background:var(--det);border-color:var(--detb)}
+.n.hum{background:var(--hum);border-color:var(--escb)}
+.ar{width:2px;height:20px;background:var(--mut);position:relative;margin:0}
+.ar:after{content:"";position:absolute;bottom:-1px;left:-4px;border:5px solid transparent;border-top:7px solid var(--mut);border-bottom:0}
+.lab{font-size:12px;color:var(--mut);margin:2px 0}
+.out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:760px;margin:0}
+.o{border:2px solid;border-radius:10px;padding:10px;text-align:center}.o b{font-size:16px}.o span{display:block;font-size:12.5px;color:var(--mut)}
+.o.p{background:var(--pay);border-color:var(--payb)}.o.f{background:var(--stop);border-color:var(--stopb)}.o.e{background:var(--esc);border-color:var(--escb)}
+.fail{max-width:560px;width:100%;font-size:13px;border:1px dashed var(--stopb);border-radius:8px;padding:8px 12px;margin:8px 0;color:var(--ink)}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;margin:10px 0}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:2px solid}
+.tl{position:relative;margin-left:10px;border-left:3px solid var(--line);padding-left:0}
+.t{position:relative;padding:0 0 18px 22px}
+.t:before{content:"";position:absolute;left:-10px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--detb)}
+.t.now:before{background:var(--escb);border-color:var(--escb)}.t.key:before{border-color:var(--stopb)}.t.end:before{border-color:var(--payb)}
+.t h3{margin:0;font-size:14.5px}.t .h{font-size:12.5px;color:var(--mut)}.t p{margin:3px 0 0;font-size:14px}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;background:var(--esc);margin-left:6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}td,th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--card)}
+.ft{margin-top:28px;font-size:12.5px;color:var(--mut)}
+</style>
+</head>
+<body><div class="w">
+<h1>Agente que paga por la empresa · Hackathon 30X · Reto Blinka</h1>
+<div class="s">Equipo 404 · Generado el 17/10/2026 - 10:22 a.m. (Caracas, Venezuela) · Fuente: hoja "HACK 30X - BLINKA" (actualizada 16/10/2026)</div>
+
+<h2>1. Diagrama de flujo del proceso transversal (de factura a decisión)</h2>
+<div class="leg">
+<span><i style="background:var(--det);border-color:var(--detb)"></i>Determinista (sin modelo)</span>
+<span><i style="background:var(--llm);border-color:var(--llmb)"></i>Usa modelo de lenguaje</span>
+<span><i style="background:var(--hum);border-color:var(--escb)"></i>Humano</span>
+</div>
+<div class="flow">
+ <div class="n"><b>Factura entrante</b><span>Texto o PDF (correo, chat e imagen como extensión). Datos 100% ficticios.</span></div>
+ <div class="ar"></div>
+ <div class="n det"><b>1. Ingesta</b><span>Recibe y guarda sin interpretar.</span></div>
+ <div class="fail">Falla: rechaza el archivo y lo registra.</div>
+ <div class="n llm"><b>2. Extractor (2 pasadas independientes)</b><span>Beneficiario, ID fiscal, cuenta, monto, moneda, fecha, nº de factura. JSON estricto. Sin acceso a reglas ni herramientas.</span></div>
+ <div class="fail">Si las pasadas difieren en monto, moneda, beneficiario o cuenta → <b>ESCALAR</b></div>
+ <div class="n det"><b>3. Validador de esquema</b><span>Campos críticos no nulos, moneda ISO, cada valor aparece literal en el documento.</span></div>
+ <div class="fail">Campo faltante o ambiguo → <b>ESCALAR</b></div>
+ <div class="n det"><b>4. Motor de reglas (función pura, 8 reglas)</b><span>R1 límite por pago 5,000 USD · R2 beneficiario permitido · R3 tope mensual 12,000 USD · R4 presupuesto de categoría · R5 duplicado (30 días) · R6 cotejo con lo acordado (±2%) · R7 moneda y campos críticos · R8 cuenta cambiada recientemente</span></div>
+ <div class="lab">Ante cualquier excepción → ESCALAR (falla cerrada)</div>
+ <div class="ar"></div>
+ <div class="out">
+  <div class="o p"><b>PAGAR</b><span>Pasan las 8 reglas y el esquema</span></div>
+  <div class="o f"><b>FRENAR</b><span>Violación dura (R2, R4, R5). Sin botón de aprobar</span></div>
+  <div class="o e"><b>ESCALAR</b><span>R1, R3, R6, R7 o duda → cola de aprobación</span></div>
+ </div>
+ <div class="ar"></div>
+ <div class="n hum"><b>Aprobación humana (solo ESCALAR)</b><span>Una persona aprueba o rechaza desde el tablero. El agente nunca mueve dinero.</span></div>
+ <div class="ar"></div>
+ <div class="n llm"><b>5. Explicador (opcional)</b><span>Plantilla con cifras del motor; el modelo solo pule y un chequeo verifica cada número. Si falla, se usa la plantilla.</span></div>
+ <div class="ar"></div>
+ <div class="n det"><b>6. Registro con hash encadenado</b><span>Decisión + versión de reglas + traza. Si no puede escribir, la decisión no se publica.</span></div>
+ <div class="ar"></div>
+ <div class="n det"><b>7. Tablero</b><span>Reglas editables · tabla de decisiones · cola de aprobación · detalle por factura con traza.</span></div>
+</div>
+<p class="s">Principio de diseño: el modelo lee y explica, nunca decide. La decisión la toma solo el motor de reglas, probado con tests.</p>
+
+<h2>2. Cronología de hitos y eventos</h2>
+<div class="s" style="margin-bottom:12px">Las horas del plan están en hora de Colombia (UTC−5). Caracas va 1 hora por delante (UTC−4); la columna "Caracas" ya está convertida.</div>
+<div class="tl">
+ <div class="t"><h3>Viernes 16/10 · noche <span class="tag">Pendiente</span></h3><div class="h">Colombia: noche · Caracas: noche (+1 h)</div><p>Decidir el stack (15 min). Reclamar crédito de API y hacer una llamada real. Esquemas JSON compartidos. Desplegar una versión vacía.</p></div>
+ <div class="t now"><h3>Sábado 17/10 · mañana (EN CURSO) <span class="tag">Pendiente</span></h3><div class="h">Ahora: 10:22 a.m. Caracas = 9:22 a.m. Colombia</div><p>Extractor con doble pasada y validador. Motor de reglas con tests de propiedades. Sesión de revisión de despliegue con un mentor.</p></div>
+ <div class="t"><h3>Sábado 17/10 · tarde <span class="tag">Pendiente</span></h3><div class="h">Colombia → Caracas +1 h</div><p>Registro con hash encadenado, tablero de reglas y decisiones, cola de aprobación.</p></div>
+ <div class="t key"><h3>Sábado 17/10 · 22:00 Colombia (11:00 p.m. Caracas) · HITO V1</h3><div class="h">Congelar funciones</div><p>Enviar la versión 1 con los tres enlaces (repositorio, video, demo) y verificarlos desde un navegador sin sesión.</p></div>
+ <div class="t"><h3>Sábado 17/10 · noche</h3><div class="h">Feedback del mentor</div><p>Sesión de feedback sobre la V1. Descanso.</p></div>
+ <div class="t"><h3>Domingo 18/10 · 06:00–10:00 Colombia (07:00–11:00 Caracas)</h3><div class="h">Sin funciones nuevas</div><p>Casos de prueba adicionales y set ciego, README y grabación del video final.</p></div>
+ <div class="t"><h3>Domingo 18/10 · 10:00–11:00 Colombia (11:00 a.m.–12:00 p.m. Caracas)</h3><div class="h">Todos</div><p>Revisión final y verificación de enlaces.</p></div>
+ <div class="t key"><h3>Domingo 18/10 · 11:00–12:00 Colombia · CIERRE a las 12:00 (1:00 p.m. Caracas)</h3><div class="h">Margen de seguridad</div><p>Reenviar solo si hay un error grave.</p></div>
+ <div class="t end"><h3>Domingo 18/10 · 18:00 Colombia (7:00 p.m. Caracas) · Anuncio de finalista</h3></div>
+</div>
+
+<h2>3. Riesgos críticos que cruzan el proceso</h2>
+<table>
+<tr><th>Riesgo</th><th>Mitigación</th></tr>
+<tr><td>Nadie tiene clave de API con saldo</td><td>Reclamar el crédito hoy y hacer llamada real. Plan B: extracciones generadas con Claude Code, guardadas como datos de prueba y declaradas.</td></tr>
+<tr><td>Alcance excesivo para ~40 horas</td><td>Un camino completo con 8 reglas y lista de recorte decidida de antemano.</td></tr>
+<tr><td>Pago indebido por error de frontera (criterio eliminatorio)</td><td>Tests de propiedades, falla cerrada y aritmética en centavos.</td></tr>
+</table>
+
+<div class="ft">Criterios del reto: Autonomía, Seguridad (aprobar un pago indebido descalifica), Explicabilidad. Entregables: repositorio público, video pitch, demo desplegado.<br>Emitido: 17/10/2026 - 10:22 a.m. (Caracas, Venezuela)</div>
+</div></body></html>

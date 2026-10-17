@@ -1,0 +1,20 @@
+# Secretos: nunca al repo
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Dependencias y builds
+node_modules/
+.venv/
+__pycache__/
+.next/
+dist/
+build/
+.vercel/
+
+# Sistema
+.DS_Store
+Thumbs.db

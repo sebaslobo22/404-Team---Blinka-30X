@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InstruccionPago",
+  "description": "Unica salida hacia afuera. Solo se emite si la decision es PAGAR, o ESCALAR aprobado por una persona. El sistema no ejecuta pagos.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["factura_id", "beneficiario", "id_fiscal", "cuenta", "monto_centavos", "moneda", "origen_aprobacion", "decision_hash"],
+  "properties": {
+    "factura_id": { "type": "string" },
+    "beneficiario": { "type": "string" },
+    "id_fiscal": { "type": "string" },
+    "cuenta": { "type": "string" },
+    "monto_centavos": { "type": "integer", "minimum": 1 },
+    "moneda": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "origen_aprobacion": { "enum": ["AUTOMATICA_REGLAS", "PERSONA"] },
+    "aprobado_por": { "type": ["string", "null"] },
+    "decision_hash": { "type": "string" }
+  }
+}

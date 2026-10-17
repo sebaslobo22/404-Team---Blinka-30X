@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision",
+  "description": "Salida del motor de reglas. La toma una funcion pura, nunca el modelo de lenguaje.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["factura_id", "decision", "razones", "version_reglas", "hechos", "explicacion", "decidido_en"],
+  "properties": {
+    "factura_id": { "type": "string" },
+    "decision": { "enum": ["PAGAR", "FRENAR", "ESCALAR"] },
+    "razones": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": false, "required": ["regla", "efecto"],
+        "properties": { "regla": { "type": "string", "pattern": "^R[1-8]$|^EXTRACCION$|^ESQUEMA$" }, "efecto": { "enum": ["FRENAR", "ESCALAR"] } } }
+    },
+    "version_reglas": { "type": "string" },
+    "hechos": { "type": "object", "description": "Cifras que calculo el motor; toda cifra de la explicacion debe estar aqui" },
+    "explicacion": { "type": "string", "description": "Plantilla con cifras del motor" },
+    "decidido_en": { "type": "string", "format": "date-time" },
+    "hash_previo": { "type": ["string", "null"] },
+    "hash": { "type": "string" }
+  }
+}

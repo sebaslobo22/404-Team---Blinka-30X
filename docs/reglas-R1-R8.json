@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "empresa_ficticia": "Aurora Cloud Inc.",
+  "moneda_base": "USD",
+  "dinero": "enteros en centavos; nunca flotantes",
+  "precedencia": ["FRENAR", "ESCALAR", "PAGAR"],
+  "regla_por_defecto": "ante duda, excepcion o campo faltante: ESCALAR",
+  "tasas_ficticias_por_1_USD": { "USD": 1, "COP": 4000, "PEN": 3.75, "BRL": 5.5, "MXN": 18, "VES": 40 },
+  "reglas": [
+    { "id": "R1", "nombre": "Limite por pago", "umbral_usd": 5000, "si_incumple": "ESCALAR" },
+    { "id": "R2", "nombre": "Beneficiario permitido (ID fiscal + cuenta, coincidencia exacta; lo difuso solo sugiere)", "si_incumple": "FRENAR" },
+    { "id": "R3", "nombre": "Tope mensual por beneficiario", "umbral_usd": 12000, "si_incumple": "ESCALAR" },
+    { "id": "R4", "nombre": "Presupuesto por categoria", "si_incumple": "FRENAR" },
+    { "id": "R5", "nombre": "Factura duplicada", "ventana_dias": 30, "si_incumple": "FRENAR" },
+    { "id": "R6", "nombre": "Cotejo con lo acordado; sin acuerdo registrado tambien escala", "tolerancia_pct": 2, "si_incumple": "ESCALAR" },
+    { "id": "R7", "nombre": "Moneda permitida y campos criticos completos", "si_incumple": "ESCALAR" },
+    { "id": "R8", "nombre": "Cuenta bancaria cambiada recientemente", "ventana_dias": 3, "si_incumple": "ESCALAR" }
+  ],
+  "nota": "Valores de demo, ficticios. Presupuestos por categoria y beneficiarios permitidos viven en el dataset (hoja de trabajo del equipo) y se cargaran aqui."
+}
