@@ -16,6 +16,9 @@ Motor TS con defensas (PR #2) · centro de mando con Supabase en tiempo real (#3
 - `main` (`e9aab96`, con el rediseño #13) desplegado en Produfy: `/` y pantallas 200; `/team`, `/team/contexto.md`, `/api/team/contexto`, `/equipo` → 404 desde un cliente sin sesión.
 - Enlace del jurado fijado: **https://equipo404.produfy.co** (no se cambia). Documentos alineados (sin secretos en Produfy). Nombre **Pulso** en README y `CLAUDE.md`.
 
+## Hecho a las 6:12 p.m. (verificado)
+- PR #14 fusionada y desplegada en Produfy: íconos de línea en toda la UI (set único en `app/ui/iconos.tsx`, mapa por regla, prueba "nada sin ícono") y portada-dashboard (te necesitan + USD en juego, decidido sin ti, te protegimos de pagar, anillo, dinero en juego, flujo, fichas de riesgo). `/team` sigue en 404 en el enlace del jurado. 429 pruebas.
+
 ## Pendiente, en orden
 5. **PR #12 de Andrés** (lecturas reales) quedó en conflicto; él lo rehace desde `main`. Cerrar #12 cuando llegue el nuevo y fusionar solo con "Create a merge commit".
 6. **Tour de 4 pasos** para el usuario + ayuda "¿Qué es esto?" + tour del jurado en `?recorrido=jurado` (especificación en `docs/recorrido-evidencia.md`). Coordinar con Andrés, que también tocará `app/`.
