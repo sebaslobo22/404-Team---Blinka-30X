@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { agruparPorDueno, armarContextoMd, cuentaRegresiva, validarPin, type Contexto, type Tarea } from '../app/equipo/lib';
+import { agruparPorDueno, armarContextoMd, cuentaRegresiva, validarPin, type Contexto, type Tarea } from '../app/team/lib';
 
 const t = (id: string, titulo: string, dueno: Tarea['dueno'], bloque: number, estado: Tarea['estado'], orden = 0): Tarea => ({ id, titulo, dueno, bloque, estado, orden });
 
@@ -14,7 +14,7 @@ const ctx: Contexto = {
   ],
   zonas: [
     { ruta: 'src/engine', dueno: 'Andrés', agente: 'claude-andres', tomada_en: '2026-10-17T16:00:00Z' },
-    { ruta: 'app/equipo', dueno: 'Sebastián' },
+    { ruta: 'app/team', dueno: 'Sebastián' },
   ],
   bitacora: [{ id: 1, cuando: '2026-10-17T16:30:00Z', quien: 'Andrés', es_agente: true, accion: 'zona tomada', detalle: 'src/engine' }],
 };
@@ -58,7 +58,7 @@ describe('armarContextoMd', () => {
     expect(md).toContain('- [x] (bloque 1, hecha) Doce facturas reales');
     expect(md).toContain('- [ ] (bloque 4, bloqueada) Suite adversarial');
     expect(md).toContain('| `src/engine` | Andrés | tomada por claude-andres hace 1 h |');
-    expect(md).toContain('| `app/equipo` | Sebastián | libre |');
+    expect(md).toContain('| `app/team` | Sebastián | libre |');
     expect(md).toContain('Andrés (agente): zona tomada — src/engine');
   });
   it('avisa cuando viene de la semilla', () => {

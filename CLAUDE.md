@@ -8,7 +8,7 @@ de verdad del contexto. El plan definitivo está en `docs/marco-ejecutivo.md`; e
 
 ## 0. Antes de tocar código (obligatorio para agentes)
 1. Leer `docs/ZONAS.md` y trabajar solo en la zona de tu persona. Fuera de tu zona: abrir PR y avisar.
-2. Leer el estado vivo del equipo: `https://404team.vercel.app/equipo/contexto.md` (o `GET /api/equipo/contexto`).
+2. Leer el estado vivo del equipo: `https://404team.vercel.app/team/contexto.md` (o `GET /api/team/contexto`).
    Ahí están las tareas, quién tiene tomada cada zona y la bitácora.
 3. Tomar tu zona antes de editar y soltarla al terminar: `node scripts/equipo.mjs tomar <zona>` /
    `soltar <zona>`. Anotar lo importante: `node scripts/equipo.mjs nota "<texto>"`.
@@ -43,7 +43,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - **Presupuesto insuficiente → FRENAR.** Beneficiario por ID fiscal exacto, nunca por parecido.
 - **Reparto:** Sebastián lectura + banco de modelos + centro de mando · Andrés motor, registro y
   tablero del producto · Joffre set ciego y suite adversarial.
-- **Rutas:** `/` producto (tablero), `/equipo` centro de mando. Un solo proyecto Vercel (`404team`).
+- **Rutas:** `/` producto (tablero), `/team` centro de mando. Un solo proyecto Vercel (`404team`).
 - No usar en el pitch "ustedes fracasaron dos veces" ni cifras sin fuente (`docs/investigacion-joffre.md`).
 
 ## 4. Estado (actualizar al cerrar cada bloque)
@@ -52,7 +52,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
 - ✅ Motor de referencia JS con 12 casos y 37 pruebas; marco ejecutivo; revisión de la investigación
   (Sebastián, sáb 11:25 a.m.).
 - ✅ Defensas fusionadas en `src/engine` (INYECCION, CONFIANZA, REGISTRO, IDs normalizados, R8 en horas), `comprobaciones()`, 173 pruebas (PR #2, sáb 12:10 p.m.).
-- ✅ Centro de mando `/equipo` + `/equipo/contexto.md` + `scripts/equipo.mjs`, 181 pruebas (PR #3, sáb 12:20 p.m.). En vivo en https://404team.vercel.app/equipo, **en modo semilla hasta conectar Supabase**.
+- ✅ Centro de mando `/team` + `/team/contexto.md` + `scripts/equipo.mjs`, 181 pruebas (PR #3, sáb 12:20 p.m.). En vivo en https://404team.vercel.app/team, **en modo semilla hasta conectar Supabase**.
 - ⏳ Supabase del equipo: crear proyecto, correr `supabase/migrations/0001` y `0002`, cargar variables en Vercel, `node scripts/equipo.mjs sembrar` (Sebastián).
 - ⏳ Lector de facturas, facturas reales, banco de modelos (Sebastián; bloqueado por clave OpenRouter).
 - ⏳ Persistir el producto en Supabase (Andrés). ⏳ Set ciego + suite adversarial (Joffre).

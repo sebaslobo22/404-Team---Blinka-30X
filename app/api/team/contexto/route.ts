@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { cargarContexto } from '../../../equipo/datos';
-import { agruparPorDueno } from '../../../equipo/lib';
+import { cargarContexto } from '../../../team/datos';
+import { agruparPorDueno } from '../../../team/lib';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
