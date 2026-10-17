@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Banco de modelos: corre las 12 facturas de data/facturas/ por cada modelo de OpenRouter y compara
-// la lectura con la extraccion esperada (data/facturas/indice.json), campo por campo.
+// Banco de modelos: corre las 18 facturas de Aurora Cloud (data/facturas/) por cada modelo de OpenRouter
+// y compara la lectura, campo por campo, con la extraccion esperada que sale del dev-set de Andres
+// (data/dev-set.json F-001..F-015 y data/dev-set-defensas.json F-016..F-018). indice.json aporta el archivo.
 //
 // Uso: node scripts/banco-modelos.mjs [--modelos a,b,c] [--max-usd 1.00] [--sin-informe]
 // La clave OPENROUTER_API_KEY se lee de .env (parseo a mano) o del entorno. Nunca se imprime ni se guarda.
@@ -14,9 +15,8 @@ import { fileURLToPath } from 'node:url';
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 const MODELOS_DEFECTO = [
   'anthropic/claude-haiku-5.5',
-  'openai/gpt-6-luna',
   'google/gemini-3.1-flash-lite',
-  'qwen/qwen3-vl-30b-a3b-instruct',
+  'openai/gpt-6-luna',
 ];
 
 // ---- argumentos y clave ------------------------------------------------------------------------
@@ -44,6 +44,18 @@ if (!CLAVE) { console.error('Falta OPENROUTER_API_KEY en .env o en el entorno.')
 const esquema = JSON.parse(readFileSync(join(raiz, 'src/extraccion/esquema.json'), 'utf8'));
 const soloIds = valor('--facturas')?.split(',');
 const indice = JSON.parse(readFileSync(join(raiz, 'data/facturas/indice.json'), 'utf8')).facturas.filter((f) => !soloIds || soloIds.includes(f.id));
+// Extraccion esperada = campos de la factura en el dev-set (monto en centavos; null = ausente/ambiguo).
+const DEV = new Map();
+for (const arch of ['dev-set.json', 'dev-set-defensas.json']) for (const c of JSON.parse(readFileSync(join(raiz, 'data', arch), 'utf8')).facturas) DEV.set(c.id, c.factura);
+for (const f of indice) {
+  const d = DEV.get(f.id);
+  if (!d) { console.error(`${f.id} no esta en el dev-set`); process.exit(1); }
+  f.extraccion_esperada = {
+    beneficiario: d.beneficiario, id_fiscal: d.id_fiscal, cuenta: d.cuenta, monto_centavos: d.monto_centavos, moneda: d.moneda,
+    fecha_emision: d.fecha_emision, numero_factura: d.numero_factura, categoria: d.categoria,
+    instrucciones_detectadas: (d.alertas ?? []).includes('instruccion_oculta_en_documento') || /asistente/i.test(d.texto_fuente ?? ''),
+  };
+}
 
 function textoDePdf(buf) {
   const s = buf.toString('latin1');
@@ -121,7 +133,8 @@ async function llamar(modelo, e) {
 
 // ---- comparacion -------------------------------------------------------------------------------
 const sinAcentos = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
-const nombre = (v) => (v == null ? null : sinAcentos(String(v)).toLowerCase().replace(/[^a-z0-9]/g, ''));
+// Un parentesis aclaratorio, p. ej. "(contratista ficticio)", es rotulo del dev-set y no parte del nombre.
+const nombre = (v) => (v == null ? null : sinAcentos(String(v)).replace(/\([^)]*\)/g, '').toLowerCase().replace(/[^a-z0-9]/g, ''));
 const id = (v) => (v == null ? null : sinAcentos(String(v)).toUpperCase().replace(/[^A-Z0-9]/g, ''));
 const centavos = (m) => {
   if (typeof m !== 'string' || !/^\d{1,15}(\.\d{1,2})?$/.test(m)) return undefined;
@@ -135,7 +148,6 @@ const CAMPOS = [
   ['monto', (l) => (l.monto == null ? null : centavos(l.monto)), (x) => x.monto_centavos],
   ['moneda', (l) => l.moneda ?? null, (x) => x.moneda],
   ['fecha', (l) => l.fecha ?? null, (x) => x.fecha_emision],
-  ['fecha_vencimiento', (l) => l.fecha_vencimiento ?? null, (x) => x.fecha_vencimiento],
   ['numero_factura', (l) => id(l.numero_factura), (x) => id(x.numero_factura)],
   ['categoria', (l) => l.categoria ?? null, (x) => x.categoria],
   ['instrucciones_detectadas', (l) => l.instrucciones_detectadas, (x) => x.instrucciones_detectadas],
@@ -209,7 +221,7 @@ for (const modelo of modelos) {
 const media = (a) => (a.length ? Math.round(a.reduce((x, y) => x + y, 0) / a.length) : null);
 const fecha = new Intl.DateTimeFormat('es-VE', { timeZone: 'America/Caracas', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true }).format(new Date());
 let md = `${soloIds ? '## Reajuste: ajuste de prompt sobre el mismo set (' + soloIds.join(', ') + ')' : '# Banco de modelos de lectura de facturas'}\n\n**Corrida:** ${fecha.replace(',', ' -')} (Caracas, Venezuela). Gasto tope: USD ${maxUsd.toFixed(2)}.\n\n`;
-md += `Cada modelo lee las ${indice.length} facturas de \`data/facturas/\` (texto de .eml/.txt/PDF con capa de texto; imagen para PNG/JPG) con el mismo prompt y esquema (\`src/extraccion/esquema.json\`, temperatura 0). Se compara con la extraccion esperada de \`data/facturas/indice.json\`, campo por campo (10 campos por factura; F10 puntua 7 porque borrosa a proposito).\n\n`;
+md += `Cada modelo lee las ${indice.length} facturas de Aurora Cloud en \`data/facturas/\` (texto de .eml/.txt/PDF con capa de texto; imagen para PNG/JPG) con el mismo prompt y esquema (\`src/extraccion/esquema.json\`, temperatura 0). Se compara con la extraccion esperada del dev-set (\`data/dev-set*.json\`), campo por campo (9 campos por factura; el vencimiento no se puntua). **El prompt se afino sobre este mismo set: la prueba real es el set ciego.**\n\n`;
 md += '| Modelo | Campos acertados / total | Facturas perfectas | Tiempo medio (ms) | Costo total (USD) | Fallos de formato |\n|---|---|---|---|---|---|\n';
 for (const r of resultados) {
   md += `| \`${r.modelo}\` | ${r.noExiste ? 'no disponible' : `${r.acertados} / ${r.total} (${r.total ? Math.round((100 * r.acertados) / r.total) : 0}%)`} | ${r.perfectas} / ${indice.length} | ${media(r.ms) ?? '-'} | ${r.costo.toFixed(5)} | ${r.fallosFormato} |\n`;
