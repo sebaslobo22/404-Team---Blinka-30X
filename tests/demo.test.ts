@@ -1,7 +1,10 @@
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
-import { crearEstado, estadoAprobacion, instruccionPago, resolver, resumen } from '../src/demo/estado';
+import { costoLecturasUsd, crearEstado, estadoAprobacion, instruccionPago, resolver, resumen } from '../src/demo/estado';
 import type { EstadoDemo } from '../src/demo/estado';
 import { nombreRegla } from '../src/demo/formato';
+import { lecturaDe } from '../src/demo/lecturas';
 import { parametrosPorDefecto, validarParametros } from '../src/demo/parametros';
 import { construirTraza, fragmentosDetectados, partirTextoFuente, textoEstado } from '../src/demo/traza';
 
@@ -39,10 +42,12 @@ describe('defensas F-016 a F-018 en el producto', () => {
 
   it('quedan al final del estado y todas son ESCALAR con su razon', () => {
     expect(estado.filas.map((f) => f.id).slice(-3)).toEqual(ids);
-    const razones: Record<string, string> = { 'F-016': 'INYECCION', 'F-017': 'CONFIANZA', 'F-018': 'REGISTRO' };
+    // Con las lecturas reales, F-017 (imagen borrosa) trae ademas una alerta de la extraccion:
+    // las dos lecturas difirieron en la fecha. Se muestra como EXTRACCION antes de CONFIANZA.
+    const razones: Record<string, string[]> = { 'F-016': ['INYECCION'], 'F-017': ['EXTRACCION', 'CONFIANZA'], 'F-018': ['REGISTRO'] };
     for (const id of ids) {
       expect(fila(estado, id).resultado.decision, id).toBe('ESCALAR');
-      expect(fila(estado, id).resultado.razones.map((r) => r.regla), id).toEqual([razones[id]]);
+      expect(fila(estado, id).resultado.razones.map((r) => r.regla), id).toEqual(razones[id]);
     }
   });
   it('sin aprobacion no producen instruccion de pago', () => {
@@ -94,13 +99,13 @@ describe('traza con INYECCION, CONFIANZA y REGISTRO', () => {
     expect(textoEstado(t.estado)).toBe('No cumple (ESCALAR)');
     expect(t.cifra).toMatch(/fragmento/);
     expect(fragmentosDetectados(fila(estado, 'F-016').resultado.hechos).length).toBeGreaterThan(0);
-    expect(de('F-016', 'CONFIANZA').cifra).toBe('Sin dato de confianza (el lector no la reportó)');
+    expect(de('F-016', 'CONFIANZA').cifra).toBe('Confianza de lectura 95 % frente al mínimo de 85 %');
     expect(de('F-016', 'REGISTRO').estado).toBe('CUMPLE');
   });
   it('F-017: CONFIANZA no cumple con la cifra frente al minimo', () => {
     const t = de('F-017', 'CONFIANZA');
     expect(t.estado).toBe('ESCALAR');
-    expect(t.cifra).toBe('Confianza de lectura 31 % frente al mínimo de 85 %');
+    expect(t.cifra).toBe('Confianza de lectura 50 % frente al mínimo de 85 %');
     expect(de('F-017', 'INYECCION').estado).toBe('CUMPLE');
   });
   it('F-018: REGISTRO no cumple con nombre_coincide', () => {
@@ -110,7 +115,7 @@ describe('traza con INYECCION, CONFIANZA y REGISTRO', () => {
     expect(t.cifra).toContain('Otra Empresa Distinta');
   });
   it('un caso limpio cumple INYECCION y REGISTRO; REGISTRO no aplica si R2 no encontro la cuenta', () => {
-    expect(['INYECCION', 'CONFIANZA', 'REGISTRO'].map((c) => de('F-001', c).estado)).toEqual(['CUMPLE', 'NO_EVALUADA', 'CUMPLE']);
+    expect(['INYECCION', 'CONFIANZA', 'REGISTRO'].map((c) => de('F-001', c).estado)).toEqual(['CUMPLE', 'CUMPLE', 'CUMPLE']);
     const sinCuenta = estado.filas.find((f) => f.resultado.razones.some((r) => r.regla === 'R2') && !f.resultado.razones.some((r) => r.regla === 'R7'))!;
     expect(construirTraza(sinCuenta.resultado, estado.config, sinCuenta.factura).find((t) => t.id === 'REGISTRO')?.estado).toBe('NO_APLICA');
   });
@@ -250,5 +255,63 @@ describe('reglas editables', () => {
     p.tope_mensual_usd = 10_000_000;
     const e = await crearEstado(p, 1);
     for (const id of ['F-006', 'F-007', 'F-015']) expect(fila(e, id).resultado.decision).toBe('FRENAR');
+  });
+});
+
+describe('lecturas reales en el producto', () => {
+  it('las 18 filas traen su lectura con dos modelos de empresas distintas y confianza numerica', () => {
+    expect(estado.filas).toHaveLength(18);
+    for (const f of estado.filas) {
+      expect(f.lectura, f.id).not.toBeNull();
+      expect(f.lectura!.modelos, f.id).toHaveLength(2);
+      const empresas = new Set(f.lectura!.modelos.map((m) => m.split('/')[0]));
+      expect(empresas.size, f.id).toBe(2);
+      expect(typeof f.factura.confianza, f.id).toBe('number');
+      expect(f.fuente, f.id).not.toBeNull();
+    }
+  });
+  it('el resumen sigue en 4 PAGAR, 4 FRENAR y 10 ESCALAR con las lecturas reales', () => {
+    expect(resumen(estado)).toMatchObject({ total: 18, PAGAR: 4, FRENAR: 4, ESCALAR: 10 });
+    for (const f of estado.filas) expect(f.resultado.decision, f.id).toBe(f.esperada);
+  });
+  it('el costo de leer las 18 sale de las lecturas y es pequeno', () => {
+    const c = costoLecturasUsd(estado);
+    expect(c).toBeGreaterThan(0);
+    expect(c).toBeLessThan(0.5);
+  });
+  it('falla cerrada: si falta la lectura de una factura, el estado la escala con lector_fallo', async () => {
+    const e = await crearEstado(undefined, 0, {});
+    expect(e.filas).toHaveLength(18);
+    for (const f of e.filas) {
+      expect(f.lectura, f.id).toBeNull();
+      expect(f.resultado.decision, f.id).toBe('ESCALAR');
+      expect(f.factura.alertas, f.id).toEqual(['lector_fallo:replay_sin_lectura']);
+      expect(instruccionPago(e, f), f.id).toBeNull();
+    }
+    expect(resumen(e).PAGAR).toBe(0);
+  });
+  it('una lectura invalida o de otra factura se trata como faltante', () => {
+    const buena = lecturaDe('F-001');
+    expect(buena).not.toBeNull();
+    expect(lecturaDe('F-001', { 'F-001': { ...buena, id: 'F-002' } })).toBeNull();
+    expect(lecturaDe('F-001', { 'F-001': { id: 'F-001' } })).toBeNull();
+    expect(lecturaDe('constructor', {})).toBeNull();
+  });
+  it('el producto no llama a ningun modelo ni usa claves de IA', () => {
+    const carpetas = ['src/demo', 'app'];
+    const prohibidos = [/OPENROUTER/i, /openrouter\.ai/i, /api[_-]?key/i, /from ['"][^'"]*src\/extraccion\/(extraer|openrouter)/];
+    const recorrer = (dir: string): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((d) => {
+        const ruta = join(dir, d.name);
+        if (d.isDirectory()) return d.name === 'team' ? [] : recorrer(ruta);
+        return /\.(ts|tsx)$/.test(d.name) ? [ruta] : [];
+      });
+    for (const dir of carpetas) {
+      for (const ruta of recorrer(dir)) {
+        if (ruta.split(String.fromCharCode(92)).join('/').includes('app/api/team')) continue;
+        const txt = readFileSync(ruta, 'utf8');
+        for (const p of prohibidos) expect(p.test(txt), `${ruta} coincide con ${p}`).toBe(false);
+      }
+    }
   });
 });

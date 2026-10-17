@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { estadoAprobacion, resumen } from '../src/demo/estado';
-import { clasePill, clasePillAprobacion, etiquetaAprobacion, etiquetaDecision, formatearCentavos, formatearUsd, nombreRegla } from '../src/demo/formato';
+import { confianzaDe, costoLecturasUsd, estadoAprobacion, resumen } from '../src/demo/estado';
+import { clasePill, clasePillAprobacion, etiquetaAprobacion, etiquetaDecision, etiquetaFormato, formatearCentavos, formatearConfianza, formatearCostoLectura, formatearUsd, nombreRegla } from '../src/demo/formato';
 import { obtenerEstado } from '../src/demo/singleton';
 
 export const dynamic = 'force-dynamic';
@@ -10,12 +10,17 @@ const OCULTO = { position: 'absolute', width: 1, height: 1, overflow: 'hidden', 
 export default async function PaginaDecisiones() {
   const estado = await obtenerEstado();
   const r = resumen(estado);
+  const costoLectura = costoLecturasUsd(estado);
+  const leidas = estado.filas.filter((f) => f.lectura !== null).length;
 
   return (
     <>
       <h1>Decisiones</h1>
       <p className="subtitulo">
-        El agente leyó {r.total} facturas ficticias y el motor de reglas decidió cada una. Nunca mueve dinero: solo emite la instrucción de pago cuando corresponde.
+        El agente leyó {r.total} facturas ficticias (PDF, imagen, correo y chat) y el motor de reglas decidió cada una. Nunca mueve dinero: solo emite la instrucción de pago cuando corresponde.
+      </p>
+      <p className="tenue" style={{ fontSize: 13 }}>
+        Costo total de leer las {r.total} facturas: <span className="mono">{formatearCostoLectura(costoLectura)}</span>, sumado de las lecturas grabadas con dos modelos por factura ({leidas} de {r.total} con lectura).
       </p>
 
       <h2>Resumen</h2>
@@ -59,13 +64,15 @@ export default async function PaginaDecisiones() {
       <h2>Las {r.total} facturas</h2>
       <div className="tabla-envoltura">
         <table className="tabla">
-          <caption style={OCULTO}>Facturas con su decisión, las reglas activadas y el estado de aprobación</caption>
+          <caption style={OCULTO}>Facturas con formato del documento, confianza de la lectura, decisión, reglas activadas y estado de aprobación</caption>
           <thead>
             <tr>
               <th scope="col">Factura</th>
               <th scope="col">Proveedor</th>
               <th scope="col" className="num">Monto</th>
               <th scope="col" className="num">Monto en USD</th>
+              <th scope="col">Documento</th>
+              <th scope="col" className="num">Confianza</th>
               <th scope="col">Decisión</th>
               <th scope="col">Reglas activadas</th>
               <th scope="col">Aprobación</th>
@@ -76,6 +83,7 @@ export default async function PaginaDecisiones() {
               const d = fila.resultado.decision;
               const ap = estadoAprobacion(estado, fila);
               const usd = fila.resultado.hechos['monto_usd_centavos'];
+              const confianza = confianzaDe(fila);
               return (
                 <tr key={fila.id}>
                   <td className="mono">
@@ -84,6 +92,8 @@ export default async function PaginaDecisiones() {
                   <td>{fila.factura.beneficiario ?? 'Sin dato'}</td>
                   <td className="num">{formatearCentavos(fila.factura.monto_centavos, fila.factura.moneda)}</td>
                   <td className="num">{typeof usd === 'number' ? formatearUsd(usd) : 'Sin dato'}</td>
+                  <td>{etiquetaFormato(fila.fuente?.formato)}</td>
+                  <td className="num">{formatearConfianza(confianza)}</td>
                   <td>
                     <span className={clasePill(d)}>{etiquetaDecision(d)}</span>
                   </td>

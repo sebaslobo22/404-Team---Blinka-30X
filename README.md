@@ -31,7 +31,7 @@ En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombi
 
 ```
 npm install
-npm test          # 277 tests: motor, set F-001 a F-018, propiedades, registro, lector y estado de la demo
+npm test          # 348 tests: motor, set F-001 a F-018, propiedades, registro, lector y estado de la demo
 npm run typecheck
 ```
 
@@ -80,3 +80,11 @@ Las tres terminan en ESCALAR: llegan a la cola y una persona decide. Aprobar emi
 
 En la pantalla de decisiones, «Coinciden con la decisión esperada» (18 de 18) se calcula sobre el set de desarrollo con el que se afinaron las reglas: no mide generalización. Eso lo mide el set ciego.
 
+
+## Del documento a la decisión
+
+Cada factura recorre cuatro pasos y la pantalla de detalle los muestra en orden: **documento** (PDF, imagen, correo o chat, de `data/facturas/`), **lectura con dos modelos de empresas distintas** (Claude Haiku 5.5 y Gemini 3.1 Flash-Lite), **motor de reglas** (decide solo el código) y **registro** encadenado.
+
+Las 18 lecturas son reales y están grabadas en `data/facturas/lecturas/`. El demo las reproduce sin llamar a ningún modelo y sin claves; leer las 18 facturas costó menos de USD 0,03 en total. Se cargan con imports estáticos para que existan en el despliegue sin servidor. Si una lectura faltara, la factura se escala con la alerta `lector_fallo:replay_sin_lectura` (falla cerrada).
+
+Las lecturas se afinaron sobre este mismo set: miden que funciona aquí, no que generalice. Eso lo mide el set ciego.

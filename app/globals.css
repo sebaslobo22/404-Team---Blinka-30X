@@ -96,3 +96,11 @@ table.tabla { width: 100%; border-collapse: collapse; font-size: 14px; }
 pre.codigo { background: var(--bg); border: 1px solid var(--linea); border-radius: 4px; padding: 10px 12px; font: 12.5px/1.5 var(--mono); overflow-x: auto; margin: 0; }
 .lista-simple { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Franja de flujo: documento -> lectura -> motor -> registro */
+.flujo { list-style: none; margin: 0 0 8px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; counter-reset: paso; }
+.flujo li { position: relative; background: var(--superficie); border: 1px solid var(--linea); border-radius: 6px; padding: 10px 12px 12px; min-width: 0; font-size: 13px; counter-increment: paso; }
+.flujo-titulo::before { content: counter(paso) '. '; font: 600 12px var(--mono); color: var(--tenue); }
+.flujo-titulo { font-weight: 600; font-size: 13px; color: var(--tinta); }
+.flujo-detalle { margin-top: 4px; color: var(--tenue); overflow-wrap: anywhere; }
+.flujo-detalle .mono { color: var(--tinta); }

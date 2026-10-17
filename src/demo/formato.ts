@@ -95,3 +95,41 @@ export const IDS_REGLAS: string[] = reglas.reglas.map((r) => r.id);
 export function nombreRegla(id: string): string {
   return NOMBRES[id] ?? reglas.reglas.find((r) => r.id === id)?.nombre ?? id;
 }
+
+// ---- Lectura del documento (modo replay con lecturas reales grabadas) ----
+
+const FORMATOS: Record<string, string> = { pdf: 'PDF', imagen: 'Imagen', correo: 'Correo', chat: 'Chat' };
+
+/** Formato del documento fuente con mayúscula inicial: "pdf" -> "PDF", "imagen" -> "Imagen". */
+export function etiquetaFormato(formato: string | null | undefined): string {
+  if (!formato) return SIN_DATO;
+  return FORMATOS[formato] ?? formato;
+}
+
+/** Confianza 0..1 a porcentaje entero: 0.95 -> "95 %". */
+export function formatearConfianza(c: number | null | undefined): string {
+  return typeof c === 'number' && Number.isFinite(c) ? `${Math.round(c * 100)} %` : SIN_DATO;
+}
+
+/** Costo de lectura en USD con 5 decimales, porque son fracciones de centavo: 0.02075 -> "USD 0,02075". */
+export function formatearCostoLectura(usd: number | null | undefined): string {
+  return typeof usd === 'number' && Number.isFinite(usd) ? `USD ${usd.toFixed(5).replace('.', ',')}` : SIN_DATO;
+}
+
+/** Milisegundos con separador de miles: 2162 -> "2.162 ms". */
+export function formatearMs(ms: number | null | undefined): string {
+  return typeof ms === 'number' && Number.isFinite(ms) ? `${conMiles(String(Math.round(ms)))} ms` : SIN_DATO;
+}
+
+/** Fecha ISO (UTC) de la lectura a fecha de Caracas (UTC-4) en formato DD/MM/AAAA. */
+export function fechaLectura(iso: string | null | undefined): string {
+  const t = typeof iso === 'string' ? Date.parse(iso) : NaN;
+  if (!Number.isFinite(t)) return SIN_DATO;
+  const [a, m, d] = new Date(t - 4 * 3600 * 1000).toISOString().slice(0, 10).split('-');
+  return `${d}/${m}/${a}`;
+}
+
+/** Campos en los que las dos lecturas no coincidieron, según las alertas `lecturas_difieren:<campo>`. */
+export function camposQueDifieren(alertas: readonly string[] | null | undefined): string[] {
+  return (alertas ?? []).filter((a) => a.startsWith('lecturas_difieren:')).map((a) => a.slice('lecturas_difieren:'.length));
+}

@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </header>
         <div className="aviso-demo" role="note">
           <div className="contenedor">
-            Modo replay con datos ficticios. Las lecturas de las facturas son de muestra: no se llama a ningún modelo. El sistema nunca mueve dinero: solo emite una instrucción de pago.
+            Modo replay con datos ficticios. Las lecturas de las facturas son lecturas reales grabadas y reproducidas: no se llama a ningún modelo ni se usan claves. El sistema nunca mueve dinero: solo emite una instrucción de pago.
           </div>
         </div>
         <main className="contenedor principal">{children}</main>
