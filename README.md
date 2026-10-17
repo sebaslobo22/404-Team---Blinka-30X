@@ -6,12 +6,149 @@ Un agente que lee facturas y decide **PAGAR**, **FRENAR** o **ESCALAR** segun re
 
 El modelo de lenguaje lee y explica, nunca decide. La decision la toma una funcion pura de reglas, probada con tests. Ante duda o excepcion, ESCALAR (falla cerrada).
 
+## Cómo funciona: de la factura a la decisión
+
+Diagrama completo, editable en FigJam: **https://www.figma.com/board/Z35gyUNofAP7wy2AWshTI6**
+(la misma versión está abajo y GitHub la dibuja sola). Detalle de cada rama, clientes posibles y brechas: [`docs/mapa-escenarios.md`](docs/mapa-escenarios.md).
+
+Siete hitos, de izquierda a derecha: **1 · Entrada** → **2 · Lectura con IA** (dos modelos de empresas distintas) → **3 · Validación sin IA** → **4 · Reglas de la empresa** → **5 · Decisión** (manda la falla más grave) → **6 · La persona decide** (solo si se escala) → **7 · Salidas**. Verde = PAGAR, rojo = FRENAR (no se puede aprobar), ámbar = ESCALAR (te necesita). Línea punteada = hoja de ruta, aún no existe.
+
+```mermaid
+flowchart LR
+  subgraph H1["Hito 1 · Entrada"]
+    direction TB
+    C1["Subir o arrastrar archivo"]
+    C2["Reenviar correo a un buzón (hoja de ruta)"]
+    C3["API o conector (hoja de ruta)"]
+    C4["Lote Excel o CSV (hoja de ruta)"]
+    F1["PDF con texto"]
+    F2["PDF escaneado"]
+    F3["Foto o captura"]
+    F4["Correo .eml"]
+    F5["Chat de WhatsApp"]
+    F6["XML fiscal CFDI, DIAN, SUNAT, NF-e (hoja de ruta)"]
+    F7["Nota de crédito, proforma o recibo"]
+    C1 --> F1
+    C1 --> F2
+    C1 --> F3
+    C1 --> F4
+    C1 --> F5
+    C2 --> F4
+    C3 --> F6
+    C4 --> F6
+  end
+  subgraph H2["Hito 2 · Lectura con IA"]
+    direction TB
+    L1["Lectura A: Claude Haiku 5.5"]
+    L2["Lectura B: Gemini 3.1 Flash-Lite"]
+    L3{"¿Las dos lecturas coinciden en monto, moneda, beneficiario y cuenta?"}
+    L1 --> L3
+    L2 --> L3
+  end
+  subgraph H3["Hito 3 · Validación sin IA"]
+    direction TB
+    V1{"¿Cada dato aparece tal cual en el documento?"}
+    V2{"¿Trae texto que intenta dar órdenes?"}
+    V3{"¿Confianza de lectura igual o mayor a 85 %?"}
+    V4{"¿Moneda escrita y datos completos?"}
+    V5{"¿Es una factura de cobro y no una nota de crédito o proforma?"}
+    V6{"¿Las líneas suman el total?"}
+    V1 --> V2 --> V3 --> V4 --> V5 --> V6
+  end
+  subgraph H4["Hito 4 · Reglas de la empresa"]
+    direction TB
+    R2{"R2 · ¿Proveedor y cuenta autorizados?"}
+    RG{"¿El nombre coincide con el registrado?"}
+    R8{"R8 · ¿La cuenta cambió hace 72 h o menos?"}
+    R5{"R5 · ¿Cobro repetido en 30 días?"}
+    R6{"R6 · ¿Cuadra con lo acordado ±2 %?"}
+    R1{"R1 · ¿Supera el límite por pago?"}
+    R3{"R3 · ¿Supera el tope mensual del proveedor?"}
+    R4{"R4 · ¿Alcanza el presupuesto de la categoría?"}
+    R2 --> RG --> R8 --> R5 --> R6 --> R1 --> R3 --> R4
+  end
+  subgraph H5["Hito 5 · Decisión: manda la falla más grave"]
+    direction TB
+    D1(["PAGAR: cumple todas las reglas"])
+    D2(["FRENAR: no se puede aprobar"])
+    D3(["ESCALAR: te necesita"])
+  end
+  subgraph H6["Hito 6 · La persona decide"]
+    direction TB
+    P0["El sistema prepara: diferencia calculada, factura anterior, cuenta previa, recomendación en una frase"]
+    P1["Aprobar con nota"]
+    P2["Rechazar con nota"]
+    P3["Pedir corrección al proveedor (hoja de ruta)"]
+    P4["Decidir luego (hoja de ruta)"]
+    P0 --> P1
+    P0 --> P2
+    P0 --> P3
+    P0 --> P4
+  end
+  subgraph H7["Hito 7 · Salidas"]
+    direction TB
+    S1["Instrucción de pago: nunca mueve dinero"]
+    S2["Explicación en lenguaje humano"]
+    S3["Registro encadenado e inalterable"]
+    S4["Tablero: pagadas, frenadas, pendientes y por qué"]
+    S5["Export CSV y notificaciones (hoja de ruta)"]
+  end
+  F1 --> L1
+  F1 --> L2
+  F3 --> L1
+  F3 --> L2
+  F4 --> L1
+  F4 --> L2
+  F5 --> L1
+  F5 --> L2
+  F2 -->|"hoy no se lee: escala"| D3
+  F7 -->|"se detecta y escala"| D3
+  F6 -->|"se leerá con código, sin IA"| V1
+  L3 -->|"sí"| V1
+  L3 -->|"no o error del modelo"| D3
+  V1 -->|"no"| D3
+  V2 -->|"sí"| D3
+  V3 -->|"no"| D3
+  V4 -->|"no"| D3
+  V5 -->|"no"| D3
+  V6 -->|"no cuadra"| D3
+  V6 -->|"todo bien"| R2
+  R2 -->|"no autorizado"| D2
+  RG -->|"distinto"| D3
+  R8 -->|"cambió hace poco"| D3
+  R5 -->|"repetido"| D2
+  R6 -->|"no cuadra"| D3
+  R1 -->|"supera"| D3
+  R3 -->|"supera"| D3
+  R4 -->|"no alcanza"| D2
+  R4 -->|"todo cumple"| D1
+  D1 --> S1
+  D3 --> P0
+  P1 -->|"se revisa de nuevo el presupuesto"| S1
+  P2 --> S3
+  D2 --> S3
+  S1 --> S3
+  S3 --> S2
+  S3 --> S4
+  S4 --> S5
+  classDef ruta stroke-dasharray: 6 4,stroke:#9A9A93,color:#6B6B66
+  classDef pagar fill:#E3F4EA,stroke:#1F7A4C,color:#14532D
+  classDef frenar fill:#FBE4E2,stroke:#B02E24,color:#7F1D1D
+  classDef escalar fill:#FBEFD6,stroke:#9A5B00,color:#713F12
+  class C2,C3,C4,F6,P3,P4,S5 ruta
+  class D1 pagar
+  class D2 frenar
+  class D3 escalar
+```
+
 ## Estado
 
 En construccion. Cierre de la entrega: domingo 2026-10-18, 12:00 m. hora Colombia.
 
 ## Contenido
 
+- [`docs/brief-blinka.md`](docs/brief-blinka.md): texto oficial del reto. [`docs/requisitos.md`](docs/requisitos.md): cada exigencia, dónde se cumple y cómo se prueba.
+- [`docs/mapa-escenarios.md`](docs/mapa-escenarios.md): clientes posibles, entradas, salidas y decisiones, con el diagrama de flujo.
 - [`docs/flujo-y-pasos.md`](docs/flujo-y-pasos.md): ruta de trabajo en 6 pasos con sus puertas de salida.
 - [`docs/reglas-R1-R8.json`](docs/reglas-R1-R8.json): las 8 reglas de politica y su precedencia.
 - [`docs/esquemas/`](docs/esquemas/): contratos JSON entre piezas (factura extraida, decision, instruccion de pago).
