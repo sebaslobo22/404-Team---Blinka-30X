@@ -11,7 +11,7 @@
     "razones": {
       "type": "array",
       "items": { "type": "object", "additionalProperties": false, "required": ["regla", "efecto"],
-        "properties": { "regla": { "type": "string", "pattern": "^R[1-8]$|^EXTRACCION$|^ESQUEMA$" }, "efecto": { "enum": ["FRENAR", "ESCALAR"] } } }
+        "properties": { "regla": { "type": "string", "pattern": "^R[1-8]$|^EXTRACCION$|^ESQUEMA$|^INYECCION$|^CONFIANZA$|^REGISTRO$" }, "efecto": { "enum": ["FRENAR", "ESCALAR"] } } }
     },
     "version_reglas": { "type": "string" },
     "hechos": { "type": "object", "description": "Cifras que calculo el motor; toda cifra de la explicacion debe estar aqui" },

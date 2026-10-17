@@ -3,6 +3,7 @@ import type { Config } from './types';
 interface ReglasJson {
   version: string;
   tasas_ficticias_por_1_USD: Record<string, number>;
+  confianza_minima?: number;
   reglas: { id: string; umbral_usd?: number; ventana_dias?: number; tolerancia_pct?: number }[];
 }
 
@@ -25,5 +26,6 @@ export function cargarConfig(json: ReglasJson): Config {
     tolerancia_bps: Math.round((regla('R6').tolerancia_pct ?? 0) * 100),
     ventana_cuenta_dias: regla('R8').ventana_dias ?? 0,
     tasas_milli,
+    confianza_minima: typeof json.confianza_minima === 'number' ? json.confianza_minima : 0.85,
   };
 }
