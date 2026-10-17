@@ -23,3 +23,6 @@ next-env.d.ts
 .vercel
 .env*
 graphify-out/
+
+# Carpetas temporales de agentes
+.claude/worktrees/
