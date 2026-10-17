@@ -91,8 +91,8 @@ h3 {font-size:var(--t4);text-wrap:balance}
 .principal {padding-block:var(--s12);gap:var(--s3);min-height:70vh}
 .cabecera {position:sticky;top:0;z-index:10;background:var(--superficie);box-shadow:var(--sombra)}
 @supports(backdrop-filter:blur(20px)){.cabecera,.panel-decision {background:var(--cristal);backdrop-filter:blur(20px)}}
-.cabecera-interior {min-height:88px;transition:padding var(--duracion) var(--curva)}
-.compacta .cabecera-interior {padding-block:var(--s1)}
+.cabecera-interior {min-height:88px;transition:transform var(--duracion) var(--curva)}
+.compacta .cabecera-interior {transform:scale(.98)}
 .marca {font-size:var(--t2)} .marca-equipo {font-family:var(--fuente);margin:0}
 .nav {gap:var(--s1)}
 .nav a {display:flex;align-items:center;min-height:44px;padding:var(--s2) var(--s3);border:0;border-radius:var(--pildora);font-size:var(--t2)}
@@ -143,3 +143,4 @@ pre.codigo {max-width:100%;font-size:var(--t1)}
 @media(max-width:600px){.rejilla{grid-template-columns:1fr}.rejilla .tarjeta{display:flex;align-items:center;gap:var(--s3);padding:var(--s4)}.rejilla .cifra{margin:0;min-width:20px}.rejilla .cifra-etiqueta{font-size:var(--t2)}.rejilla .pill{min-width:88px}}
 .campo input,.campo select,.campo textarea,.eq input,.eq select {border-color:var(--tenue)}
 .factura-fila > a,.marca,.cabecera .acciones > a {min-height:44px;display:inline-flex;align-items:center}
+@media(prefers-reduced-motion:reduce){.compacta .cabecera-interior{transform:none}}
