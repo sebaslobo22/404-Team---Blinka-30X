@@ -1,0 +1,84 @@
+{
+  "id": "F03",
+  "fecha": "2026-10-17T17:22:04.435Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "SA-2210",
+      "beneficiario": "Servidores Andinos SA de CV",
+      "id_fiscal": "SAN201015AB3",
+      "cuenta": "MX-BBVA-0012-7741",
+      "monto_centavos": 45000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-03",
+      "categoria": "Hosting",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: facturacion@servidoresandinos.example\r\nTo: cuentas@andinalabs.example\r\nSubject: Factura SA-2210 octubre\r\nDate: Sat, 03 Oct 2026 09:12:00 -0400\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\nHola, adjuntamos la factura SA-2210 del 03/10/2026 por el hosting mensual: USD 450.00. RFC SAN201015AB3. Cuenta MX-BBVA-0012-7741. Vence el 18/10/2026. Saludos, Servidores Andinos SA de CV\r\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2178,
+        "tokens_salida": 350,
+        "costo_usd": 0.0003928,
+        "ms": 2531,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Servidores Andinos SA de CV",
+          "id_fiscal": "SAN201015AB3",
+          "cuenta": "MX-BBVA-0012-7741",
+          "monto": "450.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-03",
+          "fecha_vencimiento": "2026-10-18",
+          "numero_factura": "SA-2210",
+          "categoria": "Hosting",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1374,
+        "tokens_salida": 177,
+        "costo_usd": 0.000609,
+        "ms": 1563,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Servidores Andinos SA de CV",
+          "id_fiscal": "SAN201015AB3",
+          "cuenta": "MX-BBVA-0012-7741",
+          "monto": "450.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-03",
+          "fecha_vencimiento": "2026-10-18",
+          "numero_factura": "SA-2210",
+          "categoria": "Hosting",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2532,
+    "costo_usd": 0.0010018
+  }
+}

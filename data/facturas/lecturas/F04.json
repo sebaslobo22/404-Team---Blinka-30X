@@ -1,0 +1,86 @@
+{
+  "id": "F04",
+  "fecha": "2026-10-17T17:25:10.729Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "RA-0931",
+      "beneficiario": "ROJAS & ASOCIADOS CONTADORES SAS",
+      "id_fiscal": "900.876.543-2",
+      "cuenta": "CO-DAVI-7710-3321",
+      "monto_centavos": 480000000,
+      "moneda": "COP",
+      "fecha_emision": "2026-10-05",
+      "categoria": "Contabilidad",
+      "alertas": [],
+      "confianza": 0.93,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2752,
+        "tokens_salida": 177,
+        "costo_usd": 0.0003637,
+        "ms": 3591,
+        "ok": true,
+        "datos": {
+          "beneficiario": "ROJAS & ASOCIADOS CONTADORES SAS",
+          "id_fiscal": "900.876.543-2",
+          "cuenta": "CO-DAVI-7710-3321",
+          "monto": "4800000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-05",
+          "fecha_vencimiento": "2026-10-20",
+          "numero_factura": "RA-0931",
+          "categoria": "Contabilidad",
+          "confianza": 0.93,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2307,
+        "tokens_salida": 188,
+        "costo_usd": 0.00085875,
+        "ms": 2897,
+        "ok": true,
+        "datos": {
+          "beneficiario": "ROJAS & ASOCIADOS CONTADORES SAS",
+          "id_fiscal": "900.876.543-2",
+          "cuenta": "CO-DAVI-7710-3321",
+          "monto": "4800000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-05",
+          "fecha_vencimiento": "2026-10-20",
+          "numero_factura": "RA-0931",
+          "categoria": "Contabilidad",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3592,
+    "costo_usd": 0.00122245
+  }
+}

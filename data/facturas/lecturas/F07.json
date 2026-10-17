@@ -1,0 +1,84 @@
+{
+  "id": "F07",
+  "fecha": "2026-10-17T17:22:14.765Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "ME-0007",
+      "beneficiario": "MARKETING EXPRESS LLC",
+      "id_fiscal": "98-7654321",
+      "cuenta": "US-CHAS-3301-9987",
+      "monto_centavos": 120000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-07",
+      "categoria": "Otra",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "MARKETING EXPRESS LLC\nEIN 98-7654321\nInvoice ME-0007\nDate 2026-10-07\nDue 2026-10-22\nBill to: Andina Labs Inc.\nSocial media boost\nTotal USD 1,200.00\nWire to US-CHAS-3301-9987"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 2051,
+        "tokens_salida": 161,
+        "costo_usd": 0.0002856,
+        "ms": 2020,
+        "ok": true,
+        "datos": {
+          "beneficiario": "MARKETING EXPRESS LLC",
+          "id_fiscal": "98-7654321",
+          "cuenta": "US-CHAS-3301-9987",
+          "monto": "1200.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-07",
+          "fecha_vencimiento": "2026-10-22",
+          "numero_factura": "ME-0007",
+          "categoria": "Otra",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 1279,
+        "tokens_salida": 176,
+        "costo_usd": 0.00058375,
+        "ms": 1495,
+        "ok": true,
+        "datos": {
+          "beneficiario": "MARKETING EXPRESS LLC",
+          "id_fiscal": "98-7654321",
+          "cuenta": "US-CHAS-3301-9987",
+          "monto": "1200.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-07",
+          "fecha_vencimiento": "2026-10-22",
+          "numero_factura": "ME-0007",
+          "categoria": "Otra",
+          "confianza": 1,
+          "instrucciones_detectadas": false
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2020,
+    "costo_usd": 0.00086935
+  }
+}
