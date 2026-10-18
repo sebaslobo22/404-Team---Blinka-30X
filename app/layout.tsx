@@ -47,7 +47,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <div className="app-cuerpo">
           <AvisoReplay />
           <main id="contenido" className="contenedor principal">{children}</main>
-          <footer className="contenedor pie">Pulso · Pulso firme en cada pago · Equipo 404. Nunca mueve dinero.</footer>
+          <footer className="contenedor pie">Pulso · Pulso firme en cada pago · Equipo 404. Nunca mueve dinero. <a href="/conoce.html">Qué es Pulso</a></footer>
         </div>
         <NavegacionMovil vivoDisponible={vivoDisponible} /><Tour />
         <Bienvenida vivoDisponible={vivoDisponible} telegramUrl={enlaceTelegram(process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL)} buzon={buzonCorreo(process.env.NEXT_PUBLIC_GMAIL_BUZON)} />
