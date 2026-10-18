@@ -255,6 +255,16 @@ Cada chat pertenece a **una empresa** y sus facturas se deciden con los proveedo
 - **Una sola regla de aprobación** (`aprobadorDe` en `src/telegram/empresas.ts`), usada para el aviso, para los botones y para el clic: demo → `TELEGRAM_DUENO_ID`; otra empresa → su dueño; factura sin empresa → nadie.
 - Migración `supabase/migrations/0004_empresas.sql`: tablas `telegram_empresas`, `telegram_miembros` y `telegram_proveedores`, columna `empresa_id` en `telegram_facturas`, la demo como fila real y la función `telegram_crear_empresa` (crea empresa y dueño en una transacción). Pasa los chats y facturas existentes a la demo. **Aplicarla antes de desplegar este código.**
 
+### Conversación con IA (texto suelto)
+
+Un texto que no es comando ni archivo (por ejemplo "¿qué puedes hacer?") lo responde un modelo de texto (Gemini 3.1 Flash-Lite por OpenRouter, mismo proveedor fijo y sin retención). El modelo solo redacta: no decide, no paga, no aprueba ni cambia nada. Código: `src/telegram/conversacion.ts`.
+
+- **Qué ve el modelo:** un prompt fijo y una ficha armada por código con un almacén de solo lectura: nombre de la empresa, rol, límite, número de proveedores, facturas pendientes y como mucho las últimas 5 decisiones (id corto, proveedor, monto, decisión). Nunca cuentas, ID fiscal, código `PULSO-XXXXXX`, texto de facturas ni razones libres. Mensaje de máx. 500 caracteres, sin historial.
+- **Qué sale:** JSON `{"texto"}` y un filtro determinista que falla cerrado (máx. 600 caracteres; sin URLs ajenas, UUID, códigos, 8+ dígitos, claves ni frases de "ya lo hice"). Si algo no cuadra, o el modelo falla o tarda más de 12 s, se envía la ayuda fija. Texto plano, nunca botones. En grupos solo hay ayuda fija.
+- **Cupo propio:** `CHAT_POR_USUARIO_HORA` (20) y `CHAT_GLOBAL_DIA` (300), separado del de facturas. Vive en la memoria del proceso (la RPC `telegram_consumir_cupo` comparte el tope diario con las facturas), así que en un despliegue sin servidor cada instancia cuenta aparte: el techo real de gasto es el crédito de OpenRouter. Al agotarse, frase fija sin llamar al modelo.
+- **Interruptor:** `CHAT_IA=0` lo apaga (por defecto está encendido si hay `OPENROUTER_API_KEY`). Pruebas: `tests/telegram-conversacion.test.ts`.
+- La lectura de facturas reintenta una vez, solo ante error de red o timeout (no ante una respuesta inválida); el techo en vivo se sigue aplicando después.
+
 ### Qué datos guarda el bot y para qué
 
 | Tabla | Qué guarda | Para qué |

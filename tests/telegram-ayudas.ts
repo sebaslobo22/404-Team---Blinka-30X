@@ -109,7 +109,7 @@ export function crearDepsPrueba(o: Omit<Partial<Deps>, 'config'> & { config?: Pa
     extraer: extractorCon(llamarFalso().llamar),
     contexto,
     cfgMotor,
-    config: { duenoId: DUENO, urlPublica: 'https://pulso.example', topeDiario: 100, maxPorChatHora: 5, limiteLecturaMs: 5000, ...o.config },
+    config: { duenoId: DUENO, urlPublica: 'https://pulso.example', topeDiario: 100, maxPorChatHora: 5, limiteLecturaMs: 5000, chatPorUsuarioHora: 20, chatGlobalDia: 300, limiteChatMs: 1000, ...o.config },
     ahora: () => new Date('2026-10-17T15:00:00Z'),
     ...(o.log ? { log: o.log } : {}),
   };

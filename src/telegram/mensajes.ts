@@ -28,7 +28,12 @@ export const INTRO = [
 ].join('\n');
 
 export const PIDE_START = 'Antes de enviarme facturas escribe /start: ahí te explico qué hago con tu archivo.';
-export const PIDE_ARCHIVO = 'Envíame una foto o un PDF de una factura. Si necesitas ayuda, escribe /start.';
+/** Ayuda corta fija: sale cuando llega un texto suelto y la IA esta apagada, en un grupo, sin cupo o fallo. */
+export const PIDE_ARCHIVO = [
+  'Soy Pulso. Leo la foto o el PDF de una factura, la reviso con las reglas de tu empresa y te cuento qué decidí y por qué. Si algo se sale de las reglas, el dueño lo aprueba con un botón. Yo nunca muevo dinero.',
+  '',
+  'Envíame una factura para empezar. Comandos: /crear, /unirme, /demo, /empresa, /proveedor, /limite y /ayuda.',
+].join('\n');
 export const NO_DISPONIBLE = 'Pulso no está disponible ahora mismo. Intenta de nuevo en unos minutos.';
 export const NO_PUDE_LEER = 'No pude leer esta factura con seguridad, así que no tomo ninguna decisión. Prueba con otra foto más clara o un PDF con texto.';
 

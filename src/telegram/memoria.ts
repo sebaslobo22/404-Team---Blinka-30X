@@ -118,6 +118,17 @@ export class AlmacenEnMemoria implements Almacen {
     return (this.provs.get(empresaId) ?? []).map((p) => ({ ...p }));
   }
 
+  async ultimasFacturas(empresaId: string, limite: number, soloChat?: number): Promise<FacturaVivo[]> {
+    this.vivo();
+    // El Map conserva el orden de insercion: la ultima insertada es la mas nueva.
+    return [...this.facturas.values()].filter((f) => f.empresa_id === empresaId && (soloChat === undefined || f.chat_id === soloChat)).reverse().slice(0, limite).map((f) => structuredClone(f));
+  }
+
+  async contarPendientes(empresaId: string, soloChat?: number): Promise<number> {
+    this.vivo();
+    return [...this.facturas.values()].filter((f) => f.empresa_id === empresaId && (soloChat === undefined || f.chat_id === soloChat) && f.decision === 'ESCALAR' && f.estado_resolucion === 'PENDIENTE').length;
+  }
+
   async agregarProveedor(empresaId: string, p: Proveedor, _por: number): Promise<void> {
     this.vivo();
     const lista = (this.provs.get(empresaId) ?? []).filter((x) => !(x.id_fiscal === p.id_fiscal && x.cuenta === p.cuenta));
@@ -129,5 +140,38 @@ export class AlmacenEnMemoria implements Almacen {
     this.vivo();
     const e = this.empresas.get(empresaId);
     if (e) e.limite_pago_usd_centavos = centavos;
+  }
+}
+
+/**
+ * Cupo del modo conversacional: por usuario y por hora, y tope global del dia. Vive en la memoria del
+ * proceso a proposito: la RPC telegram_consumir_cupo cuenta el tope diario sobre TODA la tabla telegram_uso,
+ * asi que el chat gastaria el cupo de las facturas. Limite conocido: en un despliegue sin servidor cada
+ * instancia lleva su propia cuenta y un reinicio la borra. El techo real de gasto es el credito de OpenRouter.
+ */
+export class CupoEnMemoria {
+  private readonly porUsuario = new Map<number, number[]>();
+  private dia = '';
+  private enDia = 0;
+
+  consumir(usuarioId: number, ahora: Date, maxPorHora: number, topeDiario: number): 'ok' | 'usuario' | 'dia' {
+    const t = ahora.getTime();
+    const hoy = ahora.toISOString().slice(0, 10);
+    if (hoy !== this.dia) {
+      this.dia = hoy;
+      this.enDia = 0;
+    }
+    const recientes = (this.porUsuario.get(usuarioId) ?? []).filter((u) => u > t - 3_600_000 && u <= t);
+    if (recientes.length >= maxPorHora) {
+      this.porUsuario.set(usuarioId, recientes);
+      return 'usuario';
+    }
+    if (this.enDia >= topeDiario) return 'dia';
+    recientes.push(t);
+    this.porUsuario.set(usuarioId, recientes);
+    this.enDia++;
+    // Poda de usuarios que ya no cuentan, para que el mapa no crezca sin limite.
+    if (this.porUsuario.size > 5000) for (const [id, usos] of this.porUsuario) if (!usos.some((u) => u > t - 3_600_000)) this.porUsuario.delete(id);
+    return 'ok';
   }
 }
