@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
 import Link from 'next/link';
 import Tarjeta from '../ui/Tarjeta';
 import { Ic } from '../ui/iconos';
 import { ICONO_REGLA, RIESGO } from '../ui/mapa-iconos';
-import { BotonTema, Revelar } from './Cliente';
+import { BotonTema, Movimiento } from './Cliente';
 import './conoce.css';
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   description: 'Pulso lee facturas con IA y decide PAGAR, FRENAR o ESCALAR con las reglas de tu empresa. Una persona revisa solo lo dudoso. Nunca mueve dinero. Datos de demo ficticios.',
 };
 
+const TITULO = 'Las facturas llegan por todos lados. Pulso decide cuáles pagar, frenar o escalar.';
 const TELEGRAM = 'https://t.me/pulso404_dev_bot';
 const CODIGO = 'https://github.com/sebaslobo22/404-Team---Blinka-30X';
 
@@ -55,6 +57,19 @@ const PREGUNTAS: { p: string; r: string }[] = [
   { p: '¿Es un producto terminado?', r: 'No. Es un prototipo del hackathon. Las cifras y los límites están arriba, tal como se midieron.' },
 ];
 
+/** Línea de pulso (ECG). Decorativa; se dibuja con el scroll. */
+function Pulso({ hero }: { hero?: boolean }) {
+  return <svg className={`ecg${hero ? ' ecg-hero' : ''}`} viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path pathLength={1} d="M0 30 H230 l12-24 l16 48 l14-40 l10 16 H600" />
+  </svg>;
+}
+
+/** Cuenta una vez al entrar en pantalla (ver motion.ts). El valor final está siempre en el HTML y un lector de pantalla lo oye entero. */
+function Cuenta({ fin, dec = 0 }: { fin: number; dec?: number }) {
+  const t = fin.toFixed(dec).replace('.', ',');
+  return <><span className="sr-only">{t}</span><span aria-hidden="true" className="cn-num" data-count="" data-fin={fin} data-dec={dec}>{t}</span></>;
+}
+
 function Captura({ base, ancho, alto, alt, prioridad }: { base: string; ancho: number; alto: number; alt: string; prioridad?: boolean }) {
   const comun = { width: ancho, height: alto, alt, decoding: 'async' as const, loading: prioridad ? ('eager' as const) : ('lazy' as const) };
   return <figure className="cn-captura">
@@ -67,7 +82,10 @@ function Captura({ base, ancho, alto, alt, prioridad }: { base: string; ancho: n
 export default function Conoce() {
   return (
     <div className="conoce">
-      <Revelar />
+      <Movimiento />
+      <div className="aurora" aria-hidden="true" />
+      <div className="lectura" aria-hidden="true" />
+      <div id="tope" className="cn-tope" aria-hidden="true" />
       <header className="cn-nav">
         <Link className="cn-marca" href="/conoce"><Ic nombre="pulso" size={28} />Pulso</Link>
         <nav aria-label="Secciones de esta página">
@@ -80,7 +98,7 @@ export default function Conoce() {
       <section className="cn-hero" aria-labelledby="t-hero">
         <div className="cn-hero-texto">
           <p className="cn-kicker">Para fundadores y finanzas de startups con equipo en LatAm</p>
-          <h1 id="t-hero">Las facturas llegan por todos lados. Pulso decide cuáles pagar, frenar o escalar.</h1>
+          <h1 id="t-hero">{TITULO.split(' ').map((w, i) => <Fragment key={i}><span className="w"><span className="wi">{w}</span></span>{' '}</Fragment>)}</h1>
           <p className="cn-lead">Lee PDF, fotos, correos y chats con IA. Aplica las reglas que define tu empresa. Una persona revisa solo lo dudoso. Nunca mueve dinero.</p>
           <div className="cn-acciones">
             <Link className="btn btn-primario" href="/"><Ic nombre="flecha-salida" size={20} />Ver cómo Pulso decide una factura</Link>
@@ -90,29 +108,31 @@ export default function Conoce() {
           <p className="cn-nota">Nunca mueve dinero. Datos de demo ficticios (Aurora Cloud).</p>
         </div>
         <Captura base="factura-f016" ancho={1000} alto={720} prioridad alt="Pantalla de Pulso con la factura F-016 de un proveedor ficticio. Pulso la pasa a una persona porque la factura intenta dar órdenes, y muestra el paso de la factura a la decisión." />
+      <Pulso hero />
       </section>
 
-      <section className="cn-seccion" aria-labelledby="t-problema" data-revela>
-        <h2 id="t-problema">Hoy: una factura por chat y un pago de memoria.</h2>
-        <p className="cn-rotulo">Si esto te suena. Frases redactadas por el equipo, no son citas.</p>
+      <section className="cn-seccion" aria-labelledby="t-problema">
+        <h2 data-reveal id="t-problema">Hoy: una factura por chat y un pago de memoria.</h2>
+        <p data-reveal className="cn-rotulo">Si esto te suena. Frases redactadas por el equipo, no son citas.</p>
         <ul className="rejilla-tarjetas cn-rejilla3">
-          {DOLORES.map((d) => <li key={d.frase}><Tarjeta variante="base" icono={d.icono} titulo={`"${d.frase}"`} /></li>)}
+          {DOLORES.map((d) => <li data-reveal key={d.frase}><Tarjeta variante="base" icono={d.icono} titulo={`"${d.frase}"`} /></li>)}
         </ul>
-        <p>Lo que cuesta: pagar dos veces, pagar a una cuenta que cambió hace horas, pagar más de lo acordado y no poder explicar quién lo aprobó.</p>
+        <p data-reveal>Lo que cuesta: pagar dos veces, pagar a una cuenta que cambió hace horas, pagar más de lo acordado y no poder explicar quién lo aprobó.</p>
         <p><a href="#como">Ver cómo se resuelve</a></p>
       </section>
 
-      <section id="como" className="cn-seccion" aria-labelledby="t-como" data-revela>
-        <h2 id="t-como">Cuatro pasos. Tú pones las reglas.</h2>
+      <section id="como" className="cn-seccion" aria-labelledby="t-como">
+        <h2 data-reveal id="t-como">Cuatro pasos. Tú pones las reglas.</h2>
+        <Pulso />
         <ol className="rejilla-tarjetas cn-rejilla4">
-          {PASOS.map((p) => <li key={p.titulo}><Tarjeta variante="etapa" icono={p.icono} titulo={p.titulo} encabezado apoyo={p.apoyo} /></li>)}
+          {PASOS.map((p) => <li data-reveal className="paso" key={p.titulo}><Tarjeta variante="etapa" icono={p.icono} titulo={p.titulo} encabezado apoyo={p.apoyo} /></li>)}
         </ol>
         <ul className="rejilla-tarjetas cn-rejilla3 cn-decisiones">
-          <li><Tarjeta variante="riesgo" tono="pagar" icono="check-circulo" titulo="PAGAR" encabezado ayuda="pagadas" apoyo="Cumple todas tus reglas. Queda lista la instrucción de pago." /></li>
-          <li><Tarjeta variante="riesgo" tono="frenar" icono="mano" titulo="FRENAR" encabezado ayuda="frenadas" apoyo="Rompe una regla. No tiene botón de aprobar." /></li>
-          <li><Tarjeta variante="riesgo" tono="escalar" icono="campana" titulo="ESCALAR" encabezado ayuda="te-necesitan" apoyo="Hay duda. Una persona decide y deja una nota." /></li>
+          <li data-reveal><Tarjeta variante="riesgo" tono="pagar" icono="check-circulo" titulo="PAGAR" encabezado ayuda="pagadas" apoyo="Cumple todas tus reglas. Queda lista la instrucción de pago." /></li>
+          <li data-reveal><Tarjeta variante="riesgo" tono="frenar" icono="mano" titulo="FRENAR" encabezado ayuda="frenadas" apoyo="Rompe una regla. No tiene botón de aprobar." /></li>
+          <li data-reveal><Tarjeta variante="riesgo" tono="escalar" icono="campana" titulo="ESCALAR" encabezado ayuda="te-necesitan" apoyo="Hay duda. Una persona decide y deja una nota." /></li>
         </ul>
-        <details className="cn-plegable">
+        <details data-reveal className="cn-plegable">
           <summary>Ver las ocho reglas (R1 a R8)</summary>
           <ul className="cn-reglas">
             {Array.from({ length: 8 }, (_, i) => `R${i + 1}`).map((r) => <li key={r}><Ic nombre={ICONO_REGLA[r]!} size={20} /><span><strong>{r}</strong> {RIESGO[r]!.etiqueta}</span></li>)}
@@ -121,25 +141,25 @@ export default function Conoce() {
         <p><Link href="/facturas/F-016">Ver una factura decidida paso a paso</Link></p>
       </section>
 
-      <section id="pruebas" className="cn-seccion" aria-labelledby="t-pruebas" data-revela>
-        <h2 id="t-pruebas">Medido con facturas que el equipo no había visto.</h2>
+      <section id="pruebas" className="cn-seccion" aria-labelledby="t-pruebas">
+        <h2 data-reveal id="t-pruebas">Medido con facturas que el equipo no había visto.</h2>
         <ul className="rejilla-tarjetas cn-rejilla4">
-          <li><Tarjeta variante="indicador" icono="check-circulo" titulo="Sin persona, set ciego 2" cifra="25 de 30 (83,3 %)" grande apoyo="Set armado por otra persona y congelado antes de ver resultados." /></li>
-          <li><Tarjeta variante="indicador" icono="escudo-check" titulo="Pagos indebidos" cifra="0" grande apoyo="En ese set, en 10 documentos ciegos y en 62 filas externas." /></li>
-          <li><Tarjeta variante="indicador" icono="tabla" titulo="Set de desarrollo" cifra="8 de 18 (44,4 %)" grande apoyo="Lo diseñamos nosotros. Por eso no lo usamos como medida." /></li>
-          <li><Tarjeta variante="indicador" icono="lista-check" titulo="Pruebas automáticas" cifra="728" grande apoyo="Y 37 escenarios en Telegram, sin mover un dólar." /></li>
+          <li data-reveal><Tarjeta variante="indicador" icono="check-circulo" titulo="Sin persona, set ciego 2" cifra={<><Cuenta fin={25} /> de <Cuenta fin={30} /> (<Cuenta fin={83.3} dec={1} /> %)</>} grande apoyo="Set armado por otra persona y congelado antes de ver resultados." /></li>
+          <li data-reveal><Tarjeta variante="indicador" icono="escudo-check" titulo="Pagos indebidos" cifra="0" grande apoyo="En ese set, en 10 documentos ciegos y en 62 filas externas." /></li>
+          <li data-reveal><Tarjeta variante="indicador" icono="tabla" titulo="Set de desarrollo" cifra={<><Cuenta fin={8} /> de <Cuenta fin={18} /> (<Cuenta fin={44.4} dec={1} /> %)</>} grande apoyo="Lo diseñamos nosotros. Por eso no lo usamos como medida." /></li>
+          <li data-reveal><Tarjeta variante="indicador" icono="lista-check" titulo="Pruebas automáticas" cifra={<Cuenta fin={728} />} grande apoyo="Y 37 escenarios en Telegram, sin mover un dólar." /></li>
         </ul>
-        <p>Cero pagos indebidos es lo medido hasta hoy, no una garantía.</p>
-        <details className="cn-plegable">
+        <p data-reveal>Cero pagos indebidos es lo medido hasta hoy, no una garantía.</p>
+        <details data-reveal className="cn-plegable">
           <summary>Cómo lo medimos</summary>
           <p>Un set ciego es un grupo de facturas que no usamos para ajustar las reglas. Cuenta como resuelta sin persona toda factura que Pulso decide PAGAR o FRENAR sin pedir ayuda. Las ESCALAR esperan a una persona. El método y los resultados están en el repositorio público.</p>
         </details>
         <p><a href={CODIGO} target="_blank" rel="noopener noreferrer">Ver el método y el repositorio</a></p>
       </section>
 
-      <section className="cn-seccion" aria-labelledby="t-seguridad" data-revela>
-        <h2 id="t-seguridad">Actúa cuando es seguro. Pregunta cuando no.</h2>
-        <div className="cn-dos">
+      <section className="cn-seccion" aria-labelledby="t-seguridad">
+        <h2 data-reveal id="t-seguridad">Actúa cuando es seguro. Pregunta cuando no.</h2>
+        <div data-reveal className="cn-dos">
           <div>
             <p>La IA lee y explica. Tu regla decide. Nunca mueve dinero. Lo frenado no tiene botón de aprobar. Lo escalado lo aprueba una persona, con confirmación y nota.</p>
             <p>El texto de una factura es un dato, nunca una orden. Cada decisión queda en un registro encadenado que puedes verificar y que delata si alguien lo toca.</p>
@@ -148,7 +168,7 @@ export default function Conoce() {
               <li className="cn-sello"><Ic nombre="ojos" size={20} />Lectura de IA</li>
               <li className="cn-sello"><Ic nombre="persona" size={20} />Aprobado por persona</li>
             </ul>
-            <details className="cn-plegable">
+            <details data-reveal className="cn-plegable">
               <summary>Detalle técnico</summary>
               <p>Registro encadenado: cada entrada guarda el hash de la anterior, así que cambiar una rompe la cadena. También hay un servidor MCP para conectar agentes.</p>
             </details>
@@ -158,12 +178,12 @@ export default function Conoce() {
         </div>
       </section>
 
-      <section className="cn-seccion" aria-labelledby="t-canales" data-revela>
-        <h2 id="t-canales">Funciona donde ya te llegan las facturas.</h2>
+      <section className="cn-seccion" aria-labelledby="t-canales">
+        <h2 data-reveal id="t-canales">Funciona donde ya te llegan las facturas.</h2>
         <ul className="cn-canales">
-          {CANALES.map((c) => <li key={c.texto}><Ic nombre={c.icono} size={24} />{c.texto}</li>)}
+          {CANALES.map((c) => <li data-reveal key={c.texto}><Ic nombre={c.icono} size={24} />{c.texto}</li>)}
         </ul>
-        <div className="cn-aunno" role="group" aria-labelledby="t-aunno">
+        <div data-reveal className="cn-aunno" role="group" aria-labelledby="t-aunno">
           <h3 id="t-aunno">Todavía no</h3>
           <ul>
             {AUN_NO.map((t) => <li key={t}><Ic nombre="x" size={20} />{t}</li>)}
@@ -172,15 +192,16 @@ export default function Conoce() {
         <p><a href={TELEGRAM} target="_blank" rel="noopener noreferrer">Probar por Telegram</a></p>
       </section>
 
-      <section className="cn-seccion cn-oferta" aria-labelledby="t-oferta" data-revela>
-        <h2 id="t-oferta">Pruébalo con facturas de ejemplo. Sin conectar tu banco.</h2>
+      <Pulso />
+      <section className="cn-seccion cn-oferta" aria-labelledby="t-oferta">
+        <h2 data-reveal id="t-oferta">Pruébalo con facturas de ejemplo. Sin conectar tu banco.</h2>
         <p>Recorre la demo en dos minutos. Mándale una factura de ejemplo al bot. Verifica el registro. Nunca mueve dinero.</p>
-        <div className="cn-acciones">
+        <div data-reveal className="cn-acciones">
           <Link className="btn btn-primario" href="/"><Ic nombre="flecha-salida" size={20} />Ver cómo Pulso decide una factura</Link>
           <a className="btn" href={TELEGRAM} target="_blank" rel="noopener noreferrer"><Ic nombre="chat" size={20} />Probar por Telegram</a>
           <a className="btn btn-texto" href={CODIGO} target="_blank" rel="noopener noreferrer"><Ic nombre="codigo" size={20} />Ver el código</a>
         </div>
-        <details className="cn-plegable">
+        <details data-reveal className="cn-plegable">
           <summary>Cuánto cuesta revisar a mano</summary>
           <p>Tiempo hoy = facturas al mes × minutos por factura ÷ 60 × costo por hora de quien las revisa.</p>
           <p>Con Pulso es la misma cuenta, pero solo con las facturas que llegan a una persona. En nuestro set ciego 2, 5 de 30 no se resolvieron sin persona. Tu mezcla puede ser distinta.</p>
@@ -189,10 +210,10 @@ export default function Conoce() {
         </details>
       </section>
 
-      <section id="preguntas" className="cn-seccion" aria-labelledby="t-faq" data-revela>
-        <h2 id="t-faq">Preguntas, las incómodas primero</h2>
+      <section id="preguntas" className="cn-seccion" aria-labelledby="t-faq">
+        <h2 data-reveal id="t-faq">Preguntas, las incómodas primero</h2>
         <div className="cn-faq">
-          {PREGUNTAS.map((q) => <details key={q.p}><summary>{q.p}</summary><p>{q.r}</p></details>)}
+          {PREGUNTAS.map((q) => <details data-reveal key={q.p}><summary>{q.p}</summary><p>{q.r}</p></details>)}
         </div>
       </section>
 

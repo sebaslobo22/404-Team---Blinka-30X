@@ -1,21 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Ic } from '../ui/iconos';
+import { initMotion } from './motion';
 
-/** Aparición sutil al hacer scroll: solo opacidad y 8 px. Si algo falla o el sistema pide menos movimiento, todo ya se ve. */
-export function Revelar() {
-  useEffect(() => {
-    let reducido = false;
-    try { reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { reducido = true; }
-    if (reducido || typeof IntersectionObserver === 'undefined') return;
-    const alto = window.innerHeight;
-    const pendientes = Array.from(document.querySelectorAll<HTMLElement>('[data-revela]')).filter((el) => el.getBoundingClientRect().top > alto);
-    const io = new IntersectionObserver((entradas) => {
-      for (const e of entradas) if (e.isIntersecting) { (e.target as HTMLElement).removeAttribute('data-oculto'); io.unobserve(e.target); }
-    }, { rootMargin: '0px 0px -8% 0px' });
-    for (const el of pendientes) { el.setAttribute('data-oculto', ''); io.observe(el); }
-    return () => { io.disconnect(); for (const el of pendientes) el.removeAttribute('data-oculto'); };
-  }, []);
+/** Arranca el movimiento de la landing (ver motion.ts). Con "reducir movimiento" no hace nada. */
+export function Movimiento() {
+  useEffect(() => initMotion(), []);
   return null;
 }
 
