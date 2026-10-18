@@ -6,7 +6,7 @@ Agente de pagos del **Equipo 404** para el reto Blinka del Hackathon 30X. Lee un
 - **Lo medido:** 0 pagos indebidos en todos los sets; 25 de 30 decididas sin persona en un set ciego de mezcla realista (83,3 %). Cómo se midió y qué no: [`docs/evidencia.md`](docs/evidencia.md).
 - **Qué es y cómo decide**, con el diagrama de 7 hitos y la hoja de ruta: [`docs/producto.md`](docs/producto.md). **Arquitectura y canales:** [`docs/arquitectura.md`](docs/arquitectura.md). **Rutas HTTP y MCP:** [`docs/api.md`](docs/api.md).
 
-## Instálalo en 30 minutos
+## Instálalo paso a paso
 
 Esta guía deja Pulso funcionando de cero, para una persona o para una IA como Claude Code. Cada paso termina en una **Comprobación**: si no da lo esperado, no sigas. Puedes parar en cualquier paso; cada uno enciende una capacidad más.
 
