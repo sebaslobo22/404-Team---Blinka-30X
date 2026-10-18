@@ -35,13 +35,16 @@ export function modeloEsElPedido(pedido: string, servido: string | null): boolea
  * Contexto de la empresa ficticia (Aurora Cloud) tal como queda despues de las 18 facturas de la
  * demo: mismas reglas editadas, mismos presupuestos y los pagos ya hechos en el historial. Copia la
  * construccion de crearEstado() sin tocar el estado compartido: la factura en vivo no entra al
- * registro ni al historial de la demo, y ningun otro visitante la ve.
+ * registro ni al historial de la demo, y ningun otro visitante la ve. Una factura ESCALAR que una
+ * persona ya aprobo entra como RESERVADA: si se reenvia, R5 la frena por duplicado, y cuenta para
+ * el tope mensual (R3) y el presupuesto (R4) igual que un pago.
  */
 export function contextoDeLaDemo(estado: EstadoDemo): Contexto {
   const ctx = structuredClone(dataset.contexto) as unknown as Contexto;
   for (const [cat, usd] of Object.entries(estado.parametros.presupuestos_usd)) ctx.presupuestos[cat] = usd * 100;
   for (const fila of estado.filas) {
-    if (fila.resultado.decision !== 'PAGAR') continue;
+    const aprobada = fila.resultado.decision === 'ESCALAR' && estado.aprobaciones.get(fila.id)?.accion === 'APROBAR';
+    if (fila.resultado.decision !== 'PAGAR' && !aprobada) continue;
     const f = fila.factura;
     ctx.historial.push({
       numero_factura: f.numero_factura as string,
@@ -50,7 +53,7 @@ export function contextoDeLaDemo(estado: EstadoDemo): Contexto {
       moneda: f.moneda as string,
       categoria: f.categoria as string,
       fecha: ctx.ahora.slice(0, 10),
-      estado: 'PAGADA',
+      estado: aprobada ? 'RESERVADA' : 'PAGADA',
     });
   }
   return ctx;

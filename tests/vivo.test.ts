@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import { crearEstado } from '../src/demo/estado';
+import { crearEstado, resolver } from '../src/demo/estado';
 import type { EstadoDemo } from '../src/demo/estado';
 import { decidir } from '../src/engine/decide';
 import type { FacturaExtraida } from '../src/engine/types';
@@ -145,5 +145,30 @@ describe('activación', () => {
     expect(lecturaEnVivoActiva({ OPENROUTER_API_KEY: 'x' })).toBe(false);
     expect(lecturaEnVivoActiva({ LECTURA_EN_VIVO: 'true', OPENROUTER_API_KEY: 'x' })).toBe(false);
     expect(lecturaEnVivoActiva({ LECTURA_EN_VIVO: '1', OPENROUTER_API_KEY: 'x' })).toBe(true);
+  });
+});
+
+describe('historial en vivo con aprobaciones', () => {
+  it('una ESCALAR aprobada por una persona entra como RESERVADA y su reenvio se frena por R5', async () => {
+    const propio = await crearEstado();
+    const fila = propio.filas.find((f) => f.id === 'F-011');
+    expect(fila?.resultado.decision).toBe('ESCALAR');
+    const antes = decidir('REENVIO', fila!.factura, contextoDeLaDemo(propio), propio.config);
+    expect(antes.razones.some((r) => r.regla === 'R5')).toBe(false);
+
+    const r = await resolver(propio, 'F-011', 'APROBAR', 'prueba');
+    expect(r.ok).toBe(true);
+    const ctx = contextoDeLaDemo(propio);
+    expect(ctx.historial.some((h) => h.estado === 'RESERVADA' && h.numero_factura === fila!.factura.numero_factura)).toBe(true);
+    const despues = decidir('REENVIO', fila!.factura, ctx, propio.config);
+    expect(despues.decision).toBe('FRENAR');
+    expect(despues.razones.some((x) => x.regla === 'R5')).toBe(true);
+  });
+
+  it('una ESCALAR rechazada no entra al historial', async () => {
+    const propio = await crearEstado();
+    await resolver(propio, 'F-011', 'RECHAZAR', 'prueba');
+    const fila = propio.filas.find((f) => f.id === 'F-011')!;
+    expect(contextoDeLaDemo(propio).historial.some((h) => h.numero_factura === fila.factura.numero_factura)).toBe(false);
   });
 });

@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: Request) {
   try {
     const estado = await obtenerEstado();
+    // Si el registro de decisiones no verifica, no sale ninguna orden: alguien altero una decision.
+    const v = await estado.registroDecisiones.verificar(estado.anclaInicial);
+    if (!v.ok) return NextResponse.json({ ok: false, codigo: 'REGISTRO_ALTERADO', error: 'El registro de decisiones no verifica: no se entrega ninguna orden hasta restaurarlo.' }, { status: 409 });
     const todas = new URL(req.url).searchParams.get('incluir') === 'pagadas';
     return new Response(`﻿${ordenesCsv(todas ? ordenes(estado) : ordenesPorPagar(estado))}`, {
       headers: {

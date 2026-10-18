@@ -144,7 +144,7 @@ export default function Conoce() {
       <section id="pruebas" className="cn-seccion" aria-labelledby="t-pruebas">
         <h2 data-reveal id="t-pruebas">Medido con facturas que el equipo no había visto.</h2>
         <ul className="rejilla-tarjetas cn-rejilla4">
-          <li data-reveal><Tarjeta variante="indicador" icono="check-circulo" titulo="Sin persona, set ciego 2" cifra={<><Cuenta fin={25} /> de <Cuenta fin={30} /> (<Cuenta fin={83.3} dec={1} /> %)</>} grande apoyo="Set armado por otra persona y congelado antes de ver resultados." /></li>
+          <li data-reveal><Tarjeta variante="indicador" icono="check-circulo" titulo="Sin persona, set ciego 2" cifra={<><Cuenta fin={25} /> de <Cuenta fin={30} /> (<Cuenta fin={83.3} dec={1} /> %)</>} grande apoyo="Lo armó un agente que no vio el motor, con una mezcla que elegimos (63 % rutinarias), y se congeló antes de correr." /></li>
           <li data-reveal><Tarjeta variante="indicador" icono="escudo-check" titulo="Pagos indebidos" cifra="0" grande apoyo="En ese set, en 10 documentos ciegos y en 62 filas externas." /></li>
           <li data-reveal><Tarjeta variante="indicador" icono="tabla" titulo="Set de desarrollo" cifra={<><Cuenta fin={8} /> de <Cuenta fin={18} /> (<Cuenta fin={44.4} dec={1} /> %)</>} grande apoyo="Lo diseñamos nosotros. Por eso no lo usamos como medida." /></li>
           <li data-reveal><Tarjeta variante="indicador" icono="lista-check" titulo="Pruebas automáticas" cifra={<Cuenta fin={733} />} grande apoyo="Y 37 escenarios en Telegram, sin mover un dólar." /></li>
@@ -152,7 +152,7 @@ export default function Conoce() {
         <p data-reveal>Cero pagos indebidos es lo medido hasta hoy, no una garantía.</p>
         <details data-reveal className="cn-plegable">
           <summary>Cómo lo medimos</summary>
-          <p>Un set ciego es un grupo de facturas que no usamos para ajustar las reglas. Cuenta como resuelta sin persona toda factura que Pulso decide PAGAR o FRENAR sin pedir ayuda. Las ESCALAR esperan a una persona. El método y los resultados están en el repositorio público.</p>
+          <p>Un set ciego es un grupo de facturas que no usamos para ajustar las reglas. Cuenta como resuelta sin persona toda factura que Pulso decide PAGAR o FRENAR sin pedir ayuda. Las ESCALAR esperan a una persona. Lo que entra hoy por la web, Telegram o el correo nunca se paga solo: como mucho se escala a una persona. El método y los resultados están en el repositorio público.</p>
         </details>
         <p><a href={CODIGO} target="_blank" rel="noopener noreferrer">Ver el método y el repositorio</a></p>
       </section>
@@ -205,7 +205,7 @@ export default function Conoce() {
           <summary>Cuánto cuesta revisar a mano</summary>
           <p>Tiempo hoy = facturas al mes × minutos por factura ÷ 60 × costo por hora de quien las revisa.</p>
           <p>Con Pulso es la misma cuenta, pero solo con las facturas que llegan a una persona. En nuestro set ciego 2, 5 de 30 no se resolvieron sin persona. Tu mezcla puede ser distinta.</p>
-          <p>Ejemplo de juguete, no son datos de nadie: 100 facturas × 6 minutos ÷ 60 × 10 por hora = 100 al mes en revisión manual.</p>
+          <p>Ejemplo de juguete, no son datos de nadie: 100 facturas × 6 minutos ÷ 60 × USD 10 por hora = USD 100 al mes en revisión manual.</p>
           <p>No incluye el tiempo de configurar tus reglas. Pagar dos veces cuesta el monto de la factura otra vez.</p>
         </details>
       </section>
