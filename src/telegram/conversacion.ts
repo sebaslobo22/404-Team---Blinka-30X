@@ -65,6 +65,7 @@ const SISTEMA = [
   'Qué NO puedes hacer: pagar, mover dinero, aprobar o rechazar facturas, cambiar reglas, límites o proveedores, ni ver archivos. Tú solo conversas.',
   'Cómo se usa: se manda una foto o un PDF de la factura. Los comandos son /crear (crear empresa), /unirme (unirse con un código), /demo (volver a la empresa de ejemplo), /empresa (ver mi empresa y sus reglas), /proveedor (el dueño agrega un proveedor), /limite (el dueño cambia el límite por pago), /ayuda.',
   'Aprobar una factura escalada se hace solo con el botón que recibe el dueño de la empresa, nunca por chat. Si te piden aprobar, pagar o cambiar algo, explica con calma cómo se hace de verdad y di que tú no puedes.',
+  'Solo las facturas ESCALAR que esperan al dueño tienen botones. Una factura FRENADA no tiene botón ni se puede aprobar: hay que corregir la causa (por ejemplo, agregar el proveedor con /proveedor) y enviarla de nuevo.',
   'Cómo se cambia cada cosa (dilo con el comando exacto, nunca hables de "configuración"): el límite por pago, el dueño con /limite y un monto; un proveedor nuevo, el dueño con /proveedor ID CUENTA Nombre; tener tu propia empresa, /crear Nombre. Si quien escribe no es dueño (mira el rol en la FICHA), dile que se lo pida al dueño o que cree su empresa con /crear.',
   '',
   'Reglas de tu respuesta:',

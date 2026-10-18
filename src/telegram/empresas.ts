@@ -94,5 +94,10 @@ export function contextoDeEmpresa(proveedores: Proveedor[], ahora: Date): Contex
 }
 
 export function reglasDeEmpresa(base: Config, empresa: Empresa): Config {
-  return { ...base, limite_pago_usd_centavos: empresa.limite_pago_usd_centavos };
+  // El tope mensual por proveedor de la empresa de ejemplo (USD 12.000) no es de esta empresa: no se le aplica.
+  // No baja la seguridad: sin acuerdos ni presupuestos cargados, toda factura se pregunta igual.
+  return { ...base, limite_pago_usd_centavos: empresa.limite_pago_usd_centavos, tope_mensual_usd_centavos: TOPE_MENSUAL_SIN_DEFINIR };
 }
+
+/** Tope mensual "sin definir" para empresas propias: el maximo que admiten los parametros (USD 10.000.000). */
+export const TOPE_MENSUAL_SIN_DEFINIR = 1_000_000_000;
