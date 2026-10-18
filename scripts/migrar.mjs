@@ -2,9 +2,9 @@
 // Aplica las migraciones de supabase/migrations/ en orden contra la base del equipo.
 // Uso: node scripts/migrar.mjs            (todas las que falten)
 //      node scripts/migrar.mjs --solo 0002 (una sola)
-// Lee SUPABASE_DB_URL del .env (Supabase → Project Settings → Database → Connection string, URI,
+// Lee SUPABASE_DB_URL del entorno, de .env.local o de .env (Supabase → Project Settings → Database → Connection string, URI,
 // con la contraseña). Nunca imprime la cadena. Lleva registro en la tabla public._migraciones.
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
 
@@ -12,12 +12,12 @@ const require = createRequire(import.meta.url);
 let pg;
 try { pg = require('pg'); } catch { console.error('Falta la dependencia pg: npm i -D pg'); process.exit(1); }
 
-const env = Object.fromEntries(
-  readFileSync('.env', 'utf8').split('\n').filter((l) => l.includes('=') && !l.startsWith('#'))
-    .map((l) => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim()]; }),
-);
+// .env.local manda sobre .env, como en Next.js. Un archivo que no existe se salta.
+const leer = (f) => (existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter((l) => l.includes('=') && !l.startsWith('#'))
+  .map((l) => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim()]; }) : []);
+const env = Object.fromEntries([...leer('.env'), ...leer('.env.local')].filter(([, v]) => v));
 const url = process.env.SUPABASE_DB_URL || env.SUPABASE_DB_URL;
-if (!url) { console.error('Falta SUPABASE_DB_URL en .env'); process.exit(1); }
+if (!url) { console.error('Falta SUPABASE_DB_URL en .env.local o en .env'); process.exit(1); }
 
 const solo = process.argv.includes('--solo') ? process.argv[process.argv.indexOf('--solo') + 1] : null;
 const dir = 'supabase/migrations';
