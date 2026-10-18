@@ -99,7 +99,7 @@ pre.codigo{font:var(--t1)/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:any
 @media(min-width:64rem){.portada-pulso{position:absolute;top:var(--s8);right:var(--s6);margin:0}.portada-cabecera h1{max-width:calc(100% - 17rem)}}
 @media(max-width:45rem){.portada-cabecera{padding:var(--s6) var(--s4) var(--s4)}}
 /* ===== Tarjeta única (app/ui/Tarjeta.tsx): relleno, borde, radio, cifra, botón "i" y realce salen de aquí ===== */
-.rejilla-tarjetas{display:grid;gap:var(--espacio-tarjeta);grid-auto-rows:1fr;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--ancho-min,15rem)),1fr));list-style:none;margin:0;padding:0}
+.rejilla-tarjetas{display:grid;gap:var(--espacio-tarjeta);grid-auto-rows:1fr;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--ancho-min,15rem)),1fr));list-style:none;margin:0;padding:0}
 .rejilla-tarjetas>li{min-width:0}
 .rejilla-2c{--ancho-min:22rem}.rejilla-indicadores{--ancho-min:15rem}.rejilla-riesgos{--ancho-min:15rem}
 .rejilla-etapas,.rejilla-indicadores{grid-template-columns:1fr}
@@ -150,3 +150,8 @@ pre.codigo{font:var(--t1)/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:any
   .tarjeta[data-tarjeta]:hover,.tarjeta[data-tarjeta]:has(:focus-visible){transform:none}
   .tarjeta[data-tarjeta]::before{display:none}
 }
+/* Rejillas con columnas explícitas: nunca columnas vacías ni una tarjeta sola en la última fila */
+.rejilla-2c,.rejilla-riesgos{grid-template-columns:1fr}
+@media(min-width:40rem){.rejilla-2c,.rejilla-riesgos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:64rem){.rejilla-riesgos{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:88rem){.rejilla-riesgos{grid-template-columns:repeat(4,minmax(0,1fr))}}
