@@ -1,0 +1,99 @@
+{
+  "id": "C-05",
+  "fecha": "2026-10-18T00:14:09.543Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "LAS-0091",
+      "beneficiario": "Luz Andina SAC",
+      "id_fiscal": "FIC-PE-010",
+      "cuenta": "ACC-PE-7710",
+      "monto_centavos": 590000,
+      "moneda": "PEN",
+      "fecha_emision": "2026-10-15",
+      "categoria": "Infraestructura",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "CUENTA DE COBRO\nLuz Andina SAC\nID fiscal: FIC-PE-010\nCuenta para el depsito: ACC-PE-7710\nPara: Aurora Cloud Inc.\nN.¼ LAS-0091   Fecha: 15/10/2026   Vence: 29/10/2026\nConcepto: Alojamiento de servidores, octubre 2026\nTotal: PEN 5.900,00"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3404,
+        "tokens_salida": 543,
+        "costo_usd": 0.0006119,
+        "ms": 3064,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Luz Andina SAC",
+          "id_fiscal": "FIC-PE-010",
+          "cuenta": "ACC-PE-7710",
+          "monto": "5900.00",
+          "moneda": "PEN",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-29",
+          "numero_factura": "LAS-0091",
+          "categoria": "Infraestructura",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "cuenta_de_cobro",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2208,
+        "tokens_salida": 262,
+        "costo_usd": 0.000945,
+        "ms": 1679,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Luz Andina SAC",
+          "id_fiscal": "FIC-PE-010",
+          "cuenta": "ACC-PE-7710",
+          "monto": "5900.00",
+          "moneda": "PEN",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-29",
+          "numero_factura": "LAS-0091",
+          "categoria": "Infraestructura",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "cuenta_de_cobro",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Alojamiento de servidores, octubre 2026",
+              "monto": "5900.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3064,
+    "costo_usd": 0.0015569
+  }
+}

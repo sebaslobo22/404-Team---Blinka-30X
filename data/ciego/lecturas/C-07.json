@@ -1,0 +1,99 @@
+{
+  "id": "C-07",
+  "fecha": "2026-10-18T00:14:15.317Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "CC-2026-066",
+      "beneficiario": "Consultores Cafetal S.A.S.",
+      "id_fiscal": "FIC-CO-002",
+      "cuenta": "ACC-CO-0002",
+      "monto_centavos": 2150000000,
+      "moneda": "COP",
+      "fecha_emision": "2026-10-14",
+      "categoria": "Consultoría",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "CUENTA DE COBRO N.¼ CC-2026-066\nConsultores Cafetal S.A.S.\nNIT / ID fiscal: FIC-CO-002\nCuenta bancaria: ACC-CO-0002\nCliente: Aurora Cloud Inc.\nFecha: 14/10/2026   Vence: 30/10/2026\nConcepto: Asesora estratgica trimestral, incluye bolsa de horas adicionales.\nValor total: COP 21.500.000,00"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3429,
+        "tokens_salida": 532,
+        "costo_usd": 0.0006089,
+        "ms": 2527,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Consultores Cafetal S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "21500000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-14",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "CC-2026-066",
+          "categoria": "Consultoría",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "cuenta_de_cobro",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2224,
+        "tokens_salida": 278,
+        "costo_usd": 0.000973,
+        "ms": 1921,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Consultores Cafetal S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "21500000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-14",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "CC-2026-066",
+          "categoria": "Consultoría",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "cuenta_de_cobro",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Asesoría estratégica trimestral, incluye bolsa de horas adicionales.",
+              "monto": "21500000.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2528,
+    "costo_usd": 0.0015819
+  }
+}

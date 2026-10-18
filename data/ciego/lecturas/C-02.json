@@ -1,0 +1,115 @@
+{
+  "id": "C-02",
+  "fecha": "2026-10-18T00:14:00.286Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "BM/2026/118",
+      "beneficiario": "Estdio Beira-Mar Ltda.",
+      "id_fiscal": "FIC-BR-005",
+      "cuenta": "ACC-BR-0005",
+      "monto_centavos": 1110000,
+      "moneda": "BRL",
+      "fecha_emision": "2026-10-13",
+      "categoria": "Diseño",
+      "alertas": [
+        "lecturas_difieren:beneficiario",
+        "no_literal:beneficiario"
+      ],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "FATURA DE SERVIOS\nEstdio Beira-Mar Ltda.\nCNPJ / ID fiscal: FIC-BR-005\nConta bancria: ACC-BR-0005\nCliente: Aurora Cloud Inc.\nFatura n¼ BM/2026/118\nEmisso: 13/10/2026   Vencimento: 02/11/2026\nDescrio | Valor (BRL) |\nIdentidade visual - fase 2 | 8.400,00 |\nPeas para campanha de lanamento | 2.700,00 |\nTotal a pagar | BRL 11.100,00 |\nObrigado pela confiana."
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3476,
+        "tokens_salida": 781,
+        "costo_usd": 0.0007381,
+        "ms": 3601,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Estdio Beira-Mar Ltda.",
+          "id_fiscal": "FIC-BR-005",
+          "cuenta": "ACC-BR-0005",
+          "monto": "11100.00",
+          "moneda": "BRL",
+          "moneda_explicita": true,
+          "fecha": "2026-10-13",
+          "fecha_vencimiento": "2026-11-02",
+          "numero_factura": "BM/2026/118",
+          "categoria": "Diseño",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Identidad visual - fase 2",
+              "monto": "8400.00"
+            },
+            {
+              "descripcion": "Piezas para campaña de lanzamiento",
+              "monto": "2700.00"
+            }
+          ]
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2280,
+        "tokens_salida": 295,
+        "costo_usd": 0.0010125,
+        "ms": 1813,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Estúdio Beira-Mar Ltda.",
+          "id_fiscal": "FIC-BR-005",
+          "cuenta": "ACC-BR-0005",
+          "monto": "11100.00",
+          "moneda": "BRL",
+          "moneda_explicita": true,
+          "fecha": "2026-10-13",
+          "fecha_vencimiento": "2026-11-02",
+          "numero_factura": "BM/2026/118",
+          "categoria": "Diseño",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Identidade visual - fase 2",
+              "monto": "8400.00"
+            },
+            {
+              "descripcion": "Peças para campanha de lançamento",
+              "monto": "2700.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3601,
+    "costo_usd": 0.0017506
+  }
+}

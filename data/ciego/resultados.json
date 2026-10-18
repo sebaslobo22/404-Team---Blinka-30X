@@ -1,0 +1,136 @@
+{
+  "commit": "9f494cc4c7136810a432347704ce62804dc223ee",
+  "replay": false,
+  "costo_usd": 0.016451800000000003,
+  "filas": [
+    {
+      "id": "C-01",
+      "formato": "correo",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "reglas": "-",
+      "ambiguo": false,
+      "alertas": [],
+      "confianza": 0.95,
+      "monto_centavos": 600000,
+      "moneda": "PEN"
+    },
+    {
+      "id": "C-02",
+      "formato": "pdf",
+      "esperada": "PAGAR",
+      "motor": "ESCALAR",
+      "reglas": "EXTRACCION, REGISTRO",
+      "ambiguo": false,
+      "alertas": [
+        "lecturas_difieren:beneficiario",
+        "no_literal:beneficiario"
+      ],
+      "confianza": 0.9,
+      "monto_centavos": 1110000,
+      "moneda": "BRL"
+    },
+    {
+      "id": "C-03",
+      "formato": "chat",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "reglas": "-",
+      "ambiguo": false,
+      "alertas": [],
+      "confianza": 0.9,
+      "monto_centavos": 120000,
+      "moneda": "USD"
+    },
+    {
+      "id": "C-04",
+      "formato": "imagen",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "reglas": "REGISTRO, R5",
+      "ambiguo": false,
+      "alertas": [],
+      "confianza": 0.9,
+      "monto_centavos": 150000,
+      "moneda": "USD"
+    },
+    {
+      "id": "C-05",
+      "formato": "pdf",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "reglas": "R2, R6",
+      "ambiguo": false,
+      "alertas": [],
+      "confianza": 0.9,
+      "monto_centavos": 590000,
+      "moneda": "PEN"
+    },
+    {
+      "id": "C-06",
+      "formato": "imagen",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "reglas": "R4, R6",
+      "ambiguo": false,
+      "alertas": [],
+      "confianza": 0.95,
+      "monto_centavos": 8280000,
+      "moneda": "MXN"
+    },
+    {
+      "id": "C-07",
+      "formato": "pdf",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "reglas": "R1, R6",
+      "ambiguo": false,
+      "alertas": [],
+      "confianza": 0.9,
+      "monto_centavos": 2150000000,
+      "moneda": "COP"
+    },
+    {
+      "id": "C-08",
+      "formato": "correo",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "reglas": "EXTRACCION, INYECCION",
+      "ambiguo": true,
+      "alertas": [
+        "no_es_cobro:recibo"
+      ],
+      "confianza": 0.9,
+      "monto_centavos": 148000,
+      "moneda": "USD"
+    },
+    {
+      "id": "C-09",
+      "formato": "correo",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "reglas": "EXTRACCION, CONFIANZA, R4, R6",
+      "ambiguo": false,
+      "alertas": [
+        "no_es_cobro:nota_credito"
+      ],
+      "confianza": 0.6,
+      "monto_centavos": 45000,
+      "moneda": "USD"
+    },
+    {
+      "id": "C-10",
+      "formato": "chat",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "reglas": "EXTRACCION, CONFIANZA, R4",
+      "ambiguo": false,
+      "alertas": [
+        "aritmetica_no_cuadra:lineas_78000.00_vs_total_81000.00"
+      ],
+      "confianza": 0.7,
+      "monto_centavos": 8100000,
+      "moneda": "MXN"
+    }
+  ]
+}
