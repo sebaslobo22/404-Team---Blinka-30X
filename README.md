@@ -205,6 +205,7 @@ Ya previstas desde antes:
 - **Tasas de cambio en vivo** de una fuente oficial, con la tasa usada guardada en el registro.
 - **Persistencia y cuentas:** registro en Supabase en producción, varias personas aprobadoras y doble aprobación sobre cierto monto.
 - **Mejor lectura de PDF:** decodificar bien las fuentes con codificaciones antiguas (el caso C-02 del set ciego).
+- **Interfaz más reactiva y sistema de diseño unificado:** tarjetas que responden sutilmente al pasar el mouse, un botón "i" con una explicación sencilla en cada tarjeta, y un solo componente de tarjeta con tamaños, espaciado y cuadrícula parejos ([`docs/proximas-mejoras-interfaz.md`](docs/proximas-mejoras-interfaz.md)).
 
 ## Contenido
 
