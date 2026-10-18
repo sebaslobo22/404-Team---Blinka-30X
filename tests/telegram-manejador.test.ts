@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { ID_DEMO } from '../src/telegram/empresas';
 import { ErrorLLM } from '../src/extraccion/openrouter';
 import { MAX_BYTES } from '../src/telegram/archivo';
 import { manejarUpdate } from '../src/telegram/manejador';
@@ -208,7 +209,7 @@ describe('falla cerrada: sin estado no se procesa', () => {
   });
   it('un callback con el almacen caido no aprueba nada', async () => {
     const d = await iniciado();
-    const id = await d.almacen.guardarFactura({ chat_id: JURADO, update_id: 1, decision: 'ESCALAR', decision_motor: 'ESCALAR', razones: [], resumen: { beneficiario: null, numero_factura: null, monto_centavos: null, moneda: null }, estado_resolucion: 'PENDIENTE' });
+    const id = await d.almacen.guardarFactura({ chat_id: JURADO, empresa_id: ID_DEMO, update_id: 1, decision: 'ESCALAR', decision_motor: 'ESCALAR', razones: [], resumen: { beneficiario: null, numero_factura: null, monto_centavos: null, moneda: null }, estado_resolucion: 'PENDIENTE' });
     d.almacen.caido = true;
     await manejarUpdate(callback(`a:${id}`), d);
     d.almacen.caido = false;
