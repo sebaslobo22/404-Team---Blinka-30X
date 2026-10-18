@@ -276,6 +276,24 @@ describe('aprobacion por chat', () => {
     expect((await d.almacen.obtenerFactura(f.id))!.estado_resolucion).toBe('APROBADA');
   });
 
+  it('al aprobar, el dueno recibe la orden preparada para Blinka y los pasos, sin mover dinero', async () => {
+    const { d, f } = await conFactura('ESCALAR');
+    await manejarUpdate(callback(`a:${f.id}`), d);
+    const orden = d.telegram.enviados.map((e) => e.texto).find((x) => x.startsWith('Orden preparada para Blinka'));
+    expect(orden).toBeDefined();
+    expect(orden).toMatch(/Pulso no mueve dinero/);
+    expect(orden).toMatch(/Riel sugerido: /);
+    expect(orden).toMatch(new RegExp(`Referencia: PULSO-${f.id.slice(0, 8).toUpperCase()}`));
+    expect(orden).toMatch(/Ejecuta el pago en Blinka/);
+    expect(d.telegram.enviados.filter((e) => e.texto.startsWith('Orden preparada')).every((e) => !e.botones)).toBe(true);
+  });
+
+  it('al rechazar no se prepara ninguna orden', async () => {
+    const { d, f } = await conFactura('ESCALAR');
+    await manejarUpdate(callback(`r:${f.id}`), d);
+    expect(d.telegram.enviados.some((e) => e.texto.startsWith('Orden preparada'))).toBe(false);
+  });
+
   it('dos clics simultaneos: gana uno solo (UPDATE condicional)', async () => {
     const { d, f } = await conFactura('ESCALAR');
     await Promise.all([manejarUpdate(callback(`a:${f.id}`), d), manejarUpdate(callback(`r:${f.id}`), d)]);

@@ -15,6 +15,10 @@ export interface ResumenFactura {
   numero_factura: string | null;
   monto_centavos: number | null;
   moneda: string | null;
+  /** ID fiscal leido (ficticio). Opcional: las filas anteriores no lo tienen. */
+  id_fiscal?: string | null;
+  /** Solo los ultimos 4 caracteres de la cuenta: el dueno verifica sin ver la cuenta completa. */
+  cuenta_final?: string | null;
 }
 
 export interface FacturaVivo {
