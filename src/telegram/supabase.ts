@@ -82,11 +82,7 @@ export class AlmacenSupabase implements Almacen {
     return id;
   }
 
-  async obtenerFactura(id: string): Promise<FacturaVivo | null> {
-    const { data, error } = await this.db.from('telegram_facturas').select('*').eq('id', id).maybeSingle();
-    chequear(error);
-    if (!data) return null;
-    const r = data as Record<string, unknown>;
+  private static facturaDe(r: Record<string, unknown>): FacturaVivo {
     return {
       id: r['id'] as string,
       chat_id: Number(r['chat_id']),
@@ -100,6 +96,28 @@ export class AlmacenSupabase implements Almacen {
       simulada: true,
       resuelta_por: r['resuelta_por'] === null || r['resuelta_por'] === undefined ? null : Number(r['resuelta_por']),
     };
+  }
+
+  async obtenerFactura(id: string): Promise<FacturaVivo | null> {
+    const { data, error } = await this.db.from('telegram_facturas').select('*').eq('id', id).maybeSingle();
+    chequear(error);
+    return data ? AlmacenSupabase.facturaDe(data as Record<string, unknown>) : null;
+  }
+
+  async ultimasFacturas(empresaId: string, limite: number, soloChat?: number): Promise<FacturaVivo[]> {
+    let q = this.db.from('telegram_facturas').select('*').eq('empresa_id', empresaId);
+    if (soloChat !== undefined) q = q.eq('chat_id', soloChat);
+    const { data, error } = await q.order('creada_en', { ascending: false }).limit(limite);
+    chequear(error);
+    return ((data ?? []) as Record<string, unknown>[]).map((r) => AlmacenSupabase.facturaDe(r));
+  }
+
+  async contarPendientes(empresaId: string, soloChat?: number): Promise<number> {
+    let q = this.db.from('telegram_facturas').select('id', { count: 'exact', head: true }).eq('empresa_id', empresaId);
+    if (soloChat !== undefined) q = q.eq('chat_id', soloChat);
+    const { count, error } = await q.eq('decision', 'ESCALAR').eq('estado_resolucion', 'PENDIENTE');
+    chequear(error);
+    return count ?? 0;
   }
 
   async resolverFactura(id: string, estado: 'APROBADA' | 'RECHAZADA', por: number): Promise<boolean> {

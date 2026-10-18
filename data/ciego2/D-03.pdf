@@ -1,0 +1,59 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 1221 >>
+stream
+0.88 g 40 770 515 40 re f 0 g
+BT /F2 15 Tf 0.0 g 50 785 Td (Consultores Cafetal S.A.S.) Tj ET
+BT /F2 11 Tf 0.0 g 430 785 Td (FACTURA) Tj ET
+BT /F1 10 Tf 0.0 g 50 740 Td (Cliente: Aurora Cloud Inc.) Tj ET
+0.7 w 0.0 G 40 725 m 555 725 l S
+BT /F2 10 Tf 0.25 g 50 700 Td (Proveedor:) Tj ET
+BT /F1 11 Tf 0.0 g 170 700 Td (Consultores Cafetal S.A.S.) Tj ET
+BT /F2 10 Tf 0.25 g 50 674 Td (ID fiscal:) Tj ET
+BT /F1 11 Tf 0.0 g 170 674 Td (FIC-CO-002) Tj ET
+BT /F2 10 Tf 0.25 g 50 648 Td (Cuenta:) Tj ET
+BT /F1 11 Tf 0.0 g 170 648 Td (ACC-CO-0002) Tj ET
+BT /F2 10 Tf 0.25 g 50 622 Td (Factura n.º:) Tj ET
+BT /F1 11 Tf 0.0 g 170 622 Td (CC-1187) Tj ET
+BT /F2 10 Tf 0.25 g 50 596 Td (Emisión:) Tj ET
+BT /F1 11 Tf 0.0 g 170 596 Td (06/10/2026) Tj ET
+BT /F2 10 Tf 0.25 g 50 570 Td (Vence:) Tj ET
+BT /F1 11 Tf 0.0 g 170 570 Td (05/11/2026) Tj ET
+BT /F2 10 Tf 0.25 g 50 544 Td (Concepto:) Tj ET
+BT /F1 11 Tf 0.0 g 170 544 Td (Consultoría de procesos, semana 1) Tj ET
+BT /F2 10 Tf 0.25 g 50 518 Td (Total a pagar:) Tj ET
+BT /F2 11 Tf 0.0 g 170 518 Td (COP 7.900.000) Tj ET
+0.7 w 0.0 G 40 500 m 555 500 l S
+BT /F1 9 Tf 0.4 g 50 120 Td (Gracias por su pago puntual.) Tj ET
+BT /F1 8 Tf 0.5 g 50 40 Td (Documento ficticio para pruebas) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000348 00000 n 
+0000000450 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1723
+%%EOF

@@ -1,0 +1,99 @@
+{
+  "id": "D-04",
+  "fecha": "2026-10-18T08:33:46.406Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "BM-0912",
+      "beneficiario": "Estúdio Beira-Mar Ltda.",
+      "id_fiscal": "FIC-BR-005",
+      "cuenta": "ACC-BR-0005",
+      "monto_centavos": 1085000,
+      "moneda": "BRL",
+      "fecha_emision": "2026-10-07",
+      "categoria": "Diseño",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "Estúdio Beira-Mar Ltda.\nFATURA\nCliente: Aurora Cloud Inc.\nFornecedor:\nEstúdio Beira-Mar Ltda.\nID fiscal:\nFIC-BR-005\nConta:\nACC-BR-0005\nFatura n.º:\nBM-0912\nEmissão:\n07/10/2026\nVencimento:\n30/10/2026\nDescrição:\nIdentidade visual, entrega 1\nTotal a pagar:\nBRL 10.850,00\nGracias por su pago puntual.\nDocumento ficticio para pruebas"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3460,
+        "tokens_salida": 506,
+        "costo_usd": 0.000599,
+        "ms": 3578,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Estúdio Beira-Mar Ltda.",
+          "id_fiscal": "FIC-BR-005",
+          "cuenta": "ACC-BR-0005",
+          "monto": "10850.00",
+          "moneda": "BRL",
+          "moneda_explicita": true,
+          "fecha": "2026-10-07",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "BM-0912",
+          "categoria": "Diseño",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2239,
+        "tokens_salida": 258,
+        "costo_usd": 0.00094675,
+        "ms": 1942,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Estúdio Beira-Mar Ltda.",
+          "id_fiscal": "FIC-BR-005",
+          "cuenta": "ACC-BR-0005",
+          "monto": "10850.00",
+          "moneda": "BRL",
+          "moneda_explicita": true,
+          "fecha": "2026-10-07",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "BM-0912",
+          "categoria": "Diseño",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Identidade visual, entrega 1",
+              "monto": "10850.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3579,
+    "costo_usd": 0.00154575
+  }
+}

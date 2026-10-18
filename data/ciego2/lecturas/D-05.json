@@ -1,0 +1,101 @@
+{
+  "id": "D-05",
+  "fecha": "2026-10-18T08:33:49.367Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "NOM-0013",
+      "beneficiario": "Marcos Rivas",
+      "id_fiscal": "FIC-VE-007",
+      "cuenta": "ACC-VE-0007",
+      "monto_centavos": 148000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-08",
+      "categoria": "Nómina",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3950,
+        "tokens_salida": 198,
+        "costo_usd": 0.000494,
+        "ms": 2955,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Marcos Rivas",
+          "id_fiscal": "FIC-VE-007",
+          "cuenta": "ACC-VE-0007",
+          "monto": "1480.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-08",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "NOM-0013",
+          "categoria": "Nómina",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 3159,
+        "tokens_salida": 255,
+        "costo_usd": 0.00117225,
+        "ms": 2534,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Marcos Rivas",
+          "id_fiscal": "FIC-VE-007",
+          "cuenta": "ACC-VE-0007",
+          "monto": "1480.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-08",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "NOM-0013",
+          "categoria": "Nómina",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Honorarios de contratista, primera quincena de octubre",
+              "monto": "1480.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2956,
+    "costo_usd": 0.0016662499999999998
+  }
+}

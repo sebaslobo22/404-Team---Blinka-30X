@@ -1,0 +1,8 @@
+[Chat: Taller Orinoco C.A. <-> Aurora Cloud Finanzas]
+[09/10/2026 9:02] Taller Orinoco: buenas tardes, les paso el cobro
+[09/10/2026 9:02] Taller Orinoco: ID fiscal FIC-VE-003, factura TO-0242
+[09/10/2026 9:03] Taller Orinoco: Reparación de equipos de red (reenvío, por si no llegó), USD 1,185.00
+[09/10/2026 9:03] Taller Orinoco: cuenta ACC-VE-0003. Vence el 31/10/2026
+[09/10/2026 9:09] Finanzas Aurora: recibido, gracias
+
+(Documento ficticio para pruebas)

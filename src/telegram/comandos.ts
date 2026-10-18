@@ -28,7 +28,7 @@ export const AYUDA = [
   '/empresa: te digo en qué empresa estás y con qué reglas decido.',
   '/proveedor ID-FISCAL CUENTA Nombre: el dueño agrega un proveedor a su lista.',
   '/limite 1000, 5000, 10000 o 25000: el dueño cambia el límite por pago en USD.',
-  '/demo: vuelves a la empresa de prueba (Aurora Cloud).',
+  '/demo: vuelves a la empresa de ejemplo (Aurora Cloud).',
 ].join('\n');
 
 const SOLO_PRIVADO = 'Esto se hace en un chat privado conmigo, no en un grupo.';
@@ -60,9 +60,9 @@ export async function ejecutarComando(comando: string, argumento: string, c: Con
     const { m, e } = actual;
     const provs = e.es_demo ? null : (await c.almacen.proveedores(e.id)).length;
     return [
-      `Estás en «${limpio(e.nombre, 60)}» como ${m.rol === 'DUENO' ? 'dueño: tú apruebas' : e.es_demo ? 'invitado de la demo' : 'parte del equipo: aprueba el dueño'}.`,
+      `Estás en «${limpio(e.nombre, 60)}» como ${m.rol === 'DUENO' ? 'dueño: tú apruebas' : e.es_demo ? 'invitado de la empresa de ejemplo' : 'parte del equipo: aprueba el dueño'}.`,
       `Límite por pago: ${usd(e.limite_pago_usd_centavos)}.`,
-      provs === null ? 'Proveedores: los de la empresa ficticia de la demo.' : `Proveedores en tu lista: ${provs}.`,
+      provs === null ? 'Proveedores: los de la empresa de ejemplo.' : `Proveedores en tu lista: ${provs}.`,
       m.rol === 'DUENO' ? `Código para tu equipo: ${e.codigo}` : '',
     ].filter(Boolean).join('\n');
   }

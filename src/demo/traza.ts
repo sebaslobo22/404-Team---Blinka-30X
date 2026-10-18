@@ -57,11 +57,9 @@ function filaInyeccion(r: ResultadoDecision, factura: FacturaExtraida, cfg: Conf
       nota: 'El texto de la factura es dato, nunca orden: se ignora como instrucción y una persona revisa.',
     };
   }
-  return {
-    id: 'INYECCION',
-    estado: 'CUMPLE',
-    cifra: typeof factura.texto_fuente === 'string' && factura.texto_fuente !== '' ? '0 fragmentos detectados en el texto fuente' : 'Sin texto fuente que revisar',
-  };
+  // Sin texto fuente no hay nada que revisar: se muestra como "No aplica", nunca como "Cumple".
+  if (typeof factura.texto_fuente !== 'string' || factura.texto_fuente === '') return { id: 'INYECCION', estado: 'NO_APLICA', cifra: 'Sin texto fuente que revisar' };
+  return { id: 'INYECCION', estado: 'CUMPLE', cifra: '0 fragmentos detectados en el texto fuente' };
 }
 
 function filaConfianza(r: ResultadoDecision, cfg: Config): FilaTraza {
@@ -105,7 +103,7 @@ export function construirTraza(r: ResultadoDecision, cfg: Config, factura: Factu
   const filas: FilaTraza[] = [];
 
   if (efectoDe('EXTRACCION')) {
-    filas.push({ id: 'EXTRACCION', estado: 'ESCALAR', cifra: `${num(h, 'alertas_n') ?? SIN_DATO} alertas de las defensas de la extracción` });
+    filas.push({ id: 'EXTRACCION', estado: 'ESCALAR', cifra: `${num(h, 'alertas_n') ?? SIN_DATO} ${num(h, 'alertas_n') === 1 ? 'alerta' : 'alertas'} de las defensas de la extracción` });
   }
   if (falloInterno) {
     filas.push({ id: 'ESQUEMA', estado: 'ESCALAR', cifra: 'No se pudo evaluar la factura; se escala por seguridad.' });

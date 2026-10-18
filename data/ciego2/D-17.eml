@@ -1,0 +1,25 @@
+From: facturacion@marcosrivas.example
+To: cuentas@auroracloud.example
+Subject: Cobro NOM-0014 - Honorarios de contratista, segunda quinc
+Date: Wed, 14 Oct 2026 10:12:00 -0500
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Estimados señores de Aurora Cloud:
+
+Les hacemos llegar nuestro cobro del periodo.
+
+Proveedor: Marcos Rivas
+ID fiscal: FIC-VE-007
+Cuenta: ACC-VE-0007
+Factura n.º: NOM-0014
+Emisión: 14/10/2026
+Vence: 31/10/2026
+Concepto: Honorarios de contratista, segunda quincena de octubre
+Total a pagar: USD 1,515.00
+
+Saludos cordiales,
+Marcos Rivas
+
+--
+Documento ficticio para pruebas.

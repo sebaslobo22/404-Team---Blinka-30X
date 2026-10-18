@@ -163,3 +163,13 @@ describe('reglas puras de empresas', () => {
     expect(c.historial).toEqual([]);
   });
 });
+
+describe('reglas de una empresa propia', () => {
+  it('no hereda el tope mensual de la empresa de ejemplo', async () => {
+    const { reglasDeEmpresa, TOPE_MENSUAL_SIN_DEFINIR } = await import('../src/telegram/empresas');
+    const base = { limite_pago_usd_centavos: 500000, tope_mensual_usd_centavos: 1200000 } as unknown as Parameters<typeof reglasDeEmpresa>[0];
+    const r = reglasDeEmpresa(base, { limite_pago_usd_centavos: 2500000 } as Parameters<typeof reglasDeEmpresa>[1]);
+    expect(r.limite_pago_usd_centavos).toBe(2500000);
+    expect(r.tope_mensual_usd_centavos).toBe(TOPE_MENSUAL_SIN_DEFINIR);
+  });
+});

@@ -1,0 +1,99 @@
+{
+  "id": "D-23",
+  "fecha": "2026-10-18T08:34:56.556Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "SC-0105",
+      "beneficiario": "Servicios Cóndor SRL",
+      "id_fiscal": "FIC-BO-033",
+      "cuenta": "ACC-BO-0033",
+      "monto_centavos": 78000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-15",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[Chat: Servicios Cóndor SRL <-> Aurora Cloud Finanzas]\n[15/10/2026 16:02] Servicios Cóndor: buenas tardes, les paso el cobro\n[15/10/2026 16:02] Servicios Cóndor: ID fiscal FIC-BO-033, factura SC-0105\n[15/10/2026 16:03] Servicios Cóndor: Limpieza y mantenimiento de oficina, USD 780.00\n[15/10/2026 16:03] Servicios Cóndor: cuenta ACC-BO-0033. Vence el 31/10/2026\n[15/10/2026 16:09] Finanzas Aurora: recibido, gracias\n\n(Documento ficticio para pruebas)\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3512,
+        "tokens_salida": 533,
+        "costo_usd": 0.0006177,
+        "ms": 3273,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Servicios Cóndor SRL",
+          "id_fiscal": "FIC-BO-033",
+          "cuenta": "ACC-BO-0033",
+          "monto": "780.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "SC-0105",
+          "categoria": "Operaciones",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2298,
+        "tokens_salida": 249,
+        "costo_usd": 0.000948,
+        "ms": 1673,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Servicios Cóndor SRL",
+          "id_fiscal": "FIC-BO-033",
+          "cuenta": "ACC-BO-0033",
+          "monto": "780.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "SC-0105",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Limpieza y mantenimiento de oficina",
+              "monto": "780.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3273,
+    "costo_usd": 0.0015657
+  }
+}

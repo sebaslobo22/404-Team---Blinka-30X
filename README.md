@@ -34,7 +34,7 @@ Cada cifra dice sobre qué se midió. Ninguna prueba que Pulso funcione con fact
 | **Set externo** (80 escenarios escritos por Jofre, que no escribió el motor ni las reglas) | Sobre las 62 filas que puntúan: **0 pagos indebidos**, no pagar donde se esperaba no pagar **44 de 44**, coincidencia exacta **38 de 62** (61,3 %). El motor activó la defensa de instrucciones ocultas en 3 de 3 filas con inyección. | **No es un set ciego:** lo vimos antes de correrlo. Se corrió **una sola vez** con el protocolo congelado en un commit antes de correr ([`docs/set-externo.md`](docs/set-externo.md), resultado en [`docs/set-externo-resultados.md`](docs/set-externo-resultados.md)). Mide el motor sobre datos estructurados, no el lector. Las 24 diferencias son de dos clases de política declaradas de antemano. |
 | **Set ciego** (10 documentos nuevos: PDF, imagen, correo y chat, uno en portugués y una orden oculta en alemán) | **0 pagos indebidos.** Coincidencia con la etiqueta congelada: **6 de 9** (sin el caso ambiguo). De las 3 diferencias, 2 son etiquetas mal hechas (el motor frenó por presupuesto de Diseño, que la etiqueta no consideró) y 1 es un escalado seguro: un acento mal decodificado en un PDF hizo que los dos modelos leyeran distinto el nombre. Costó USD 0,02. | Lo escribió un **agente aislado** que no vio el motor, el lector, las pruebas ni las facturas de desarrollo, y se congeló con hash antes de correrlo. Pasa por **lector + motor**, en vivo, una sola vez. Son 10 casos y el autor conoce las mismas reglas: es evidencia, no prueba de generalización ([`docs/set-ciego.md`](docs/set-ciego.md), resultado en [`docs/set-ciego-resultados.md`](docs/set-ciego-resultados.md)). |
 | **Lector de facturas** (banco de modelos, 18 facturas) | Gemini 3.1 Flash-Lite 161 de 161 campos; Claude Haiku 5.5 159 de 161. Leer las 18 costó unos USD 0,02. | Medido sobre las mismas facturas con las que se afinó el prompt. Detalle en [`docs/banco-modelos-2026-10-17.md`](docs/banco-modelos-2026-10-17.md). |
-| **Pruebas automáticas** | Más de 400 pruebas, incluidas propiedades contra un oráculo independiente (el motor decide PAGAR si y solo si el oráculo lo permite), determinismo y detección de alteraciones del registro. | Se verificó además rompiendo el código a propósito: los tests detectaron cada cambio. |
+| **Pruebas automáticas** | 719 pruebas, incluidas propiedades contra un oráculo independiente (el motor decide PAGAR si y solo si el oráculo lo permite), determinismo y detección de alteraciones del registro. | Se verificó además rompiendo el código a propósito: los tests detectaron cada cambio. |
 
 **Lo que NO medimos**
 - Generalización con facturas reales de terceros. El set ciego son 10 casos escritos por un agente que conoce las reglas; el set externo lo escribió un compañero, pero lo vimos antes de correrlo.
@@ -189,9 +189,19 @@ Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hor
 
 ## Hoja de ruta (no está en esta entrega)
 
-- **Segunda opinión independiente:** sumar un clasificador con probabilidad calibrada (por ejemplo JEV de TypeSafe AI) que diga si una factura es coherente con el historial del proveedor. Si duda, Pulso escala. Lo evaluamos y no lo integramos para no meter una pieza sin medir antes del cierre (`docs/jev-evaluacion.md`).
+Ninguna de estas piezas está construida. Van ordenadas de menor a mayor **costo y fricción** (cuánto trabajo, qué cuentas o permisos de terceros hacen falta y cuánto gasto nuevo meten). Ninguna cambia el principio de fondo: la IA lee, el código decide y Pulso no mueve dinero.
+
+1. **Notas de voz (transcripción).** Una nota de voz por Telegram se transcribe con un modelo y entra como texto al mismo lector y al mismo motor. Es una entrada más, sin cuentas nuevas. Una transcripción tiene confianza baja por defecto, así que casi siempre termina en ESCALAR (`docs/mapa-escenarios.md`). Costo: una llamada de transcripción por nota.
+2. **Respuestas en voz.** Leer en voz alta la misma frase que hoy sale como texto. No toca la decisión ni el motor, solo la presentación; vale la pena solo si hay personas que no leen el chat.
+3. **Segunda opinión con JEV (TypeSafe AI).** Un clasificador barato que diga si una factura es coherente con el historial del proveedor; si duda, Pulso escala, nunca paga. Sería una tercera opinión sobre lo que hoy hacen dos modelos y el código. La evaluación estimó de 2 a 4 horas para un punto mínimo, con el acceso aún incierto: depende de una llave real o de activar una pasarela con tarjeta (`docs/jev-evaluacion.md`). No lo integramos para no meter una pieza sin medir.
+4. **Conciliación y duplicados.** Hoy R5 frena los duplicados dentro de una ventana, y una factura corregida con el mismo número queda frenada como duplicado (límite conocido). Falta cruzar las órdenes marcadas como pagadas con un extracto bancario (CSV) y distinguir una corrección de un duplicado. Es solo código y datos propios; el cuidado está en no frenar facturas recurrentes legítimas.
+5. **Lote masivo.** Subir una carpeta o un ZIP con muchas facturas y recibir una tabla de decisiones. Pide una cola de trabajo (hoy cada lectura corre dentro de un límite de 60 s) y un presupuesto de gasto por lote, porque el costo de lectura se multiplica por factura.
+6. **WhatsApp.** Misma idea que Telegram, con más fricción: exige una cuenta de WhatsApp Business verificada, plantillas aprobadas por Meta y costos por conversación. Se lee el documento que llega; sin monto claro, ESCALAR.
+7. **Integración real con Blinka y QuickBooks.** Hoy la salida es una orden en formato propuesto y un CSV, porque Blinka no publica una API. Cuando exista (y para QuickBooks, Xero o Bill.com), Pulso leería el historial real y entregaría la orden por API, siempre con una persona que aprueba lo escalado. Está bloqueada por terceros, no por trabajo nuestro.
+
+Ya previstas desde antes:
+
 - **Facturas electrónicas fiscales** (XML de la DIAN, CFDI del SAT, NF-e): leer el documento firmado en vez de la imagen, que elimina casi todo el riesgo de lectura.
-- **Conexión con bandejas reales** (correo y WhatsApp Business) y con el sistema contable (QuickBooks, Xero).
 - **Tasas de cambio en vivo** de una fuente oficial, con la tasa usada guardada en el registro.
 - **Persistencia y cuentas:** registro en Supabase en producción, varias personas aprobadoras y doble aprobación sobre cierto monto.
 - **Mejor lectura de PDF:** decodificar bien las fuentes con codificaciones antiguas (el caso C-02 del set ciego).
@@ -210,6 +220,165 @@ Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hor
 - [`docs/guion-video.md`](docs/guion-video.md): guion del video de 3 minutos.
 - [`docs/set-externo.md`](docs/set-externo.md) y [`docs/set-externo-resultados.md`](docs/set-externo-resultados.md): protocolo congelado y resultado de la corrida única del set externo.
 - [`docs/extraccion.md`](docs/extraccion.md) y [`docs/banco-modelos-2026-10-17.md`](docs/banco-modelos-2026-10-17.md): el lector de facturas y el banco de modelos.
+- [`docs/api.md`](docs/api.md): las rutas HTTP (vivo, órdenes, pagos, Gmail, webhook de Telegram) con ejemplos `curl`, y el servidor MCP para Claude Code (`mcp/`).
+
+## Instálalo en 30 minutos
+
+Guía para que una persona, o una IA como Claude Code, deje Pulso funcionando de cero sin preguntar nada. Cada paso termina con una **Comprobación**: si no da lo esperado, no sigas al siguiente. Los pasos 1 a 3 no necesitan cuentas ni claves; el resto suma una capacidad cada vez (lectura en vivo, base de datos, bot, despliegue, correo, MCP) y puedes parar en el que te alcance.
+
+> **Para una IA que siga esta guía:** no pegues claves en el chat ni en archivos que se versionan (`.env*` ya está en `.gitignore`), no crees cuentas por la persona y no actives pagos reales: Pulso no los tiene. Cuando un paso pida una cuenta o una clave, detente y pídeselo a la persona.
+
+### 1. Requisitos
+
+| Qué | Para qué | Notas |
+|---|---|---|
+| Node 20.12 o más nuevo y Git | todo | El proyecto se corrió con Node 24. El bot local usa `process.loadEnvFile`, que pide 20.12 o más |
+| Cuenta de [Supabase](https://supabase.com) | base del bot de Telegram y del centro de mando | El plan gratuito alcanza |
+| Cuenta de [OpenRouter](https://openrouter.ai) con **límite de crédito** | leer facturas reales con IA | Cada factura cuesta centavos. El límite se fija en su panel y es el único techo de gasto real |
+| Cuenta de Telegram y [@BotFather](https://t.me/BotFather) | el bot | Un bot de desarrollo para local y otro para producción |
+| Cuenta de Vercel | despliegue | Opcional si solo lo corres en local |
+
+**Comprobación:** `node -v` imprime `v20.12` o más; `git --version` responde.
+
+### 2. Clonar e instalar
+
+```bash
+git clone https://github.com/sebaslobo22/404-Team---Blinka-30X.git pulso
+cd pulso
+npm ci
+```
+
+**Comprobación:** `npx tsc --noEmit` no imprime nada y `npm test` termina sin fallos.
+
+### 3. Correr la demo (sin claves)
+
+```bash
+npm run dev
+```
+
+**Comprobación:** `http://localhost:3000` muestra las 18 facturas de la demo (Aurora Cloud, datos ficticios) y `curl http://localhost:3000/api/ordenes` devuelve `"n":4`. La demo funciona en modo replay: lee lecturas grabadas y no llama a ninguna IA.
+
+### 4. Crear `.env.local`
+
+```bash
+cp .env.example .env.local      # en Windows PowerShell: Copy-Item .env.example .env.local
+```
+
+Las claves viven solo ahí (o en las variables del despliegue), nunca en el repo ni con prefijo `NEXT_PUBLIC_` salvo las dos de Supabase que lo llevan por diseño. Variables mínimas por capacidad; deja vacío lo que no uses:
+
+| Variable | Hace falta para | De dónde sale |
+|---|---|---|
+| `OPENROUTER_API_KEY` | leer facturas en vivo (web, bot, correo, MCP) | OpenRouter → Keys → Create key, con límite de crédito |
+| `LECTURA_EN_VIVO` | subida web `/probar` | Pon `1` para encenderla. Sin esto, `/probar` y `/api/vivo` quedan apagadas |
+| `NEXT_PUBLIC_SUPABASE_URL` | bot y centro de mando | Supabase → Project Settings → API → Project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | bot y centro de mando | Supabase → Project Settings → API → `service_role`. Solo en el servidor |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | solo el centro de mando `/team` | Supabase → Project Settings → API → `anon` |
+| `SUPABASE_DB_URL` | solo `scripts/migrar.mjs` (ver paso 6) | Supabase → Project Settings → Database → Connection string → URI, con la contraseña |
+| `TELEGRAM_BOT_TOKEN` | bot | BotFather, paso 7 |
+| `TELEGRAM_DUENO_ID` | que alguien pueda aprobar en el bot | Tu id numérico de Telegram, paso 7. Sin él, nadie aprueba |
+| `TELEGRAM_WEBHOOK_SECRET` | webhook en producción | Lo inventas tú, paso 9 |
+| `PULSO_URL_PUBLICA` | enlace en las respuestas | La URL de tu despliegue, sin barra final |
+| `GMAIL_CANAL_SECRETO` | canal de correo | Lo inventas tú, 24 caracteres o más, paso 10 |
+| `MODO_PUBLICO` | solo si quieres ocultar `/team` | Pon `1`. En tu propio despliegue de trabajo, déjalo vacío |
+
+Las demás (`VIVO_*`, `GMAIL_*_HORA`, `TELEGRAM_TOPE_DIARIO`, `EQUIPO_*`) son límites o ajustes con valor por defecto; no las necesitas para arrancar.
+
+**Comprobación:** `.env.local` existe y `git status` no lo lista (está ignorado).
+
+### 5. Lectura en vivo con OpenRouter
+
+1. En OpenRouter crea una clave y **fija su límite de crédito** (por ejemplo 5 USD). Sin límite, un abuso gasta sin freno: los topes por visitante de Pulso viven en memoria y no lo sustituyen.
+2. En `.env.local` pon `OPENROUTER_API_KEY=...` y `LECTURA_EN_VIVO=1`. Reinicia `npm run dev`.
+
+**Comprobación:** `curl http://localhost:3000/api/vivo` responde `{"activa":true}`. Sube una factura:
+
+```bash
+curl -X POST http://localhost:3000/api/vivo -F factura=@data/facturas/F-001-luz-andina.pdf
+```
+
+La respuesta trae `"ok":true`, una `decision` que es `ESCALAR` o `FRENAR` (**nunca `PAGAR`**: lo que entra en vivo lo revisa una persona) y un `costo_usd` de fracciones de centavo. También puedes subirla desde `http://localhost:3000/probar`.
+
+### 6. Base de datos en Supabase
+
+1. Crea un proyecto en Supabase y copia sus claves a `.env.local` (tabla del paso 4).
+2. `scripts/migrar.mjs` lee **solo** `.env` (no `.env.local`) y el archivo debe existir. Créalo con una sola línea: `SUPABASE_DB_URL=postgresql://...` (la URI con la contraseña). Está ignorado por git.
+3. Aplica las migraciones; el script las corre en orden (`0001_registro`, `0002_equipo`, `0003_telegram`, `0004_empresas`), cada una en una transacción, y anota las aplicadas en `public._migraciones`:
+
+```bash
+node scripts/migrar.mjs
+```
+
+**Comprobación:** imprime `+ 0001_registro.sql aplicada` y lo mismo para 0002, 0003 y 0004. Si lo corres otra vez imprime `= 0001_registro.sql (ya aplicada)` en las cuatro. En Supabase → Table Editor aparecen `telegram_chats`, `telegram_empresas`, `telegram_facturas` y `telegram_uso`. Si una falla, el script revierte esa migración, dice cuál y se detiene. Aplícalas solo a un proyecto tuyo, nunca a uno ajeno.
+
+### 7. Bot de Telegram en local
+
+1. En Telegram habla con [@BotFather](https://t.me/BotFather): `/newbot`, elige nombre y usuario. Copia el token a `TELEGRAM_BOT_TOKEN`.
+2. Escríbele cualquier mensaje a tu bot. Luego abre en el navegador `https://api.telegram.org/bot<TU_TOKEN>/getUpdates` y copia el número de `message.from.id` a `TELEGRAM_DUENO_ID`. Esa URL lleva tu token: no la compartas.
+3. Arranca el bot (long polling, sin webhook):
+
+```bash
+npx vite-node scripts/telegram-local.ts --supabase    # estado en la base (necesita el paso 6)
+npx vite-node scripts/telegram-local.ts               # estado en memoria, sin Supabase
+```
+
+**Comprobación:** la consola imprime `Pulso (Telegram, modo local) escuchando.` En Telegram, `/start` responde con la presentación de Pulso. Envía el PDF `data/facturas/F-001-luz-andina.pdf` y llega la decisión con sus razones en frases. Cada factura gasta centavos de OpenRouter. Si el bot ya tiene un webhook activo, el script avisa y sale: usa un bot de desarrollo distinto.
+
+### 8. Desplegar en Vercel
+
+1. En Vercel: **Add New > Project**, importa el repo, framework Next.js, raíz por defecto.
+2. En Environment Variables carga, para Production, las del paso 4 que vayas a usar: `OPENROUTER_API_KEY`, `LECTURA_EN_VIVO`, `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_DUENO_ID`, `TELEGRAM_WEBHOOK_SECRET`, `PULSO_URL_PUBLICA` y, si quieres el correo, `GMAIL_CANAL_SECRETO`. Opcionales: `CHAT_IA`, `CHAT_POR_USUARIO_HORA` y `CHAT_GLOBAL_DIA` (conversación con IA del bot) y, para las tarjetas de la bienvenida, `NEXT_PUBLIC_TELEGRAM_BOT_URL` y `NEXT_PUBLIC_GMAIL_BUZON`. Las `NEXT_PUBLIC_*` se fijan al construir: si las cambias, vuelve a desplegar.
+3. Deploy.
+
+**Comprobación:** `curl https://TU-DOMINIO/api/ordenes` devuelve `"n":4`. Un despliegue **público** sin límite de crédito en OpenRouter es un riesgo de gasto: no lo anuncies antes de fijarlo. Para un enlace de demostración que no debe exponer lo interno (`/team`) ni gastar, mira [`docs/despliegue-vercel.md`](docs/despliegue-vercel.md) (modo `MODO_PUBLICO=1`, sin otras variables).
+
+### 9. Webhook de Telegram con secreto
+
+1. Detén el bot local (Ctrl+C). Con webhook activo, `getUpdates` deja de funcionar.
+2. Inventa el secreto (16 a 256 caracteres de `A-Z a-z 0-9 _ -`) y cárgalo como `TELEGRAM_WEBHOOK_SECRET` en Vercel; vuelve a desplegar:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(24).toString('hex'))"
+```
+
+3. Registra el webhook, una vez por despliegue:
+
+```bash
+curl -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook" \
+  -d url=https://TU-DOMINIO/api/telegram \
+  -d secret_token="$TELEGRAM_WEBHOOK_SECRET" \
+  -d 'allowed_updates=["message","callback_query"]'
+```
+
+**Comprobación:** `curl "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"` muestra tu `url` y ningún `last_error_message`. `curl -X POST https://TU-DOMINIO/api/telegram -d '{}'` responde **401** (sin la cabecera secreta, el endpoint rechaza todo). Luego `/start` en el bot responde. Detalle de rutas y errores: [`docs/api.md`](docs/api.md).
+
+### 10. Canal de Gmail (opcional)
+
+Un buzón del equipo con un script de Google Apps Script reenvía cada adjunto a `POST /api/canal/gmail`. Genera `GMAIL_CANAL_SECRETO` (24 caracteres o más, como en el paso 9), cárgalo en Vercel, vuelve a desplegar y sigue la instalación de [`integraciones/gmail/README.md`](integraciones/gmail/README.md) (unos 10 minutos).
+
+**Comprobación:** `curl -X POST https://TU-DOMINIO/api/canal/gmail` responde 401 (con secreto configurado) o 503 (sin él); un correo con una factura adjunta recibe la decisión en el mismo hilo en uno o dos minutos.
+
+### 11. Conectar el MCP a Claude Code (opcional)
+
+Desde la raíz del repo, con `npm ci` hecho:
+
+```bash
+claude mcp add pulso -- npx vite-node mcp/servidor.ts
+```
+
+Para que `leer_y_decidir_factura` lea facturas reales, tiene que encontrar `OPENROUTER_API_KEY` en `.env.local` (el servidor lo lee solo). Las otras cuatro herramientas no necesitan clave.
+
+**Comprobación:** `claude mcp list` muestra `pulso` conectado y, dentro de Claude Code, pedirle "lista las facturas de la demo de Pulso" devuelve 18 facturas con `decididas_sin_persona: 8`. Herramientas, ejemplos y la advertencia sobre `npm run mcp`: [`docs/api.md`](docs/api.md#servidor-mcp-stdio).
+
+### Si algo falla
+
+| Síntoma | Causa probable |
+|---|---|
+| `/api/vivo` dice `activa:false` | Falta `LECTURA_EN_VIVO=1` o `OPENROUTER_API_KEY`; reinicia `npm run dev` después de editar `.env.local` |
+| `node scripts/migrar.mjs`: "Falta SUPABASE_DB_URL" o error al leer `.env` | El script solo lee `.env`, y el archivo debe existir |
+| El webhook responde 503 `sin_estado` | Falta `TELEGRAM_BOT_TOKEN`, `NEXT_PUBLIC_SUPABASE_URL` o `SUPABASE_SERVICE_ROLE_KEY` en el despliegue |
+| El webhook responde 401 a Telegram | El `secret_token` del `setWebhook` no coincide con `TELEGRAM_WEBHOOK_SECRET`, o tiene menos de 16 caracteres |
+| El bot lee la factura pero nadie puede aprobar | Falta `TELEGRAM_DUENO_ID` |
+| `/team` muestra solo la semilla | Es lo esperado sin Supabase y `EQUIPO_PIN` (16 caracteres o más) |
 
 ## Prueba con tu factura (subida web en vivo)
 
@@ -254,6 +423,16 @@ Cada chat pertenece a **una empresa** y sus facturas se deciden con los proveedo
 - `/empresa` y `/ayuda`. Todo comando de empresa funciona solo en chat privado. Un dueño no se cambia de empresa con un comando (la dejaría sin quien apruebe).
 - **Una sola regla de aprobación** (`aprobadorDe` en `src/telegram/empresas.ts`), usada para el aviso, para los botones y para el clic: demo → `TELEGRAM_DUENO_ID`; otra empresa → su dueño; factura sin empresa → nadie.
 - Migración `supabase/migrations/0004_empresas.sql`: tablas `telegram_empresas`, `telegram_miembros` y `telegram_proveedores`, columna `empresa_id` en `telegram_facturas`, la demo como fila real y la función `telegram_crear_empresa` (crea empresa y dueño en una transacción). Pasa los chats y facturas existentes a la demo. **Aplicarla antes de desplegar este código.**
+
+### Conversación con IA (texto suelto)
+
+Un texto que no es comando ni archivo (por ejemplo "¿qué puedes hacer?") lo responde un modelo de texto (Gemini 3.1 Flash-Lite por OpenRouter, mismo proveedor fijo y sin retención). El modelo solo redacta: no decide, no paga, no aprueba ni cambia nada. Código: `src/telegram/conversacion.ts`.
+
+- **Qué ve el modelo:** un prompt fijo y una ficha armada por código con un almacén de solo lectura: nombre de la empresa, rol, límite, número de proveedores, facturas pendientes y como mucho las últimas 5 decisiones (id corto, proveedor, monto, decisión). Nunca cuentas, ID fiscal, código `PULSO-XXXXXX`, texto de facturas ni razones libres. Mensaje de máx. 500 caracteres, sin historial.
+- **Qué sale:** JSON `{"texto"}` y un filtro determinista que falla cerrado (máx. 600 caracteres; sin URLs ajenas, UUID, códigos, 8+ dígitos, claves ni frases de "ya lo hice"). Si algo no cuadra, o el modelo falla o tarda más de 12 s, se envía la ayuda fija. Texto plano, nunca botones. En grupos solo hay ayuda fija.
+- **Cupo propio:** `CHAT_POR_USUARIO_HORA` (20) y `CHAT_GLOBAL_DIA` (300), separado del de facturas. Vive en la memoria del proceso (la RPC `telegram_consumir_cupo` comparte el tope diario con las facturas), así que en un despliegue sin servidor cada instancia cuenta aparte: el techo real de gasto es el crédito de OpenRouter. Al agotarse, frase fija sin llamar al modelo.
+- **Interruptor:** `CHAT_IA=0` lo apaga (por defecto está encendido si hay `OPENROUTER_API_KEY`). Pruebas: `tests/telegram-conversacion.test.ts`.
+- La lectura de facturas reintenta una vez, solo ante error de red o timeout (no ante una respuesta inválida); el techo en vivo se sigue aplicando después.
 
 ### Qué datos guarda el bot y para qué
 

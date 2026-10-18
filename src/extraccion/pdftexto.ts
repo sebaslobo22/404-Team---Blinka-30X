@@ -1,5 +1,9 @@
 import { inflateSync } from 'node:zlib';
 
+const MAX_INFLADO_FLUJO = 2_000_000;
+const MAX_INFLADO_TOTAL = 8_000_000;
+const MAX_TEXTO = 30_000;
+
 /**
  * Capa de texto de un PDF sencillo (sin dependencias): descomprime los flujos FlateDecode y junta
  * las cadenas de los operadores Tj/TJ. Sirve para los PDF que genera `cupsfilter` y para facturas
@@ -12,15 +16,20 @@ export function textoDePdf(pdf: Uint8Array): string {
   const lineas: string[] = [];
   const re = /stream\r?\n/g;
   let m: RegExpExecArray | null;
-  while ((m = re.exec(s))) {
+  // Topes contra PDF bomba: cada flujo se infla hasta 2 MB (si no, cae al catch) y el total hasta 8 MB.
+  let inflado = 0;
+  while ((m = re.exec(s)) && inflado < MAX_INFLADO_TOTAL) {
     const ini = m.index + m[0].length;
     const fin = s.indexOf('endstream', ini);
     if (fin < 0) break;
     let datos: string;
     try {
-      datos = inflateSync(buf.subarray(ini, fin)).toString('latin1');
+      const crudo = inflateSync(buf.subarray(ini, fin), { maxOutputLength: MAX_INFLADO_FLUJO });
+      inflado += crudo.length;
+      datos = crudo.toString('latin1');
     } catch {
-      continue;
+      // Flujo sin comprimir (lo usan algunos generadores de facturas): se lee tal cual si trae texto.
+      datos = s.slice(ini, fin);
     }
     if (!/\bBT\b/.test(datos)) continue;
     for (const bloque of datos.split(/\bBT\b/).slice(1)) {
@@ -30,7 +39,9 @@ export function textoDePdf(pdf: Uint8Array): string {
       if (linea.trim()) lineas.push(linea.replace(/\s+$/, ''));
     }
   }
-  return lineas.join('\n');
+  const texto = lineas.join('\n');
+  // Un texto desmedido no va a los modelos: sale vacio y el lector escala (falla cerrada).
+  return texto.length > MAX_TEXTO ? '' : texto;
 }
 
 function desescapar(s: string): string {
