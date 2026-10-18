@@ -211,6 +211,16 @@ Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hor
 - [`docs/set-externo.md`](docs/set-externo.md) y [`docs/set-externo-resultados.md`](docs/set-externo-resultados.md): protocolo congelado y resultado de la corrida única del set externo.
 - [`docs/extraccion.md`](docs/extraccion.md) y [`docs/banco-modelos-2026-10-17.md`](docs/banco-modelos-2026-10-17.md): el lector de facturas y el banco de modelos.
 
+## Prueba con tu factura (subida web en vivo)
+
+En `/probar` cualquier persona sube una foto (JPG o PNG) o un PDF con texto, desde el teléfono o la computadora, y recibe la decisión de Pulso con sus razones. Es el mismo lector, el mismo motor y el **mismo techo en vivo que el bot de Telegram**: código en `src/vivo/`, ruta `app/api/vivo/route.ts`, pantalla `app/probar/`.
+
+- **Apagada por defecto.** Solo se activa con `LECTURA_EN_VIVO=1` y `OPENROUTER_API_KEY` a la vez. Sin eso, el enlace no aparece en el menú, `/probar` explica que está apagada y la API responde 503. El demo del jurado en modo replay no cambia.
+- **Nunca PAGAR.** Después del motor se aplica `aplicarTechoEnVivo` (de `src/telegram/techo.ts`): una factura que copia exactamente a un proveedor registrado de Aurora y queda dentro del acuerdo sale ESCALAR, no PAGAR (`tests/vivo.test.ts`). Un proveedor desconocido se frena. Si un modelo falla, o si OpenRouter responde con un modelo distinto al pedido, no hay pago.
+- **Mismas reglas que la demo.** Decide con las reglas de Aurora Cloud tal como están en la pantalla de reglas y con los pagos de la demo en el historial (para detectar duplicados). No toca el estado compartido: la factura subida no entra al registro, a la cola ni a las órdenes, y otro visitante no la ve.
+- **Archivo.** 4 MB como máximo, tipo por firma de bytes (misma validación que Telegram). Las fotos HEIC del iPhone y los PDF escaneados sin texto se rechazan con un mensaje claro antes de gastar lecturas. El archivo se envía a los dos modelos por OpenRouter (sin proveedor de reemplazo y con `data_collection: deny`); Pulso no lo guarda.
+- **Límites.** 5 lecturas por visitante por hora y un tope global diario (`VIVO_POR_VISITANTE_HORA`, `VIVO_GLOBAL_DIA`, 150 por defecto). Se cuentan en memoria del proceso: en un despliegue sin servidor se reinician en cada arranque en frío, así que **el techo real de gasto es el límite de crédito de la clave de OpenRouter**, que se fija en su panel.
+
 ## Bot de Telegram
 
 El jurado manda una foto o un PDF de una factura a un bot y recibe la decisión de Pulso con sus razones en frases llanas y un enlace al producto. Es el mismo lector (doble lectura Claude Haiku 5.5 + Gemini 3.1 Flash-Lite por OpenRouter) y el mismo motor `decidir` con el contexto y las reglas de Aurora Cloud del demo. Código en `src/telegram/`, webhook en `app/api/telegram/route.ts`.

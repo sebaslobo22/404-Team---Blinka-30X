@@ -19,7 +19,7 @@ export const nombres: Record<string, string> = {
   R1: 'Límite por pago', R2: 'Proveedor autorizado', R3: 'Tope del mes', R4: 'Dinero para este tipo de gasto',
   R5: 'Cobro repetido', R6: 'Monto acordado', R7: 'Datos completos', R8: 'Cuenta cambiada hace poco',
   INYECCION: 'La factura intenta dar órdenes', CONFIANZA: 'Lectura clara', REGISTRO: 'Nombre del proveedor',
-  EXTRACCION: 'Datos leídos', ESQUEMA: 'Datos válidos',
+  EXTRACCION: 'Datos leídos', ESQUEMA: 'Datos válidos', EN_VIVO: 'Entrada en vivo',
 };
 export function motivo(fila: FilaDemo): string {
   const r = fila.resultado;
@@ -52,6 +52,7 @@ export function frase(fila: FilaDemo): string {
 export function detalleRazon(t: FilaTraza): string {
   if(t.estado==='NO_EVALUADA') return 'No se pudo revisar con los datos disponibles.';
   if(t.estado==='NO_APLICA') return 'Esta revisión no corresponde a esta factura.';
+  if(t.id==='EN_VIVO') return 'Entró en vivo: siempre la revisa una persona, aunque cumpla tus reglas.';
   if(t.id==='REGISTRO') return t.estado==='CUMPLE'?'El nombre leído coincide con tu lista.':'El nombre leído no coincide con tu lista.';
   if(t.id==='INYECCION') return t.cifra.includes('Sin texto')?'No hay texto original para esta revisión.':t.estado==='CUMPLE'?'No se detectaron órdenes en el texto.':'Se detectó una orden dentro del texto.';
   if(t.id==='CONFIANZA') return t.estado==='CUMPLE'?'La lectura alcanza el nivel que piden tus reglas.':'La lectura no alcanza el nivel que piden tus reglas.';

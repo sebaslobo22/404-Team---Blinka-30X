@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BotonTour } from './tour/BotonTour';
 import { TamanoLetra } from './ui/Sistema';
-import { IconoDecisiones, IconoCola, IconoReglas, IconoRegistro, IconoEquipo, IconoTema, Ic } from './ui/iconos';
+import { IconoDecisiones, IconoCola, IconoReglas, IconoRegistro, IconoEquipo, IconoTema, IconoVivo, Ic } from './ui/iconos';
 const enlaces = [['/', 'Inicio', IconoDecisiones], ['/cola', 'Tu ayuda', IconoCola], ['/reglas', 'Reglas', IconoReglas], ['/registro', 'Registro', IconoRegistro]] as const;
 export function Cabecera({equipoDisponible=true}:{equipoDisponible?:boolean}) {
   const [tema, setTema] = useState('sistema');
@@ -21,9 +21,10 @@ export function Cabecera({equipoDisponible=true}:{equipoDisponible?:boolean}) {
       <TamanoLetra /></div>
   </header>;
 }
-export function NavegacionMovil() { const ruta = usePathname(); return <nav className="nav-inferior" aria-label="Principal en móvil">{enlaces.map(([href, texto, Icono]) => <Link key={href} href={href} aria-current={(href === '/' ? ruta === '/' || ruta.startsWith('/facturas/') : ruta === href) ? 'page' : undefined}><Icono /><span>{texto}</span></Link>)}</nav>; }
+const enlaceVivo = ['/probar', 'Probar', IconoVivo] as const;
+export function NavegacionMovil({vivoDisponible=false}:{vivoDisponible?:boolean}) { const ruta = usePathname(); const lista = vivoDisponible ? [...enlaces, enlaceVivo] : enlaces; return <nav className="nav-inferior" aria-label="Principal en móvil">{lista.map(([href, texto, Icono]) => <Link key={href} href={href} aria-current={(href === '/' ? ruta === '/' || ruta.startsWith('/facturas/') : ruta === href) ? 'page' : undefined}><Icono /><span>{texto}</span></Link>)}</nav>; }
 export function AvisoReplay() {
-const [visible, setVisible] = useState(true); const ruta = usePathname(); if (!visible || ruta.startsWith('/team')) return null; return <aside className="aviso-demo">
+const [visible, setVisible] = useState(true); const ruta = usePathname(); if (!visible || ruta.startsWith('/team') || ruta.startsWith('/probar')) return null; return <aside className="aviso-demo">
     <div className="contenedor">
       <p className="con-ic"><Ic nombre="info" size={24} /><span><strong>Demostración.</strong> Los datos son ficticios. Las lecturas son reales: se grabaron y se reproducen sin llamar a ningún modelo ni usar claves. El sistema nunca mueve dinero.</span></p>
       <button className="btn btn-texto" onClick={() => setVisible(false)}><Ic nombre="x" size={20} />Cerrar</button></div>

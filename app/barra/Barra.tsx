@@ -4,10 +4,12 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CLAVE_BARRA, alternarBarra, esActivo, esAtajoBarra, hayBarra, leerEstadoBarra, nombreTema, siguienteTema, textoContador } from './estado';
 import type { EstadoBarra } from './estado';
-import { IconoCola, IconoColapsar, IconoDecisiones, IconoEquipo, IconoMarca, IconoRecorrido, IconoRegistro, IconoReglas, IconoTema } from './iconos';
+import { IconoCola, IconoColapsar, IconoDecisiones, IconoEquipo, IconoMarca, IconoRecorrido, IconoRegistro, IconoReglas, IconoTema, IconoVivo } from './iconos';
 import { TamanoLetra } from '../ui/Sistema';
-const enlaces = [['/', 'Decisiones', IconoDecisiones], ['/cola', 'Tu aprobación', IconoCola], ['/reglas', 'Tus reglas', IconoReglas], ['/registro', 'Registro', IconoRegistro]] as const;
-export function BarraLateral({pendientes,equipoDisponible=true}:{pendientes:number|null;equipoDisponible?:boolean}) {
+const enlacesBase = [['/', 'Decisiones', IconoDecisiones], ['/cola', 'Tu aprobación', IconoCola], ['/reglas', 'Tus reglas', IconoReglas], ['/registro', 'Registro', IconoRegistro]] as const;
+const enlaceVivo = ['/probar', 'Prueba tu factura', IconoVivo] as const;
+export function BarraLateral({pendientes,equipoDisponible=true,vivoDisponible=false}:{pendientes:number|null;equipoDisponible?:boolean;vivoDisponible?:boolean}) {
+  const enlaces = vivoDisponible ? [...enlacesBase, enlaceVivo] : enlacesBase;
   const ruta = usePathname(); const [estado, setEstado] = useState<EstadoBarra>('ampliada'); const [tema, setTema] = useState('sistema');
   const actual = useRef(estado); actual.current = estado;
   useEffect(() => { try { setEstado(leerEstadoBarra(localStorage.getItem(CLAVE_BARRA))); } catch { } const leer = () => { try { setTema(localStorage.getItem('404-tema') ?? 'sistema'); } catch { } }; leer(); window.addEventListener('tema:cambio', leer); return () => window.removeEventListener('tema:cambio', leer); }, []);

@@ -5,6 +5,7 @@ import { Tour } from './tour/Tour';
 import { estadoAprobacion } from '../src/demo/estado';
 import { obtenerEstado } from '../src/demo/singleton';
 import { modoPublico } from '../src/publico';
+import { lecturaEnVivoActiva } from '../src/vivo/activa';
 import type { ReactNode } from 'react';
 import './globals.css';
 import './barra/barra.css';
@@ -33,19 +34,20 @@ async function contarPendientes(): Promise<number | null> {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const pendientes = await contarPendientes();
   const equipoDisponible = !modoPublico(process.env);
+  const vivoDisponible = lecturaEnVivoActiva(process.env);
   return (
     <html lang="es" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: SCRIPT_BARRA }} /></head>
       <body>
         <a className="saltar" href="#contenido">Saltar al contenido</a>
-        <BarraLateral pendientes={pendientes} equipoDisponible={equipoDisponible} />
+        <BarraLateral pendientes={pendientes} equipoDisponible={equipoDisponible} vivoDisponible={vivoDisponible} />
         <Cabecera equipoDisponible={equipoDisponible} />
         <div className="app-cuerpo">
           <AvisoReplay />
           <main id="contenido" className="contenedor principal">{children}</main>
           <footer className="contenedor pie">Pulso · Pulso firme en cada pago · Equipo 404. Nunca mueve dinero.</footer>
         </div>
-        <NavegacionMovil /><Tour />
+        <NavegacionMovil vivoDisponible={vivoDisponible} /><Tour />
       </body>
     </html>
   );

@@ -274,7 +274,10 @@ describe('lecturas reales en el producto', () => {
       for (const ruta of recorrer(dir)) {
         if (ruta.split(sep).join('/').includes('app/api/team')) continue;
         const txt = readFileSync(ruta, 'utf8');
-        for (const p of prohibidos) expect(p.test(txt), `${ruta} coincide con ${p}`).toBe(false);
+        // /probar es la lectura EN VIVO (apagada salvo LECTURA_EN_VIVO=1 con clave; ver tests/vivo.test.ts): su aviso de
+        // privacidad nombra a OpenRouter a proposito. Sigue sin importar el lector ni tocar claves.
+        const enVivo = ruta.split(sep).join('/').includes('app/probar/');
+        for (const p of prohibidos) if (!(enVivo && p.source === 'OPENROUTER')) expect(p.test(txt), `${ruta} coincide con ${p}`).toBe(false);
       }
     }
   });
