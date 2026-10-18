@@ -1,0 +1,99 @@
+{
+  "id": "D-09",
+  "fecha": "2026-10-18T08:34:03.099Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "AP-3310",
+      "beneficiario": "Agro Páramo Cía. Ltda.",
+      "id_fiscal": "FIC-EC-004",
+      "cuenta": "ACC-EC-0004",
+      "monto_centavos": 980000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-09",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "Agro Páramo Cía. Ltda.\nINVOICE\nBill to: Aurora Cloud Inc.\nVendor:\nAgro Páramo Cía. Ltda.\nTax ID:\nFIC-EC-004\nAccount:\nACC-EC-0004\nInvoice no.:\nAP-3310\nIssue date:\n09/10/2026\nDue date:\n08/11/2026\nDescription:\nServicio anual de riego y monitoreo de sensores\nAmount due:\nUSD 9,800.00\nThank you for your prompt payment.\nDocumento ficticio para pruebas"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3454,
+        "tokens_salida": 605,
+        "costo_usd": 0.0006479,
+        "ms": 4376,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Agro Páramo Cía. Ltda.",
+          "id_fiscal": "FIC-EC-004",
+          "cuenta": "ACC-EC-0004",
+          "monto": "9800.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-09",
+          "fecha_vencimiento": "2026-11-08",
+          "numero_factura": "AP-3310",
+          "categoria": "Operaciones",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2240,
+        "tokens_salida": 260,
+        "costo_usd": 0.00095,
+        "ms": 2050,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Agro Páramo Cía. Ltda.",
+          "id_fiscal": "FIC-EC-004",
+          "cuenta": "ACC-EC-0004",
+          "monto": "9800.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-09",
+          "fecha_vencimiento": "2026-11-08",
+          "numero_factura": "AP-3310",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Servicio anual de riego y monitoreo de sensores",
+              "monto": "9800.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 4376,
+    "costo_usd": 0.0015979
+  }
+}

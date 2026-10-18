@@ -1,0 +1,99 @@
+{
+  "id": "D-01",
+  "fecha": "2026-10-18T08:33:34.927Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "LA-2026-0461",
+      "beneficiario": "Luz Andina S.A.C.",
+      "id_fiscal": "FIC-PE-001",
+      "cuenta": "ACC-PE-0001",
+      "monto_centavos": 600000,
+      "moneda": "PEN",
+      "fecha_emision": "2026-10-05",
+      "categoria": "Infraestructura",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: facturacion@luzandina.example\nTo: cuentas@auroracloud.example\nSubject: Cobro LA-2026-0461 - Alojamiento servidores dedicados, nodo A\nDate: Mon, 05 Oct 2026 10:12:00 -0500\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\n\nEstimados señores de Aurora Cloud:\n\nLes hacemos llegar nuestro cobro del periodo.\n\nProveedor: Luz Andina S.A.C.\nID fiscal: FIC-PE-001\nCuenta: ACC-PE-0001\nFactura n.º: LA-2026-0461\nEmisión: 05/10/2026\nVence: 31/10/2026\nConcepto: Alojamiento servidores dedicados, nodo A\nTotal a pagar: PEN 6.000,00\n\nSaludos cordiales,\nLuz Andina S.A.C.\n\n--\nDocumento ficticio para pruebas.\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3591,
+        "tokens_salida": 207,
+        "costo_usd": 0.0004626,
+        "ms": 3302,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Luz Andina S.A.C.",
+          "id_fiscal": "FIC-PE-001",
+          "cuenta": "ACC-PE-0001",
+          "monto": "6000.00",
+          "moneda": "PEN",
+          "moneda_explicita": true,
+          "fecha": "2026-10-05",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "LA-2026-0461",
+          "categoria": "Infraestructura",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2349,
+        "tokens_salida": 264,
+        "costo_usd": 0.00098325,
+        "ms": 2772,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Luz Andina S.A.C.",
+          "id_fiscal": "FIC-PE-001",
+          "cuenta": "ACC-PE-0001",
+          "monto": "6000.00",
+          "moneda": "PEN",
+          "moneda_explicita": true,
+          "fecha": "2026-10-05",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "LA-2026-0461",
+          "categoria": "Infraestructura",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Alojamiento servidores dedicados, nodo A",
+              "monto": "6000.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3307,
+    "costo_usd": 0.00144585
+  }
+}

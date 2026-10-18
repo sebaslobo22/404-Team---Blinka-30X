@@ -1,0 +1,99 @@
+{
+  "id": "D-13",
+  "fecha": "2026-10-18T08:34:18.664Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0243",
+      "beneficiario": "Taller Orinoco C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 121500,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-12",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[Chat: Taller Orinoco C.A. <-> Aurora Cloud Finanzas]\n[12/10/2026 14:02] Taller Orinoco: buenas tardes, les paso el cobro\n[12/10/2026 14:02] Taller Orinoco: ID fiscal FIC-VE-003, factura TO-0243\n[12/10/2026 14:03] Taller Orinoco: Mantenimiento correctivo de servidores, USD 1,215.00\n[12/10/2026 14:03] Taller Orinoco: cuenta ACC-VE-0003. Vence el 31/10/2026\n[12/10/2026 14:09] Finanzas Aurora: recibido, gracias\n\n(Documento ficticio para pruebas)\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3509,
+        "tokens_salida": 646,
+        "costo_usd": 0.0006739,
+        "ms": 4738,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1215.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-12",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "TO-0243",
+          "categoria": "Operaciones",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2314,
+        "tokens_salida": 255,
+        "costo_usd": 0.000961,
+        "ms": 2827,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1215.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-12",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "TO-0243",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Mantenimiento correctivo de servidores",
+              "monto": "1215.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 4738,
+    "costo_usd": 0.0016349
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "id": "D-14",
+  "fecha": "2026-10-18T08:34:20.599Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "SQ-0077",
+      "beneficiario": "Soporte Quito Cía. Ltda.",
+      "id_fiscal": "FIC-EC-008",
+      "cuenta": "ACC-EC-0008",
+      "monto_centavos": 90000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-13",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.93,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "Soporte Quito Cía. Ltda.\nINVOICE\nBill to: Aurora Cloud Inc.\nVendor:\nSoporte Quito Cía. Ltda.\nTax ID:\nFIC-EC-008\nAccount:\nACC-EC-0008\nInvoice no.:\nSQ-0077\nIssue date:\n13/10/2026\nDue date:\n31/10/2026\nDescription:\nSoporte técnico de nivel 2, octubre\nAmount due:\nUSD 900.00\nThank you for your prompt payment.\nDocumento ficticio para pruebas"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3451,
+        "tokens_salida": 206,
+        "costo_usd": 0.0004481,
+        "ms": 1925,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Soporte Quito Cía. Ltda.",
+          "id_fiscal": "FIC-EC-008",
+          "cuenta": "ACC-EC-0008",
+          "monto": "900.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-13",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "SQ-0077",
+          "categoria": "Operaciones",
+          "confianza": 0.93,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2236,
+        "tokens_salida": 257,
+        "costo_usd": 0.0009445,
+        "ms": 1928,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Soporte Quito Cía. Ltda.",
+          "id_fiscal": "FIC-EC-008",
+          "cuenta": "ACC-EC-0008",
+          "monto": "900.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-13",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "SQ-0077",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Soporte técnico de nivel 2, octubre",
+              "monto": "900.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 1930,
+    "costo_usd": 0.0013926
+  }
+}

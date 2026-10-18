@@ -1,0 +1,99 @@
+{
+  "id": "D-10",
+  "fecha": "2026-10-18T08:34:04.982Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "CC-1188",
+      "beneficiario": "Consultores Cafetal S.A.S.",
+      "id_fiscal": "FIC-CO-002",
+      "cuenta": "ACC-CO-0002",
+      "monto_centavos": 788000000,
+      "moneda": "COP",
+      "fecha_emision": "2026-10-10",
+      "categoria": "Consultoría",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: facturacion@cafetal.example\nTo: cuentas@auroracloud.example\nSubject: Cobro CC-1188 - Consultoría de procesos, semana 2\nDate: Sat, 10 Oct 2026 11:12:00 -0500\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\n\nEstimados señores de Aurora Cloud:\n\nLes hacemos llegar nuestro cobro del periodo.\n\nProveedor: Consultores Cafetal S.A.S.\nID fiscal: FIC-CO-002\nCuenta: ACC-CO-0002\nFactura n.º: CC-1188\nEmisión: 10/10/2026\nVence: 09/11/2026\nConcepto: Consultoría de procesos, semana 2\nTotal a pagar: COP 7.880.000\n\nSaludos cordiales,\nConsultores Cafetal S.A.S.\n\n--\nDocumento ficticio para pruebas.\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3582,
+        "tokens_salida": 214,
+        "costo_usd": 0.0004652,
+        "ms": 1878,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Consultores Cafetal S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "7880000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-10",
+          "fecha_vencimiento": "2026-11-09",
+          "numero_factura": "CC-1188",
+          "categoria": "Consultoría",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "cuenta_de_cobro",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2337,
+        "tokens_salida": 263,
+        "costo_usd": 0.00097875,
+        "ms": 1777,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Consultores Cafetal S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "7880000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-10",
+          "fecha_vencimiento": "2026-11-09",
+          "numero_factura": "CC-1188",
+          "categoria": "Consultoría",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Consultoría de procesos, semana 2",
+              "monto": "7880000.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 1879,
+    "costo_usd": 0.00144395
+  }
+}

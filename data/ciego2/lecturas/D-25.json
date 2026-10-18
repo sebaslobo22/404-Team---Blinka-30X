@@ -1,0 +1,99 @@
+{
+  "id": "D-25",
+  "fecha": "2026-10-18T08:35:03.183Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "CC-1189",
+      "beneficiario": "Consultores Cafetal S.A.S.",
+      "id_fiscal": "FIC-CO-002",
+      "cuenta": "ACC-CO-0002",
+      "monto_centavos": 789000000,
+      "moneda": "COP",
+      "fecha_emision": "2026-10-16",
+      "categoria": "Consultoría",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "Consultores Cafetal S.A.S.\nFACTURA\nCliente: Aurora Cloud Inc.\nProveedor:\nConsultores Cafetal S.A.S.\nID fiscal:\nFIC-CO-002\nCuenta:\nACC-CO-0002\nFactura n.º:\nCC-1189\nEmisión:\n16/10/2026\nVence:\n15/11/2026\nConcepto:\nConsultoría de procesos, semana 3\nTotal a pagar:\nCOP 7.890.000\nGracias por su pago puntual.\nDocumento ficticio para pruebas"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3456,
+        "tokens_salida": 206,
+        "costo_usd": 0.0004486,
+        "ms": 2325,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Consultores Cafetal S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "7890000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": "2026-11-15",
+          "numero_factura": "CC-1189",
+          "categoria": "Consultoría",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2239,
+        "tokens_salida": 263,
+        "costo_usd": 0.00095425,
+        "ms": 1759,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Consultores Cafetal S.A.S.",
+          "id_fiscal": "FIC-CO-002",
+          "cuenta": "ACC-CO-0002",
+          "monto": "7890000.00",
+          "moneda": "COP",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": "2026-11-15",
+          "numero_factura": "CC-1189",
+          "categoria": "Consultoría",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Consultoría de procesos, semana 3",
+              "monto": "7890000.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 2325,
+    "costo_usd": 0.00140285
+  }
+}

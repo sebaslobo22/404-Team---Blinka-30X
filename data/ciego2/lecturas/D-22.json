@@ -1,0 +1,101 @@
+{
+  "id": "D-22",
+  "fecha": "2026-10-18T08:34:53.279Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0244",
+      "beneficiario": "Taller Orinoco C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 119500,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-15",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.95,
+      "instrucciones_detectadas": false,
+      "notas": [
+        "lectura_solo_visual"
+      ]
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3950,
+        "tokens_salida": 463,
+        "costo_usd": 0.0006265,
+        "ms": 4297,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1195.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "TO-0244",
+          "categoria": "Operaciones",
+          "confianza": 0.95,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 3159,
+        "tokens_salida": 254,
+        "costo_usd": 0.00117075,
+        "ms": 3989,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1195.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "TO-0244",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Revisión trimestral de equipos",
+              "monto": "1195.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 4297,
+    "costo_usd": 0.0017972499999999998
+  }
+}
