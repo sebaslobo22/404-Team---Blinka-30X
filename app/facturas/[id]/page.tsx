@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { confianzaDe, estadoAprobacion, instruccionPago } from '../../../src/demo/estado';
+import { confianzaDe, estadoAprobacion } from '../../../src/demo/estado';
+import { ordenDe, textoParaPagar } from '../../../src/demo/orden';
+import OrdenPago from './OrdenPago';
 import { abreviarHash, camposQueDifieren, etiquetaFormato, fechaLectura, formatearConfianza, formatearCostoLectura, formatearMs, nombreModelo } from '../../../src/demo/formato';
 import { describirVencimiento, vencimientoDe } from '../../../src/demo/vencimiento';
 import { construirTraza, fragmentosDetectados, partirTextoFuente } from '../../../src/demo/traza';
@@ -16,7 +18,7 @@ export const dynamic = 'force-dynamic';
 export default async function PaginaFactura({ params }: { params: Promise<{ id: string ;}> ;}) {
   const { id } = await params; const estado = await obtenerEstado(); const fila = estado.filas.find(f => f.id === id); if (!fila) notFound();
   const { factura, resultado, entrada } = fila; const ap = estadoAprobacion(estado, fila);
-  const traza = construirTraza(resultado, estado.config, factura); const instruccion = instruccionPago(estado, fila);
+  const traza = construirTraza(resultado, estado.config, factura); const orden = ordenDe(estado, fila);
   const { lectura, fuente } = fila; const vence = describirVencimiento(vencimientoDe(fila), estado.ahora); const vista = vistaLectura(estado, fila);
   const detalles = lectura?.resultado.lecturas ?? []; const versiones = lectura?.resultado.modelo_versiones ?? [];
   const difieren = camposQueDifieren(factura.alertas); const dosCompletas = detalles.length >= 2 && detalles.every(l => l.ok && l.datos);
@@ -33,6 +35,7 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
       <LineaLectura lectura={vista} />
       {resultado.decision === 'FRENAR' ? <p>Corrige el cobro en su origen. No se puede aprobar aquí.</p> : ap === 'APROBADA' ? <p>Ya aprobaste este pago.</p> : ap === 'RECHAZADA' ? <p>Ya rechazaste este pago.</p> : null}</section>
     {resultado.decision === 'ESCALAR' && ap === 'PENDIENTE' ? <Acciones facturaId={id} monto={dinero(factura.monto_centavos, factura.moneda)} /> : null}
+    {orden ? <OrdenPago orden={orden} texto={textoParaPagar(orden)} /> : null}
 
     <section className="tarjeta flujo-tarjeta" aria-labelledby="titulo-flujo" data-flujo-lectura>
       <h2 id="titulo-flujo" className="titulo-ic"><Ic nombre="flecha-salida" size={28} />De la factura a la decisión</h2>
@@ -118,10 +121,10 @@ export default async function PaginaFactura({ params }: { params: Promise<{ id: 
 
       <details>
         <summary><Ic nombre="flecha-salida" size={24} className="en-linea" />Orden de pago para otro sistema</summary>
-        {instruccion ? <>
-          <p>No ejecuta el pago. Solo indica qué se autorizó.</p>
-          <pre className="codigo">{JSON.stringify(instruccion, null, 2)}</pre>
-        </> : <p>No hay orden de pago disponible.</p>}</details>
+        {orden ? <>
+          <p>No ejecuta el pago. Solo indica qué se autorizó. Formato propuesto para Blinka. Pulso no ejecuta pagos.</p>
+          <pre className="codigo">{JSON.stringify(orden, null, 2)}</pre>
+        </> : <p>No hay orden de pago disponible. Solo hay orden cuando tus reglas dicen pagar o una persona aprueba un cobro escalado.</p>}</details>
     </Evidencia>
   </>;
 }
