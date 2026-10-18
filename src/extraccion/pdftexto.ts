@@ -28,7 +28,8 @@ export function textoDePdf(pdf: Uint8Array): string {
       inflado += crudo.length;
       datos = crudo.toString('latin1');
     } catch {
-      continue;
+      // Flujo sin comprimir (lo usan algunos generadores de facturas): se lee tal cual si trae texto.
+      datos = s.slice(ini, fin);
     }
     if (!/\bBT\b/.test(datos)) continue;
     for (const bloque of datos.split(/\bBT\b/).slice(1)) {
