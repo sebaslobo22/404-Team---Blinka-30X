@@ -1,0 +1,7 @@
+[Chat: Diseños Azteca <-> Aurora Cloud Finanzas]
+[16/10/2026 10:02] Diseños Azteca: Hola! factura DA-3322, ID fiscal FIC-MX-006, cuenta ACC-MX-0006
+[16/10/2026 10:02] Diseños Azteca: Detalle:
+[16/10/2026 10:03] Diseños Azteca: - Ilustraciones set A: MXN 40,000
+[16/10/2026 10:03] Diseños Azteca: - Ilustraciones set B: MXN 30,000
+[16/10/2026 10:03] Diseños Azteca: - Ajustes y revisiones: MXN 8,000
+[16/10/2026 10:04] Diseños Azteca: Total a pagar: MXN 81,000 (vence 30/10/2026)

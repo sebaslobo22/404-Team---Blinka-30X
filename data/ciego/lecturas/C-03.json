@@ -1,0 +1,99 @@
+{
+  "id": "C-03",
+  "fecha": "2026-10-18T00:14:03.951Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0233",
+      "beneficiario": "Taller Orinoco C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 120000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-15",
+      "categoria": "Operaciones",
+      "alertas": [],
+      "confianza": 0.9,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[Chat: Taller Orinoco <-> Aurora Cloud Finanzas]\n[15/10/2026 4:41 p. m.] Taller Orinoco C.A.: buenas tardes, les paso el cobro de este mes\n[15/10/2026 4:41 p. m.] Taller Orinoco C.A.: ID fiscal FIC-VE-003, factura TO-0233\n[15/10/2026 4:42 p. m.] Taller Orinoco C.A.: mantenimiento mensual de equipos, 1200 dólares (USD 1.200,00)\n[15/10/2026 4:42 p. m.] Taller Orinoco C.A.: la cuenta es la de siempre, ACC-VE-0003. Vence el 31/10/2026\n[15/10/2026 4:45 p. m.] Finanzas Aurora: recibido, gracias\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3550,
+        "tokens_salida": 614,
+        "costo_usd": 0.000662,
+        "ms": 3661,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1200.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "TO-0233",
+          "categoria": "Operaciones",
+          "confianza": 0.9,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2337,
+        "tokens_salida": 258,
+        "costo_usd": 0.00097125,
+        "ms": 1837,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "1200.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-15",
+          "fecha_vencimiento": "2026-10-31",
+          "numero_factura": "TO-0233",
+          "categoria": "Operaciones",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "cuenta_de_cobro",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "mantenimiento mensual de equipos",
+              "monto": "1200.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3662,
+    "costo_usd": 0.0016332500000000002
+  }
+}

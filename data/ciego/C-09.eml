@@ -1,0 +1,15 @@
+From: contabilidad@tallerorinoco.example
+To: cuentas@auroracloud.example
+Subject: COBRO TO-0234 - favor procesar
+Date: Fri, 16 Oct 2026 15:30:00 -0400
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+COBRO / DOCUMENTO TO-0234
+Taller Orinoco C.A. - ID fiscal FIC-VE-003 - Cuenta ACC-VE-0003
+
+Tipo de documento: NOTA DE CRÉDITO (devolución de repuestos defectuosos del pedido TO-0198)
+Total a pagar: USD (450,00)
+Vence: 30/10/2026
+
+Quedamos atentos a su pago.

@@ -1,0 +1,122 @@
+{
+  "id": "C-10",
+  "fecha": "2026-10-18T00:14:26.266Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "DA-3322",
+      "beneficiario": "Diseños Azteca",
+      "id_fiscal": "FIC-MX-006",
+      "cuenta": "ACC-MX-0006",
+      "monto_centavos": 8100000,
+      "moneda": "MXN",
+      "fecha_emision": "2026-10-16",
+      "categoria": "Diseño",
+      "alertas": [
+        "aritmetica_no_cuadra:lineas_78000.00_vs_total_81000.00"
+      ],
+      "confianza": 0.7,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "[Chat: Diseños Azteca <-> Aurora Cloud Finanzas]\n[16/10/2026 10:02] Diseños Azteca: Hola! factura DA-3322, ID fiscal FIC-MX-006, cuenta ACC-MX-0006\n[16/10/2026 10:02] Diseños Azteca: Detalle:\n[16/10/2026 10:03] Diseños Azteca: - Ilustraciones set A: MXN 40,000\n[16/10/2026 10:03] Diseños Azteca: - Ilustraciones set B: MXN 30,000\n[16/10/2026 10:03] Diseños Azteca: - Ajustes y revisiones: MXN 8,000\n[16/10/2026 10:04] Diseños Azteca: Total a pagar: MXN 81,000 (vence 30/10/2026)\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3545,
+        "tokens_salida": 615,
+        "costo_usd": 0.000662,
+        "ms": 3622,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Diseños Azteca",
+          "id_fiscal": "FIC-MX-006",
+          "cuenta": "ACC-MX-0006",
+          "monto": "81000.00",
+          "moneda": "MXN",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "DA-3322",
+          "categoria": "Diseño",
+          "confianza": 0.7,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Ilustraciones set A",
+              "monto": "40000.00"
+            },
+            {
+              "descripcion": "Ilustraciones set B",
+              "monto": "30000.00"
+            },
+            {
+              "descripcion": "Ajustes y revisiones",
+              "monto": "8000.00"
+            }
+          ]
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2356,
+        "tokens_salida": 320,
+        "costo_usd": 0.001069,
+        "ms": 2033,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Diseños Azteca",
+          "id_fiscal": "FIC-MX-006",
+          "cuenta": "ACC-MX-0006",
+          "monto": "81000.00",
+          "moneda": "MXN",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "DA-3322",
+          "categoria": "Diseño",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "factura",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": [
+            {
+              "descripcion": "Ilustraciones set A",
+              "monto": "40000.00"
+            },
+            {
+              "descripcion": "Ilustraciones set B",
+              "monto": "30000.00"
+            },
+            {
+              "descripcion": "Ajustes y revisiones",
+              "monto": "8000.00"
+            }
+          ]
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 3623,
+    "costo_usd": 0.0017310000000000001
+  }
+}

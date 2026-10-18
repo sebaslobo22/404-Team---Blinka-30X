@@ -1,0 +1,96 @@
+{
+  "id": "C-09",
+  "fecha": "2026-10-18T00:14:22.637Z",
+  "modelos": [
+    "anthropic/claude-haiku-5.5",
+    "google/gemini-3.1-flash-lite"
+  ],
+  "resultado": {
+    "factura": {
+      "numero_factura": "TO-0234",
+      "beneficiario": "Taller Orinoco C.A.",
+      "id_fiscal": "FIC-VE-003",
+      "cuenta": "ACC-VE-0003",
+      "monto_centavos": 45000,
+      "moneda": "USD",
+      "fecha_emision": "2026-10-16",
+      "categoria": "Otra",
+      "alertas": [
+        "no_es_cobro:nota_credito"
+      ],
+      "confianza": 0.6,
+      "instrucciones_detectadas": false,
+      "texto_fuente": "From: contabilidad@tallerorinoco.example\nTo: cuentas@auroracloud.example\nSubject: COBRO TO-0234 - favor procesar\nDate: Fri, 16 Oct 2026 15:30:00 -0400\nMIME-Version: 1.0\nContent-Type: text/plain; charset=utf-8\n\nCOBRO / DOCUMENTO TO-0234\nTaller Orinoco C.A. - ID fiscal FIC-VE-003 - Cuenta ACC-VE-0003\n\nTipo de documento: NOTA DE CRÉDITO (devolución de repuestos defectuosos del pedido TO-0198)\nTotal a pagar: USD (450,00)\nVence: 30/10/2026\n\nQuedamos atentos a su pago.\n"
+    },
+    "lecturas": [
+      {
+        "modelo": "anthropic/claude-haiku-5.5",
+        "modelo_servido": "anthropic/claude-haiku-5.5",
+        "tokens_entrada": 3518,
+        "tokens_salida": 866,
+        "costo_usd": 0.0007848,
+        "ms": 4973,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "450.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "TO-0234",
+          "categoria": "Otra",
+          "confianza": 0.6,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "nota_credito",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      },
+      {
+        "modelo": "google/gemini-3.1-flash-lite",
+        "modelo_servido": "google/gemini-3.1-flash-lite",
+        "tokens_entrada": 2293,
+        "tokens_salida": 217,
+        "costo_usd": 0.00089875,
+        "ms": 1584,
+        "ok": true,
+        "datos": {
+          "beneficiario": "Taller Orinoco C.A.",
+          "id_fiscal": "FIC-VE-003",
+          "cuenta": "ACC-VE-0003",
+          "monto": "450.00",
+          "moneda": "USD",
+          "moneda_explicita": true,
+          "fecha": "2026-10-16",
+          "fecha_vencimiento": "2026-10-30",
+          "numero_factura": "TO-0234",
+          "categoria": "Otra",
+          "confianza": 1,
+          "instrucciones_detectadas": false,
+          "tipo_documento": "nota_credito",
+          "subtotal": null,
+          "impuestos": null,
+          "descuento": null,
+          "lineas": null
+        }
+      }
+    ],
+    "modelo_versiones": [
+      {
+        "pedido": "anthropic/claude-haiku-5.5",
+        "servido": "anthropic/claude-haiku-5.5"
+      },
+      {
+        "pedido": "google/gemini-3.1-flash-lite",
+        "servido": "google/gemini-3.1-flash-lite"
+      }
+    ],
+    "ms": 4974,
+    "costo_usd": 0.00168355
+  }
+}
