@@ -19,7 +19,7 @@ const FRASE_MOTIVO: Record<string, [string, string]> = {
   R1: ['supera tu límite', 'superan tu límite'], R3: ['pasa tu tope del mes', 'pasan tu tope del mes'], R4: ['no tiene presupuesto', 'no tienen presupuesto'],
   R5: ['es un cobro repetido', 'son cobros repetidos'], R6: ['no cuadra con lo acordado', 'no cuadran con lo acordado'],
   R8: ['viene de una cuenta cambiada hace poco', 'vienen de cuentas cambiadas hace poco'], INYECCION: ['trae órdenes ocultas', 'traen órdenes ocultas'],
-  CONFIANZA: ['se leyó con duda', 'se leyeron con duda'], R7: ['tiene datos incompletos', 'tienen datos incompletos'], R2: ['es de un proveedor fuera de tu lista', 'son de proveedores fuera de tu lista'],
+  EXTRACCION: ['trae una alerta del lector', 'traen una alerta del lector'], CONFIANZA: ['se leyó con duda', 'se leyeron con duda'], R7: ['tiene datos incompletos', 'tienen datos incompletos'], R2: ['es de un proveedor fuera de tu lista', 'son de proveedores fuera de tu lista'],
 };
 const fraseMotivo = (id: string, n: number) => `${n} ${(FRASE_MOTIVO[id] ?? [RIESGO[id]?.etiqueta ?? id, RIESGO[id]?.etiqueta ?? id])[n === 1 ? 0 : 1]}`;
 
