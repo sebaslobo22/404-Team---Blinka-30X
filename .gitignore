@@ -26,3 +26,7 @@ graphify-out/
 
 # Carpetas temporales de agentes
 .claude/worktrees/
+
+# Video demo (Remotion)
+video/node_modules
+video/out
