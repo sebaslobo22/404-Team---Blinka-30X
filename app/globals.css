@@ -6,6 +6,9 @@
   --pagar:#0B6B47; --pagar-suave:#E6F6EF; --frenar:#B3093C; --frenar-suave:#FDEDF1; --escalar:#8A4B00; --escalar-suave:#FEF3E0;
   --cristal:rgb(246 249 252 / .9); --velo:rgb(10 37 64 / .7); --anillo:#FFFFFF;
   --sombra:0 .75rem 3rem rgb(10 37 64 / .14);
+  /* Tarjeta única (18/10/2026): espaciado en múltiplos de 4 px (--s*) y tres niveles de elevación. */
+  --relleno-tarjeta:var(--s5); --espacio-tarjeta:var(--s4); --borde-tarjeta:1px solid var(--linea);
+  --elev-0:0 1px 2px rgb(10 37 64 / .06); --elev-1:0 .25rem 1rem rgb(10 37 64 / .12); --elev-2:0 .5rem 1.5rem rgb(10 37 64 / .18); --halo-alfa:10%;
   /* Firma de marca: solo en la marca, la cabecera de la portada y el botón principal. Nunca detrás de texto corrido. */
   --firma-desde:#635BFF; --firma-hasta:#00D4FF; --sobre-firma:#0A2540; --firma:linear-gradient(120deg,var(--firma-desde),var(--firma-hasta));
   --fuente:Inter,system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
@@ -19,13 +22,15 @@
   --acento:#A99DFE; --acento-suave:#2B2F70; --sobre-acento:#0A2540;
   --pagar:#6EE7AE; --pagar-suave:#0C3D3D; --frenar:#FFA3B5; --frenar-suave:#4A1E3C; --escalar:#FFCB6B; --escalar-suave:#3D3322;
   --cristal:rgb(19 52 89 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .4);
+  --elev-0:0 1px 2px rgb(0 0 0 / .3); --elev-1:0 .25rem 1rem rgb(0 0 0 / .35); --elev-2:0 .5rem 1.5rem rgb(0 0 0 / .5); --halo-alfa:13%;
   color-scheme:dark;
 }}
 [data-theme=dark]{
   --bg:#0A2540; --superficie:#133459; --tinta:#F6F9FC; --tenue:#B4C3D6; --linea:#7389A6;
   --acento:#A99DFE; --acento-suave:#2B2F70; --sobre-acento:#0A2540;
   --pagar:#6EE7AE; --pagar-suave:#0C3D3D; --frenar:#FFA3B5; --frenar-suave:#4A1E3C; --escalar:#FFCB6B; --escalar-suave:#3D3322;
-  --cristal:rgb(19 52 89 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .4); color-scheme:dark;
+  --cristal:rgb(19 52 89 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .4);
+  --elev-0:0 1px 2px rgb(0 0 0 / .3); --elev-1:0 .25rem 1rem rgb(0 0 0 / .35); --elev-2:0 .5rem 1.5rem rgb(0 0 0 / .5); --halo-alfa:13%; color-scheme:dark;
 }
 html[data-letra=grande]{font-size:125%} html[data-letra=muy-grande]{font-size:150%}
 *{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tinta);font:400 var(--t2)/1.6 var(--fuente)}
@@ -93,3 +98,55 @@ pre.codigo{font:var(--t1)/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:any
 .portada-pulso path{fill:none;stroke:url(#firma-pulso);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 @media(min-width:64rem){.portada-pulso{position:absolute;top:var(--s8);right:var(--s6);margin:0}.portada-cabecera h1{max-width:calc(100% - 17rem)}}
 @media(max-width:45rem){.portada-cabecera{padding:var(--s6) var(--s4) var(--s4)}}
+/* ===== Tarjeta única (app/ui/Tarjeta.tsx): relleno, borde, radio, cifra, botón "i" y realce salen de aquí ===== */
+.rejilla-tarjetas{display:grid;gap:var(--espacio-tarjeta);grid-auto-rows:1fr;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--ancho-min,15rem)),1fr));list-style:none;margin:0;padding:0}
+.rejilla-tarjetas>li{min-width:0}
+.rejilla-2c{--ancho-min:22rem}.rejilla-indicadores{--ancho-min:15rem}.rejilla-riesgos{--ancho-min:15rem}
+.rejilla-etapas,.rejilla-indicadores{grid-template-columns:1fr}
+@media(min-width:40rem){.rejilla-indicadores,.rejilla-etapas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:64rem){.rejilla-etapas{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:72rem){.rejilla-indicadores{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tarjeta[data-tarjeta]{position:relative;display:flex;flex-direction:column;height:100%;padding:var(--relleno-tarjeta);border:var(--borde-tarjeta);border-radius:var(--radio);background:var(--superficie);box-shadow:var(--elev-0);transition:transform 180ms var(--curva),box-shadow 180ms var(--curva)}
+.tarjeta-cuerpo{display:flex;flex-direction:column;gap:var(--s2);flex:1;min-width:0}
+.tarjeta-boton{width:100%;margin:0;padding:0;border:0;border-radius:var(--control);background:none;color:inherit;font:inherit;text-align:left}
+.tarjeta-boton:focus-visible{outline:none;box-shadow:none}
+.tarjeta-cab{display:flex;align-items:flex-start;gap:var(--s3);padding-right:var(--s10)}
+.tarjeta-cab .ic{margin-top:.125rem}
+.tarjeta-titulo{margin:0;max-width:none;font-size:var(--t1);font-weight:600;line-height:1.3;color:var(--tinta);overflow-wrap:anywhere}
+@media(min-width:45rem){.tarjeta-indicador .tarjeta-titulo,.tarjeta-riesgo .tarjeta-titulo,.tarjeta-etapa .tarjeta-titulo{min-height:2.6em}}
+/* Una sola regla para las cifras: misma fuente, mismo peso, números tabulares. */
+.tarjeta-cifra,[data-tarjeta] .mono,[data-tarjeta] .mono-num{font-family:var(--fuente);font-weight:600;font-variant-numeric:tabular-nums}
+.tarjeta-cifra{margin:0;max-width:none;font-size:var(--t3);line-height:1.2;color:var(--tinta);overflow-wrap:anywhere}
+.tarjeta-cifra-grande{font-size:var(--t5)}
+@media(max-width:45rem){.tarjeta-cifra-grande{font-size:var(--t4)}}
+.tarjeta-apoyo{margin:0;max-width:none;font-size:var(--t1);color:var(--tenue)}
+.tarjeta-principal{border-left:.375rem solid var(--escalar)}
+.tarjeta-principal .tarjeta-cuerpo{align-items:flex-start}.tarjeta-principal .tarjeta-cuerpo>*{margin-block:0}.tarjeta-principal .btn{margin-top:var(--s3)}
+.tarjeta-principal .cifra-aparte{font-size:var(--t3);font-weight:600;color:var(--tenue)}
+.tarjeta-base .barra-fina{margin:var(--s2) 0 0}
+.fila-ayuda{position:relative}
+.fila-ayuda .leyenda-bt{padding-right:3.25rem}.lista-dinero .fila-ayuda{padding-right:3.25rem}
+/* Botón "i" y su panel. */
+.ayuda-bt{position:absolute;z-index:4;display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;padding:0;border:0;border-radius:var(--pildora);background:transparent;color:var(--tenue)}
+.ayuda-bt:hover{background:var(--acento-suave);color:var(--tinta)}
+.ayuda-tarjeta{top:var(--s1);right:var(--s1)}
+.ayuda-fila{top:50%;right:var(--s1);margin-top:-1.375rem}
+.ayuda-panel{position:absolute;z-index:3;display:flex;flex-direction:column;gap:var(--s2);padding:var(--s4);background:var(--superficie);color:var(--tinta);border:2px solid var(--acento);border-radius:var(--radio);box-shadow:var(--elev-2);font-size:var(--t1);font-weight:400;line-height:1.5;text-align:left}
+.ayuda-panel-tarjeta{inset:0 0 auto 0;min-height:100%;padding-right:3.5rem}
+.ayuda-panel-fila{top:calc(100% + var(--s1));left:0;right:0}
+.ayuda-que{font-weight:600}
+[data-ayuda-ancla][data-abierta]{position:relative;z-index:5}
+/* Realce: se levanta apenas y un halo sigue al cursor. Solo con ratón; con teclado, realce sin halo y contorno. */
+.tarjeta[data-tarjeta]::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(240px circle at var(--x,50%) var(--y,50%),color-mix(in srgb,var(--acento) var(--halo-alfa),transparent),transparent 60%)}
+@media (hover:hover) and (pointer:fine){
+  .tarjeta[data-tarjeta]{will-change:transform}
+  .tarjeta[data-tarjeta]:hover{z-index:1;transform:translateY(-2px) scale(1.012);box-shadow:var(--elev-1)}
+  .tarjeta[data-tarjeta]::before{transition:opacity 180ms var(--curva)}
+  .tarjeta[data-tarjeta]:hover::before{opacity:1}
+}
+.tarjeta[data-tarjeta]:has(:focus-visible){z-index:1;transform:translateY(-2px) scale(1.012);box-shadow:var(--elev-1);outline:2px solid var(--acento);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  .tarjeta[data-tarjeta]{will-change:auto}
+  .tarjeta[data-tarjeta]:hover,.tarjeta[data-tarjeta]:has(:focus-visible){transform:none}
+  .tarjeta[data-tarjeta]::before{display:none}
+}
