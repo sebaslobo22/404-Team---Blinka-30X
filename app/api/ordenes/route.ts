@@ -9,6 +9,9 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const estado = await obtenerEstado();
+    // Si el registro de decisiones no verifica, no sale ninguna orden: alguien altero una decision.
+    const v = await estado.registroDecisiones.verificar(estado.anclaInicial);
+    if (!v.ok) return NextResponse.json({ ok: false, codigo: 'REGISTRO_ALTERADO', error: 'El registro de decisiones no verifica: no se entrega ninguna orden hasta restaurarlo.' }, { status: 409 });
     const lista = ordenes(estado);
     return NextResponse.json({ formato: FORMATO_ORDEN, aviso: AVISO_ORDEN, n: lista.length, ordenes: lista });
   } catch {

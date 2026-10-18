@@ -170,6 +170,20 @@ Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hor
 
 ## Hoja de ruta (no está en esta entrega)
 
+### Lo siguiente que construiríamos (lo que pidió la revisión del jurado)
+
+Ordenado por lo que más acerca Pulso a un uso real. Nada de esto está hecho.
+
+1. **Pulso propone reglas a partir de lo que apruebas.** Si una persona aprueba tres veces al mismo proveedor por encima del límite, Pulso sugiere subir el límite o registrar el acuerdo, y la persona decide. Así lo escalado se convierte en autonomía con permiso explícito, sin que el modelo cambie una regla.
+2. **PAGAR en vivo con una política estrecha.** Hoy todo lo que entra en vivo termina como mucho en ESCALAR (`aplicarTechoEnVivo`). El paso siguiente es permitir PAGAR solo a un proveedor registrado, con la cuenta registrada hace más de 72 horas, dentro del acuerdo, con confianza alta y bajo un tope pequeño, con una prueba de que nada fuera de esa política llega a PAGAR.
+3. **Una demo por visitante.** Hoy el estado de la demo es uno por instancia del servidor: si un visitante cambia reglas, aprueba o restaura, lo ve el siguiente. Estado por cookie con expiración, o firmado en la cookie.
+4. **Aprobaciones, pagos y registro persistentes** en Supabase (la tabla `0001_registro.sql` ya existe), con identidad y roles, separación de funciones y doble aprobación sobre un monto.
+5. **Duplicados en Telegram.** Las facturas pendientes y aprobadas de cada empresa deben entrar a su historial como reservadas, para que un reenvío se frene por R5 (en la subida web y el correo ya pasa desde esta entrega).
+6. **Orden lista para ingerir.** Validar la cuenta por riel (CLABE de 18 dígitos con dígito verificador, CBU de 22, formato de llave Pix y Bre-B), clave de idempotencia por orden y un JSON Schema publicado de la orden.
+7. **Tasas de cambio reales** con fuente y la tasa usada guardada en el registro, y una regla de vencimiento.
+
+Lista de mejoras anteriores:
+
 Ninguna de estas piezas está construida. Van ordenadas de menor a mayor **costo y fricción** (cuánto trabajo, qué cuentas o permisos de terceros hacen falta y cuánto gasto nuevo meten). Ninguna cambia el principio de fondo: la IA lee, el código decide y Pulso no mueve dinero.
 
 1. **Notas de voz (transcripción).** Una nota de voz por Telegram se transcribe con un modelo y entra como texto al mismo lector y al mismo motor. Es una entrada más, sin cuentas nuevas. Una transcripción tiene confianza baja por defecto, así que casi siempre termina en ESCALAR (`mapa-escenarios.md`). Costo: una llamada de transcripción por nota.
