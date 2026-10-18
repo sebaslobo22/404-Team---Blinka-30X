@@ -105,7 +105,7 @@ export default function Portada({ d }: { d: DatosPortada }) {
     </div>
 
     <ul className="kpis" aria-label="Datos clave">
-      <li className="kpi ic-pagar"><Ic nombre="check-circulo" size={24} /><div><p className="kpi-etiqueta">Pagadas solas</p><p className="kpi-cifra mono">{d.pagar} · {usd(d.usd.pagar)}</p></div></li>
+      <li className="kpi ic-pagar"><Ic nombre="check-circulo" size={24} /><div><p className="kpi-etiqueta">Listas para pagar, sin ti</p><p className="kpi-cifra mono">{d.pagar} · {usd(d.usd.pagar)}</p></div></li>
       <li className="kpi ic-frenar"><Ic nombre="mano" size={24} /><div><p className="kpi-etiqueta">Frenadas</p><p className="kpi-cifra mono">{d.frenar} · {usd(d.usd.frenar)}</p></div></li>
       <li className="kpi" data-tour="coincide"><Ic nombre="decisiones" size={24} /><div><p className="kpi-etiqueta">Coinciden con lo esperado</p><p className="kpi-cifra mono">{d.bien} de {d.total}</p><p className="kpi-nota">Aún falta probar con facturas nuevas.</p></div></li>
       <li className="kpi" data-costo-lectura><Ic nombre="monedas" size={24} /><div><p className="kpi-etiqueta">Costo de leer las {d.total}</p><p className="kpi-cifra mono">{d.costoLectura}</p><p className="kpi-nota">Dos modelos por factura. Suma de las lecturas grabadas.</p></div></li>

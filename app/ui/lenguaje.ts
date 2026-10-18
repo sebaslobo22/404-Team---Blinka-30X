@@ -1,7 +1,7 @@
 import type { FilaDemo } from '../../src/demo/estado';
 import type { FilaTraza } from '../../src/demo/traza';
 export const estados = {
-  PAGAR: { etiqueta: 'Pagada', clase: 'pagar' },
+  PAGAR: { etiqueta: 'Lista para pagar', clase: 'pagar' },
   FRENAR: { etiqueta: 'Frenada', clase: 'frenar' },
   ESCALAR: { etiqueta: 'Te necesita', clase: 'escalar' },
 } as const;
