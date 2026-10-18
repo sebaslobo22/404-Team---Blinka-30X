@@ -1,6 +1,6 @@
 # Pulso — Pulso firme en cada pago
 
-Agente de pagos del **Equipo 404** para el reto Blinka del Hackathon 30X. **Demo en vivo: https://equipo404.produfy.co** (datos ficticios, sin inicio de sesión).
+Agente de pagos del **Equipo 404** para el reto Blinka del Hackathon 30X. **Demo en vivo: https://equipo404.produfy.co** (datos ficticios, sin inicio de sesión) · **Qué es Pulso en una página: https://equipo404.produfy.co/conoce**.
 
 **Pulso lee una factura (PDF, imagen, correo o chat), decide PAGAR, FRENAR o ESCALAR con las reglas que define la empresa, explica cada decisión y la deja en un registro donde cualquier alteración se nota. Nunca mueve dinero:** su salida es una instrucción de pago que una persona aprueba y otro sistema ejecutaría.
 
