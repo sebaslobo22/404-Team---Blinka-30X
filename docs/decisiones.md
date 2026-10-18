@@ -49,3 +49,5 @@ Formato: fecha y hora (Caracas) · decisión · motivo · estado.
 | 17/10/2026 - 4:28 p.m. | Nombre del producto: **Pulso**, lema "Pulso firme en cada pago" | Acordado por el equipo | Tomada |
 | 17/10/2026 - 4:28 p.m. | Rediseño "Veredicto" de Codex fusionado (PR #13) tras revisión: pruebas, seguridad por API y texto visible sin jerga | Cumple el metaprompt V2 y las pruebas bottom-up | Tomada |
 | 17/10/2026 - 6:53 p.m. | No integrar JEV por ahora; reconsiderar solo con llave real del organizador y premio o puntos confirmados | Lo que haría ya está cubierto; acceso real no confirmado (la ruta de OpenRouter se desvió a DeepSeek); 18 facturas no prueban calibración. Ver `docs/jev-evaluacion.md` | Tomada |
+| 17/10/2026 - 8:10 p.m. | Joffre dejó el equipo. Plan B: set ciego armado por un agente aislado que no ve motor, lector ni casos; congelado con hash antes de correrlo | Sin persona externa disponible; la independencia se garantiza por lo que el agente no lee y por el congelamiento | Tomada |
+| 17/10/2026 - 8:10 p.m. | Guion del video en `docs/guion-video.md`, grabado sobre el enlace del jurado | Un solo enlace; sin afirmaciones no verificadas | Tomada |

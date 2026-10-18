@@ -50,7 +50,7 @@ Explicabilidad (el registro se entiende sin abrir el código).
   difieren en monto, moneda, beneficiario o cuenta → ESCALAR. Se confirma con el banco de pruebas.
 - **Presupuesto insuficiente → FRENAR.** Beneficiario por ID fiscal exacto, nunca por parecido.
 - **Reparto:** Sebastián lectura + banco de modelos + centro de mando · Andrés motor, registro y
-  tablero del producto · Joffre set ciego y suite adversarial.
+  tablero del producto. **Joffre dejó el equipo el 17/10;** el set ciego lo arma un agente aislado (`docs/set-ciego.md`).
 - **Rutas:** `/` producto (tablero), `/team` centro de mando. Un solo proyecto Vercel (`404team`).
 - No usar en el pitch afirmaciones no verificadas sobre la historia del patrocinador ni cifras sin fuente (`docs/investigacion-joffre.md`).
 

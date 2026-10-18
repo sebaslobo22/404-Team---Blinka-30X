@@ -12,7 +12,7 @@ el mismo archivo a la vez.
 | `app/` (menos `app/team`), `app/api/` (menos `app/api/team`), `src/demo/` | Andrés | Tablero del producto: reglas, decisiones, cola de aprobación |
 | `src/extraccion/`, `data/facturas/`, `scripts/banco-modelos*` | Sebastián | Lector de facturas, archivos reales, banco de modelos |
 | `app/team/`, `app/api/team/`, `scripts/equipo.mjs`, `supabase/migrations/0002*` | Sebastián | Centro de mando |
-| `tests/adversarial/`, `data/ciego/` | Joffre | Suite adversarial y set ciego (congelado; nadie lo abre antes del domingo) |
+| `tests/adversarial/`, `data/ciego/` | Sebastián (Joffre dejó el equipo el 17/10; el set ciego lo arma un agente aislado) | Suite adversarial y set ciego (congelado; nadie lo abre antes del domingo) |
 | `docs/`, `CLAUDE.md`, `README.md` | Sebastián (integrador) | Contexto y acuerdos; cualquiera propone por PR |
 | `package.json`, `tsconfig.json`, `next.config.*`, `vitest.config.ts` | Sebastián (integrador) | Configuración compartida; cambios solo por PR avisada |
 | `referencia/` | nadie | Motor JS de referencia; solo lectura |
