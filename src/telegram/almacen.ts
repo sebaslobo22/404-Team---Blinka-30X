@@ -69,6 +69,13 @@ export interface Almacen {
    */
   crearEmpresa(chatId: number, usuarioId: number, nombre: string, codigo: string): Promise<{ empresa_id: string; codigo: string; nueva: boolean } | null>;
   proveedores(empresaId: string): Promise<Proveedor[]>;
+  /**
+   * Solo lectura, para el modo conversacional: las ultimas facturas de la empresa, de la mas nueva a la mas vieja.
+   * Con `soloChat` filtra tambien por chat (la empresa demo la comparte todo el mundo: nadie ve lo de otro).
+   */
+  ultimasFacturas(empresaId: string, limite: number, soloChat?: number): Promise<FacturaVivo[]>;
+  /** Solo lectura: facturas ESCALADAS que esperan al dueno (mismo filtro opcional por chat). */
+  contarPendientes(empresaId: string, soloChat?: number): Promise<number>;
   agregarProveedor(empresaId: string, p: Proveedor, por: number): Promise<void>;
   fijarLimite(empresaId: string, centavos: number): Promise<void>;
 }

@@ -9,7 +9,7 @@ import { extraerFactura, MODELOS_POR_DEFECTO } from '../extraccion/extraer';
 import type { EntradaFactura, OpcionesExtraer } from '../extraccion/extraer';
 import { llamarOpenRouter } from '../extraccion/openrouter';
 import type { PeticionLLM } from '../extraccion/openrouter';
-import { PROVEEDOR_FIJO } from '../telegram/deps';
+import { OPCIONES_LECTURA, PROVEEDOR_FIJO } from '../telegram/deps';
 import { aplicarTechoEnVivo } from '../telegram/techo';
 
 export interface ResultadoVivo {
@@ -64,7 +64,7 @@ export function contextoDeLaDemo(estado: EstadoDemo): Contexto {
  */
 export async function leerYDecidir(entrada: EntradaFactura, estado: EstadoDemo, opciones: Pick<OpcionesExtraer, 'llamar' | 'modelos'> = {}): Promise<ResultadoVivo> {
   const id = `V-${createHash('sha256').update(entrada.texto ?? entrada.imagenBase64 ?? '').digest('hex').slice(0, 8).toUpperCase()}`;
-  const llamar = opciones.llamar ?? ((p: PeticionLLM) => llamarOpenRouter({ ...p, proveedor: PROVEEDOR_FIJO }, { timeoutMs: 25_000, reintentos: 0 }));
+  const llamar = opciones.llamar ?? ((p: PeticionLLM) => llamarOpenRouter({ ...p, proveedor: PROVEEDOR_FIJO }, OPCIONES_LECTURA));
   const ex = await extraerFactura(entrada, { modelos: opciones.modelos ?? MODELOS_POR_DEFECTO, llamar, id, replay: false, guardar: false });
   const alertas = [...(ex.factura.alertas ?? [])];
   for (const l of ex.lecturas) {

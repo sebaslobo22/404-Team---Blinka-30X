@@ -9,6 +9,7 @@ import {
 } from './mensajes';
 import { aplicarTechoEnVivo } from './techo';
 import { COMANDOS, ejecutarComando } from './comandos';
+import { responderConversacion, vistaSoloLectura, type Conversar, type CupoChat } from './conversacion';
 import { aprobadorDe, contextoDeEmpresa, ID_DEMO, reglasDeEmpresa, type Empresa } from './empresas';
 
 // --- Forma de lo que manda Telegram (solo los campos que se usan) ---
@@ -34,6 +35,11 @@ export interface ConfigBot {
   maxPorChatHora: number;
   /** Tiempo maximo de la doble lectura; pasado esto se responde "no pude leerla". */
   limiteLecturaMs: number;
+  /** Modo conversacional: mensajes por usuario y por hora, y tope global del dia (CHAT_POR_USUARIO_HORA, CHAT_GLOBAL_DIA). */
+  chatPorUsuarioHora: number;
+  chatGlobalDia: number;
+  /** Tiempo maximo de una respuesta conversacional; pasado esto se responde la ayuda fija. */
+  limiteChatMs: number;
 }
 
 export interface Deps {
@@ -44,6 +50,10 @@ export interface Deps {
   contexto: Contexto;
   cfgMotor: Config;
   config: ConfigBot;
+  /** Modo conversacional. Ausente o null = apagado (CHAT_IA=0 o sin clave): texto suelto recibe la ayuda fija. */
+  conversar?: Conversar | null;
+  /** Cupo propio del modo conversacional, separado del de las facturas. */
+  cupoChat?: CupoChat;
   ahora: () => Date;
   /** Registro de eventos sin datos sensibles (nunca URLs de Telegram). */
   log?: (evento: string) => void;
@@ -125,7 +135,20 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
     return;
   }
   if (!archivo) {
-    await decir(PIDE_ARCHIVO);
+    // Texto suelto: conversacion con IA (si esta encendida) o ayuda fija. Nunca escribe en el almacen.
+    const texto = await responderConversacion(
+      { texto: m.text, chatId, usuarioId: m.from?.id ?? null, privado: m.chat.type === 'private' && m.from?.id === chatId },
+      {
+        almacen: vistaSoloLectura(d.almacen),
+        conversar: d.conversar,
+        cupo: d.cupoChat,
+        config: { urlPublica: d.config.urlPublica, chatPorUsuarioHora: d.config.chatPorUsuarioHora, chatGlobalDia: d.config.chatGlobalDia, limiteChatMs: d.config.limiteChatMs },
+        ahora: d.ahora,
+        proveedoresDemo: d.contexto.beneficiarios.length,
+        ...(d.log ? { log: d.log } : {}),
+      },
+    );
+    await decir(texto);
     return;
   }
   // La factura se decide con las reglas de la empresa del chat. Sin empresa, no se procesa.

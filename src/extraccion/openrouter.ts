@@ -17,6 +17,8 @@ export interface PeticionLLM {
    * `allow_fallbacks: false` (nadie contesta en lugar del modelo pedido) y `data_collection: 'deny'`.
    */
   proveedor?: { allow_fallbacks?: boolean; data_collection?: 'allow' | 'deny' };
+  /** Tope de tokens de salida. Opcional: sin el, 1200 como siempre (las lecturas no cambian). */
+  maxTokens?: number;
 }
 
 export interface OpcionesLLM {
@@ -24,6 +26,8 @@ export interface OpcionesLLM {
   timeoutMs?: number;
   /** Reintentos tras el primer intento (default 1). */
   reintentos?: number;
+  /** Si es true, solo se reintenta ante error de red o timeout; una respuesta inválida (HTTP, JSON, vacía) falla de una vez. */
+  soloRed?: boolean;
   fetchImpl?: typeof fetch;
 }
 
@@ -61,7 +65,7 @@ function cuerpo(p: PeticionLLM, conEsquema: boolean) {
     model: p.modelo,
     messages: mensajes(p),
     temperature: 0,
-    max_tokens: 1200,
+    max_tokens: p.maxTokens ?? 1200,
     usage: { include: true },
   };
   if (p.proveedor) b['provider'] = p.proveedor;
@@ -101,6 +105,7 @@ export async function llamarOpenRouter(p: PeticionLLM, o: OpcionesLLM = {}): Pro
         // El modelo no soporta esquema estricto: reintenta sin el.
         if (r.status === 400 && conEsquema && p.esquema) conEsquema = false;
         else if (r.status !== 429 && r.status < 500) throw new ErrorLLM(`${ultimo}:${limpiar(texto).slice(0, 100)}`);
+        else if (o.soloRed) throw new ErrorLLM(ultimo);
         continue;
       }
       let j: any;
@@ -108,16 +113,19 @@ export async function llamarOpenRouter(p: PeticionLLM, o: OpcionesLLM = {}): Pro
         j = JSON.parse(texto);
       } catch {
         ultimo = 'respuesta_no_json';
+        if (o.soloRed) throw new ErrorLLM(ultimo);
         continue;
       }
       if (j?.error) {
         ultimo = `error_proveedor:${limpiar(String(j.error?.message ?? j.error?.code ?? ''))}`;
+        if (o.soloRed) throw new ErrorLLM(ultimo);
         continue;
       }
       const msg = j?.choices?.[0]?.message?.content;
       const contenido = typeof msg === 'string' ? msg : Array.isArray(msg) ? msg.map((x: any) => x?.text ?? '').join('') : '';
       if (!contenido.trim()) {
         ultimo = 'respuesta_vacia';
+        if (o.soloRed) throw new ErrorLLM(ultimo);
         continue;
       }
       const u = j?.usage ?? {};
