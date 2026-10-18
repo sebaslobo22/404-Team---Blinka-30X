@@ -82,6 +82,6 @@ export function textoDecision(r: ResultadoDecision, res: ResumenFactura, alertas
   return lineas.join('\n');
 }
 
-export function textoParaDueno(id: string, res: ResumenFactura, razones: string[]): string {
-  return [`Hay una factura que necesita tu aprobación (simulada).`, '', resumenTexto(res), '', 'Por qué:', ...razones.map((x) => `- ${x}`), '', `Referencia: ${id.slice(0, 8)}`].join('\n');
+export function textoParaDueno(id: string, res: ResumenFactura, razones: string[], empresa?: string): string {
+  return [empresa ? `Hay una factura de «${limpio(empresa, 60)}» que necesita tu aprobación (simulada).` : `Hay una factura que necesita tu aprobación (simulada).`, '', resumenTexto(res), '', 'Por qué:', ...razones.map((x) => `- ${x}`), '', `Referencia: ${id.slice(0, 8)}`].join('\n');
 }

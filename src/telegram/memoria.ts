@@ -100,8 +100,12 @@ export class AlmacenEnMemoria implements Almacen {
   async crearEmpresa(chatId: number, usuarioId: number, nombre: string, codigo: string): Promise<{ empresa_id: string; codigo: string; nueva: boolean } | null> {
     this.vivo();
     const m = this.miembros.get(chatId);
-    const actual = m && m.rol === 'DUENO' ? this.empresas.get(m.empresa_id) : undefined;
-    if (actual && !actual.es_demo) return { empresa_id: actual.id, codigo: actual.codigo, nueva: false };
+    const porMiembro = m && m.rol === 'DUENO' ? this.empresas.get(m.empresa_id) : undefined;
+    const actual = porMiembro && !porMiembro.es_demo ? porMiembro : [...this.empresas.values()].find((e) => !e.es_demo && e.dueno_chat_id === chatId);
+    if (actual) {
+      this.miembros.set(chatId, { chat_id: chatId, usuario_id: usuarioId, empresa_id: actual.id, rol: 'DUENO' });
+      return { empresa_id: actual.id, codigo: actual.codigo, nueva: false };
+    }
     if ([...this.empresas.values()].some((e) => e.codigo === codigo)) return null;
     const id = randomUUID();
     this.empresas.set(id, { id, nombre, codigo, es_demo: false, dueno_chat_id: chatId, dueno_usuario_id: usuarioId, limite_pago_usd_centavos: 500000 });

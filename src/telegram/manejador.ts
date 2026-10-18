@@ -129,7 +129,12 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
     return;
   }
   // La factura se decide con las reglas de la empresa del chat. Sin empresa, no se procesa.
-  const miembro = await d.almacen.miembroDe(chatId);
+  let miembro = await d.almacen.miembroDe(chatId);
+  if (!miembro) {
+    // Chat que hizo /start antes de las empresas: entra a la demo, como cualquier recien llegado.
+    await d.almacen.unirse(chatId, m.from?.id ?? null, ID_DEMO, 'EQUIPO');
+    miembro = await d.almacen.miembroDe(chatId);
+  }
   const empresa = miembro ? await d.almacen.empresa(miembro.empresa_id) : null;
   if (!miembro || !empresa) {
     await decir(PIDE_START);
@@ -226,7 +231,7 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
   await decir(pendiente ? `${texto}\n\nQueda pendiente de la aprobación del dueño de ${nombreEmpresa(empresa)}.` : texto);
   if (pendiente && aprobador !== null) {
     const razones = resultado.razones.map((r) => fraseRazon(resultado, r));
-    await seguro(d, 'avisar_dueno', () => d.telegram.enviar(aprobador.chatId, textoParaDueno(id, resumen, razones), botones));
+    await seguro(d, 'avisar_dueno', () => d.telegram.enviar(aprobador.chatId, textoParaDueno(id, resumen, razones, empresa.nombre), botones));
   }
 }
 

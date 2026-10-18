@@ -44,6 +44,8 @@ create table if not exists public.telegram_proveedores (
 );
 
 alter table public.telegram_facturas add column if not exists empresa_id uuid references public.telegram_empresas (id);
+-- Si el codigo viejo sigue corriendo un rato despues de migrar, sus facturas caen en la demo (no quedan sin aprobador).
+alter table public.telegram_facturas alter column empresa_id set default '00000000-0000-4000-8000-00000000a0a0';
 create index if not exists telegram_facturas_empresa_idx on public.telegram_facturas (empresa_id, creada_en desc);
 
 -- Lo que ya existia pasa a la demo: los chats con /start quedan como EQUIPO de Aurora y sus facturas, de Aurora.
@@ -66,15 +68,22 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+#variable_conflict use_column
 declare
   v_id uuid;
   v_codigo text;
 begin
   perform pg_advisory_xact_lock(p_chat);
+  -- Ya es dueno de una empresa (por su membresia o porque la creo este chat): se devuelve esa.
   select e.id, e.codigo into v_id, v_codigo
-    from public.telegram_miembros m join public.telegram_empresas e on e.id = m.empresa_id
-    where m.chat_id = p_chat and m.rol = 'DUENO' and not e.es_demo;
+    from public.telegram_empresas e
+    where not e.es_demo and (e.dueno_chat_id = p_chat
+      or e.id = (select m.empresa_id from public.telegram_miembros m where m.chat_id = p_chat and m.rol = 'DUENO'))
+    order by e.creada_en limit 1;
   if v_id is not null then
+    insert into public.telegram_miembros (chat_id, usuario_id, empresa_id, rol)
+      values (p_chat, p_usuario, v_id, 'DUENO')
+      on conflict (chat_id) do update set empresa_id = excluded.empresa_id, rol = 'DUENO';
     return query select v_id, v_codigo, false;
     return;
   end if;

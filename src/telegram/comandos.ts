@@ -104,7 +104,9 @@ export async function ejecutarComando(comando: string, argumento: string, c: Con
     if (bloqueo) return bloqueo;
     const codigo = normalizarCodigo(argumento);
     if (!codigo) return 'Escribe el código que te dio el dueño, por ejemplo: /unirme PULSO-7KQ2MX';
-    if ((await c.cupo()) !== 'ok') return 'Hiciste muchos intentos seguidos. Espera un rato y vuelve a probar.';
+    const cupo = await c.cupo();
+    if (cupo === 'dia') return 'Pulso llegó hoy a su tope de uso de prueba. Vuelve a intentar mañana.';
+    if (cupo !== 'ok') return 'Hiciste muchos intentos seguidos. Espera un rato y vuelve a probar.';
     const e = await c.almacen.empresaPorCodigo(codigo);
     if (!e || e.es_demo) return 'Ese código no existe. Revisa que esté bien escrito o pídeselo de nuevo al dueño.';
     await c.almacen.unirse(c.chatId, c.usuarioId, e.id, 'EQUIPO');
@@ -118,7 +120,10 @@ export async function ejecutarComando(comando: string, argumento: string, c: Con
     const n = Number(argumento.replace(/[.\s]/g, ''));
     if (!(LIMITES_USD as readonly number[]).includes(n)) return 'Elige uno de estos límites por pago en USD: /limite 1000, 5000, 10000 o 25000';
     await c.almacen.fijarLimite(actual.e.id, n * 100);
-    return `Listo. Desde ahora, todo pago por encima de ${usd(n * 100)} te lo pregunto.`;
+    return [
+      `Listo. Tu límite por pago es ${usd(n * 100)}: todo pago por encima te lo pregunto.`,
+      'Mientras tu empresa no tenga acuerdos ni presupuestos cargados, igual te pregunto todas las facturas. Lo que entra por este chat nunca se paga solo.',
+    ].join('\n');
   }
 
   // /proveedor ID-FISCAL CUENTA Nombre
