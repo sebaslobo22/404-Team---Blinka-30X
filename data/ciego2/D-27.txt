@@ -1,0 +1,8 @@
+[Chat: Luz Andina S.A.C. <-> Aurora Cloud Finanzas]
+[16/10/2026 12:02] Luz Andina: buenas tardes, les paso el cobro
+[16/10/2026 12:02] Luz Andina: ID fiscal FIC-PE-001, factura LA-2026-0468
+[16/10/2026 12:03] Luz Andina: Alojamiento servidores dedicados, respaldo, PEN 5,962.50
+[16/10/2026 12:03] Luz Andina: cuenta ACC-PE-0001. Vence el 31/10/2026
+[16/10/2026 12:09] Finanzas Aurora: recibido, gracias
+
+(Documento ficticio para pruebas)

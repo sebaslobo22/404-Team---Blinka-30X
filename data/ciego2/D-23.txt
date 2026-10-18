@@ -1,0 +1,8 @@
+[Chat: Servicios Cóndor SRL <-> Aurora Cloud Finanzas]
+[15/10/2026 16:02] Servicios Cóndor: buenas tardes, les paso el cobro
+[15/10/2026 16:02] Servicios Cóndor: ID fiscal FIC-BO-033, factura SC-0105
+[15/10/2026 16:03] Servicios Cóndor: Limpieza y mantenimiento de oficina, USD 780.00
+[15/10/2026 16:03] Servicios Cóndor: cuenta ACC-BO-0033. Vence el 31/10/2026
+[15/10/2026 16:09] Finanzas Aurora: recibido, gracias
+
+(Documento ficticio para pruebas)
