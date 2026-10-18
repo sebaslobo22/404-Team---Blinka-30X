@@ -17,9 +17,10 @@ describe('tabla de pasos del recorrido', () => {
   it('máximo 2 frases por paso', () => {
     for (const p of PASOS) expect(contarFrases(p.texto), p.id).toBeLessThanOrEqual(2);
   });
-  it('escritorio tiene 13 pasos, incluida la barra justo tras la bienvenida; móvil 12 sin la barra', () => {
-    expect(pasosPara(true)).toHaveLength(13);
-    expect(pasosPara(false)).toHaveLength(12);
+  // 14 y 13 desde el 18/10/2026: se sumó el paso de canales (Telegram, correo y subida) justo antes del cierre.
+  it('escritorio tiene 14 pasos, incluida la barra justo tras la bienvenida; móvil 13 sin la barra', () => {
+    expect(pasosPara(true)).toHaveLength(14);
+    expect(pasosPara(false)).toHaveLength(13);
     expect(pasosPara(true)[1]?.id).toBe('barra');
     expect(pasosPara(false).some((p) => p.id === 'barra')).toBe(false);
   });
@@ -29,6 +30,12 @@ describe('tabla de pasos del recorrido', () => {
     expect(p[0]?.selector).toBeUndefined();
     expect(p.at(-1)).toMatchObject({ tipo: 'fin' });
     expect(p.at(-1)?.selector).toBeUndefined();
+  });
+  it('el penúltimo paso habla de los canales y no ilumina nada', () => {
+    const p = pasosPara(true);
+    expect(p.at(-2)?.id).toBe('canales');
+    expect(p.at(-2)?.selector).toBeUndefined();
+    for (const canal of ['Telegram', 'correo', 'subiéndolas']) expect(p.at(-2)?.texto).toContain(canal);
   });
   it('los pasos con foco recorren las páginas del producto en orden', () => {
     expect(PASOS.map((p) => p.ruta).filter((r, i, a) => r !== a[i - 1])).toEqual(['/', '/facturas/F-016', '/cola', '/reglas', '/registro', '/']);
