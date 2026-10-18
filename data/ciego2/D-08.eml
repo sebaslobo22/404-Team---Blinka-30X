@@ -1,0 +1,25 @@
+From: facturacion@tallerorinoco.example
+To: cuentas@auroracloud.example
+Subject: Cobro TO-0242 - Reparación de equipos de red
+Date: Fri, 09 Oct 2026 09:12:00 -0500
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Estimados señores de Aurora Cloud:
+
+Les hacemos llegar nuestro cobro del periodo.
+
+Proveedor: Taller Orinoco C.A.
+ID fiscal: FIC-VE-003
+Cuenta: ACC-VE-0003
+Factura n.º: TO-0242
+Emisión: 09/10/2026
+Vence: 31/10/2026
+Concepto: Reparación de equipos de red
+Total a pagar: USD 1,185.00
+
+Saludos cordiales,
+Taller Orinoco C.A.
+
+--
+Documento ficticio para pruebas.
