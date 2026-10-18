@@ -371,3 +371,11 @@ describe('PDF: topes contra archivos bomba', () => {
     expect(textoDePdf(Buffer.concat([Buffer.from('stream\n'), normal, Buffer.from('endstream')]))).toBe('Factura 123');
   });
 });
+
+describe('PDF: flujos sin comprimir', () => {
+  it('lee el texto de un flujo que no viene con FlateDecode', async () => {
+    const { textoDePdf } = await import('../src/extraccion/pdftexto');
+    const pdf = Buffer.from('%PDF-1.4\n6 0 obj\n<< /Length 40 >>\nstream\nBT /F1 12 Tf 50 700 Td (Total USD 120.00) Tj ET\nendstream\n', 'latin1');
+    expect(textoDePdf(pdf)).toBe('Total USD 120.00');
+  });
+});
