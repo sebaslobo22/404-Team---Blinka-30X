@@ -1,0 +1,101 @@
+/* Landing /conoce. Reutiliza los tokens de globals.css; no define colores nuevos.
+   La landing lleva su propia cabecera y pie: se esconden la barra y los avisos de la app. */
+body:has(.conoce) .barra,body:has(.conoce) .cabecera,body:has(.conoce) .nav-inferior,body:has(.conoce) .aviso-demo,body:has(.conoce) .pie{display:none}
+body:has(.conoce) .app-cuerpo{padding-left:0;padding-bottom:0}
+body:has(.conoce) .principal{padding-block:0;gap:0;min-height:0}
+body:has(.conoce) .contenedor{max-width:72rem}
+
+.conoce{display:flex;flex-direction:column;gap:var(--s12);padding-bottom:var(--s12);min-width:0;font-size:var(--t2)}
+.conoce p{max-width:65ch}
+.conoce img{display:block;max-width:100%;height:auto}
+
+/* Cabecera */
+.cn-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s6);padding-block:var(--s4);border-bottom:1px solid var(--linea)}
+.cn-marca{display:inline-flex;align-items:center;gap:var(--s3);min-height:3rem;font-weight:600;font-size:var(--t3);color:var(--tinta);text-decoration:none}
+.cn-marca .ic{padding:.3rem;width:2.5rem;height:2.5rem;border-radius:.75rem;background:var(--firma);color:var(--sobre-firma)}
+.cn-nav nav{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4)}
+.cn-nav nav a{display:inline-flex;align-items:center;min-height:3rem;color:var(--tinta);font-weight:600}
+
+/* Hero */
+.cn-hero{display:grid;gap:var(--s8);align-items:center;padding-top:var(--s6)}
+.cn-hero-texto{min-width:0}
+.cn-kicker{margin:0 0 var(--s3);font-size:var(--t1);font-weight:600;color:var(--tenue)}
+.conoce h1{max-width:20ch;margin-bottom:var(--s5);font-size:var(--t4);line-height:1.15}
+.cn-lead{font-size:var(--t2);color:var(--tinta)}
+.cn-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);margin-block:var(--s5)}
+.cn-acciones .btn{text-align:center}
+.cn-nota{margin:0;font-size:var(--t1);color:var(--tenue)}
+.cn-captura{margin:0;min-width:0}
+.cn-captura img{width:100%;border:var(--borde-tarjeta);border-radius:var(--radio);box-shadow:var(--elev-1);background:var(--superficie)}
+.cn-captura figcaption{margin-top:var(--s2);font-size:var(--t1);color:var(--tenue)}
+.cap-oscuro{display:none!important}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme=light]) .cap-claro{display:none!important}
+  :root:not([data-theme=light]) .cap-oscuro{display:block!important}
+}
+:root[data-theme=dark] .cap-claro{display:none!important}
+:root[data-theme=dark] .cap-oscuro{display:block!important}
+
+/* Secciones */
+.cn-seccion{display:flex;flex-direction:column;gap:var(--s5);min-width:0;scroll-margin-top:var(--s6)}
+.cn-seccion>*{margin-block:0}
+.cn-seccion h2{font-size:var(--t4);max-width:24ch}
+.cn-seccion h3{margin:0}
+.cn-rotulo{font-size:var(--t1);color:var(--tenue)}
+.cn-rejilla3,.cn-rejilla4{--ancho-min:15rem}
+.cn-rejilla3>li,.cn-rejilla4>li{min-width:0}
+ol.rejilla-tarjetas{padding:0}
+.conoce .rejilla-tarjetas{grid-template-columns:1fr}
+@media(min-width:40rem){.cn-rejilla4{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:48rem){.cn-rejilla3{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(min-width:64rem){.cn-rejilla4{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+.cn-decisiones .tarjeta-titulo{font-size:var(--t2)}
+.cn-rejilla3 .tarjeta-titulo{min-height:0!important}
+
+/* Plegables (FAQ y técnicos): sin animar altura */
+.cn-plegable,.cn-faq details{border:var(--borde-tarjeta);border-radius:var(--radio);background:var(--superficie);padding:0 var(--s5);min-width:0}
+.cn-plegable>summary,.cn-faq summary{display:flex;align-items:center;min-height:3rem;padding-block:var(--s3);font-weight:600;color:var(--tinta)}
+.cn-plegable[open]>summary,.cn-faq details[open]>summary{border-bottom:1px solid var(--linea);margin-bottom:var(--s4)}
+.cn-plegable>p,.cn-faq details>p{margin:0 0 var(--s4)}
+.cn-faq{display:flex;flex-direction:column;gap:var(--s3)}
+.cn-reglas{list-style:none;margin:0;padding:0 0 var(--s4);display:grid;gap:var(--s3)}
+.cn-reglas li{display:flex;align-items:center;gap:var(--s3)}
+
+/* Seguridad */
+.cn-dos{display:grid;gap:var(--s8);align-items:start}
+.cn-dos>*{min-width:0}
+.cn-sellos{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s3)}
+.cn-sello{display:inline-flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s4);border-radius:var(--pildora);border:1px solid var(--linea);background:var(--acento-suave);color:var(--tinta);font-size:var(--t1);font-weight:600}
+
+/* Canales y límites */
+.cn-canales{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:var(--s3)}
+.cn-canales li{display:flex;align-items:center;gap:var(--s3);min-height:3rem;padding:var(--s3) var(--s4);border:var(--borde-tarjeta);border-radius:var(--radio);background:var(--superficie)}
+.cn-aunno{padding:var(--s5);border:var(--borde-tarjeta);border-radius:var(--radio);background:var(--superficie)}
+.cn-aunno ul{list-style:none;margin:var(--s3) 0 0;padding:0;display:grid;gap:var(--s3)}
+.cn-aunno li{display:flex;align-items:center;gap:var(--s3)}
+
+/* Oferta */
+.cn-oferta{padding:var(--s6);border:var(--borde-tarjeta);border-radius:var(--radio);background:var(--acento-suave)}
+.cn-oferta .cn-plegable{background:var(--superficie)}
+
+/* Pie */
+.cn-pie{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s3);padding-top:var(--s6);border-top:1px solid var(--linea);font-size:var(--t1)}
+.cn-pie p{margin:0}
+.cn-lema{font-size:var(--t3);font-weight:600}
+
+@media(min-width:64rem){
+  .cn-hero{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--s12)}
+  .conoce h1{font-size:var(--t5)}
+  .cn-dos{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--s12)}
+}
+@media(max-width:45rem){.conoce{gap:var(--s10)}.cn-seccion h2{font-size:var(--t3)}.cn-oferta{padding:var(--s4)}.cn-acciones .btn{width:100%}}
+
+/* Aparición al hacer scroll: solo opacidad y 8 px. Sin JS o con movimiento reducido todo se ve. */
+@media(prefers-reduced-motion:no-preference){
+  [data-revela]{transition:opacity var(--duracion) var(--curva),transform var(--duracion) var(--curva)}
+  [data-revela][data-oculto]{opacity:0;transform:translateY(.5rem)}
+}
+@media(prefers-reduced-motion:reduce){
+  .conoce *{transition:none!important;animation:none!important}
+  .conoce .tarjeta[data-tarjeta]{transition:none}
+}
