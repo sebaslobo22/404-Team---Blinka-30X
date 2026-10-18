@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Cabecera, AvisoReplay, NavegacionMovil } from './Interfaz';
 import { BarraLateral } from './barra/Barra';
 import { Tour } from './tour/Tour';
+import { Bienvenida } from './bienvenida/Bienvenida';
+import { buzonCorreo, enlaceTelegram } from './bienvenida/estado';
 import { estadoAprobacion } from '../src/demo/estado';
 import { obtenerEstado } from '../src/demo/singleton';
 import { modoPublico } from '../src/publico';
@@ -48,6 +50,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <footer className="contenedor pie">Pulso · Pulso firme en cada pago · Equipo 404. Nunca mueve dinero.</footer>
         </div>
         <NavegacionMovil vivoDisponible={vivoDisponible} /><Tour />
+        <Bienvenida vivoDisponible={vivoDisponible} telegramUrl={enlaceTelegram(process.env.NEXT_PUBLIC_TELEGRAM_BOT_URL)} buzon={buzonCorreo(process.env.NEXT_PUBLIC_GMAIL_BUZON)} />
       </body>
     </html>
   );
