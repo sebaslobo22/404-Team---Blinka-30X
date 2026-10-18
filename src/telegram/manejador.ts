@@ -5,7 +5,7 @@ import type { Almacen, FacturaVivo, ResumenFactura } from './almacen';
 import type { TelegramApi } from './api';
 import { MAX_BYTES, entradaDesdeBytes, validarBytes, validarReportado } from './archivo';
 import {
-  INTRO, NO_DISPONIBLE, NO_PUDE_LEER, PIDE_ARCHIVO, PIDE_START, fraseRazon, rechazoArchivo, rechazoCupo, textoDecision, textoParaDueno,
+  INTRO, NO_DISPONIBLE, NO_PUDE_LEER, PIDE_ARCHIVO, PIDE_START, fraseRazon, rechazoArchivo, rechazoCupo, textoDecision, textoParaDueno, limpio, finalDeCuenta, textoOrdenPreparada,
 } from './mensajes';
 import { aplicarTechoEnVivo } from './techo';
 import { COMANDOS, ejecutarComando } from './comandos';
@@ -225,6 +225,8 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
     numero_factura: factura.numero_factura,
     monto_centavos: factura.monto_centavos,
     moneda: factura.moneda,
+    id_fiscal: factura.id_fiscal ? limpio(factura.id_fiscal, 40) : null,
+    cuenta_final: finalDeCuenta(factura.cuenta),
   };
   const pendiente = resultado.decision === 'ESCALAR';
   const id = await d.almacen.guardarFactura({
@@ -306,6 +308,8 @@ async function manejarCallback(cb: TgCallback, d: Deps): Promise<void> {
     const mid = cb.message.message_id;
     await seguro(d, 'quitar_botones', () => d.telegram.quitarBotones(chat.id, mid));
   }
+  // El dueno ve la orden preparada y los pasos que siguen. El pago lo hace una persona en Blinka.
+  if (accion === 'APROBADA') await seguro(d, 'orden_preparada', () => d.telegram.enviar(chat.id, textoOrdenPreparada(f.id, f.resumen, d.ahora())));
   await avisarResolucion(f, accion, d);
 }
 

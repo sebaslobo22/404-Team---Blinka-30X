@@ -1,6 +1,7 @@
 import { camposLeidos, dinero, motivo } from '../../app/ui/lenguaje';
 import type { FilaDemo } from '../demo/estado';
 import type { Decision, Razon, ResultadoDecision } from '../engine/types';
+import { paisDeIdFiscal, rielSugerido } from '../demo/orden';
 import type { ResumenFactura } from './almacen';
 import { MAX_BYTES } from './archivo';
 import { REGLA_EN_VIVO, TEXTO_EN_VIVO } from './techo';
@@ -74,6 +75,40 @@ export function resumenTexto(res: ResumenFactura): string {
     `Proveedor: ${limpio(res.beneficiario) || 'sin leer'}`,
     `Factura: ${limpio(res.numero_factura, 40) || 'sin número'}`,
     `Monto: ${dinero(res.monto_centavos, res.moneda)}`,
+    ...(res.id_fiscal ? [`ID fiscal: ${limpio(res.id_fiscal, 40)}`] : []),
+    ...(res.cuenta_final ? [`Cuenta terminada en: ${limpio(res.cuenta_final, 4)}`] : []),
+  ].join('\n');
+}
+
+/** Ultimos 4 caracteres de la cuenta, o null. */
+export function finalDeCuenta(cuenta: unknown): string | null {
+  const c = limpio(cuenta, 80).replace(/\s+/g, '');
+  return c.length >= 4 ? c.slice(-4) : null;
+}
+
+/**
+ * Lo que ve el dueno despues de aprobar: la orden preparada para Blinka y los pasos que siguen.
+ * Pulso no ejecuta nada: el pago lo hace una persona en Blinka.
+ */
+export function textoOrdenPreparada(id: string, res: ResumenFactura, cuando: Date): string {
+  const riel = rielSugerido(res.moneda, paisDeIdFiscal(res.id_fiscal));
+  const hora = cuando.toISOString().slice(0, 16).replace('T', ' ');
+  return [
+    'Orden preparada para Blinka (simulada: Pulso no mueve dinero).',
+    '',
+    resumenTexto(res),
+    `Riel sugerido: ${riel.nombre}. ${riel.motivo}`,
+    `Referencia: PULSO-${id.slice(0, 8).toUpperCase()}`,
+    '',
+    'Qué verificó Pulso antes de pedirte permiso:',
+    '- Dos modelos leyeron la factura y sus datos se compararon.',
+    '- Las reglas de tu empresa: proveedor y cuenta en tu lista, límite por pago, órdenes escondidas y duplicados.',
+    '- Lo que no cumplió es lo que te mostré arriba: por eso te preguntó.',
+    '',
+    'Siguientes pasos:',
+    '1. Revisa que el ID fiscal y el final de la cuenta coincidan con lo que conoces del proveedor.',
+    '2. Ejecuta el pago en Blinka con estos datos. Pulso no lo hace por ti.',
+    `3. Quedó registrado que aprobaste tú (${hora} UTC).`,
   ].join('\n');
 }
 

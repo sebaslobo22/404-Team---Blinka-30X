@@ -173,3 +173,15 @@ describe('reglas de una empresa propia', () => {
     expect(r.tope_mensual_usd_centavos).toBe(TOPE_MENSUAL_SIN_DEFINIR);
   });
 });
+
+describe('resumen para el dueno', () => {
+  it('muestra el ID fiscal y solo los ultimos 4 de la cuenta', async () => {
+    const { resumenTexto, finalDeCuenta } = await import('../src/telegram/mensajes');
+    expect(finalDeCuenta('ACC-PE-0001')).toBe('0001');
+    expect(finalDeCuenta('12')).toBeNull();
+    const t = resumenTexto({ beneficiario: 'Luz Andina', numero_factura: 'LA-1', monto_centavos: 100, moneda: 'USD', id_fiscal: 'FIC-PE-001', cuenta_final: '0001' });
+    expect(t).toMatch(/ID fiscal: FIC-PE-001/);
+    expect(t).toMatch(/Cuenta terminada en: 0001/);
+    expect(t).not.toMatch(/ACC-PE/);
+  });
+});
