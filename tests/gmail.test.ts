@@ -115,7 +115,7 @@ describe('script de Apps Script (funciones puras, fuera de Google)', () => {
     expect(llamar('esRemitenteAutomatico', 'Ana Pérez <ana@ejemplo.com>')).toBe(false);
   });
   it('responde al mensaje con la factura (no al último del hilo) y etiqueta antes de responder', () => {
-    const fuente = readFileSync('integraciones/gmail/Codigo.gs', 'utf8');
+    const fuente = readFileSync('integraciones/gmail/Codigo.gs', 'utf8').replace(/\r\n/g, '\n');
     expect(fuente).not.toContain('hilo.reply');
     expect(fuente.indexOf('hilo.addLabel(lista);\n    props.deleteProperty(clave);\n    responder_(')).toBeGreaterThan(0);
   });

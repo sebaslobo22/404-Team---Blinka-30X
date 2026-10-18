@@ -1,5 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Almacen, Cupo, FacturaVivo, NuevaFactura } from './almacen';
+import type { Empresa, Miembro, Proveedor, Rol } from './empresas';
 import type { Entorno } from '../publico';
 
 /**
@@ -64,6 +65,7 @@ export class AlmacenSupabase implements Almacen {
       .from('telegram_facturas')
       .insert({
         chat_id: f.chat_id,
+        empresa_id: f.empresa_id,
         update_id: f.update_id,
         decision: f.decision,
         decision_motor: f.decision_motor,
@@ -88,6 +90,7 @@ export class AlmacenSupabase implements Almacen {
     return {
       id: r['id'] as string,
       chat_id: Number(r['chat_id']),
+      empresa_id: typeof r['empresa_id'] === 'string' ? r['empresa_id'] : null,
       update_id: Number(r['update_id']),
       decision: r['decision'] as FacturaVivo['decision'],
       decision_motor: r['decision_motor'] as FacturaVivo['decision_motor'],
@@ -110,5 +113,71 @@ export class AlmacenSupabase implements Almacen {
       .select('id');
     chequear(error);
     return (data ?? []).length === 1;
+  }
+
+  async miembroDe(chatId: number): Promise<Miembro | null> {
+    const { data, error } = await this.db.from('telegram_miembros').select('chat_id, usuario_id, empresa_id, rol').eq('chat_id', chatId).maybeSingle();
+    chequear(error);
+    if (!data) return null;
+    const r = data as Record<string, unknown>;
+    return { chat_id: Number(r['chat_id']), usuario_id: r['usuario_id'] === null ? null : Number(r['usuario_id']), empresa_id: String(r['empresa_id']), rol: r['rol'] === 'DUENO' ? 'DUENO' : 'EQUIPO' };
+  }
+
+  private static empresaDe(r: Record<string, unknown>): Empresa {
+    const num = (v: unknown) => (v === null || v === undefined ? null : Number(v));
+    return {
+      id: String(r['id']),
+      nombre: String(r['nombre']),
+      codigo: String(r['codigo']),
+      es_demo: r['es_demo'] === true,
+      dueno_chat_id: num(r['dueno_chat_id']),
+      dueno_usuario_id: num(r['dueno_usuario_id']),
+      limite_pago_usd_centavos: Number(r['limite_pago_usd_centavos']),
+    };
+  }
+
+  async empresa(id: string): Promise<Empresa | null> {
+    const { data, error } = await this.db.from('telegram_empresas').select('*').eq('id', id).maybeSingle();
+    chequear(error);
+    return data ? AlmacenSupabase.empresaDe(data as Record<string, unknown>) : null;
+  }
+
+  async empresaPorCodigo(codigo: string): Promise<Empresa | null> {
+    const { data, error } = await this.db.from('telegram_empresas').select('*').eq('codigo', codigo).maybeSingle();
+    chequear(error);
+    return data ? AlmacenSupabase.empresaDe(data as Record<string, unknown>) : null;
+  }
+
+  async unirse(chatId: number, usuarioId: number | null, empresaId: string, rol: Rol): Promise<void> {
+    const { error } = await this.db
+      .from('telegram_miembros')
+      .upsert({ chat_id: chatId, usuario_id: usuarioId, empresa_id: empresaId, rol, unido_en: new Date().toISOString() }, { onConflict: 'chat_id' });
+    chequear(error);
+  }
+
+  async crearEmpresa(chatId: number, usuarioId: number, nombre: string, codigo: string): Promise<{ empresa_id: string; codigo: string; nueva: boolean } | null> {
+    const { data, error } = await this.db.rpc('telegram_crear_empresa', { p_chat: chatId, p_usuario: usuarioId, p_nombre: nombre, p_codigo: codigo });
+    chequear(error);
+    const fila = (Array.isArray(data) ? data[0] : data) as Record<string, unknown> | undefined;
+    if (!fila) return null;
+    return { empresa_id: String(fila['empresa_id']), codigo: String(fila['codigo']), nueva: fila['nueva'] === true };
+  }
+
+  async proveedores(empresaId: string): Promise<Proveedor[]> {
+    const { data, error } = await this.db.from('telegram_proveedores').select('id_fiscal, cuenta, nombre, desde').eq('empresa_id', empresaId).limit(500);
+    chequear(error);
+    return ((data ?? []) as Record<string, unknown>[]).map((r) => ({ id_fiscal: String(r['id_fiscal']), cuenta: String(r['cuenta']), nombre: String(r['nombre']), desde: String(r['desde']).slice(0, 10) }));
+  }
+
+  async agregarProveedor(empresaId: string, p: Proveedor, por: number): Promise<void> {
+    const { error } = await this.db
+      .from('telegram_proveedores')
+      .upsert({ empresa_id: empresaId, id_fiscal: p.id_fiscal, cuenta: p.cuenta, nombre: p.nombre, desde: p.desde, agregado_por: por }, { onConflict: 'empresa_id,id_fiscal,cuenta' });
+    chequear(error);
+  }
+
+  async fijarLimite(empresaId: string, centavos: number): Promise<void> {
+    const { error } = await this.db.from('telegram_empresas').update({ limite_pago_usd_centavos: centavos }).eq('id', empresaId).eq('es_demo', false);
+    chequear(error);
   }
 }

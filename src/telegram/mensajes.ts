@@ -12,13 +12,17 @@ export function limpio(s: unknown, max = 80): string {
 }
 
 export const INTRO = [
-  'Hola, soy Pulso. Leo facturas y decido si PAGAR, FRENAR o ESCALAR a una persona, siguiendo las reglas de una empresa.',
+  'Hola, soy Pulso. Leo tus facturas, decido con las reglas de tu empresa y te pido permiso cuando algo se sale de ellas. Nunca muevo dinero.',
   '',
-  'Esto es una prueba:',
-  '- La empresa es ficticia (Aurora Cloud) y todos los datos son de prueba.',
-  '- Pulso NUNCA mueve dinero. Las órdenes que ves aquí son simuladas.',
-  '- Para leer tu factura, el archivo se envía a dos modelos de IA (Gemini y Claude) a través de OpenRouter. No envíes datos reales ni personales.',
-  '- Toda factura que llega por este chat la revisa una persona: como máximo termina en ESCALAR.',
+  'Ahora estás en la empresa de prueba, Aurora Cloud (ficticia). Para que tus facturas no se mezclen con las de nadie:',
+  '- Crea tu empresa: /crear Nombre de tu empresa',
+  '- O únete a la de tu equipo: /unirme PULSO-XXXXXX',
+  '- ¿Dónde estoy? /empresa · Todo lo que sé hacer: /ayuda',
+  '',
+  'Antes de enviarme algo:',
+  '- Todos los datos son de prueba. No envíes facturas reales ni datos personales.',
+  '- Para leer tu factura, el archivo va a dos modelos de IA (Gemini y Claude) a través de OpenRouter. No lo guardo.',
+  '- Lo que llega por aquí nunca se paga solo: como máximo se lo pregunto al dueño de la empresa. Las órdenes son simuladas.',
   '',
   `Envíame una foto o un PDF de una factura (JPG, PNG o PDF, hasta ${MAX_BYTES / 1024 / 1024} MB).`,
 ].join('\n');

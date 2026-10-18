@@ -8,6 +8,8 @@ import {
   INTRO, NO_DISPONIBLE, NO_PUDE_LEER, PIDE_ARCHIVO, PIDE_START, fraseRazon, rechazoArchivo, rechazoCupo, textoDecision, textoParaDueno,
 } from './mensajes';
 import { aplicarTechoEnVivo } from './techo';
+import { COMANDOS, ejecutarComando } from './comandos';
+import { aprobadorDe, contextoDeEmpresa, ID_DEMO, reglasDeEmpresa, type Empresa } from './empresas';
 
 // --- Forma de lo que manda Telegram (solo los campos que se usan) ---
 export interface TgChat { id: number; type: string }
@@ -24,7 +26,7 @@ export interface TgCallback { id: string; from: TgUsuario; data?: string; messag
 export interface TgUpdate { update_id: number; message?: TgMensaje; callback_query?: TgCallback }
 
 export interface ConfigBot {
-  /** Id de Telegram de la persona que aprueba. Sin el, nadie puede aprobar. */
+  /** Id de Telegram de quien aprueba las facturas de la EMPRESA DEMO (Aurora). Las demas las aprueba su dueno. */
   duenoId: number | null;
   /** URL base publica del producto (PULSO_URL_PUBLICA). */
   urlPublica: string;
@@ -89,7 +91,24 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
 
   if (esStart(m.text)) {
     await d.almacen.iniciarChat(chatId, m.from?.id ?? null);
+    // Quien llega por primera vez entra a la demo; nunca se le cambia la empresa a quien ya tiene una.
+    if (!(await d.almacen.miembroDe(chatId))) await d.almacen.unirse(chatId, m.from?.id ?? null, ID_DEMO, 'EQUIPO');
     await decir(INTRO);
+    return;
+  }
+
+  const cmd = COMANDOS.exec((m.text ?? '').trim());
+  if (cmd) {
+    if (!(await d.almacen.chatIniciado(chatId))) return void (await decir(PIDE_START));
+    const respuesta = await ejecutarComando(cmd[1] as string, cmd[3] ?? '', {
+      almacen: d.almacen,
+      chatId,
+      usuarioId: m.from?.id ?? null,
+      privado: m.chat.type === 'private' && m.from?.id === chatId,
+      ahora: d.ahora(),
+      cupo: () => d.almacen.consumirCupo(chatId, d.ahora(), d.config.maxPorChatHora, d.config.topeDiario),
+    });
+    await decir(respuesta);
     return;
   }
 
@@ -107,6 +126,13 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
   }
   if (!archivo) {
     await decir(PIDE_ARCHIVO);
+    return;
+  }
+  // La factura se decide con las reglas de la empresa del chat. Sin empresa, no se procesa.
+  const miembro = await d.almacen.miembroDe(chatId);
+  const empresa = miembro ? await d.almacen.empresa(miembro.empresa_id) : null;
+  if (!miembro || !empresa) {
+    await decir(PIDE_START);
     return;
   }
 
@@ -161,7 +187,10 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
   }
 
   const idDecision = `TG-${updateId}`;
-  const motor = decidir(idDecision, factura, d.contexto, d.cfgMotor);
+  const [contexto, reglas] = empresa.es_demo
+    ? [d.contexto, d.cfgMotor]
+    : [contextoDeEmpresa(await d.almacen.proveedores(empresa.id), d.ahora()), reglasDeEmpresa(d.cfgMotor, empresa)];
+  const motor = decidir(idDecision, factura, contexto, reglas);
   const resultado = aplicarTechoEnVivo(motor);
   const resumen: ResumenFactura = {
     beneficiario: factura.beneficiario,
@@ -172,6 +201,7 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
   const pendiente = resultado.decision === 'ESCALAR';
   const id = await d.almacen.guardarFactura({
     chat_id: chatId,
+    empresa_id: empresa.id,
     update_id: updateId,
     decision: resultado.decision,
     decision_motor: motor.decision,
@@ -185,17 +215,18 @@ async function manejarMensaje(m: TgMensaje, updateId: number, d: Deps): Promise<
     { texto: 'Aprobar', data: `a:${id}` },
     { texto: 'Rechazar', data: `r:${id}` },
   ];
-  const esDueno = d.config.duenoId !== null && m.from?.id === d.config.duenoId && m.chat.type === 'private';
+  const aprobador = aprobadorDe(empresa, d.config.duenoId);
+  const esDueno = aprobador !== null && m.from?.id === aprobador.usuarioId && m.chat.type === 'private';
 
   if (pendiente && esDueno) {
     await decir(texto);
     await d.telegram.enviar(chatId, 'Esta factura espera tu decisión (simulada).', botones);
     return;
   }
-  await decir(pendiente ? `${texto}\n\nQueda pendiente de la aprobación del dueño.` : texto);
-  if (pendiente && d.config.duenoId !== null) {
+  await decir(pendiente ? `${texto}\n\nQueda pendiente de la aprobación del dueño de ${nombreEmpresa(empresa)}.` : texto);
+  if (pendiente && aprobador !== null) {
     const razones = resultado.razones.map((r) => fraseRazon(resultado, r));
-    await seguro(d, 'avisar_dueno', () => d.telegram.enviar(d.config.duenoId as number, textoParaDueno(id, resumen, razones), botones));
+    await seguro(d, 'avisar_dueno', () => d.telegram.enviar(aprobador.chatId, textoParaDueno(id, resumen, razones), botones));
   }
 }
 
@@ -227,13 +258,16 @@ async function manejarCallback(cb: TgCallback, d: Deps): Promise<void> {
   // Solo desde un chat privado con el dueno.
   const chat = cb.message?.chat;
   if (!chat || chat.type !== 'private' || chat.id !== cb.from.id) return void (await responder('Solo se aprueba desde un chat privado.'));
-  if (d.config.duenoId === null || cb.from.id !== d.config.duenoId) return void (await responder('No estás autorizado para aprobar.'));
 
   const accion = m[1] === 'a' ? 'APROBADA' : 'RECHAZADA';
   const id = m[2] as string;
   // Se vuelve a leer el estado en el momento del clic (los botones viejos no mandan).
   const f = await d.almacen.obtenerFactura(id);
   if (!f) return void (await responder('Esa factura no existe.'));
+  // Solo aprueba quien aprueba en la empresa DE ESA FACTURA (factura sin empresa: nadie).
+  const empresa = f.empresa_id ? await d.almacen.empresa(f.empresa_id) : null;
+  const aprobador = aprobadorDe(empresa, d.config.duenoId);
+  if (aprobador === null || cb.from.id !== aprobador.usuarioId) return void (await responder('No estás autorizado para aprobar.'));
   if (f.decision !== 'ESCALAR') return void (await responder('Una factura frenada no se puede aprobar.'));
   if (f.estado_resolucion !== 'PENDIENTE') return void (await responder('Esta factura ya fue resuelta.'));
   // UPDATE condicional atomico: si otro clic se adelanto, devuelve false.
@@ -251,3 +285,5 @@ async function avisarResolucion(f: FacturaVivo, accion: 'APROBADA' | 'RECHAZADA'
   const que = accion === 'APROBADA' ? 'aprobada por el dueño (orden simulada: no se movió dinero)' : 'rechazada por el dueño';
   await seguro(d, 'avisar_origen', () => d.telegram.enviar(f.chat_id, `Tu factura ${f.resumen.numero_factura ?? ''} fue ${que}.`.replace('  ', ' ')));
 }
+
+const nombreEmpresa = (e: Empresa) => `«${e.nombre.replace(/[\u0000-\u001f\u007f]/g, ' ').slice(0, 60)}»`;
