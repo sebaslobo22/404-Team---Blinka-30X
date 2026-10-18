@@ -51,12 +51,12 @@ export default function Portada({ d }: { d: DatosPortada }) {
   const segmentos = [
     { k: 'ESCALAR', n: d.escalar, palabra: 'Te necesitan', icono: 'campana' as NombreIcono, clase: 'escalar' },
     { k: 'FRENAR', n: d.frenar, palabra: 'Frenadas', icono: 'mano' as NombreIcono, clase: 'frenar' },
-    { k: 'PAGAR', n: d.pagar, palabra: 'Pagadas', icono: 'check-circulo' as NombreIcono, clase: 'pagar' },
+    { k: 'PAGAR', n: d.pagar, palabra: 'Listas para pagar', icono: 'check-circulo' as NombreIcono, clase: 'pagar' },
   ];
   let acumulado = 0;
   const dibujados = segmentos.map(s => { const p = d.total ? (s.n / d.total) * 100 : 0; const o = { ...s, p, inicio: acumulado }; acumulado += p; return o; });
   const dinero = [
-    { k: 'pagar', palabra: 'Pagado solo', valor: d.usd.pagar, clase: 'pagar', icono: 'check-circulo' as NombreIcono },
+    { k: 'pagar', palabra: 'Listo para pagar', valor: d.usd.pagar, clase: 'pagar', icono: 'check-circulo' as NombreIcono },
     { k: 'frenar', palabra: 'Frenado: protegido', valor: d.usd.frenar, clase: 'frenar', icono: 'mano' as NombreIcono },
     { k: 'espera', palabra: 'Espera tu decisión', valor: d.usd.espera, clase: 'escalar', icono: 'campana' as NombreIcono },
   ];
@@ -75,7 +75,7 @@ export default function Portada({ d }: { d: DatosPortada }) {
         <p className="rotulo-ic"><Ic nombre="agente" size={24} />Decidido sin ti</p>
         <p className="cifra"><Cuenta valor={d.pct} formato={pctTxt} /> %</p>
         <div className="barra-fina" role="img" aria-label={`${pctTxt(d.pct)} por ciento decidido sin ti`}><span style={{ width: `${Math.min(100, d.pct)}%` }} /></div>
-        <p className="cifra-etiqueta">Pagó o frenó por sí solo.</p>
+        <p className="cifra-etiqueta">Decidió pagar o frenar por sí solo.</p>
       </div>
       <div className="tarjeta">
         <p className="rotulo-ic"><Ic nombre="escudo-check" size={24} />Te protegimos de pagar</p>
@@ -88,7 +88,7 @@ export default function Portada({ d }: { d: DatosPortada }) {
       <div className="tarjeta">
         <h3 className="titulo-ic"><Ic nombre="decisiones" size={24} />Cómo se decidió</h3>
         <div className="anillo-fila">
-          <svg className="anillo" viewBox="0 0 42 42" role="img" aria-label={`${d.total} facturas: ${d.pagar} pagadas, ${d.frenar} frenadas, ${d.escalar} te necesitan`}>
+          <svg className="anillo" viewBox="0 0 42 42" role="img" aria-label={`${d.total} facturas: ${d.pagar} listas para pagar, ${d.frenar} frenadas, ${d.escalar} te necesitan`}>
             <circle cx="21" cy="21" r="15.9155" className="anillo-fondo" />
             {dibujados.filter(s => s.n > 0).map(s => <circle key={s.k} cx="21" cy="21" r="15.9155" pathLength={100} className={`anillo-seg seg-${s.clase}`} strokeDasharray={`${Math.max(0.5, s.p - 1)} ${100 - Math.max(0.5, s.p - 1)}`} strokeDashoffset={-s.inicio} transform="rotate(-90 21 21)" onClick={() => filtrar({ decision: s.k })} />)}
             <text x="21" y="22.5" textAnchor="middle" className="anillo-num">{d.total}</text>
@@ -118,7 +118,7 @@ export default function Portada({ d }: { d: DatosPortada }) {
         <li><Ic nombre="ojos" size={24} /><strong>Leímos</strong><span className="mono">{d.leidas}</span><small>con dos modelos, datos completos</small></li>
         <li><Ic nombre="reglas" size={24} /><strong>Revisamos reglas</strong><span className="mono">{d.total}</span></li>
         <li className="flujo-salidas"><ul>
-          <li className="ic-pagar"><Ic nombre="check-circulo" size={24} /><strong>Pagamos</strong><span className="mono">{d.pagar}</span></li>
+          <li className="ic-pagar"><Ic nombre="check-circulo" size={24} /><strong>Listas para pagar</strong><span className="mono">{d.pagar}</span></li>
           <li className="ic-frenar"><Ic nombre="mano" size={24} /><strong>Frenamos</strong><span className="mono">{d.frenar}</span></li>
           <li className="ic-escalar"><Ic nombre="campana" size={24} /><strong>Te preguntamos</strong><span className="mono">{d.escalar}</span></li>
         </ul></li>
