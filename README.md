@@ -32,11 +32,12 @@ Cada cifra dice sobre qué se midió. Ninguna prueba que Pulso funcione con fact
 |---|---|---|
 | **Set de desarrollo** (18 facturas ficticias de Aurora Cloud, 6 países, 5 monedas, PDF, imagen, correo y chat, llenas de trampas a propósito) | 4 PAGAR, 4 FRENAR, 10 ESCALAR. 8 de 18 sin persona (44,4 %). Ninguna trampa quedó aprobada para pago. Las 18 decisiones coinciden con lo esperado. | Lo diseñamos nosotros y las lecturas y los prompts se afinaron sobre esas mismas facturas: **no mide generalización**. |
 | **Set externo** (80 escenarios escritos por Jofre, que no escribió el motor ni las reglas) | Sobre las 62 filas que puntúan: **0 pagos indebidos**, no pagar donde se esperaba no pagar **44 de 44**, coincidencia exacta **38 de 62** (61,3 %). El motor activó la defensa de instrucciones ocultas en 3 de 3 filas con inyección. | **No es un set ciego:** lo vimos antes de correrlo. Se corrió **una sola vez** con el protocolo congelado en un commit antes de correr ([`docs/set-externo.md`](docs/set-externo.md), resultado en [`docs/set-externo-resultados.md`](docs/set-externo-resultados.md)). Mide el motor sobre datos estructurados, no el lector. Las 24 diferencias son de dos clases de política declaradas de antemano. |
+| **Set ciego** (10 documentos nuevos: PDF, imagen, correo y chat, uno en portugués y una orden oculta en alemán) | **0 pagos indebidos.** Coincidencia con la etiqueta congelada: **6 de 9** (sin el caso ambiguo). De las 3 diferencias, 2 son etiquetas mal hechas (el motor frenó por presupuesto de Diseño, que la etiqueta no consideró) y 1 es un escalado seguro: un acento mal decodificado en un PDF hizo que los dos modelos leyeran distinto el nombre. Costó USD 0,02. | Lo escribió un **agente aislado** que no vio el motor, el lector, las pruebas ni las facturas de desarrollo, y se congeló con hash antes de correrlo. Pasa por **lector + motor**, en vivo, una sola vez. Son 10 casos y el autor conoce las mismas reglas: es evidencia, no prueba de generalización ([`docs/set-ciego.md`](docs/set-ciego.md), resultado en [`docs/set-ciego-resultados.md`](docs/set-ciego-resultados.md)). |
 | **Lector de facturas** (banco de modelos, 18 facturas) | Gemini 3.1 Flash-Lite 161 de 161 campos; Claude Haiku 5.5 159 de 161. Leer las 18 costó unos USD 0,02. | Medido sobre las mismas facturas con las que se afinó el prompt. Detalle en [`docs/banco-modelos-2026-10-17.md`](docs/banco-modelos-2026-10-17.md). |
 | **Pruebas automáticas** | Más de 400 pruebas, incluidas propiedades contra un oráculo independiente (el motor decide PAGAR si y solo si el oráculo lo permite), determinismo y detección de alteraciones del registro. | Se verificó además rompiendo el código a propósito: los tests detectaron cada cambio. |
 
 **Lo que NO medimos**
-- Generalización con facturas ajenas: no hay un set ciego. El set externo lo escribió un compañero, pero lo vimos antes de correrlo.
+- Generalización con facturas reales de terceros. El set ciego son 10 casos escritos por un agente que conoce las reglas; el set externo lo escribió un compañero, pero lo vimos antes de correrlo.
 - El lector sobre el set externo (no hay documentos de ese set) ni con facturas reales de terceros.
 - Rendimiento bajo carga ni disponibilidad. No hay un monitor real de esas métricas.
 - Accesibilidad con un lector de pantalla real ni con zoom al 200 %.
@@ -183,8 +184,17 @@ flowchart LR
 
 Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hora Colombia.
 
-- **Hecho:** motor de reglas, registro encadenado, lector con dos modelos, pantallas (decisiones, detalle con traza, cola de aprobación, reglas editables, registro) en modo replay, set de desarrollo y set externo.
+- **Hecho:** motor de reglas, registro encadenado, lector con dos modelos, pantallas (decisiones, detalle con traza, cola de aprobación, reglas editables, registro) en modo replay, set de desarrollo, set externo y set ciego.
 - **Límites conocidos:** el demo guarda su estado en la memoria del servidor (se reinicia y los visitantes comparten el de su instancia); no hay conexión en vivo con bandejas de correo ni WhatsApp (se lee el documento de cada canal); no hay integración con QuickBooks ni Stripe; la fecha de vencimiento se extrae pero los documentos de prueba no la traen, así que la pantalla dice "Sin fecha de vencimiento en el documento".
+
+## Hoja de ruta (no está en esta entrega)
+
+- **Segunda opinión independiente:** sumar un clasificador con probabilidad calibrada (por ejemplo JEV de TypeSafe AI) que diga si una factura es coherente con el historial del proveedor. Si duda, Pulso escala. Lo evaluamos y no lo integramos para no meter una pieza sin medir antes del cierre (`docs/jev-evaluacion.md`).
+- **Facturas electrónicas fiscales** (XML de la DIAN, CFDI del SAT, NF-e): leer el documento firmado en vez de la imagen, que elimina casi todo el riesgo de lectura.
+- **Conexión con bandejas reales** (correo y WhatsApp Business) y con el sistema contable (QuickBooks, Xero).
+- **Tasas de cambio en vivo** de una fuente oficial, con la tasa usada guardada en el registro.
+- **Persistencia y cuentas:** registro en Supabase en producción, varias personas aprobadoras y doble aprobación sobre cierto monto.
+- **Mejor lectura de PDF:** decodificar bien las fuentes con codificaciones antiguas (el caso C-02 del set ciego).
 
 ## Contenido
 
@@ -195,6 +205,8 @@ Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hor
 - [`docs/reglas-R1-R8.json`](docs/reglas-R1-R8.json): las 8 reglas de politica y su precedencia.
 - [`docs/esquemas/`](docs/esquemas/): contratos JSON entre piezas (factura extraida, decision, instruccion de pago).
 - [`docs/diagrama-flujo-cronologia.html`](docs/diagrama-flujo-cronologia.html): diagrama de flujo y cronologia (abrir en el navegador).
+- [`docs/set-ciego.md`](docs/set-ciego.md) y [`docs/set-ciego-resultados.md`](docs/set-ciego-resultados.md): cómo se armó el set ciego y su resultado.
+- [`docs/guion-video.md`](docs/guion-video.md): guion del video de 3 minutos.
 - [`docs/set-externo.md`](docs/set-externo.md) y [`docs/set-externo-resultados.md`](docs/set-externo-resultados.md): protocolo congelado y resultado de la corrida única del set externo.
 - [`docs/extraccion.md`](docs/extraccion.md) y [`docs/banco-modelos-2026-10-17.md`](docs/banco-modelos-2026-10-17.md): el lector de facturas y el banco de modelos.
 
@@ -224,7 +236,7 @@ Supuestos pendientes de confirmar con el dataset del equipo: una cuenta nueva de
 
 `data/dev-set.json` y `data/dev-set-defensas.json` traen el contexto de la empresa ficticia Aurora Cloud (beneficiarios, acuerdos, presupuestos, tasas) y la decisión esperada de cada factura; `tests/dataset.test.ts` las corre en orden contra el motor: 4 PAGAR, 4 FRENAR y 10 ESCALAR, con las reglas esperadas en cada caso. Los beneficiarios, acuerdos, presupuestos y tasas salen de la hoja del equipo. Los números de factura, las fechas, la fecha de alta de la cuenta de F-011 y el pago previo de nómina de F-013 los fijamos nosotros para poder ejecutar el caso.
 
-Este set lo diseñamos nosotros: pasarlo no prueba que el agente generalice. Para eso hay un set externo, escrito por un compañero que no escribió las reglas (ver "Lo que medimos y lo que no"). No es un set ciego.
+Este set lo diseñamos nosotros: pasarlo no prueba que el agente generalice. Para eso hay un set externo, escrito por un compañero que no escribió las reglas, y un set ciego de 10 documentos congelado antes de correr (ver "Lo que medimos y lo que no").
 
 ## Registro con hash encadenado (paso 4)
 
@@ -263,4 +275,4 @@ En la pantalla de decisiones, «Coinciden con la decisión esperada» (18 de 18)
 
 ## Equipo y créditos
 
-**Equipo 404:** Andrés Valero (producto, diseño, motor de reglas y registro), Sebastián Lobo (lector de facturas, integración y centro de mando) y Jofre Muñetón Valencia, que escribió los 80 escenarios del set externo. Todos los datos, empresas, cuentas e identificadores son ficticios.
+**Equipo 404:** Andrés Valero (producto, diseño, motor de reglas y registro), Sebastián Lobo (lector de facturas, integración y centro de mando) y Jofre Muñetón Valencia, que escribió los 80 escenarios del set externo antes de dejar el equipo el 17/10. Todos los datos, empresas, cuentas e identificadores son ficticios.
