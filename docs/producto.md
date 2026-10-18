@@ -109,7 +109,7 @@ flowchart LR
     direction TB
     S1["Instrucción de pago: nunca mueve dinero"]
     S2["Explicación en lenguaje humano"]
-    S3["Registro encadenado e inalterable"]
+    S3["Registro encadenado: cualquier alteración se nota"]
     S4["Tablero: listas para pagar, frenadas, pendientes y por qué"]
     S5["Lote CSV de órdenes y aviso en Telegram o en el hilo del correo"]
   end

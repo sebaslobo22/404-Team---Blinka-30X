@@ -147,7 +147,7 @@ export default function Conoce() {
           <li data-reveal><Tarjeta variante="indicador" icono="check-circulo" titulo="Sin persona, set ciego 2" cifra={<><Cuenta fin={25} /> de <Cuenta fin={30} /> (<Cuenta fin={83.3} dec={1} /> %)</>} grande apoyo="Set armado por otra persona y congelado antes de ver resultados." /></li>
           <li data-reveal><Tarjeta variante="indicador" icono="escudo-check" titulo="Pagos indebidos" cifra="0" grande apoyo="En ese set, en 10 documentos ciegos y en 62 filas externas." /></li>
           <li data-reveal><Tarjeta variante="indicador" icono="tabla" titulo="Set de desarrollo" cifra={<><Cuenta fin={8} /> de <Cuenta fin={18} /> (<Cuenta fin={44.4} dec={1} /> %)</>} grande apoyo="Lo diseñamos nosotros. Por eso no lo usamos como medida." /></li>
-          <li data-reveal><Tarjeta variante="indicador" icono="lista-check" titulo="Pruebas automáticas" cifra={<Cuenta fin={728} />} grande apoyo="Y 37 escenarios en Telegram, sin mover un dólar." /></li>
+          <li data-reveal><Tarjeta variante="indicador" icono="lista-check" titulo="Pruebas automáticas" cifra={<Cuenta fin={733} />} grande apoyo="Y 37 escenarios en Telegram, sin mover un dólar." /></li>
         </ul>
         <p data-reveal>Cero pagos indebidos es lo medido hasta hoy, no una garantía.</p>
         <details data-reveal className="cn-plegable">
