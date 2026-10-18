@@ -1,2 +1,3 @@
 import { defineConfig } from 'vitest/config';
-export default defineConfig({ test: { include: ['tests/**/*.test.ts'] } });
+// JSX automático: las pruebas pueden renderizar componentes de app/ sin importar React en cada archivo.
+export default defineConfig({ esbuild: { jsx: 'automatic' }, test: { include: ['tests/**/*.test.ts'] } });
