@@ -14,7 +14,7 @@
 | 1:35–2:00 | Cola de aprobación → abrir una → escribir una nota corta → Aprobar → confirmación | "Lo único que haces tú es decidir. Aprobar o rechazar, siempre con una nota. Una factura frenada ni siquiera tiene botón de aprobar." |
 | 2:00–2:20 | "Tus reglas": mostrar una regla escrita como frase y la vista previa del efecto | "Las reglas se escriben como frases: 'pídeme permiso para todo pago mayor a 5.000 dólares'. Antes de guardar, Pulso te muestra qué cambiaría." |
 | 2:20–2:40 | Registro → "Comprobar ahora" → sello "Registro íntegro" | "Todo queda registrado y nadie lo puede alterar sin que se note." |
-| 2:40–3:00 | Diagrama de 7 hitos (README o FigJam) y luego el logo/nombre | "La inteligencia artificial solo lee. Decide un motor de reglas con más de 400 pruebas, y ante la duda, siempre te pregunta. Pulso: pulso firme en cada pago." |
+| 2:40–3:00 | Diagrama de 7 hitos (README o FigJam) y luego el logo/nombre | "La inteligencia artificial solo lee. Decide un motor de reglas con 719 pruebas, y ante la duda, siempre te pregunta. Pulso: pulso firme en cada pago." |
 
 ## Antes de grabar
 1. Recargar la portada para que los números se animen desde cero.

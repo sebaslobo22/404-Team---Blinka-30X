@@ -52,7 +52,7 @@ Lo que decidió el motor: PAGAR 19 · FRENAR 6 · ESCALAR 5.
 | D-30 | imagen | PAGAR | PAGAR | - | - |
 
 ## Lectura de las diferencias
-_Pendiente de escribir a mano después de revisar cada fila marcada en negrita. Si una etiqueta resulta mal hecha, se anota aquí y la cifra oficial sigue siendo la de arriba._
+La única diferencia que cuenta es **D-09** (Agro Páramo, USD 9.800). La esperábamos ESCALAR solo por superar el límite de USD 5.000 (R1). El motor la frenó porque además no cabía en el presupuesto de su categoría (R4, que frena). El etiquetador calculó los presupuestos a mano y no lo previó. Es una decisión más estricta, no más permisiva: no hubo pago. Las etiquetas no se cambiaron y la cifra oficial sigue siendo la de arriba.
 
 ## Cómo leer este número (honestidad)
 - **Hubo dos corridas.** La primera (`docs/set-ciego2-resultados-corrida1.md`) dio 18 de 30 sin persona (60,0 %), 0 pagos indebidos y 10 lecturas fallidas: los 10 PDF del set traen el texto sin comprimir y el lector solo leía PDF comprimidos. Se corrigió el lector (commit `56eceb2`, con prueba) **sin tocar las etiquetas** y se volvió a correr: este informe es la segunda corrida.
