@@ -66,7 +66,7 @@ const GLIFOS: Record<NombreIcono, ReactNode> = {
   bandera: <><path d="M5.5 21V4" /><path d="M5.5 4.5h12l-3 3.5 3 3.5h-12" /></>,
   codigo: <><path d="M9 5C7 5 6 6 6 8v2c0 1.5-.7 2-2 2 1.3 0 2 .5 2 2v2c0 2 1 3 3 3" /><path d="M15 5c2 0 3 1 3 3v2c0 1.5.7 2 2 2-1.3 0-2 .5-2 2v2c0 2-1 3-3 3" /></>,
   copiar: <><rect x="8.5" y="8.5" width="11.5" height="12" rx="2" /><path d="M15.5 8.5V5.5A1.5 1.5 0 0 0 14 4H5.5A1.5 1.5 0 0 0 4 5.5V15a1.5 1.5 0 0 0 1.5 1.5h3" /></>,
-  descargar: <><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5" /><path d="M4.5 16.5v2A1.5 1.5 0 0 0 6 20h12a1.5 1.5 0 0 0 1.5-1.5v-2" /></>,
+  descargar: <><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5" /><path d="M4.5 16.5v2A1.5 1.5 0 0 0 6 20h12a1.5 1.5 0 0 0 1.5-1.5v-2" /></>,  pulso: <path d="M3 12h4.5l2-5 4 10 2.5-6.5 1.5 1.5H21" />,
 };
 
 export function Ic({ nombre, size = 24, className }: { nombre: NombreIcono; size?: 20 | 24 | 28 | 32 | 48; className?: string }) {
@@ -86,3 +86,4 @@ export const IconoRecorrido = barra('recorrido');
 export const IconoTema = barra('tema');
 export const IconoColapsar = barra('colapsar');
 export const IconoVivo = barra('vivo');
+export const IconoPulso = barra('pulso');

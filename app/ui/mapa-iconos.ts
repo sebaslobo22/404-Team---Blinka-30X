@@ -5,7 +5,7 @@ export const NOMBRES_ICONO = [
   'persona', 'edificio', 'tarjeta', 'banco', 'banco-reloj', 'monedas', 'balanza', 'velocimetro', 'calendario-limite', 'calendario',
   'billetera', 'duplicado', 'lista-check', 'ojos', 'ojo', 'escudo-alerta', 'escudo-check', 'documento-tachado', 'calculadora', 'triangulo-alerta',
   'documento', 'imagen', 'correo', 'chat', 'tabla', 'etiqueta', 'huella', 'vacio', 'tamano-letra', 'tarea', 'zona', 'reloj', 'acuerdo',
-  'agente', 'vivo', 'bandera', 'codigo', 'copiar', 'descargar',
+  'agente', 'vivo', 'bandera', 'codigo', 'copiar', 'descargar', 'pulso',
 ] as const;
 export type NombreIcono = (typeof NOMBRES_ICONO)[number];
 

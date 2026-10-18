@@ -1,0 +1,19 @@
+/* Bienvenida de primera visita: panel modal sobre hoja sólida. */
+.bienvenida{width:min(46rem,calc(100% - 2rem));max-width:100%;max-height:calc(100dvh - 2rem);padding:0;border:1px solid var(--linea);border-radius:var(--radio);background:var(--superficie);color:var(--tinta);box-shadow:var(--sombra);overflow:auto}
+.bienvenida::backdrop{background:var(--velo)}
+.bienvenida-interior{padding:var(--s6);display:flex;flex-direction:column;gap:var(--s3)}
+.bienvenida-cerrar{position:sticky;top:0;display:flex;justify-content:flex-end;background:var(--superficie);z-index:1;margin:calc(-1 * var(--s3)) calc(-1 * var(--s3)) 0}
+.bienvenida h2{font-size:var(--t5);margin:0}.bienvenida h2:focus,.bienvenida h2:focus-visible{outline:none;box-shadow:none} /* título con tabindex=-1: recibe el foco para anunciarse, no es un control */
+.bienvenida-frase{font-size:var(--t3);line-height:1.45;max-width:34ch}
+.bienvenida-pulso{width:min(15rem,70%);height:3rem;overflow:visible}
+.bienvenida-pulso path{fill:none;stroke:var(--acento);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:bienvenida-latido 2.4s var(--curva) infinite}
+@keyframes bienvenida-latido{0%{stroke-dashoffset:1}55%{stroke-dashoffset:0}85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:.35}}
+.bienvenida-caminos{display:flex;flex-wrap:wrap;gap:var(--s3);margin-block:var(--s2) var(--s4)}
+.bienvenida-puntos{list-style:none;margin:0;padding:0;display:grid;gap:var(--s4)}.bienvenida-puntos li{display:grid;grid-template-columns:1.75rem minmax(0,1fr);gap:var(--s3);align-items:start}.bienvenida-puntos .ic{color:var(--acento);margin-top:.2rem}
+.bienvenida-canales{border-top:1px solid var(--linea);padding-top:var(--s5)}.bienvenida-canales h3{font-size:var(--t3)}
+.bienvenida-tarjetas{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3)}
+.bienvenida-tarjetas .tarjeta{padding:var(--s4);background:var(--bg);display:flex;flex-direction:column;gap:var(--s2)}.bienvenida-tarjetas p{margin:0;font-size:var(--t1)}.bienvenida-tarjetas .titulo-ic{font-size:var(--t2)}.bienvenida-tarjetas .titulo-ic .ic{color:var(--acento)}
+.bienvenida-tarjetas a{min-height:3rem;display:inline-flex;align-items:center;font-weight:600;margin-top:auto}
+.bienvenida-nota{font-size:var(--t1);margin:var(--s4) 0 0}
+@media(max-width:45rem){.bienvenida{width:100%;max-height:92dvh;margin:auto 0 0;border-radius:var(--radio) var(--radio) 0 0}.bienvenida-interior{padding:var(--s4)}.bienvenida h2{font-size:var(--t4)}.bienvenida-tarjetas{grid-template-columns:1fr}.bienvenida-caminos .btn{flex:1 1 100%}}
+@media(prefers-reduced-motion:reduce){.bienvenida-pulso path{animation:none!important;stroke-dashoffset:0}}

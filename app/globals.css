@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap');
 :root {
-  --bg:#F5F5F2; --superficie:#FFFFFF; --tinta:#18181B; --tenue:#484842; --linea:#85857D;
-  --acento:#242426; --acento-suave:#ECECE7; --sobre-acento:#FFFFFF;
-  --pagar:#174F32; --pagar-suave:#EDF5EF; --frenar:#85212A; --frenar-suave:#FBEEEE; --escalar:#624000; --escalar-suave:#FFF2D3;
-  --cristal:rgb(245 245 242 / .9); --velo:rgb(0 0 0 / .65); --anillo:#FFFFFF;
-  --sombra:0 .75rem 3rem rgb(24 24 27 / .14);
+  /* Paleta "Stripe completo" (18/10/2026): marino, violeta y gris azulado. Contraste AA probado en tests/contraste.test.ts. */
+  --bg:#F6F9FC; --superficie:#FFFFFF; --tinta:#0A2540; --tenue:#425466; --linea:#7B8AA0;
+  --acento:#533AFD; --acento-suave:#EFEEFF; --sobre-acento:#FFFFFF;
+  --pagar:#0B6B47; --pagar-suave:#E6F6EF; --frenar:#B3093C; --frenar-suave:#FDEDF1; --escalar:#8A4B00; --escalar-suave:#FEF3E0;
+  --cristal:rgb(246 249 252 / .9); --velo:rgb(10 37 64 / .7); --anillo:#FFFFFF;
+  --sombra:0 .75rem 3rem rgb(10 37 64 / .14);
+  /* Firma de marca: solo en la marca, la cabecera de la portada y el botón principal. Nunca detrás de texto corrido. */
+  --firma-desde:#635BFF; --firma-hasta:#00D4FF; --sobre-firma:#0A2540; --firma:linear-gradient(120deg,var(--firma-desde),var(--firma-hasta));
   --fuente:Inter,system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
   --t1:1rem; --t2:1.125rem; --t3:1.5rem; --t4:2rem; --t5:2.5rem; --t6:3rem;
   --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.25rem; --s6:1.5rem; --s7:1.75rem; --s8:2rem; --s10:2.5rem; --s12:3rem; --s14:3.5rem;
@@ -12,17 +15,17 @@
   --barra-ancho:17rem; color-scheme:light;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){
-  --bg:#0E0E10; --superficie:#1A1A1D; --tinta:#F2F2EF; --tenue:#C4C4BC; --linea:#92928A;
-  --acento:#F2F2EF; --acento-suave:#2A2A2E; --sobre-acento:#0E0E10;
-  --pagar:#A4E1BC; --pagar-suave:#153521; --frenar:#FFC3C2; --frenar-suave:#41232B; --escalar:#FFE0A0; --escalar-suave:#3A2D13;
-  --cristal:rgb(26 26 29 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .3);
+  --bg:#0A2540; --superficie:#133459; --tinta:#F6F9FC; --tenue:#B4C3D6; --linea:#7389A6;
+  --acento:#A99DFE; --acento-suave:#2B2F70; --sobre-acento:#0A2540;
+  --pagar:#6EE7AE; --pagar-suave:#0C3D3D; --frenar:#FFA3B5; --frenar-suave:#4A1E3C; --escalar:#FFCB6B; --escalar-suave:#3D3322;
+  --cristal:rgb(19 52 89 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .4);
   color-scheme:dark;
 }}
 [data-theme=dark]{
-  --bg:#0E0E10; --superficie:#1A1A1D; --tinta:#F2F2EF; --tenue:#C4C4BC; --linea:#92928A;
-  --acento:#F2F2EF; --acento-suave:#2A2A2E; --sobre-acento:#0E0E10;
-  --pagar:#A4E1BC; --pagar-suave:#153521; --frenar:#FFC3C2; --frenar-suave:#41232B; --escalar:#FFE0A0; --escalar-suave:#3A2D13;
-  --cristal:rgb(26 26 29 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .3); color-scheme:dark;
+  --bg:#0A2540; --superficie:#133459; --tinta:#F6F9FC; --tenue:#B4C3D6; --linea:#7389A6;
+  --acento:#A99DFE; --acento-suave:#2B2F70; --sobre-acento:#0A2540;
+  --pagar:#6EE7AE; --pagar-suave:#0C3D3D; --frenar:#FFA3B5; --frenar-suave:#4A1E3C; --escalar:#FFCB6B; --escalar-suave:#3D3322;
+  --cristal:rgb(19 52 89 / .94); --sombra:0 .75rem 3rem rgb(0 0 0 / .4); color-scheme:dark;
 }
 html[data-letra=grande]{font-size:125%} html[data-letra=muy-grande]{font-size:150%}
 *{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tinta);font:400 var(--t2)/1.6 var(--fuente)}
@@ -78,3 +81,15 @@ pre.codigo{font:var(--t1)/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:any
 .flujo-lectura .dato{font-weight:600}.flujo-lectura .archivo{font-family:var(--mono);overflow-wrap:anywhere}.flujo-lectura small{overflow-wrap:anywhere}
 .cabecera .marca{gap:var(--s2)}
 .datos-leidos{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:var(--s1) var(--s3);margin:0}.datos-leidos dt{color:var(--tenue)}.datos-leidos dd{margin:0;overflow-wrap:anywhere}
+/* Firma de marca (degradado violeta a cian): solo marca, cabecera de la portada y botón principal. El texto nunca va sobre el degradado. */
+.btn-primario{background:linear-gradient(var(--acento),var(--acento)) padding-box,var(--firma) border-box;border:2px solid transparent;box-shadow:0 .25rem .875rem rgb(83 58 253 / .22)}
+.btn-primario:hover{background:linear-gradient(var(--acento),var(--acento)) padding-box,linear-gradient(300deg,var(--firma-desde),var(--firma-hasta)) border-box}
+.btn-primario:disabled{background:var(--acento-suave);border:2px solid var(--linea);box-shadow:none}
+.cabecera .marca{color:var(--tinta)}.cabecera .marca::before{content:'';flex:none;width:1.5rem;height:1.5rem;border-radius:.5rem;background:var(--firma)}
+.portada-cabecera{position:relative;overflow:hidden;padding:var(--s8) var(--s6) var(--s6);background:var(--superficie);border:1px solid var(--linea);border-radius:var(--radio)}
+.portada-cabecera::before{content:'';position:absolute;inset:0 0 auto 0;height:.375rem;background:var(--firma)}
+.portada-cabecera>p:last-child{margin-bottom:0}
+.portada-pulso{display:block;width:min(15rem,60%);height:3rem;margin-bottom:var(--s3);overflow:visible}
+.portada-pulso path{fill:none;stroke:url(#firma-pulso);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:64rem){.portada-pulso{position:absolute;top:var(--s8);right:var(--s6);margin:0}.portada-cabecera h1{max-width:calc(100% - 17rem)}}
+@media(max-width:45rem){.portada-cabecera{padding:var(--s6) var(--s4) var(--s4)}}

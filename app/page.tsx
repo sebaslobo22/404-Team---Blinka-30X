@@ -25,7 +25,8 @@ export default async function PaginaDecisiones() {
     formatos: ['pdf', 'imagen', 'correo', 'chat'].map(k => ({ etiqueta: etiquetaFormato(k), n: estado.filas.filter(f => f.fuente?.formato === k).length })).filter(x => x.n > 0),
   };
   return <>
-    <header>
+    <header className="portada-cabecera">
+      <svg className="portada-pulso" viewBox="0 0 240 48" aria-hidden="true" focusable="false"><defs><linearGradient id="firma-pulso" x1="0" x2="1" y1="0" y2="0"><stop offset="0" style={{ stopColor: 'var(--firma-desde)' }} /><stop offset="1" style={{ stopColor: 'var(--firma-hasta)' }} /></linearGradient></defs><path d="M2 26h70l8-14 10 26 11-34 10 30 7-8h120" /></svg>
       <p className="rotulo">Tus facturas, en orden</p>
       <h1 className="titulo-ic"><Ic nombre="decisiones" size={28} />¿Qué pasó con mis facturas?</h1>
       <p>De {r.total} facturas, {r.PAGAR} tienen pago autorizado, {r.FRENAR} se frenaron y {r.ESCALAR} piden tu ayuda.</p>

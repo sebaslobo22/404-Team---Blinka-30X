@@ -29,6 +29,8 @@ export const PASOS: readonly Paso[] = [
   { id: 'cola', ruta: '/cola', selector: '[data-tour="pendientes"]', titulo: 'Solo lo dudoso pide permiso', texto: 'Estos cobros esperan tu respuesta. Puedes aprobar o rechazar con una nota.' },
   { id: 'reglas', ruta: '/reglas', selector: '[data-tour="reglas-form"]', titulo: 'La empresa pone sus reglas', texto: 'Tú marcas los topes de pago. Puedes ver qué cambia antes de guardar.' },
   { id: 'registro', ruta: '/registro', selector: '[data-tour="registro-verificar"], [data-tour="registro-linea"]', titulo: 'Un registro a prueba de cambios', texto: 'Cada decisión deja una huella ligada a la anterior. Comprobar ahora busca cambios en ese registro.' },
+  // Sin foco: los canales viven fuera de esta pantalla. El techo en vivo deja cada entrada en ESCALAR como máximo (FRENAR sigue siendo FRENAR).
+  { id: 'canales', ruta: '/', titulo: 'Tres caminos de entrada', texto: 'Tus facturas pueden llegar por Telegram, correo o subiéndolas aquí. Lo que entra en vivo nunca se paga solo: te lo pregunta o lo frena.' },
   { id: 'fin', ruta: '/', tipo: 'fin', titulo: 'Eso es todo', texto: 'Ya conoces el camino. Puedes volver con el botón Ver recorrido.' },
 ];
 

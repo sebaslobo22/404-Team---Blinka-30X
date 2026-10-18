@@ -4,7 +4,8 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { CLAVE_BARRA, alternarBarra, esActivo, esAtajoBarra, hayBarra, leerEstadoBarra, nombreTema, siguienteTema, textoContador } from './estado';
 import type { EstadoBarra } from './estado';
-import { IconoCola, IconoColapsar, IconoDecisiones, IconoEquipo, IconoMarca, IconoRecorrido, IconoRegistro, IconoReglas, IconoTema, IconoVivo } from './iconos';
+import { IconoCola, IconoColapsar, IconoDecisiones, IconoEquipo, IconoMarca, IconoRecorrido, IconoRegistro, IconoReglas, IconoTema, IconoVivo, IconoPulso } from './iconos';
+import { abrirBienvenida } from '../bienvenida/Bienvenida';
 import { TamanoLetra } from '../ui/Sistema';
 const enlacesBase = [['/', 'Decisiones', IconoDecisiones], ['/cola', 'Tu aprobación', IconoCola], ['/reglas', 'Tus reglas', IconoReglas], ['/registro', 'Registro', IconoRegistro]] as const;
 const enlaceVivo = ['/probar', 'Prueba tu factura', IconoVivo] as const;
@@ -20,6 +21,6 @@ export function BarraLateral({pendientes,equipoDisponible=true,vivoDisponible=fa
     <nav aria-label="Principal">
       <ul className="barra-lista">{enlaces.map(([href, texto, Icono]) => <li key={href}><Link className="barra-item" href={href} aria-current={esActivo(href, ruta) ? 'page' : undefined}><Icono /><span>{texto}</span>{href === '/cola' && textoContador(pendientes) ? <span className="barra-contador">{textoContador(pendientes)}<span className="sr-only"> pendientes</span></span> : null}</Link></li>)}</ul>
     </nav>
-    <div className="barra-pie"><TamanoLetra />{equipoDisponible?<Link className="barra-item" href="/team" aria-current={ruta.startsWith('/team') ? 'page' : undefined}><IconoEquipo /><span>Equipo</span></Link>:null}{!ruta.startsWith('/team') ? <button className="barra-item" data-tour-boton onClick={() => window.dispatchEvent(new Event('tour:abrir'))}><IconoRecorrido /><span>Ver recorrido</span></button> : null}<button className="barra-item" onClick={temaSiguiente}><IconoTema /><span>Tema {nombreTema(tema)}</span></button><button className="barra-item" aria-label="Barra lateral" aria-expanded={estado === 'ampliada'} aria-controls="barra-lateral" onClick={() => cambiar(alternarBarra(estado))}><IconoColapsar /><span>{estado === 'ampliada' ? 'Contraer barra' : 'Ampliar barra'}</span></button></div>
+    <div className="barra-pie"><TamanoLetra />{equipoDisponible?<Link className="barra-item" href="/team" aria-current={ruta.startsWith('/team') ? 'page' : undefined}><IconoEquipo /><span>Equipo</span></Link>:null}{!ruta.startsWith('/team') ? <button className="barra-item" data-tour-boton onClick={() => window.dispatchEvent(new Event('tour:abrir'))}><IconoRecorrido /><span>Ver recorrido</span></button> : null}{!ruta.startsWith('/team') ? <button className="barra-item" onClick={abrirBienvenida}><IconoPulso /><span>Bienvenida</span></button> : null}<button className="barra-item" onClick={temaSiguiente}><IconoTema /><span>Tema {nombreTema(tema)}</span></button><button className="barra-item" aria-label="Barra lateral" aria-expanded={estado === 'ampliada'} aria-controls="barra-lateral" onClick={() => cambiar(alternarBarra(estado))}><IconoColapsar /><span>{estado === 'ampliada' ? 'Contraer barra' : 'Ampliar barra'}</span></button></div>
   </aside>;
 }
