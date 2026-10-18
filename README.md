@@ -221,6 +221,16 @@ En `/probar` cualquier persona sube una foto (JPG o PNG) o un PDF con texto, des
 - **Archivo.** 4 MB como máximo, tipo por firma de bytes (misma validación que Telegram). Las fotos HEIC del iPhone y los PDF escaneados sin texto se rechazan con un mensaje claro antes de gastar lecturas. El archivo se envía a los dos modelos por OpenRouter (sin proveedor de reemplazo y con `data_collection: deny`); Pulso no lo guarda.
 - **Límites.** 5 lecturas por visitante por hora y un tope global diario (`VIVO_POR_VISITANTE_HORA`, `VIVO_GLOBAL_DIA`, 150 por defecto). Se cuentan en memoria del proceso: en un despliegue sin servidor se reinician en cada arranque en frío, así que **el techo real de gasto es el límite de crédito de la clave de OpenRouter**, que se fija en su panel.
 
+## Canal Gmail (buzón del equipo)
+
+Se reenvía a un buzón de Gmail del equipo un correo con la factura adjunta y, en uno o dos minutos, llega la decisión de Pulso en el mismo hilo. Un script de Google Apps Script en ese buzón (`integraciones/gmail/Codigo.gs`) manda el adjunto a `POST /api/canal/gmail` con un secreto compartido; la ruta usa la misma lectura, el mismo motor y el mismo techo en vivo que `/probar` y Telegram, y responde el texto que el script pone en el hilo. Nunca PAGAR.
+
+- **Apagado por defecto:** sin `GMAIL_CANAL_SECRETO` (24 caracteres o más) y `OPENROUTER_API_KEY`, la ruta responde 503. Con un secreto equivocado, 401.
+- **Adjunto de hasta 3 MB** (Vercel corta el cuerpo de la petición a 4,5 MB), PDF con texto, JPG o PNG.
+- **Reintentos en el script:** hasta 3 vueltas ante fallas de red, 401, 503 o 5xx; luego avisa a quien escribió y etiqueta `Pulso/Error`. Candado para que dos vueltas no procesen el mismo hilo.
+- **Límites:** 5 por remitente por hora y un tope diario (`GMAIL_POR_REMITENTE_HORA`, `GMAIL_GLOBAL_DIA`), en memoria; el techo real de gasto es el límite de crédito de la clave de OpenRouter.
+- Instalación paso a paso, comportamiento y seguridad: [`integraciones/gmail/README.md`](integraciones/gmail/README.md).
+
 ## Bot de Telegram
 
 El jurado manda una foto o un PDF de una factura a un bot y recibe la decisión de Pulso con sus razones en frases llanas y un enlace al producto. Es el mismo lector (doble lectura Claude Haiku 5.5 + Gemini 3.1 Flash-Lite por OpenRouter) y el mismo motor `decidir` con el contexto y las reglas de Aurora Cloud del demo. Código en `src/telegram/`, webhook en `app/api/telegram/route.ts`.
