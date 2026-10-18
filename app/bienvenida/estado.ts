@@ -26,9 +26,9 @@ export function vieneAlRecorrido(busqueda: string): boolean {
   try { return new URLSearchParams(busqueda).get('recorrido') === 'jurado'; } catch { return false; }
 }
 
-/** La bienvenida automática solo aparece fuera del centro de mando, sin recorrido en curso y sin el enlace del jurado. */
+/** La bienvenida automática solo aparece fuera del centro de mando y de la página /conoce, sin recorrido en curso y sin el enlace del jurado. */
 export function puedeAbrirseSola({ ruta, busqueda, tourEnCurso }: { ruta: string; busqueda: string; tourEnCurso: boolean }): boolean {
-  return !ruta.startsWith('/team') && !tourEnCurso && !vieneAlRecorrido(busqueda);
+  return !ruta.startsWith('/team') && !ruta.startsWith('/conoce') && !tourEnCurso && !vieneAlRecorrido(busqueda);
 }
 
 /** Solo un enlace https (p. ej. https://t.me/...) se vuelve botón; cualquier otra cosa es "sin enlace". */
