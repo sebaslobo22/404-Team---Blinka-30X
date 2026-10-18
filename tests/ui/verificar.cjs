@@ -7,6 +7,8 @@ const base = 'http://localhost:3000';
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  // La bienvenida de primera visita es modal: se marca como vista para no tapar el resto de la verificación.
+  await context.addInitScript(() => { try { localStorage.setItem('404-bienvenida-vista', '1'); } catch { } });
   const page = await context.newPage();
   const errores = [];
   page.on('pageerror', e => errores.push(e.message));
@@ -71,7 +73,7 @@ const base = 'http://localhost:3000';
   await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce' });
   await page.getByRole('button', { name: 'Cambiar tema', exact: false }).click();
   assert.equal(await page.evaluate(() => document.documentElement.dataset.theme), 'light');
-  assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), 'rgb(243, 245, 253)');
+  assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), 'rgb(246, 249, 252)');
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 390);
   assert.equal(await page.locator('.revelada').count(), 0);
   await page.keyboard.press('Control+Home');
@@ -98,7 +100,7 @@ const base = 'http://localhost:3000';
   assert([...alcanzados].some(t => t.includes('Guardar y volver a evaluar')));
   // Sin observer la mejora progresiva debe conservar todo el contenido visible.
   const sinObserver = await browser.newContext({ viewport: { width: 390, height: 844 } });
-  await sinObserver.addInitScript(() => { delete window.IntersectionObserver; });
+  await sinObserver.addInitScript(() => { delete window.IntersectionObserver; try { localStorage.setItem('404-bienvenida-vista', '1'); } catch { } });
   const fallback = await sinObserver.newPage();
   await fallback.goto(base);
   assert.equal(await fallback.locator('article').count(), 15);
