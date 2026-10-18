@@ -19,7 +19,7 @@ create table if not exists public.telegram_empresas (
 );
 
 insert into public.telegram_empresas (id, nombre, codigo, es_demo)
-values ('00000000-0000-4000-8000-00000000a0a0', 'Aurora Cloud (demo)', 'PULSO-DEMO22', true)
+values ('00000000-0000-4000-8000-00000000a0a0', 'Aurora Cloud (ejemplo)', 'PULSO-DEMO22', true)
 on conflict (id) do nothing;
 
 -- Miembros: un chat pertenece a una sola empresa a la vez.
@@ -66,7 +66,7 @@ create or replace function public.telegram_crear_empresa(p_chat bigint, p_usuari
 returns table (empresa_id uuid, codigo text, nueva boolean)
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, pg_temp
 as $$
 #variable_conflict use_column
 declare

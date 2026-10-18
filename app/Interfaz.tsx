@@ -28,7 +28,7 @@ export function NavegacionMovil({vivoDisponible=false}:{vivoDisponible?:boolean}
 export function AvisoReplay() {
 const [visible, setVisible] = useState(true); const ruta = usePathname(); if (!visible || ruta.startsWith('/team') || ruta.startsWith('/probar')) return null; return <aside className="aviso-demo">
     <div className="contenedor">
-      <p className="con-ic"><Ic nombre="info" size={24} /><span><strong>Demostración.</strong> Los datos son ficticios. Las lecturas son reales: se grabaron y se reproducen sin llamar a ningún modelo ni usar claves. El sistema nunca mueve dinero.</span></p>
+      <p className="con-ic"><Ic nombre="info" size={24} /><span><strong>Empresa de ejemplo: Aurora Cloud.</strong> Sus facturas y proveedores son ficticios; las lecturas son reales y quedaron grabadas. Pulso nunca mueve dinero.</span></p>
       <button className="btn btn-texto" onClick={() => setVisible(false)}><Ic nombre="x" size={20} />Cerrar</button></div>
   </aside>;
 }

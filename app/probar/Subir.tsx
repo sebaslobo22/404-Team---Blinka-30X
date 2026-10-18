@@ -50,7 +50,7 @@ export default function Subir() {
       <p>Toma una foto con el teléfono o elige un PDF. Máximo 4 MB.</p>
       <input ref={entrada} type="file" name="factura" accept="image/jpeg,image/png,application/pdf" aria-label="Foto o PDF de la factura" />
       <p><button className="btn btn-primario" type="submit" disabled={enviando}><Ic nombre="ojos" size={20} />{enviando ? 'Leyendo con dos modelos…' : 'Leer y decidir'}</button></p>
-      <p className="tenue pequeno">Usa una factura de prueba, sin datos personales. Para leerla, se envía a dos modelos de IA (Claude y Gemini, por OpenRouter). Pulso no guarda el archivo y esta factura no entra al registro de la demo.</p>
+      <p className="tenue pequeno">Usa una factura de prueba, sin datos personales. Para leerla, se envía a dos modelos de IA (Claude y Gemini, por OpenRouter). Pulso no guarda el archivo y esta factura no entra al registro de la empresa de ejemplo.</p>
     </form>
 
     {r && !r.ok ? <p className="tarjeta" role="alert"><Ic nombre="triangulo-alerta" size={24} className="en-linea" />{r.error ?? 'No se pudo leer la factura.'}</p> : null}
@@ -60,7 +60,7 @@ export default function Subir() {
         <p className="veredicto-frase">{d.decision === 'FRENAR' ? 'Pulso no la pagaría.' : sinLectura ? 'No pudimos leerla. Sin datos, Pulso no decide solo: iría a tu aprobación.' : 'Iría a tu aprobación.'}</p>
         <p>{d.hechos['techo_en_vivo'] === true ? 'Cumple las reglas de la empresa.' : d.explicacion.replace(/^(PAGAR|FRENAR|ESCALAR):\s*/, '')}</p>
         {d.hechos['techo_en_vivo'] === true ? <p className="tenue">Con tus reglas habría salido PAGAR. Como entró en vivo, la revisa una persona.</p> : null}
-        <p className="tenue pequeno">En esta demo, lo que entra en vivo no genera orden de pago.</p>
+        <p className="tenue pequeno">Lo que entra en vivo no genera orden de pago hasta que lo apruebe una persona.</p>
       </section>
 
       <section className="tarjeta">
@@ -81,7 +81,7 @@ export default function Subir() {
         <summary><Ic nombre="pregunta" size={24} className="en-linea" />¿Por qué? Las razones</summary>
         <Razones filas={[FILA_VIVO, ...(r.traza ?? [])]} />
       </details>
-      <p className="tenue pequeno">Las reglas son las de Aurora Cloud, la empresa ficticia de la demo. Un proveedor que no está en su lista se frena: Pulso no le paga a desconocidos.{typeof r.restantes === 'number' ? ` Te quedan ${r.restantes} pruebas en esta hora.` : ''}</p>
+      <p className="tenue pequeno">Las reglas son las de Aurora Cloud, la empresa de ejemplo. Un proveedor que no está en su lista se frena: Pulso no le paga a desconocidos.{typeof r.restantes === 'number' ? ` Te quedan ${r.restantes} pruebas en esta hora.` : ''}</p>
     </section> : null}
   </>;
 }

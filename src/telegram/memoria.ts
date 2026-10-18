@@ -12,7 +12,7 @@ export class AlmacenEnMemoria implements Almacen {
   readonly chats = new Map<number, number | null>();
   readonly facturas = new Map<string, FacturaVivo>();
   private readonly usos: { chat: number; en: number }[] = [];
-  readonly empresas = new Map<string, Empresa>([[ID_DEMO, { id: ID_DEMO, nombre: 'Aurora Cloud (demo)', codigo: 'PULSO-DEMO22', es_demo: true, dueno_chat_id: null, dueno_usuario_id: null, limite_pago_usd_centavos: 500000 }]]);
+  readonly empresas = new Map<string, Empresa>([[ID_DEMO, { id: ID_DEMO, nombre: 'Aurora Cloud (ejemplo)', codigo: 'PULSO-DEMO22', es_demo: true, dueno_chat_id: null, dueno_usuario_id: null, limite_pago_usd_centavos: 500000 }]]);
   readonly miembros = new Map<number, Miembro>();
   readonly provs = new Map<string, Proveedor[]>();
   /** Si se pone, toda operacion lanza: simula una caida de Supabase. */

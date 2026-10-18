@@ -106,7 +106,7 @@ describe('traza con INYECCION, CONFIANZA y REGISTRO', () => {
     const t = de('F-017', 'CONFIANZA');
     expect(t.estado).toBe('ESCALAR');
     expect(t.cifra).toBe('Confianza de lectura 50 % frente al mínimo de 85 %');
-    expect(de('F-017', 'INYECCION').estado).toBe('CUMPLE');
+    expect(de('F-017', 'INYECCION').estado).toBe('NO_APLICA');
   });
   it('F-018: REGISTRO no cumple con nombre_coincide', () => {
     const t = de('F-018', 'REGISTRO');
@@ -123,7 +123,7 @@ describe('traza con INYECCION, CONFIANZA y REGISTRO', () => {
     const t = traza('F-014');
     expect(t.find((x) => x.id === 'R1')?.estado).toBe('NO_EVALUADA');
     expect(t.find((x) => x.id === 'REGISTRO')?.estado).toBe('NO_EVALUADA');
-    expect(t.find((x) => x.id === 'INYECCION')?.estado).toBe('CUMPLE');
+    expect(t.find((x) => x.id === 'INYECCION')?.estado).toBe('NO_APLICA');
   });
   it('FRENAR sigue sin aprobacion posible', async () => {
     expect(fila(estado, 'F-006').resultado.decision).toBe('FRENAR');
@@ -355,5 +355,19 @@ describe('reglas editables', () => {
     p.tope_mensual_usd = 10_000_000;
     const e = await crearEstado(p, 1);
     for (const id of ['F-006', 'F-007', 'F-015']) expect(fila(e, id).resultado.decision).toBe('FRENAR');
+  });
+});
+
+describe('PDF: topes contra archivos bomba', () => {
+  it('un stream que se infla de mas no revienta y un texto desmedido sale vacio', async () => {
+    const { deflateSync } = await import('node:zlib');
+    const { textoDePdf } = await import('../src/extraccion/pdftexto');
+    const bomba = deflateSync(Buffer.alloc(50_000_000, 0x20));
+    const pdf = Buffer.concat([Buffer.from('%PDF-1.4\nstream\n'), bomba, Buffer.from('endstream\n')]);
+    expect(textoDePdf(pdf)).toBe('');
+    const largo = deflateSync(Buffer.from(`BT (${'a'.repeat(40_000)}) Tj ET`));
+    expect(textoDePdf(Buffer.concat([Buffer.from('stream\n'), largo, Buffer.from('endstream')]))).toBe('');
+    const normal = deflateSync(Buffer.from('BT (Factura 123) Tj ET'));
+    expect(textoDePdf(Buffer.concat([Buffer.from('stream\n'), normal, Buffer.from('endstream')]))).toBe('Factura 123');
   });
 });
