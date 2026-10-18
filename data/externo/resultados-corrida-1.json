@@ -1,0 +1,995 @@
+{
+  "corrida": 1,
+  "ejecutada_utc": "2026-10-17T22:51:31.327Z",
+  "commit_congelado": "ea75b548b60f1768d430277a32afdeca1eec8114",
+  "hashes": {
+    "docs/set-externo.md": "50936baa98f01f4e596650c7b68012ef5d778174e99f5cd13003f4bce576e8ba",
+    "data/externo/fuente-joffre.csv": "13275e27a49c9137a63e64a8c3c7c1e081317ad2c99cfd935b60efda5d3ed7f6",
+    "data/externo/set-externo.json": "8481667fd69323e27ecae1de23e60ef5f1e5713642e2f24d596e29f0f1d0be11",
+    "src/externo/convertir.ts": "dbe757de8311345f7413975fafec093019e3e73f0515abfebab12a9c27964ca5",
+    "src/externo/puntuar.ts": "9f6c392a4b430c91c349b0cea229560c27ab799bc99df18351d4ca758c4a3f8a",
+    "src/externo/hashes.ts": "48a3adbce1e2810e9c2a81c415abc764ef453f94d3125644c56c95f7b6ae7a89",
+    "scripts/externo-convertir.ts": "b21b7e647b6824baea1e506104db681c2d3bacb25095dd8226ae3920e7f9b9df",
+    "scripts/externo-congelar.ts": "79b036675ae0f4daaa61cff27e922a02b2f87e53071573c8158b836addf9160a",
+    "scripts/externo-correr.ts": "a731a4626cfd81fbc18fd74f7dad5b9c06250d9eb60fcd66afd53394aa0c9f53"
+  },
+  "puntaje": {
+    "puntuan": 62,
+    "esperan_no_pagar": 44,
+    "a_pagos_indebidos": [],
+    "b_no_pagar_ok": 44,
+    "c_exactas": 38,
+    "autonomia_perdida": [],
+    "politica_frenar_esperado_escalar_obtenido": [
+      "E-026",
+      "E-028"
+    ],
+    "politica_escalar_esperado_frenar_obtenido": [
+      "E-041",
+      "E-042",
+      "E-043",
+      "E-051",
+      "E-052",
+      "E-053",
+      "E-056",
+      "E-058",
+      "E-059",
+      "E-060",
+      "E-061",
+      "E-063",
+      "E-064",
+      "E-066",
+      "E-067",
+      "E-068",
+      "E-069",
+      "E-070",
+      "E-071",
+      "E-074",
+      "E-078",
+      "E-079"
+    ],
+    "inyeccion": {
+      "filas_con_inyeccion": 3,
+      "detectadas": 3,
+      "no_detectadas": []
+    },
+    "excluidas": {
+      "total": 18,
+      "pagadas_donde_se_esperaba_no_pagar": []
+    }
+  },
+  "filas": [
+    {
+      "id": "E-001",
+      "proveedor": "TalentHub Colombia",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-002",
+      "proveedor": "Salesforce Inc",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-003",
+      "proveedor": "Google Cloud LATAM",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-004",
+      "proveedor": "Agencia 360 México",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-005",
+      "proveedor": "Slack Technologies",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-006",
+      "proveedor": "Nexus Cloud Brasil",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-007",
+      "proveedor": "EOR Global Colombia",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-008",
+      "proveedor": "Microsoft 365",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-009",
+      "proveedor": "DHL Express Colombia",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-010",
+      "proveedor": "Valentina Torres (persona natural)",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-011",
+      "proveedor": "Prieto & Asociados Abogados",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-012",
+      "proveedor": "CrowdStrike Holdings",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-013",
+      "proveedor": "Deloitte Colombia Advisory",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-014",
+      "proveedor": "Telecomunicaciones Andina",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-015",
+      "proveedor": "TalentHub México",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-016",
+      "proveedor": "Snowflake Inc",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-017",
+      "proveedor": "Ops Latam Argentina",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-018",
+      "proveedor": "Influencer Hub Perú",
+      "esperada": "PAGAR",
+      "motor": "PAGAR",
+      "razones": [],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-019",
+      "proveedor": "TalentHub Colombia",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R5"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-020",
+      "proveedor": "Salesforce Inc",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R5"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-021",
+      "proveedor": "Asesores Globales SAS",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "INYECCION",
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-022",
+      "proveedor": "AI Solutions SRL",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "INYECCION",
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-023",
+      "proveedor": "Estudio Jurídico Premium",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "INYECCION",
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-024",
+      "proveedor": "Nexus Cloud Brasil",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R5"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-025",
+      "proveedor": "EOR Global Colombia",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R5"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-026",
+      "proveedor": "TransferVe Digital CA",
+      "esperada": "FRENAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-027",
+      "proveedor": "Creativa Caribe SRL",
+      "esperada": "FRENAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-028",
+      "proveedor": null,
+      "esperada": "FRENAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-029",
+      "proveedor": "DevStudio Guatemala",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-030",
+      "proveedor": "TalentHub Colombia",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R5"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "cumplimiento o fraude (phishing): fuera del alcance del reto"
+    },
+    {
+      "id": "E-031",
+      "proveedor": "Microsоft Corp (ο cirílico)",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "cumplimiento o fraude (phishing): fuera del alcance del reto"
+    },
+    {
+      "id": "E-032",
+      "proveedor": "Quantum Advisors Ltd",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-033",
+      "proveedor": "TechScale Colombia SAS",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R4: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-034",
+      "proveedor": "Google Cloud LATAM",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R5"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-035",
+      "proveedor": "Black Rock Consulting SRL",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "cumplimiento o fraude (lista negra): fuera del alcance del reto"
+    },
+    {
+      "id": "E-036",
+      "proveedor": "Global Treasury Ltd",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-037",
+      "proveedor": "Promo Digital Chile",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-038",
+      "proveedor": "Promo Digital Chile",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-039",
+      "proveedor": "Promo Digital Chile",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-040",
+      "proveedor": "Estrategia & Gestión SA",
+      "esperada": "FRENAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R3: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-041",
+      "proveedor": "Baker McKenzie LATAM",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-042",
+      "proveedor": "Remote.com Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-043",
+      "proveedor": "Amazon Web Services",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-044",
+      "proveedor": "McKinsey & Company",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R3: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-045",
+      "proveedor": "TechSolutions Tehran LLC",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-046",
+      "proveedor": "PyongYang Tech Ventures",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-047",
+      "proveedor": "Damascus Advisory Group",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-048",
+      "proveedor": "RusTech Solutions",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-049",
+      "proveedor": "BelSoft Development",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-050",
+      "proveedor": "Stablecoin Bridge Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-051",
+      "proveedor": "Deloitte Brasil Advisory",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-052",
+      "proveedor": "AI Solutions Uruguay",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-053",
+      "proveedor": "Agência Criativa Rio",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-054",
+      "proveedor": "TalentHub México",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-055",
+      "proveedor": "TalentHub Colombia",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-056",
+      "proveedor": "HubSpot Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-057",
+      "proveedor": "PwC Colombia Advisory",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R3: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-058",
+      "proveedor": "Ripple Labs Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-059",
+      "proveedor": "UPS Supply Chain Solutions",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-060",
+      "proveedor": "Old Media Bogotá SA",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-061",
+      "proveedor": "Holding Pacific Group SA",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-062",
+      "proveedor": "Infraestructura Global SA",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "el archivo se contradice: exactamente USD 25.000 marcado ESCALAR con su R1 \"auto-aprobar hasta 25K\""
+    },
+    {
+      "id": "E-063",
+      "proveedor": "Remesas Express SA",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-064",
+      "proveedor": "Deel Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-065",
+      "proveedor": "CryptoSettle BVI Ltd",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R9: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    },
+    {
+      "id": "E-066",
+      "proveedor": "Zendesk Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-067",
+      "proveedor": "Booz Allen Hamilton",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-068",
+      "proveedor": "Figma Inc (adquirida por Adobe)",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-069",
+      "proveedor": "G4S Security Colombia",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-070",
+      "proveedor": "Constructora Andina SAS",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-071",
+      "proveedor": "Qualcomm Inc",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-072",
+      "proveedor": "Proveedores Buenos Aires SRL",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-073",
+      "proveedor": "Agencia Santiago Digital",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-074",
+      "proveedor": "Palantir Technologies",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-075",
+      "proveedor": "Sony AI Research Japan",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-076",
+      "proveedor": "SAP SE Germany",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-077",
+      "proveedor": "Accenture UK Ltd",
+      "esperada": "ESCALAR",
+      "motor": "ESCALAR",
+      "razones": [
+        "R7"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-078",
+      "proveedor": "Andela Nigeria Ltd",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-079",
+      "proveedor": "PAREXEL International",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R1",
+        "R6"
+      ],
+      "puntua": true,
+      "motivo_exclusion": null
+    },
+    {
+      "id": "E-080",
+      "proveedor": "Proveedores Varios LATAM",
+      "esperada": "ESCALAR",
+      "motor": "FRENAR",
+      "razones": [
+        "R2",
+        "R6"
+      ],
+      "puntua": false,
+      "motivo_exclusion": "regla R4: no existe en Pulso, no hay datos en el archivo o es una decision de cumplimiento"
+    }
+  ]
+}
