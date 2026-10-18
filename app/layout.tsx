@@ -11,8 +11,8 @@ import './barra/barra.css';
 import './ui/iconos.css';
 
 export const metadata: Metadata = {
-  title: 'Agente pagador 404',
-  description: 'Agente que lee facturas y decide PAGAR, FRENAR o ESCALAR según reglas. Nunca mueve dinero. Datos ficticios.',
+  title: 'Pulso',
+  description: 'Pulso firme en cada pago. Pulso lee facturas y decide PAGAR, FRENAR o ESCALAR según tus reglas. Nunca mueve dinero. Datos ficticios.',
 };
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
@@ -43,7 +43,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <div className="app-cuerpo">
           <AvisoReplay />
           <main id="contenido" className="contenedor principal">{children}</main>
-          <footer className="contenedor pie">Equipo 404 · El agente decide. Nunca mueve dinero.</footer>
+          <footer className="contenedor pie">Pulso · Pulso firme en cada pago · Equipo 404. Nunca mueve dinero.</footer>
         </div>
         <NavegacionMovil /><Tour />
       </body>

@@ -1,17 +1,23 @@
 import defensas from '../../data/dev-set-defensas.json';
 import dataset from '../../data/dev-set.json';
+import indice from '../../data/facturas/indice.json';
 import { decidir } from '../engine/decide';
 import type { Config, Contexto, Decision, FacturaExtraida, ResultadoDecision } from '../engine/types';
 import { AlmacenEnMemoria, Registro } from '../ledger';
 import type { EntradaRegistro } from '../ledger';
+import { facturaSinLectura, lecturaDe } from './lecturas';
+import type { LecturaGrabada } from './lecturas';
 import { VERSION_BASE, configDesdeParametros, parametrosPorDefecto } from './parametros';
 import type { ParametrosReglas } from './parametros';
 
 /**
  * Estado del modo replay: las 18 facturas del set de desarrollo (F-001 a F-015 y los casos de
  * defensas F-016 a F-018, que se procesan despues sobre el mismo contexto acumulado), decididas por
- * el motor, con su registro encadenado. Las "extracciones" son de muestra: no se llama a ningun modelo.
- * Vive en memoria del servidor; no hay base de datos ni claves.
+ * el motor, con su registro encadenado. Las extracciones son lecturas REALES grabadas (doble lectura
+ * con dos modelos) y reproducidas: no se llama a ningun modelo ni se usan claves. Si falta la lectura
+ * de una factura, se arma una factura con campos null y la alerta lector_fallo:replay_sin_lectura
+ * (falla cerrada: el motor ESCALA). El contexto y la decision esperada siguen saliendo del dev-set.
+ * Vive en memoria del servidor; no hay base de datos.
  */
 
 export interface EventoAprobacion {
@@ -37,11 +43,22 @@ export interface InstruccionPago {
 
 export type EstadoAprobacion = 'NO_APLICA' | 'PENDIENTE' | 'APROBADA' | 'RECHAZADA';
 
+/** Documento fuente de la factura, segun data/facturas/indice.json. */
+export interface FuenteDocumento {
+  archivo: string;
+  formato: string;
+}
+
 export interface FilaDemo {
   id: string;
   trampa: string;
   esperada: Decision;
+  /** Lo que el lector extrajo (de la lectura grabada, o factura de falla cerrada si falta). */
   factura: FacturaExtraida;
+  /** Lectura completa grabada (modelos, versiones, tiempos, costo); null si falta o es invalida. */
+  lectura: LecturaGrabada | null;
+  /** Archivo y formato del documento, de indice.json; null si el indice no lo trae. */
+  fuente: FuenteDocumento | null;
   resultado: ResultadoDecision;
   entrada: EntradaRegistro;
 }
@@ -57,6 +74,8 @@ export class AlmacenManipulable extends AlmacenEnMemoria {
 }
 
 export interface EstadoDemo {
+  /** Fecha y hora fijas del replay (el reloj de la demo). */
+  ahora: string;
   parametros: ParametrosReglas;
   config: Config;
   edicion: number;
@@ -73,13 +92,28 @@ interface CasoJson {
   id: string;
   trampa: string;
   esperada: Decision;
-  factura: FacturaExtraida;
+  /** Extraccion escrita a mano del dev-set. Ya no se usa: se lee la lectura real grabada. */
+  factura?: FacturaExtraida;
+}
+
+interface EntradaIndice {
+  id: string;
+  archivo: string;
+  formato: string;
 }
 
 /** Reloj fijo del replay: la demo es repetible. */
 const AHORA = dataset.contexto.ahora;
 
-export async function crearEstado(parametros: ParametrosReglas = parametrosPorDefecto(), edicion = 0): Promise<EstadoDemo> {
+/**
+ * `fuenteLecturas` solo existe para pruebas (falla cerrada, vencimientos sinteticos); por defecto se
+ * usan las 18 lecturas grabadas importadas de forma estatica.
+ */
+export async function crearEstado(
+  parametros: ParametrosReglas = parametrosPorDefecto(),
+  edicion = 0,
+  fuenteLecturas?: Record<string, unknown>,
+): Promise<EstadoDemo> {
   const version = edicion === 0 ? VERSION_BASE : `${VERSION_BASE}+edicion.${edicion}`;
   const config = configDesdeParametros(parametros, version);
   const ctx = structuredClone(dataset.contexto) as unknown as Contexto;
@@ -91,11 +125,15 @@ export async function crearEstado(parametros: ParametrosReglas = parametrosPorDe
   const filas: FilaDemo[] = [];
 
   for (const caso of [...(dataset.facturas as unknown as CasoJson[]), ...(defensas.facturas as unknown as CasoJson[])]) {
-    const resultado = decidir(caso.id, caso.factura, ctx, config);
+    const lectura = fuenteLecturas ? lecturaDe(caso.id, fuenteLecturas) : lecturaDe(caso.id);
+    const factura: FacturaExtraida = lectura ? lectura.resultado.factura : facturaSinLectura();
+    const idx = (indice.facturas as EntradaIndice[]).find((x) => x.id === caso.id);
+    const fuente: FuenteDocumento | null = idx ? { archivo: idx.archivo, formato: idx.formato } : null;
+    const resultado = decidir(caso.id, factura, ctx, config);
     const entrada = await registroDecisiones.anadir(resultado);
-    filas.push({ id: caso.id, trampa: caso.trampa, esperada: caso.esperada, factura: caso.factura, resultado, entrada });
+    filas.push({ id: caso.id, trampa: caso.trampa, esperada: caso.esperada, factura, lectura, fuente, resultado, entrada });
     if (resultado.decision === 'PAGAR') {
-      const f = caso.factura;
+      const f = factura;
       ctx.historial.push({
         numero_factura: f.numero_factura as string,
         id_fiscal: f.id_fiscal as string,
@@ -108,6 +146,7 @@ export async function crearEstado(parametros: ParametrosReglas = parametrosPorDe
     }
   }
   return {
+    ahora: AHORA,
     parametros,
     config,
     edicion,
@@ -198,6 +237,16 @@ export async function resolver(estado: EstadoDemo, facturaId: unknown, accion: u
     throw new Error('No se pudo registrar la resolucion; no se aplico.');
   }
   return { ok: true, evento, instruccion: instruccionPago(estado, fila) };
+}
+
+/** Costo total de leer las facturas, sumado de las lecturas grabadas (nunca inventado). */
+export function costoLecturasUsd(estado: EstadoDemo): number {
+  return estado.filas.reduce((s, f) => s + (f.lectura?.resultado.costo_usd ?? 0), 0);
+}
+
+/** Confianza final de la lectura (la menor de las dos), o null si no hay. */
+export function confianzaDe(fila: FilaDemo): number | null {
+  return typeof fila.factura.confianza === 'number' ? fila.factura.confianza : null;
 }
 
 export function resumen(estado: EstadoDemo) {

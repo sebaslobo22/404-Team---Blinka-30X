@@ -6,6 +6,8 @@ import { estados, reglaPrincipal, type DecisionUI } from './lenguaje';
 import type { FilaTraza } from '../../src/demo/traza';
 import { nombres, detalleRazon } from './lenguaje';
 import { Ic } from './iconos';
+import { LineaLectura } from './Lectura';
+import type { VistaLectura } from './Lectura';
 import { ICONO_DECISION, ICONO_ESTADO_TRAZA, iconoDeRegla } from './mapa-iconos';
 export function IconoEstado({ decision }: { decision: DecisionUI ;}) { return <Ic nombre={ICONO_DECISION[decision]} className="estado-icono" />; }
 export function Estado({ decision }: { decision: DecisionUI ;}) {
@@ -23,7 +25,7 @@ export function Razones({ filas }: { filas: FilaTraza[] ;}) {
     </li>)}</ul>
     {ordenadas.length > 7 ? <button className="btn btn-texto" onClick={() => setTodas(!todas)}>{todas ? 'Ver menos' : 'Ver más comprobaciones'}</button> : null}</>;
 }
-export function Veredicto({ id, decision, texto, monto, proveedor, razones, children, ancla, regla }: { id: string; decision: DecisionUI; texto: string; monto?: string; proveedor?: string; razones?: FilaTraza[]; children?: ReactNode; ancla?: string; regla?: string ;}) {
+export function Veredicto({ id, decision, texto, monto, proveedor, razones, children, ancla, regla, lectura }: { id: string; decision: DecisionUI; texto: string; monto?: string; proveedor?: string; razones?: FilaTraza[]; children?: ReactNode; ancla?: string; regla?: string; lectura?: VistaLectura ;}) {
   const codigo = regla ?? reglaPrincipal(razones, decision);
   const [clave, ...resto] = texto.split(/(?<=[.!?])\s+/);
   return <article className="veredicto" aria-label={`Factura ${id}`} data-tour={ancla}>
@@ -35,6 +37,7 @@ export function Veredicto({ id, decision, texto, monto, proveedor, razones, chil
       <div>
         <p className="veredicto-frase"><strong>{clave}</strong>{resto.length ? <span className="veredicto-detalle"> {resto.join(' ')}</span> : null}</p>
         {proveedor || monto ? <p className="veredicto-meta">{proveedor ? <span className="con-ic"><Ic nombre="edificio" size={20} />{proveedor}</span> : null}{monto ? <span className="con-ic"><Ic nombre="monedas" size={20} /><span className="mono">{monto}</span></span> : null}</p> : null}
+        {lectura ? <LineaLectura lectura={lectura} /> : null}
       </div>
     </div>
     {razones ? <details>

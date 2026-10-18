@@ -73,3 +73,7 @@ pre.codigo{font:var(--t1)/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:any
 .cabecera .marca,main a{min-height:3rem;display:inline-flex;align-items:center}
 @media(max-width:1023px){html[data-letra=muy-grande] body{display:flex;flex-direction:column}html[data-letra=muy-grande] .cabecera{order:0}html[data-letra=muy-grande] .nav-inferior{position:static;order:1}html[data-letra=muy-grande] .app-cuerpo{order:2;padding-bottom:0}}
 @media(max-width:24rem){.resumen-cifras .tarjeta{display:block}.nav-inferior{grid-template-columns:repeat(2,minmax(0,1fr))}.aviso-demo .contenedor{flex-direction:column;align-items:stretch}}
+/* Lectura real: formato, confianza y para cuando */
+.lectura-meta{list-style:none;margin:0 0 var(--s3);padding:0;display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4);font-size:var(--t1);color:var(--tenue)}.lectura-meta li{min-width:0}.vence-vencida{color:var(--frenar)}.vence-dudosa,.vence-hoy{color:var(--escalar)}
+.flujo-lectura .dato{font-weight:600}.flujo-lectura .archivo{font-family:var(--mono);overflow-wrap:anywhere}.flujo-lectura small{overflow-wrap:anywhere}
+.cabecera .marca{gap:var(--s2)}
