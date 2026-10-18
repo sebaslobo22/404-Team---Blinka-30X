@@ -5,12 +5,12 @@ body:has(.conoce) .app-cuerpo{padding-left:0;padding-bottom:0}
 body:has(.conoce) .principal{padding-block:0;gap:0;min-height:0}
 body:has(.conoce) .contenedor{max-width:72rem}
 
-.conoce{display:flex;flex-direction:column;gap:var(--s12);padding-bottom:var(--s12);min-width:0;font-size:var(--t2)}
+.conoce{position:relative;isolation:isolate;display:flex;flex-direction:column;gap:var(--s12);padding-bottom:var(--s12);min-width:0;font-size:var(--t2)}
 .conoce p{max-width:65ch}
 .conoce img{display:block;max-width:100%;height:auto}
 
 /* Cabecera */
-.cn-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s6);padding-block:var(--s4);border-bottom:1px solid var(--linea)}
+.cn-nav{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s6);padding-block:var(--s4);border-bottom:1px solid var(--linea)}
 .cn-marca{display:inline-flex;align-items:center;gap:var(--s3);min-height:3rem;font-weight:600;font-size:var(--t3);color:var(--tinta);text-decoration:none}
 .cn-marca .ic{padding:.3rem;width:2.5rem;height:2.5rem;border-radius:.75rem;background:var(--firma);color:var(--sobre-firma)}
 .cn-nav nav{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4)}
@@ -90,10 +90,87 @@ ol.rejilla-tarjetas{padding:0}
 }
 @media(max-width:45rem){.conoce{gap:var(--s10)}.cn-seccion h2{font-size:var(--t3)}.cn-oferta{padding:var(--s4)}.cn-acciones .btn{width:100%}}
 
-/* Aparición al hacer scroll: solo opacidad y 8 px. Sin JS o con movimiento reducido todo se ve. */
+/* ===== Movimiento (ver docs/spec-movimiento-landing.md) =====
+   Estado base: todo visible y estático. Las animaciones solo existen con movimiento permitido.
+   Solo se animan transform y opacity (y stroke-dashoffset en las tres líneas de pulso). */
+.cn-tope{position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none}
+.aurora,.lectura{pointer-events:none}
+.aurora{position:fixed;inset:-20% -10%;z-index:-1;opacity:.35;
+  background:
+    radial-gradient(40% 35% at 20% 25%,color-mix(in srgb,var(--acento) 55%,transparent),transparent 70%),
+    radial-gradient(35% 40% at 79% 20%,color-mix(in srgb,var(--firma-hasta) 45%,transparent),transparent 70%),
+    radial-gradient(45% 40% at 55% 85%,color-mix(in srgb,var(--tenue) 40%,transparent),transparent 70%)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .aurora{opacity:.5}}
+:root[data-theme=dark] .aurora{opacity:.5}
+.lectura{position:fixed;inset:0 0 auto 0;block-size:.25rem;z-index:60;background:var(--firma);transform-origin:0 50%;transform:scaleX(0)}
+.ecg{display:block;inline-size:100%;block-size:3rem}
+.ecg path{fill:none;stroke:var(--acento);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.cn-hero .ecg{grid-column:1/-1}
+.w,.wi{display:inline-block}
+.cn-num{font-variant-numeric:tabular-nums}
+.paso{position:relative}
+.paso::after{content:'';position:absolute;inset:0;border:2px solid var(--acento);border-radius:var(--radio);pointer-events:none;opacity:0}
+.w:nth-child(1){--i:0}.w:nth-child(2){--i:1}.w:nth-child(3){--i:2}.w:nth-child(4){--i:3}.w:nth-child(5){--i:4}.w:nth-child(6){--i:5}.w:nth-child(7){--i:6}.w:nth-child(8){--i:7}.w:nth-child(9){--i:8}.w:nth-child(10){--i:9}.w:nth-child(11){--i:10}.w:nth-child(12){--i:11}.w:nth-child(13){--i:12}.w:nth-child(14){--i:13}
+.rejilla-tarjetas>li:nth-child(2),.cn-canales>li:nth-child(2){--i:1}.rejilla-tarjetas>li:nth-child(3),.cn-canales>li:nth-child(3){--i:2}.rejilla-tarjetas>li:nth-child(4),.cn-canales>li:nth-child(4){--i:3}.rejilla-tarjetas>li:nth-child(5),.cn-canales>li:nth-child(5){--i:4}.rejilla-tarjetas>li:nth-child(6),.cn-canales>li:nth-child(6){--i:5}
+
+@keyframes rev{from{opacity:0;transform:translateY(2rem)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes aur-a{from{transform:translate3d(0,-6%,0) scale(1)}to{transform:translate3d(0,6%,0) scale(1.08)}}
+@keyframes trazo{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes borra{from{stroke-dashoffset:0}to{stroke-dashoffset:-1}}
+@keyframes w-entra{from{transform:translateY(.3em)}}
+@keyframes w-sale{to{opacity:.15;transform:translateY(-1.1rem)}}
+@keyframes cab-fondo{to{opacity:.94}}
+@keyframes cab-logo{to{transform:scale(.88)}}
+@keyframes enciende{from{opacity:0;transform:scale(1)}to{opacity:1;transform:scale(1.02)}}
+
 @media(prefers-reduced-motion:no-preference){
-  [data-revela]{transition:opacity var(--duracion) var(--curva),transform var(--duracion) var(--curva)}
-  [data-revela][data-oculto]{opacity:0;transform:translateY(.5rem)}
+  .w .wi{animation:w-entra .5s var(--curva) backwards;animation-delay:calc(var(--i,0)*40ms)}
+  @supports(animation-timeline:view()){
+    [data-reveal]{animation:rev linear both;animation-timeline:view();
+      animation-range:entry calc(var(--i,0)*8%) entry calc(70% + var(--i,0)*4%)}
+    .ecg path{animation:trazo linear both;animation-timeline:view();animation-range:entry 10% cover 55%}
+    .ecg-hero path{animation:borra linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+    .w{animation:w-sale linear both;animation-timeline:view();
+      animation-range:exit calc(var(--i,0)*3%) exit calc(55% + var(--i,0)*3%)}
+    .paso::after{animation:enciende linear both;animation-timeline:view();
+      animation-range:cover calc(var(--i,0)*10%) cover calc(40% + var(--i,0)*10%)}
+  }
+  @supports not (animation-timeline:view()){
+    .io [data-reveal]{opacity:0;transform:translateY(2rem);
+      transition:opacity .6s cubic-bezier(.22,1,.36,1) calc(var(--i,0)*80ms),transform .6s cubic-bezier(.22,1,.36,1) calc(var(--i,0)*80ms)}
+    .io [data-reveal].is-in{opacity:1;transform:none}
+    .io .ecg:not(.ecg-hero) path{stroke-dashoffset:1;transition:stroke-dashoffset 1.2s ease-out}
+    .io .ecg.is-in path{stroke-dashoffset:0}
+    .io .paso::after{transition:opacity .4s,transform .4s}
+    .io .paso.is-on::after{opacity:1;transform:scale(1.02)}
+  }
+  @supports(animation-timeline:scroll()){
+    .lectura{animation:grow linear both;animation-timeline:scroll(root block)}
+    .aurora{animation:aur-a linear both;animation-timeline:scroll(root block)}
+  }
+  @supports not (animation-timeline:scroll()){
+    .lectura{transform:scaleX(var(--p,0))}
+  }
+  /* Encabezado fijo que se compacta: alto constante, solo cambia opacidad y escala del logo */
+  @media(min-width:48rem){
+    .cn-nav{position:sticky;top:0;z-index:50;min-block-size:4rem}
+    .cn-nav::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background:var(--superficie)}
+    .cn-marca{transform-origin:left center}
+    @supports(animation-timeline:scroll()){
+      .cn-nav::before{animation:cab-fondo linear both;animation-timeline:scroll(root block);animation-range:0 10rem}
+      .cn-marca{animation:cab-logo linear both;animation-timeline:scroll(root block);animation-range:0 10rem}
+    }
+    @supports not (animation-timeline:scroll()){
+      .cn-nav::before,.cn-marca{transition:opacity .25s,transform .25s}
+      .is-scrolled .cn-nav::before{opacity:.94}
+      .is-scrolled .cn-marca{transform:scale(.88)}
+    }
+  }
+}
+/* Inclinación sutil (máximo 3 grados) solo con cursor fino y movimiento permitido */
+@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){
+  .conoce .tarjeta[data-tarjeta]:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-2px) scale(1.012)}
 }
 @media(prefers-reduced-motion:reduce){
   .conoce *{transition:none!important;animation:none!important}
