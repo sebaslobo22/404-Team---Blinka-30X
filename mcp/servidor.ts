@@ -1,8 +1,10 @@
 // Servidor MCP de Pulso por stdio. Expone el lector y el motor de decisiones como herramientas para
 // Claude Code, Claude Desktop o cualquier cliente MCP. Ninguna herramienta mueve dinero.
 //
-//   npm run mcp                      (o: npx vite-node mcp/servidor.ts)
+//   npx vite-node mcp/servidor.ts    (o: npm run --silent mcp)
 //   claude mcp add pulso -- npx vite-node mcp/servidor.ts
+//
+// No uses `npm run mcp` a secas desde un cliente MCP: npm imprime un encabezado en stdout y rompe el protocolo.
 //
 // OJO: por stdio, stdout es el canal del protocolo. Nada de console.log: los avisos van a stderr.
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
