@@ -1,2 +1,2 @@
 // Reexport: el set único vive en app/ui/iconos.tsx.
-export { IconoMarca, IconoDecisiones, IconoCola, IconoReglas, IconoRegistro, IconoEquipo, IconoRecorrido, IconoTema, IconoColapsar } from '../ui/iconos';
+export { IconoMarca, IconoDecisiones, IconoCola, IconoReglas, IconoRegistro, IconoEquipo, IconoRecorrido, IconoTema, IconoColapsar, IconoVivo } from '../ui/iconos';

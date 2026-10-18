@@ -83,3 +83,4 @@ export const IconoEquipo = barra('equipo');
 export const IconoRecorrido = barra('recorrido');
 export const IconoTema = barra('tema');
 export const IconoColapsar = barra('colapsar');
+export const IconoVivo = barra('vivo');
