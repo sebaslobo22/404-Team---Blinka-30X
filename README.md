@@ -210,6 +210,18 @@ Entrega del Hackathon 30X, reto Blinka. Cierre: domingo 2026-10-18, 12:00 m. hor
 - [`docs/set-externo.md`](docs/set-externo.md) y [`docs/set-externo-resultados.md`](docs/set-externo-resultados.md): protocolo congelado y resultado de la corrida única del set externo.
 - [`docs/extraccion.md`](docs/extraccion.md) y [`docs/banco-modelos-2026-10-17.md`](docs/banco-modelos-2026-10-17.md): el lector de facturas y el banco de modelos.
 
+## Bot de Telegram
+
+El jurado manda una foto o un PDF de una factura a un bot y recibe la decisión de Pulso con sus razones en frases llanas y un enlace al producto. Es el mismo lector (doble lectura Claude Haiku 5.5 + Gemini 3.1 Flash-Lite por OpenRouter) y el mismo motor `decidir` con el contexto y las reglas de Aurora Cloud del demo. Código en `src/telegram/`, webhook en `app/api/telegram/route.ts`.
+
+- **Techo en vivo:** toda factura que entra por Telegram termina como máximo en ESCALAR (`aplicarTechoEnVivo`, función pura aplicada después del motor, con la razón "Entrada en vivo: siempre la revisa una persona"). FRENAR sigue siendo FRENAR. Una copia exacta de un proveedor registrado, dentro del acuerdo, no sale PAGAR. El motor no se tocó.
+- **Aprobación:** solo lo ESCALADO, solo en chat privado y solo para `TELEGRAM_DUENO_ID`. El dueño recibe un aviso con botones Aprobar/Rechazar; FRENAR nunca trae botones. La resolución es un UPDATE condicional atómico en Supabase. Las órdenes en vivo son **simuladas**: no entran al lote CSV ni a la API de órdenes de la web, y Pulso no mueve dinero.
+- **Fallas cerradas:** cabecera secreta del webhook verificada en tiempo constante (sin secreto configurado, rechaza todo); `update_id` repetidos descartados con un INSERT atómico; si un modelo falla, tarda o responde un modelo distinto al pedido, no hay PAGAR (mensaje "no pude leerla" o ESCALAR). Sin Supabase, el bot no procesa nada.
+- **Límites:** 5 facturas por chat por hora y tope global diario (`TELEGRAM_TOPE_DIARIO`, 100 por defecto), contados de forma atómica en Supabase; archivos de hasta 4 MB, solo PDF/JPG/PNG (tipo por firma de bytes). Sin `/start` previo el bot no procesa archivos.
+- **Variables:** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `TELEGRAM_DUENO_ID`, `TELEGRAM_TOPE_DIARIO`, `PULSO_URL_PUBLICA`, `OPENROUTER_API_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (ver `.env.example`). Antes de usarlo, aplicar la migración `supabase/migrations/0003_telegram.sql` (`node scripts/migrar.mjs`).
+- **Registrar el webhook** (una vez, en el despliegue): `curl -X POST "https://api.telegram.org/bot<TOKEN>/setWebhook" -d url=https://<dominio>/api/telegram -d secret_token=<TELEGRAM_WEBHOOK_SECRET> -d 'allowed_updates=["message","callback_query"]'`.
+- **En local (sin webhook):** con un bot de desarrollo y las variables en `.env.local`, `npx vite-node scripts/telegram-local.ts` (estado en memoria) o con `--supabase` (estado en la base). Hace long polling con `getUpdates` y usa el mismo manejador que el webhook; si el bot tiene un webhook activo, avisa y sale. Cada factura gasta centavos de OpenRouter.
+
 ## Seguridad
 
 - Datos 100% ficticios. Ninguna clave en el repositorio.

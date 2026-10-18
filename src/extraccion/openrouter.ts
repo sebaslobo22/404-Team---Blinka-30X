@@ -11,6 +11,12 @@ export interface PeticionLLM {
   imagenDataUrl?: string;
   /** Si viene, se pide salida estricta con este JSON Schema. */
   esquema?: { name: string; schema: Record<string, unknown> };
+  /**
+   * Preferencias de proveedor de OpenRouter (campo `provider` del cuerpo). Opcional: si no viene, el
+   * cuerpo es identico al de siempre (web y replay no cambian). El bot de Telegram lo usa para fijar
+   * `allow_fallbacks: false` (nadie contesta en lugar del modelo pedido) y `data_collection: 'deny'`.
+   */
+  proveedor?: { allow_fallbacks?: boolean; data_collection?: 'allow' | 'deny' };
 }
 
 export interface OpcionesLLM {
@@ -58,6 +64,7 @@ function cuerpo(p: PeticionLLM, conEsquema: boolean) {
     max_tokens: 1200,
     usage: { include: true },
   };
+  if (p.proveedor) b['provider'] = p.proveedor;
   if (p.esquema && conEsquema) {
     b['response_format'] = { type: 'json_schema', json_schema: { name: p.esquema.name, strict: true, schema: p.esquema.schema } };
   } else {
