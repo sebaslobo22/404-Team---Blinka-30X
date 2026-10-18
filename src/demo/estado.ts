@@ -29,6 +29,19 @@ export interface EventoAprobacion {
   hash_decision: string;
 }
 
+/**
+ * Una persona dice que el pago ya se hizo por fuera (en el banco o en Blinka) y anota la referencia
+ * que le dio el banco. Pulso no lo comprueba ni mueve dinero: solo deja constancia para conciliar.
+ */
+export interface EventoPago {
+  factura_id: string;
+  referencia_banco: string;
+  marcado_por: string;
+  marcado_en: string;
+  version_reglas: string;
+  hash_decision: string;
+}
+
 export interface InstruccionPago {
   factura_id: string;
   beneficiario: string;
@@ -84,6 +97,9 @@ export interface EstadoDemo {
   almacenDecisiones: AlmacenManipulable;
   registroDecisiones: Registro;
   registroAprobaciones: Registro<EventoAprobacion>;
+  /** Ordenes marcadas como pagadas por una persona (una por factura). */
+  pagos: Map<string, EventoPago>;
+  registroPagos: Registro<EventoPago>;
   /** Punto de control tomado al terminar de sembrar las decisiones. */
   anclaInicial: { n: number; cabeza: string | null };
 }
@@ -122,6 +138,7 @@ export async function crearEstado(
   const almacenDecisiones = new AlmacenManipulable();
   const registroDecisiones = new Registro(almacenDecisiones, () => AHORA);
   const registroAprobaciones = new Registro<EventoAprobacion>(new AlmacenEnMemoria<EventoAprobacion>(), () => AHORA);
+  const registroPagos = new Registro<EventoPago>(new AlmacenEnMemoria<EventoPago>(), () => AHORA);
   const filas: FilaDemo[] = [];
 
   for (const caso of [...(dataset.facturas as unknown as CasoJson[]), ...(defensas.facturas as unknown as CasoJson[])]) {
@@ -155,6 +172,8 @@ export async function crearEstado(
     almacenDecisiones,
     registroDecisiones,
     registroAprobaciones,
+    pagos: new Map(),
+    registroPagos,
     anclaInicial: await registroDecisiones.ancla(),
   };
 }

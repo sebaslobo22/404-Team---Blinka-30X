@@ -12,6 +12,7 @@ export default async function Cola() {
       <h1 className="titulo-ic"><Ic nombre="cola" size={28} />¿Qué necesita mi aprobación?</h1>
       <p>Hay {pendientes.length} cobros que piden tu ayuda. Los de mayor monto van primero.</p>
       <p className="tenue">Revisa cada uno y deja una nota. Aprobar no mueve dinero.</p>
+      <p className="acciones"><a className="btn btn-texto" href="/api/ordenes/csv" download><Ic nombre="descargar" size={20} />Descargar lote de órdenes (CSV)</a></p>
     </header>
     <Lista filas={pendientes.map(f => vistaFactura(estado, f))} /></>;
 }
