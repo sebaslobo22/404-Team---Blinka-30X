@@ -1,4 +1,5 @@
 import type { Decision, Razon } from '../engine/types';
+import type { Empresa, Miembro, Proveedor, Rol } from './empresas';
 
 /**
  * Capa de datos del bot detras de una interfaz. En produccion es Supabase (supabase.ts); en pruebas, un
@@ -19,6 +20,8 @@ export interface ResumenFactura {
 export interface FacturaVivo {
   id: string;
   chat_id: number;
+  /** Empresa con cuyas reglas se decidio. null solo en filas anteriores a 0004 (nadie las aprueba). */
+  empresa_id: string | null;
   update_id: number;
   decision: Decision;
   /** Decision del motor antes del techo en vivo. */
@@ -31,7 +34,7 @@ export interface FacturaVivo {
   resuelta_por: number | null;
 }
 
-export type NuevaFactura = Omit<FacturaVivo, 'id' | 'simulada' | 'resuelta_por'>;
+export type NuevaFactura = Omit<FacturaVivo, 'id' | 'simulada' | 'resuelta_por' | 'empresa_id'> & { empresa_id: string };
 
 /** Resultado de reservar un lugar en los limites. */
 export type Cupo = 'ok' | 'chat' | 'dia';
@@ -53,4 +56,19 @@ export interface Almacen {
    * true si esta llamada la resolvio; false si no habia nada que resolver (ya resuelta, FRENAR, no existe).
    */
   resolverFactura(id: string, estado: 'APROBADA' | 'RECHAZADA', por: number): Promise<boolean>;
+
+  // --- Empresas (migracion 0004) ---
+  miembroDe(chatId: number): Promise<Miembro | null>;
+  empresa(id: string): Promise<Empresa | null>;
+  empresaPorCodigo(codigo: string): Promise<Empresa | null>;
+  /** Upsert de la membresia del chat (un chat, una empresa). */
+  unirse(chatId: number, usuarioId: number | null, empresaId: string, rol: Rol): Promise<void>;
+  /**
+   * Atomico (RPC telegram_crear_empresa): si el chat ya es dueno de una empresa la devuelve (nueva=false);
+   * si no, la crea con `codigo` y deja al chat como DUENO. null si el codigo choco (reintentar con otro).
+   */
+  crearEmpresa(chatId: number, usuarioId: number, nombre: string, codigo: string): Promise<{ empresa_id: string; codigo: string; nueva: boolean } | null>;
+  proveedores(empresaId: string): Promise<Proveedor[]>;
+  agregarProveedor(empresaId: string, p: Proveedor, por: number): Promise<void>;
+  fijarLimite(empresaId: string, centavos: number): Promise<void>;
 }

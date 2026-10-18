@@ -243,6 +243,32 @@ El jurado manda una foto o un PDF de una factura a un bot y recibe la decisión 
 - **Registrar el webhook** (una vez, en el despliegue): `curl -X POST "https://api.telegram.org/bot<TOKEN>/setWebhook" -d url=https://<dominio>/api/telegram -d secret_token=<TELEGRAM_WEBHOOK_SECRET> -d 'allowed_updates=["message","callback_query"]'`.
 - **En local (sin webhook):** con un bot de desarrollo y las variables en `.env.local`, `npx vite-node scripts/telegram-local.ts` (estado en memoria) o con `--supabase` (estado en la base). Hace long polling con `getUpdates` y usa el mismo manejador que el webhook; si el bot tiene un webhook activo, avisa y sale. Cada factura gasta centavos de OpenRouter.
 
+### Empresas en el bot (onboarding)
+
+Cada chat pertenece a **una empresa** y sus facturas se deciden con los proveedores y el límite de **esa** empresa; solo las aprueba **su dueño**. Así diez personas pueden usar el bot a la vez sin que sus facturas se mezclen.
+
+- `/start`: explica qué hace Pulso con el archivo y deja a la persona en la empresa de prueba (Aurora Cloud).
+- `/crear Nombre`: crea una empresa y quien la crea queda como **dueño** (aprueba). Recibe un código `PULSO-XXXXXX` para su equipo. Un segundo `/crear` devuelve la misma empresa.
+- `/unirme PULSO-XXXXXX`: entra al **equipo** de esa empresa: envía facturas, no aprueba. Los intentos cuentan contra el mismo cupo de las facturas.
+- `/proveedor ID-FISCAL CUENTA Nombre` y `/limite 1000|5000|10000|25000`: solo el dueño. Los proveedores los escribe el dueño, nunca salen de una lectura del modelo. Una empresa nueva frena a todo proveedor que no esté en su lista (R2); uno recién agregado escala por cuenta nueva (R8). Sin acuerdos ni presupuestos cargados, el motor escala (falla cerrada).
+- `/empresa` y `/ayuda`. Todo comando de empresa funciona solo en chat privado. Un dueño no se cambia de empresa con un comando (la dejaría sin quien apruebe).
+- **Una sola regla de aprobación** (`aprobadorDe` en `src/telegram/empresas.ts`), usada para el aviso, para los botones y para el clic: demo → `TELEGRAM_DUENO_ID`; otra empresa → su dueño; factura sin empresa → nadie.
+- Migración `supabase/migrations/0004_empresas.sql`: tablas `telegram_empresas`, `telegram_miembros` y `telegram_proveedores`, columna `empresa_id` en `telegram_facturas`, la demo como fila real y la función `telegram_crear_empresa` (crea empresa y dueño en una transacción). Pasa los chats y facturas existentes a la demo. **Aplicarla antes de desplegar este código.**
+
+### Qué datos guarda el bot y para qué
+
+| Tabla | Qué guarda | Para qué |
+|---|---|---|
+| `telegram_chats` | chat y usuario que escribieron `/start`, y cuándo | no se lee ningún archivo sin haber explicado antes qué se hace con él |
+| `telegram_updates` | id de cada mensaje recibido | Telegram reintenta: así no se procesa dos veces la misma factura |
+| `telegram_empresas` | nombre, código, dueño y límite por pago | separar las empresas y saber quién aprueba |
+| `telegram_miembros` | a qué empresa pertenece cada chat y con qué rol | decidir con las reglas correctas y que el equipo no apruebe |
+| `telegram_proveedores` | ID fiscal, cuenta, nombre y fecha de alta, por empresa | la lista de proveedores aceptados (R2) y la antigüedad de la cuenta (R8) |
+| `telegram_facturas` | empresa, chat, decisión, decisión del motor, razones, proveedor, número, monto y estado de la aprobación. **No guarda el archivo** | historial y aprobación del dueño; la tabla prohíbe guardar un PAGAR |
+| `telegram_uso` | una fila por factura o intento aceptado | límites por chat y por día; se borra a los 2 días |
+
+Todas tienen RLS activado sin políticas: solo el servidor las lee y escribe. Fuera de Supabase, el archivo va a OpenRouter (Claude y Gemini) para leerlo, sin proveedor de reemplazo y con `data_collection: deny`, y las respuestas salen por Telegram.
+
 ## Seguridad
 
 - Datos 100% ficticios. Ninguna clave en el repositorio.
